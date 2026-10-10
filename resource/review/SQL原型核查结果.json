@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-09T15:23:52.605761+00:00",
+  "scope": "host_sqlite_review_prototype",
+  "schemaFile": "technical/schema-v1.sql",
+  "schemaSha256": "307e58cb9d4e42c2c18db0e00b794e61416d4847d74caa4a273f3f2cd71b955c",
+  "hostSQLiteVersion": "3.53.1",
+  "hostSQLiteSourceId": "2026-05-05 10:34:17 c88b22011a54b4f6fbd149e9f8e4de77658ce58143a1af0e3785e4e6475127e9",
+  "status": "PASS",
+  "cases": [
+    {
+      "id": "DDL_AND_PRAGMAS",
+      "status": "PASS"
+    },
+    {
+      "id": "UNIQUE_CYCLE",
+      "status": "PASS"
+    },
+    {
+      "id": "UNIQUE_ONE_TIME",
+      "status": "PASS"
+    },
+    {
+      "id": "DEFERRED_COMPOSITE_FK",
+      "status": "PASS"
+    },
+    {
+      "id": "ONE_TIME_CASCADE_AND_TOMBSTONE",
+      "status": "PASS"
+    },
+    {
+      "id": "CYCLE_CASCADE",
+      "status": "PASS"
+    },
+    {
+      "id": "WRITE_ROLLBACK",
+      "status": "PASS"
+    },
+    {
+      "id": "ALL_MIGRATIONS_ROLLBACK",
+      "status": "PASS"
+    },
+    {
+      "id": "RULE_ENUM_STRICT_CHECKS",
+      "status": "PASS"
+    },
+    {
+      "id": "DATE_SHAPE_BOUNDARY",
+      "status": "PASS"
+    },
+    {
+      "id": "ONE_TIME_OUTCOME_CHECKS",
+      "status": "PASS"
+    },
+    {
+      "id": "FIRST_ORIGINAL_ONLY",
+      "status": "PASS"
+    },
+    {
+      "id": "RECEIPT_CONSTRAINTS",
+      "status": "PASS"
+    }
+  ],
+  "limitations": [
+    "SQL date checks validate shape only; domain must reject impossible dates",
+    "Cross-row plan type, stage, readonly and rule-kind permissions require application validation"
+  ],
+  "androidExpoSQLite": "NOT_RUN",
+  "applicationImplementation": "NOT_RUN"
+}

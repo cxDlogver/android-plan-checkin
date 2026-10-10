@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>计划打卡 Android V1 · 截图与需求对照</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:#e8ecf0;color:#17212b;font:15px/1.8 "Microsoft YaHei",sans-serif}a{color:#253f53;text-underline-offset:3px}a:focus-visible,summary:focus-visible{outline:3px solid #277056;outline-offset:4px}header{padding:32px max(24px,calc((100vw - 1280px)/2));background:linear-gradient(125deg,#fafbfc,#c4cdd5 48%,#f2f5f7 55%,#dde3e9);border-bottom:1px solid #abb6c1}h1{font-size:30px;margin:0 0 12px}h2{font-size:24px;margin:0}h3{font-size:18px;margin:0 0 12px}h4{font-size:15px;margin:0 0 6px}h1,h2,h3,h4,summary{font-weight:700}header p{margin:8px 0}main{max-width:1280px;margin:28px auto;padding:0 24px}.index{padding:24px;border:1px solid #abb6c1;background:#f7f9fb;margin-bottom:32px}.index h2{font-size:20px;margin-bottom:16px}.index-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 18px}.index a{display:block;text-decoration:none;padding:7px 4px}.index a:hover{background:#e5ebf0}.index a span{font-size:12px;margin-right:9px;color:#657581}article{border:1px solid #aab7c2;border-radius:3px;background:linear-gradient(#fff,#f3f6f8);box-shadow:0 3px 8px #2134461f;margin-bottom:32px;padding:24px}.page-heading{display:flex;justify-content:space-between;gap:24px;align-items:center;padding-bottom:20px;border-bottom:1px solid #cad3db;margin-bottom:24px}.eyebrow{font-size:12px;letter-spacing:.04em;color:#526271}.page-heading>a{flex-shrink:0;font-size:13px}.pair{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:32px;align-items:start}figure{position:sticky;top:20px;margin:0}figure img{display:block;width:100%;height:auto;border:1px solid #b9c4cf;box-shadow:0 3px 8px #21344622}figcaption{font-size:12px;line-height:1.7;color:#526271;margin-top:12px}.refs{padding:12px 16px;margin:0 0 20px;background:#edf2f5;border-left:3px solid #5f7284;font-size:13px;overflow-wrap:anywhere}.not-run{color:#9a570c}.spec{min-width:0}.spec p{margin:0 0 14px}.spec li{margin-bottom:7px}.spec ul,.spec ol{padding-left:22px;margin:0 0 18px}.table-scroll{max-width:100%;overflow:auto;margin:16px 0 22px}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #ccd5dc;padding:9px 11px;vertical-align:top;text-align:left}th{background:#e9eff4}.related{margin-top:24px}.related>h3{margin-bottom:4px}.hint,.source{font-size:13px;color:#617180}details{border:1px solid #c8d2da;margin:10px 0;background:#f6f8fa}summary{cursor:pointer;padding:12px 14px;font-size:14px}.shared-body{padding:4px 16px 8px}.tests{margin-top:24px}.test{padding:16px;border-top:1px solid #d1d9df}.test p{font-size:14px}.source{margin-top:18px!important}footer{padding:16px 24px 40px;text-align:center;font-size:13px;color:#617180}code{background:#e8edf1;padding:1px 4px;overflow-wrap:anywhere}@media(max-width:1000px){.index-links{grid-template-columns:repeat(3,minmax(0,1fr))}.pair{grid-template-columns:minmax(0,270px) minmax(0,1fr);gap:24px}}@media(max-width:760px){header{padding:24px 16px}h1{font-size:24px}main{padding:0 12px}.index{padding:16px}.index-links{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}article{padding:16px}.page-heading{align-items:flex-start;gap:12px}h2{font-size:20px}.pair{display:block}figure{position:static;max-width:330px;margin:0 auto 24px}.page-heading>a{font-size:12px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}@media print{body{background:white}header{background:white}.index,.page-heading>a,footer{display:none}main{max-width:none;padding:0}article{box-shadow:none;break-before:page}.pair{grid-template-columns:240px 1fr}figure{position:static}details{break-inside:avoid}}
+</style></head>
+<body><header><h1>计划打卡 · Android V1</h1><p>23张设计截图与对应需求放在同一页；宽屏左图右文，手机按图文顺序阅读。</p><p><a href="../设计需求文档-计划打卡-Android-v1.md">完整需求文档</a> · <a href="../需求分析与待确认项.md">需求审查记录</a> · <a href="../UIUX-计划打卡-Android-v1.md">UI/UX规格</a> · <a href="../技术设计文档-计划打卡-Android-v1.md">技术设计与详细规格</a></p><p>v1.1 已确认 · 32项功能需求 · 28组验收场景 · Pen已保存。截图为设计示例；应用验收尚未执行。</p></header>
+<main><nav class="index" id="page-index" aria-label="按页面浏览"><h2>按页面浏览</h2><div class="index-links"><a href="#screen-01"><span>01</span>今日空态</a>
+<a href="#screen-02"><span>02</span>今日有计划</a>
+<a href="#screen-03"><span>03</span>计划列表</a>
+<a href="#screen-04"><span>04</span>新建固定星期</a>
+<a href="#screen-05"><span>05</span>新建每周N天</a>
+<a href="#screen-06"><span>06</span>新建一次性任务</a>
+<a href="#screen-07"><span>07</span>要做确认记录</a>
+<a href="#screen-08"><span>08</span>不要做确认记录</a>
+<a href="#screen-09"><span>09</span>修改当日记录</a>
+<a href="#screen-10"><span>10</span>补记</a>
+<a href="#screen-11"><span>11</span>全局日历</a>
+<a href="#screen-12"><span>12</span>固定详情</a>
+<a href="#screen-13"><span>13</span>周目标详情</a>
+<a href="#screen-14"><span>14</span>一次性详情</a>
+<a href="#screen-15"><span>15</span>编辑计划</a>
+<a href="#screen-16"><span>16</span>暂停与恢复确认</a>
+<a href="#screen-17"><span>17</span>删除并保留历史</a>
+<a href="#screen-18"><span>18</span>归档后永久删除</a>
+<a href="#screen-19"><span>19</span>本机设置</a>
+<a href="#screen-20"><span>20</span>存储异常</a>
+<a href="#screen-21"><span>21</span>一次性实际完成日</a>
+<a href="#screen-22"><span>22</span>历史记录只读</a>
+<a href="#screen-23"><span>23</span>跨日重新确认</a></div></nav><article id="screen-01">
+    <div class="page-heading"><div><span class="eyebrow">图01 · Pen真实导出</span><h2>今日空态</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/bCoiJ.png" target="_blank" rel="noopener" aria-label="查看今日空态原图"><img src="previews/bCoiJ.png" width="393" height="852" alt="今日空态设计截图" loading="lazy"></a><figcaption>对应FR01。真正无数据时展示创建入口；读取失败不能用此状态。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR01、FR02、FR32<br><strong>验收：</strong>AT01 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr01"><h3>FR01｜首次启动与今日空态</h3><ul><li>目的/入口：安装后直接进入今日，免登录；数据库读取完成且计划数为0才展示空态。</li><li>展示：应用定位、一句本机说明、“创建第一个计划”按钮；不预置样例计划。</li><li>操作结果：进入统一新建页，默认类型为固定日期循环（P）；已存在数据直接显示真实内容。</li><li>异常：读库失败显示FR32错误状态，不显示“开始使用”伪空态。</li><li>验收：AT01。设计图01。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared" id="requirement-fr02"><summary>FR02｜创建公共字段与校验</summary><div class="shared-body"><div class="table-scroll"><table><thead><tr><th>字段</th><th>输入/默认</th><th>校验与反馈</th><th>状态</th></tr></thead><tbody><tr><td>名称</td><td>必填；默认空</td><td>去首尾空白后非空，上限80；错误贴近字段</td><td>B；计数口径P</td></tr><tr><td>类型</td><td>固定/每周/一次性</td><td>切换后只提交当前类型字段；不把隐藏旧值写入新类型</td><td>B/P</td></tr><tr><td>方向</td><td>循环要做/不要做，默认要做</td><td>一次性固定要做，无方向切换</td><td>B</td></tr><tr><td>说明</td><td>可选，默认空</td><td>上限1000，可换行；空值合法</td><td>B</td></tr><tr><td>时区</td><td>使用首次使用固定时区，只读</td><td>所有计划共用；获取失败禁止不明日期保存</td><td>C/P异常</td></tr><tr><td>循环开始</td><td>默认计划今天</td><td>只允许今天/未来</td><td>C</td></tr><tr><td>循环结束</td><td>可空</td><td>有值时≥开始，包含当日</td><td>B</td></tr><tr><td>结果备注</td><td>可空</td><td>上限2000，无备注也可保存</td><td>B</td></tr></tbody></table></div>
+<p>C：长度按Unicode码点计数，避免UTF-16将常用emoji拆成两个字符；组合emoji可能包含多个码点。标题单行，内部换行拒绝；同名计划允许，由规则/方向辅助辨认。输入限制与错误文案一致，不仅靠客户端截断。标题单行、限制与同名政策均按本版执行。</p>
+<p>保存按钮仅在必填合法时可提交；保存中禁用，失败保留所有输入。取消有变更需确认。成功后进入新计划详情（P），返回今日/列表时计划立即可见；未来开始的循环暂不进入今日。类型切换保留共通字段，清除不适用字段前提示（P，D26）。</p></div></details>
+<details class="shared" id="requirement-fr32"><summary>FR32｜读写、升级与异常</summary><div class="shared-body"><p>B：SQLite是本机权威数据源，关联更新使用事务；初始化、查询、保存、迁移失败分别处理：</p>
+<ul><li>初始化/读库失败：阻断正常数据页，显示“无法读取本机数据”，可重试，不伪装首次空态。</li><li>保存失败：保留表单输入，原已保存数据不变；“继续编辑/重试”可用，重试幂等。</li><li>迁移失败：保留原库，不悄悄清空重建，不声称升级成功；应用可显示恢复指引但无首版导入恢复功能。</li><li>存储空间不足/数据库不可写：明确失败，不内存假成功；可离开页面查看已有数据（能读取时）。</li><li>已确认采用普通SQLite和Android应用私有目录（T2），不引入数据库密钥错误流程；读取异常仍不能当作无记录。</li></ul>
+<p>独立APK内置JS、字体、图标与所需资产；关闭Metro后核心读写仍可用。验收AT24、AT28；设计图20。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（1组）</summary><section class="test"><h4>AT01 · FR01、30、32</h4><p><strong>前置及操作：</strong>清洁安装，飞行模式启动；创建每日计划，提交，关闭应用再启动</p><p><strong>期望结果：</strong>无登录；读取完才显示空态；最终保存后反馈本机成功；重启名称、结果和备注一致</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr01">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-02">
+    <div class="page-heading"><div><span class="eyebrow">图02 · Pen真实导出</span><h2>今日有计划</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/yB844.png" target="_blank" rel="noopener" aria-label="查看今日有计划原图"><img src="previews/yB844.png" width="393" height="1140" alt="今日有计划设计截图" loading="lazy"></a><figcaption>对应FR06–10。四分区和结果入口；点结果先确认，不直接保存。分区排序已固定，全部计划共用首次使用固定时区。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR06、FR07、FR08、FR09、FR10、FR31<br><strong>验收：</strong>AT09、AT10、AT14 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr06"><h3>FR06｜今日分区与展示</h3><p>B：今日包含“固定待处理”“本周可记录”“截止事项”“已记录”。固定只显示今天有效且无记录的项；周目标即使本周已达标仍可记录合法今天，不每日催促；一次性未终结且逾期仍保留。</p>
+<p>每张卡片显示名称、方向/类型、适用日期或截止、周进度或记录结果。全部计划共用首次使用固定的时区，今日日期统一。今日展示全部未终结一次性任务，包括未来截止与逾期（C）。</p>
+<p>固定按创建先后稳定排列（Q27确认）；周目标按创建先后；截止事项逾期优先、截止升序、同日按创建先后。保存后原位置立即反馈，离开/刷新后进入已记录分区，避免点完突然跳动；就地反馈、下次刷新归入已记录已确认（C）；同分区排序按上述已确认规则。设计图02。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared" id="requirement-fr07"><summary>FR07｜要做循环确认</summary><div class="shared-body"><ul><li>入口：今日结果按钮或合法当天日期；已有普通当日记录进入FR11。</li><li>内容：计划名、完整业务日期、规则/方向、三种结果、可选文字备注；今日传入的结果必须显示已选。</li><li>语义：成功＝本人确认目标已完成；失败＝本人确认未完成；跳过＝主动不参与本次考核（不进入固定完成率分母，并单独显示数量）。</li><li>保存：必选一个结果，按FR10提交；空备注合法；页面返回或换选项都不能提前写入记录。</li><li>反馈：结果文字与绿色/红色/橙色一致，不只依赖颜色。验收AT09。设计图07。</li></ul></div></details>
+<details class="shared" id="requirement-fr08"><summary>FR08｜不要做循环确认</summary><div class="shared-body"><p>沿用FR07，但文案表达行为是否发生：“✓做到了，没有发生目标行为”“×发生了目标行为”“—跳过”。不要把“未完成”解释成成功；未知不自动成功。</p>
+<p>B：允许当天提前确认成功，后来发生行为可在同一个业务日改为失败；跨日后不可再修改（C）。保存前提示这是对截至当前情况的主动申报；不提供自动监测或午夜自动成功。验收AT10、AT12。设计图08。</p></div></details>
+<details class="shared" id="requirement-fr09"><summary>FR09｜一次性登记完成、失败与取消</summary><div class="shared-body"><ul><li>完成入口：待完成或逾期任务点击“登记完成”，进入独立确认页，不直接终结。</li><li>完成字段：实际完成日期默认计划今天，可选合法过去日期；备注可空；页面同时展示截止日期和预判结果。</li><li>时间：保存实际完成日期与提交时间。10/10截止、10/9完成、10/11录入仍为按时完成，并标记历史补报。</li><li>历史权限：过去完成日的补报保存后立即只读；今天的普通记录仅当天可改。不能因10/11提交而开放修改10/9事实。</li><li>失败/取消：显式结果确认和可选备注，分别显示失败/取消；不是循环“跳过”。结果业务日期为提交当天；普通当日可在完成/失败/取消间修正，业务日期不移动；历史补报只读（C）。</li><li>终态显示：结果、截止、实际完成日（适用时）、提交时间、备注、补记/已修改标签；不计算固定计划历史完成率或连续打卡，结果仍按FR14进入日历每日完成集合。</li><li>验收AT06–AT08、AT12；设计图14、21。失败/取消共用确认行为，尚无独立完整画板。</li></ul></div></details>
+<details class="shared" id="requirement-fr10"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared" id="requirement-fr31"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（3组）</summary><section class="test"><h4>AT09 · FR07、09、10、12、31</h4><p><strong>前置及操作：</strong>今日点成功，填备注后取消；再进入确认保存；重复点保存；首次循环/一次性完成页10/9跨至10/10保存</p><p><strong>期望结果：</strong>取消不落盘；正常最终保存仅一条；跨日旧提交不写、输入保留；合法日期显式重进补记确认，确认只读/一次性归档后才提交；暂停/归档后禁止；一次性失败/取消重新确认新的当日结果；已成功重试不重复</p></section>
+<section class="test"><h4>AT10 · FR08、11</h4><p><strong>前置及操作：</strong>不要做计划当天先成功，后来修改失败；次日查看</p><p><strong>期望结果：</strong>方向文案准确；同一记录修订、标已修改；次日只读；无自动成功</p></section>
+<section class="test"><h4>AT14 · FR17</h4><p><strong>前置及操作：</strong>合法历史6成功/8分母，今天分别未提交/成功/失败；今天成功改失败；运行/暂停/归档/未来未开始查看起止</p><p><strong>期望结果：</strong>6/8→7/9或6/9；修订只变分子；截图、详情、全局状态一致；起止按T13，显示截至today不扩大分母，未开始不显示倒置区间；百分比格式按P</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr06">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-03">
+    <div class="page-heading"><div><span class="eyebrow">图03 · Pen真实导出</span><h2>计划列表</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/P3WWL.png" target="_blank" rel="noopener" aria-label="查看计划列表原图"><img src="previews/P3WWL.png" width="393" height="852" alt="计划列表设计截图" loading="lazy"></a><figcaption>对应FR21。展示状态分类。采用运行中、暂停、归档三个筛选；循环到期次日归档，一次性普通终态次日、历史补报立即归档。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR21、FR22、FR28<br><strong>验收：</strong>AT19 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr21"><h3>FR21｜计划列表与筛选</h3><p>B：运行中、暂停、已归档三个入口，各显示名称、方向/类型、规则摘要、有效期和当前状态。同状态按创建时间稳定排列（Q27确认）；无数据空态说明筛选条件并提供切回运行中。创建入口始终可达。</p>
+<p>未来开始仍归未归档运行列表并标未开始；循环到期次日自动归档（C）。一次性普通终态次日归档，历史补报保存后立即归档（C）；首版不做搜索（C）。验收AT19，设计图03。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared" id="requirement-fr22"><summary>FR22｜计划详情</summary><div class="shared-body"><p>入口为今日卡片标题、计划列表或日历明细。显示名称、说明、方向/类型、时区、有效区间/截止、当前状态、对应统计、历史；右上角管理菜单进入允许的操作。</p>
+<p>未开始、运行中、明日起暂停/恢复等状态要有文字区分；不能在次日生效前就按新状态撤销今天资格。暂停/归档不开放新增补记（C）；查看已有记录仍允许。数据尚未读取/失败、计划已被删除时要有明确状态，不呈现旧缓存作为可保存内容。验收AT18–AT22；设计图12–14。</p></div></details>
+<details class="shared" id="requirement-fr28"><summary>FR28｜自然结束与一次性终态归类</summary><div class="shared-body"><p>循环结束日期当天仍可执行，次日自动归档（C）。此后历史只读、不能补记、不能恢复或续期；归档前可按FR23编辑合法结束日期。</p>
+<p>一次性普通终态移入今日已记录，保留到当天结束，次日自动归档；历史补报保存后立即归档（C）。未归档普通当天可修正三种结果，但不撤回、不移动记录日期；归档或历史补报只能查看。未归档列表须明确标结果，不能把列表归类写成仍待完成。验收AT19、AT23。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（1组）</summary><section class="test"><h4>AT19 · FR21、28</h4><p><strong>前置及操作：</strong>分别查看未来计划、暂停、归档、自然结束和一次性各种终态</p><p><strong>期望结果：</strong>每项可在明确分类找到；无数据说明筛选；循环结束次日自动归档；普通终态次日、历史补报立即归档</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr21">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-04">
+    <div class="page-heading"><div><span class="eyebrow">图04 · Pen真实导出</span><h2>新建固定星期</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/SvK1L.png" target="_blank" rel="noopener" aria-label="查看新建固定星期原图"><img src="previews/SvK1L.png" width="393" height="1040" alt="新建固定星期设计截图" loading="lazy"></a><figcaption>对应FR02–03。至少一个星期，开始今天/未来；必填与错误反馈见字段规格。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR03、FR02、FR12、FR31<br><strong>验收：</strong>AT02、AT03、AT04 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr03"><h3>FR03｜固定星期循环</h3><ul><li>输入：星期一至星期日多选，新建默认全部未选（本轮P1已确认），须用户手动选择至少一天才可保存；“每日”快捷选择七天，取消其中一天后不再标每日。全部取消时再次禁止保存，不静默恢复默认选项。</li><li>资格：业务日期在开始/结束内、当时规则选择该星期、生命周期有效；只对这些日期产生应执行项。</li><li>展示：要做/不要做、明确星期、日期区间、时区；每日与选定星期不能显示相互矛盾摘要。</li><li>异常：未选星期、结束早于开始、开始过去时不保存；未来日期不能提前打卡。</li><li>示例：周二/周四计划，周三业务日期不可记录；周三操作可以补记有效周二，不能记录未来周四。</li><li>验收：AT02–AT04、AT11。设计图04。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR02｜创建公共字段与校验</summary><div class="shared-body"><div class="table-scroll"><table><thead><tr><th>字段</th><th>输入/默认</th><th>校验与反馈</th><th>状态</th></tr></thead><tbody><tr><td>名称</td><td>必填；默认空</td><td>去首尾空白后非空，上限80；错误贴近字段</td><td>B；计数口径P</td></tr><tr><td>类型</td><td>固定/每周/一次性</td><td>切换后只提交当前类型字段；不把隐藏旧值写入新类型</td><td>B/P</td></tr><tr><td>方向</td><td>循环要做/不要做，默认要做</td><td>一次性固定要做，无方向切换</td><td>B</td></tr><tr><td>说明</td><td>可选，默认空</td><td>上限1000，可换行；空值合法</td><td>B</td></tr><tr><td>时区</td><td>使用首次使用固定时区，只读</td><td>所有计划共用；获取失败禁止不明日期保存</td><td>C/P异常</td></tr><tr><td>循环开始</td><td>默认计划今天</td><td>只允许今天/未来</td><td>C</td></tr><tr><td>循环结束</td><td>可空</td><td>有值时≥开始，包含当日</td><td>B</td></tr><tr><td>结果备注</td><td>可空</td><td>上限2000，无备注也可保存</td><td>B</td></tr></tbody></table></div>
+<p>C：长度按Unicode码点计数，避免UTF-16将常用emoji拆成两个字符；组合emoji可能包含多个码点。标题单行，内部换行拒绝；同名计划允许，由规则/方向辅助辨认。输入限制与错误文案一致，不仅靠客户端截断。标题单行、限制与同名政策均按本版执行。</p>
+<p>保存按钮仅在必填合法时可提交；保存中禁用，失败保留所有输入。取消有变更需确认。成功后进入新计划详情（P），返回今日/列表时计划立即可见；未来开始的循环暂不进入今日。类型切换保留共通字段，清除不适用字段前提示（P，D26）。</p></div></details>
+<details class="shared" id="requirement-fr12"><summary>FR12｜历史补记（C权限＋B资格）</summary><div class="shared-body"><ul><li>前置：过去日期、当时有效、尚无记录；不得补未来、生效前、固定未选日、暂停无效日。</li><li>暂停/归档：当前暂停/归档均禁止补记；恢复后也不能补暂停前的日期。只有当前运行阶段内已过去的有效空日可补记（C）；已保存历史仍可查看。</li><li>表单：计划名、完整业务日期、当时规则、结果、可选备注；提交前明确“请确认，补记保存后不能修改”。</li><li>保存：同日唯一，提交时标记补记并保存实际提交时间；成功后只读，不能再次覆盖。</li><li>统计：使用补记所属业务日期和当时规则重新聚合；不能按提交日算成今天成功。</li><li>验收AT11–AT12、AT14；设计图10。</li></ul></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（3组）</summary><section class="test"><h4>AT02 · FR02</h4><p><strong>前置及操作：</strong>名称全空白、81码点、80码点；空说明与超1000；一次性切回循环；首次固定星期未选、选择一天、全部取消</p><p><strong>期望结果：</strong>非法值字段提示；合法边界可保存；隐藏类型字段不混入；码点计数与边界如FR02；星期默认未选，至少手动选一天才能保存，全部取消再禁用</p></section>
+<section class="test"><h4>AT03 · FR02、03</h4><p><strong>前置及操作：</strong>10/9新建，分别选10/8、10/9、10/10开始；结束早于开始</p><p><strong>期望结果：</strong>过去开始拒绝；今天/未来允许；结束早于开始拒绝；未来开始不出现在今日固定待处理</p></section>
+<section class="test"><h4>AT04 · FR03、12</h4><p><strong>前置及操作：</strong>已有周二/四计划；10/7周三操作，选10/6、10/7、10/8业务日期</p><p><strong>期望结果：</strong>有效周二可补记并只读；周三非选日拒绝；未来周四拒绝；不把操作星期作为资格</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr03">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-05">
+    <div class="page-heading"><div><span class="eyebrow">图05 · Pen真实导出</span><h2>新建每周N天</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/JUDAa.png" target="_blank" rel="noopener" aria-label="查看新建每周N天原图"><img src="previews/JUDAa.png" width="393" height="940" alt="新建每周N天设计截图" loading="lazy"></a><figcaption>对应FR02、04。N为1–7，自选记录日，空白不等于未记录。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR04、FR02、FR19、FR31<br><strong>验收：</strong>AT02、AT03、AT05、AT16、AT17 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr04"><h3>FR04｜每周N天</h3><ul><li>输入：整数N为1–7，默认3（P）；循环开始/结束采用FR02规则。</li><li>资格：有效期和有效生命周期内，自选当天记录，不要求每天完成；同一业务日期最多计一个成功日。</li><li>进度：本周成功日期数/N；4/3保留实际数4，进度条最高100%；失败/跳过不增加成功天数。</li><li>空白：未选择记录的日子是空白，不能渲染成每天未记录。</li><li>部分周：保存记录并标记原因，不套用完整周结果；周达标率和连续统计仅纳入已结束完整周，部分周中断连续。</li><li>验收：AT05、AT16–AT17。设计图05、13。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR02｜创建公共字段与校验</summary><div class="shared-body"><div class="table-scroll"><table><thead><tr><th>字段</th><th>输入/默认</th><th>校验与反馈</th><th>状态</th></tr></thead><tbody><tr><td>名称</td><td>必填；默认空</td><td>去首尾空白后非空，上限80；错误贴近字段</td><td>B；计数口径P</td></tr><tr><td>类型</td><td>固定/每周/一次性</td><td>切换后只提交当前类型字段；不把隐藏旧值写入新类型</td><td>B/P</td></tr><tr><td>方向</td><td>循环要做/不要做，默认要做</td><td>一次性固定要做，无方向切换</td><td>B</td></tr><tr><td>说明</td><td>可选，默认空</td><td>上限1000，可换行；空值合法</td><td>B</td></tr><tr><td>时区</td><td>使用首次使用固定时区，只读</td><td>所有计划共用；获取失败禁止不明日期保存</td><td>C/P异常</td></tr><tr><td>循环开始</td><td>默认计划今天</td><td>只允许今天/未来</td><td>C</td></tr><tr><td>循环结束</td><td>可空</td><td>有值时≥开始，包含当日</td><td>B</td></tr><tr><td>结果备注</td><td>可空</td><td>上限2000，无备注也可保存</td><td>B</td></tr></tbody></table></div>
+<p>C：长度按Unicode码点计数，避免UTF-16将常用emoji拆成两个字符；组合emoji可能包含多个码点。标题单行，内部换行拒绝；同名计划允许，由规则/方向辅助辨认。输入限制与错误文案一致，不仅靠客户端截断。标题单行、限制与同名政策均按本版执行。</p>
+<p>保存按钮仅在必填合法时可提交；保存中禁用，失败保留所有输入。取消有变更需确认。成功后进入新计划详情（P），返回今日/列表时计划立即可见；未来开始的循环暂不进入今日。类型切换保留共通字段，清除不适用字段前提示（P，D26）。</p></div></details>
+<details class="shared" id="requirement-fr19"><summary>FR19｜每周进度与周达标率</summary><div class="shared-body"><p>B：周一至周日、每个成功日期计1天、失败/跳过不加成功天数；同一天重试不重复，4/3仍显示4/3，进度条最多100%。</p>
+<p>C：本周进度随记录立即更新；历史周达标率仅算已结束完整有效周：达标周数÷已结束完整有效周数。完整周无记录时目标未达成；未结束周不提前宣告失败；分母0写暂无完整周。</p>
+<p>全部历史的显示开始/截至日沿用FR17与T13；截至当前业务日不代表当前未结束周进入历史分母。归档的显示截至日冻结，归档造成的部分周仍在自然周结束时中断连续。</p>
+<p>部分周保留实际成功数，标注原因，排除周达标率（B）。部分周结束时中断连续达标（C）；连续周仅统计已结束周，未结束的完整/部分周均暂时保持之前已结束周的连续值；部分周结束后归零，下个完整达标周重新累计。目标N从下周一生效，固定星期次日生效（C）。验收AT16–AT17；设计图13。</p>
+<p><strong>整周暂停（Q32）：</strong> 整个自然周均处于暂停时，该周不是完整有效执行周，不进入周达标率分母；在该周结束时中断连续，结束前保留此前已结束周连续值。达标完整周A → 整周暂停B → 恢复后完整达标周C，C结束后连续为1周，不能跳过B累计为2。尚未开始或已归档后的周不创建执行要求；不能扫描有效周集合并忽略执行阶段间的暂停空档。验收AT17。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（5组）</summary><section class="test"><h4>AT02 · FR02</h4><p><strong>前置及操作：</strong>名称全空白、81码点、80码点；空说明与超1000；一次性切回循环；首次固定星期未选、选择一天、全部取消</p><p><strong>期望结果：</strong>非法值字段提示；合法边界可保存；隐藏类型字段不混入；码点计数与边界如FR02；星期默认未选，至少手动选一天才能保存，全部取消再禁用</p></section>
+<section class="test"><h4>AT03 · FR02、03</h4><p><strong>前置及操作：</strong>10/9新建，分别选10/8、10/9、10/10开始；结束早于开始</p><p><strong>期望结果：</strong>过去开始拒绝；今天/未来允许；结束早于开始拒绝；未来开始不出现在今日固定待处理</p></section>
+<section class="test"><h4>AT05 · FR04、10</h4><p><strong>前置及操作：</strong>完整周目标3天，三天成功；其中一天反复提交；第四天成功</p><p><strong>期望结果：</strong>3/3→4/3；同日不重复计数；条最大100%；其他空日不显示失败/未记录</p></section>
+<section class="test"><h4>AT16 · FR19</h4><p><strong>前置及操作：</strong>完整周成功3/3但周未结束；结束后再看；另一完整周0成功</p><p><strong>期望结果：</strong>进度即时3/3；当前未结束周不进入历史周达标率/连续周；空白日不逐日失败，完整周未达标可明确</p></section>
+<section class="test"><h4>AT17 · FR19、23–25</h4><p><strong>前置及操作：</strong>周中开始/暂停/恢复，跨部分周前后两个达标完整周；达标A→整周暂停B→周一恢复并达标C；另测周中改N并下周一生效</p><p><strong>期望结果：</strong>部分周和整周暂停均不计达标率，周结束才中断；A→部分/暂停→C均连续1；暂停周结束前保留此前连续值；合法周一目标变更不令任一完整周变部分周；本周按旧N，下周按最后保存的N</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr04">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-06">
+    <div class="page-heading"><div><span class="eyebrow">图06 · Pen真实导出</span><h2>新建一次性任务</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/qq7vq.png" target="_blank" rel="noopener" aria-label="查看新建一次性任务原图"><img src="previews/qq7vq.png" width="393" height="852" alt="新建一次性任务设计截图" loading="lazy"></a><figcaption>对应FR02、05。截止今天/未来，固定要做。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR05、FR02、FR09、FR31<br><strong>验收：</strong>AT02、AT06、AT07、AT08 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr05"><h3>FR05｜一次性任务</h3><ul><li>输入：必填截止日期，默认计划今天（P），只允许今天/未来（B）；没有循环星期、每周目标或不要做方向。</li><li>结果状态：待完成、逾期、按时完成、迟完成、失败、取消；逾期是未终结时的时间状态，不自动变成失败。</li><li>判定：实际完成日期≤截止为按时，&gt;截止为迟完成；提交时间不参与该判定（C）。</li><li>限制：未来实际完成日期禁止；实际完成日必须在创建日到今天之间（C）；不允许撤回；普通当天可修正完成/失败/取消，记录业务日期不移动（C）。</li><li>验收：AT06–AT08。设计图06、14、21。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR02｜创建公共字段与校验</summary><div class="shared-body"><div class="table-scroll"><table><thead><tr><th>字段</th><th>输入/默认</th><th>校验与反馈</th><th>状态</th></tr></thead><tbody><tr><td>名称</td><td>必填；默认空</td><td>去首尾空白后非空，上限80；错误贴近字段</td><td>B；计数口径P</td></tr><tr><td>类型</td><td>固定/每周/一次性</td><td>切换后只提交当前类型字段；不把隐藏旧值写入新类型</td><td>B/P</td></tr><tr><td>方向</td><td>循环要做/不要做，默认要做</td><td>一次性固定要做，无方向切换</td><td>B</td></tr><tr><td>说明</td><td>可选，默认空</td><td>上限1000，可换行；空值合法</td><td>B</td></tr><tr><td>时区</td><td>使用首次使用固定时区，只读</td><td>所有计划共用；获取失败禁止不明日期保存</td><td>C/P异常</td></tr><tr><td>循环开始</td><td>默认计划今天</td><td>只允许今天/未来</td><td>C</td></tr><tr><td>循环结束</td><td>可空</td><td>有值时≥开始，包含当日</td><td>B</td></tr><tr><td>结果备注</td><td>可空</td><td>上限2000，无备注也可保存</td><td>B</td></tr></tbody></table></div>
+<p>C：长度按Unicode码点计数，避免UTF-16将常用emoji拆成两个字符；组合emoji可能包含多个码点。标题单行，内部换行拒绝；同名计划允许，由规则/方向辅助辨认。输入限制与错误文案一致，不仅靠客户端截断。标题单行、限制与同名政策均按本版执行。</p>
+<p>保存按钮仅在必填合法时可提交；保存中禁用，失败保留所有输入。取消有变更需确认。成功后进入新计划详情（P），返回今日/列表时计划立即可见；未来开始的循环暂不进入今日。类型切换保留共通字段，清除不适用字段前提示（P，D26）。</p></div></details>
+<details class="shared"><summary>FR09｜一次性登记完成、失败与取消</summary><div class="shared-body"><ul><li>完成入口：待完成或逾期任务点击“登记完成”，进入独立确认页，不直接终结。</li><li>完成字段：实际完成日期默认计划今天，可选合法过去日期；备注可空；页面同时展示截止日期和预判结果。</li><li>时间：保存实际完成日期与提交时间。10/10截止、10/9完成、10/11录入仍为按时完成，并标记历史补报。</li><li>历史权限：过去完成日的补报保存后立即只读；今天的普通记录仅当天可改。不能因10/11提交而开放修改10/9事实。</li><li>失败/取消：显式结果确认和可选备注，分别显示失败/取消；不是循环“跳过”。结果业务日期为提交当天；普通当日可在完成/失败/取消间修正，业务日期不移动；历史补报只读（C）。</li><li>终态显示：结果、截止、实际完成日（适用时）、提交时间、备注、补记/已修改标签；不计算固定计划历史完成率或连续打卡，结果仍按FR14进入日历每日完成集合。</li><li>验收AT06–AT08、AT12；设计图14、21。失败/取消共用确认行为，尚无独立完整画板。</li></ul></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT02 · FR02</h4><p><strong>前置及操作：</strong>名称全空白、81码点、80码点；空说明与超1000；一次性切回循环；首次固定星期未选、选择一天、全部取消</p><p><strong>期望结果：</strong>非法值字段提示；合法边界可保存；隐藏类型字段不混入；码点计数与边界如FR02；星期默认未选，至少手动选一天才能保存，全部取消再禁用</p></section>
+<section class="test"><h4>AT06 · FR05、09、20</h4><p><strong>前置及操作：</strong>截止10/10；10/11登记实际10/9完成</p><p><strong>期望结果：</strong>按时完成；实际日10/9、提交日10/11分开；历史补报标记，保存后不可改</p></section>
+<section class="test"><h4>AT07 · FR05、09</h4><p><strong>前置及操作：</strong>同截止任务，实际10/11完成；实际未来10/12；不填写实际日</p><p><strong>期望结果：</strong>10/11迟完成；未来拒绝；日期必填；无提交成功则任务仍保持原状态</p></section>
+<section class="test"><h4>AT08 · FR05、09、28</h4><p><strong>前置及操作：</strong>10/11查看未终结10/10任务，分别确认失败/取消</p><p><strong>期望结果：</strong>未操作显示逾期并仍可见；失败/取消分别成为显式终态，无伪造完成日；普通终态次日、历史补报立即归档</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr05">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-07">
+    <div class="page-heading"><div><span class="eyebrow">图07 · Pen真实导出</span><h2>要做确认记录</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/mTDhJ.png" target="_blank" rel="noopener" aria-label="查看要做确认记录原图"><img src="previews/mTDhJ.png" width="393" height="852" alt="要做确认记录设计截图" loading="lazy"></a><figcaption>对应FR07、10。结果、可选备注和最终保存；绿色成功、红色失败、橙色跳过。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR07、FR10、FR31<br><strong>验收：</strong>AT09、AT24、AT26 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR07｜要做循环确认</h3><ul><li>入口：今日结果按钮或合法当天日期；已有普通当日记录进入FR11。</li><li>内容：计划名、完整业务日期、规则/方向、三种结果、可选文字备注；今日传入的结果必须显示已选。</li><li>语义：成功＝本人确认目标已完成；失败＝本人确认未完成；跳过＝主动不参与本次考核（不进入固定完成率分母，并单独显示数量）。</li><li>保存：必选一个结果，按FR10提交；空备注合法；页面返回或换选项都不能提前写入记录。</li><li>反馈：结果文字与绿色/红色/橙色一致，不只依赖颜色。验收AT09。设计图07。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（3组）</summary><section class="test"><h4>AT09 · FR07、09、10、12、31</h4><p><strong>前置及操作：</strong>今日点成功，填备注后取消；再进入确认保存；重复点保存；首次循环/一次性完成页10/9跨至10/10保存</p><p><strong>期望结果：</strong>取消不落盘；正常最终保存仅一条；跨日旧提交不写、输入保留；合法日期显式重进补记确认，确认只读/一次性归档后才提交；暂停/归档后禁止；一次性失败/取消重新确认新的当日结果；已成功重试不重复</p></section>
+<section class="test"><h4>AT24 · FR10、29、31、32</h4><p><strong>前置及操作：</strong>注入写失败、空间不足、双击、并发同日新增、迁移失败和重启</p><p><strong>期望结果：</strong>不假报成功；输入保留；记录唯一；事务无半成品；迁移原库保留，不静默清库</p></section>
+<section class="test"><h4>AT26 · §5、FR31、§12</h4><p><strong>前置及操作：</strong>100%/200%字号、键盘打开、手势/三键Back、未保存返回、TalkBack</p><p><strong>期望结果：</strong>主操作可达；先关闭键盘/弹层；退出确认准确；完整日期/状态/只读理由可读</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr07">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-08">
+    <div class="page-heading"><div><span class="eyebrow">图08 · Pen真实导出</span><h2>不要做确认记录</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/HGmI6.png" target="_blank" rel="noopener" aria-label="查看不要做确认记录原图"><img src="previews/HGmI6.png" width="393" height="852" alt="不要做确认记录设计截图" loading="lazy"></a><figcaption>对应FR08、10。区分没有发生与发生目标行为，当天可修正。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR08、FR10、FR11、FR31<br><strong>验收：</strong>AT10、AT12、AT24 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR08｜不要做循环确认</h3><p>沿用FR07，但文案表达行为是否发生：“✓做到了，没有发生目标行为”“×发生了目标行为”“—跳过”。不要把“未完成”解释成成功；未知不自动成功。</p>
+<p>B：允许当天提前确认成功，后来发生行为可在同一个业务日改为失败；跨日后不可再修改（C）。保存前提示这是对截至当前情况的主动申报；不提供自动监测或午夜自动成功。验收AT10、AT12。设计图08。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared" id="requirement-fr11"><summary>FR11｜普通记录当日修改（C）</summary><div class="shared-body"><ul><li>前置：非补记，记录业务日期等于该计划今天；已有记录可从今日/日历/详情进入修改。</li><li>可改：结果、文字备注；不可改：计划ID、业务日期、记录种类、原始提交时间。</li><li>展示：加载当前已保存的结果、备注；原提交时间与最近修改时间另列，修改后显示“已修改”。再次修改不得重新加载首次提交的旧值。</li><li>保存：按FR10重新检查权限，合法时原记录修订而非新增；统计立即重算。</li><li>跨日：10/9编辑页未关闭、10/10再点保存，必须拒绝，原记录保留并提示“已过记录当天，此记录只读”。</li><li>撤回：不允许撤回（C），只改结果/备注，不提供删除单条记录或恢复为空白的入口。</li><li>验收AT12、AT14；设计图09已改为10/9当天场景。</li></ul></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（3组）</summary><section class="test"><h4>AT10 · FR08、11</h4><p><strong>前置及操作：</strong>不要做计划当天先成功，后来修改失败；次日查看</p><p><strong>期望结果：</strong>方向文案准确；同一记录修订、标已修改；次日只读；无自动成功</p></section>
+<section class="test"><h4>AT12 · FR11–13</h4><p><strong>前置及操作：</strong>当天普通记录改结果/备注；昨日普通记录修改；今天提交历史补记后改备注；编辑页跨午夜保存</p><p><strong>期望结果：</strong>仅普通当天允许；后三项拒绝，原值不变；所有入口权限一致；禁止撤回</p></section>
+<section class="test"><h4>AT24 · FR10、29、31、32</h4><p><strong>前置及操作：</strong>注入写失败、空间不足、双击、并发同日新增、迁移失败和重启</p><p><strong>期望结果：</strong>不假报成功；输入保留；记录唯一；事务无半成品；迁移原库保留，不静默清库</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr08">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-09">
+    <div class="page-heading"><div><span class="eyebrow">图09 · Pen真实导出</span><h2>修改当日记录</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/I3hcqn.png" target="_blank" rel="noopener" aria-label="查看修改当日记录原图"><img src="previews/I3hcqn.png" width="393" height="852" alt="修改当日记录设计截图" loading="lazy"></a><figcaption>对应FR11。示例业务日期10/9、今天10/9；仅未归档普通当日可改结果/备注，日期不移动、不撤回。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR11、FR10、FR13、FR31<br><strong>验收：</strong>AT10、AT12、AT14、AT26 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR11｜普通记录当日修改（C）</h3><ul><li>前置：非补记，记录业务日期等于该计划今天；已有记录可从今日/日历/详情进入修改。</li><li>可改：结果、文字备注；不可改：计划ID、业务日期、记录种类、原始提交时间。</li><li>展示：加载当前已保存的结果、备注；原提交时间与最近修改时间另列，修改后显示“已修改”。再次修改不得重新加载首次提交的旧值。</li><li>保存：按FR10重新检查权限，合法时原记录修订而非新增；统计立即重算。</li><li>跨日：10/9编辑页未关闭、10/10再点保存，必须拒绝，原记录保留并提示“已过记录当天，此记录只读”。</li><li>撤回：不允许撤回（C），只改结果/备注，不提供删除单条记录或恢复为空白的入口。</li><li>验收AT12、AT14；设计图09已改为10/9当天场景。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared" id="requirement-fr13"><summary>FR13｜历史只读查看（C）</summary><div class="shared-body"><p>已有普通历史记录及所有已提交补记，显示结果、业务日期、备注、原提交/最近修改时间、补记/已修改标签。无可编辑字段和保存按钮；解释“历史记录只读”或“补记保存后不能修改”。不能通过详情快捷入口、深层导航或持久化接口绕过限制。</p>
+<p>只读限制包括备注纠错，不能仅锁结果。计划暂停/归档不删除这些记录；运行/暂停计划删除先归档；归档后再次永久删除才按FR29清除历史。记录仅只读，不限制合法未记录日期的新增补记，后者单独判断FR12。验收AT12；只读查看见图22；图12/13历史区域同样遵守权限。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT10 · FR08、11</h4><p><strong>前置及操作：</strong>不要做计划当天先成功，后来修改失败；次日查看</p><p><strong>期望结果：</strong>方向文案准确；同一记录修订、标已修改；次日只读；无自动成功</p></section>
+<section class="test"><h4>AT12 · FR11–13</h4><p><strong>前置及操作：</strong>当天普通记录改结果/备注；昨日普通记录修改；今天提交历史补记后改备注；编辑页跨午夜保存</p><p><strong>期望结果：</strong>仅普通当天允许；后三项拒绝，原值不变；所有入口权限一致；禁止撤回</p></section>
+<section class="test"><h4>AT14 · FR17</h4><p><strong>前置及操作：</strong>合法历史6成功/8分母，今天分别未提交/成功/失败；今天成功改失败；运行/暂停/归档/未来未开始查看起止</p><p><strong>期望结果：</strong>6/8→7/9或6/9；修订只变分子；截图、详情、全局状态一致；起止按T13，显示截至today不扩大分母，未开始不显示倒置区间；百分比格式按P</p></section>
+<section class="test"><h4>AT26 · §5、FR31、§12</h4><p><strong>前置及操作：</strong>100%/200%字号、键盘打开、手势/三键Back、未保存返回、TalkBack</p><p><strong>期望结果：</strong>主操作可达；先关闭键盘/弹层；退出确认准确；完整日期/状态/只读理由可读</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr11">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-10">
+    <div class="page-heading"><div><span class="eyebrow">图10 · Pen真实导出</span><h2>补记</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/Y8mJyU.png" target="_blank" rel="noopener" aria-label="查看补记原图"><img src="previews/Y8mJyU.png" width="393" height="852" alt="补记设计截图" loading="lazy"></a><figcaption>对应FR12。示例补10/6；提交前提示保存后不能修改，结果和备注一并锁定。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR12、FR10、FR13、FR16、FR31<br><strong>验收：</strong>AT04、AT11、AT12、AT22 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR12｜历史补记（C权限＋B资格）</h3><ul><li>前置：过去日期、当时有效、尚无记录；不得补未来、生效前、固定未选日、暂停无效日。</li><li>暂停/归档：当前暂停/归档均禁止补记；恢复后也不能补暂停前的日期。只有当前运行阶段内已过去的有效空日可补记（C）；已保存历史仍可查看。</li><li>表单：计划名、完整业务日期、当时规则、结果、可选备注；提交前明确“请确认，补记保存后不能修改”。</li><li>保存：同日唯一，提交时标记补记并保存实际提交时间；成功后只读，不能再次覆盖。</li><li>统计：使用补记所属业务日期和当时规则重新聚合；不能按提交日算成今天成功。</li><li>验收AT11–AT12、AT14；设计图10。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared"><summary>FR13｜历史只读查看（C）</summary><div class="shared-body"><p>已有普通历史记录及所有已提交补记，显示结果、业务日期、备注、原提交/最近修改时间、补记/已修改标签。无可编辑字段和保存按钮；解释“历史记录只读”或“补记保存后不能修改”。不能通过详情快捷入口、深层导航或持久化接口绕过限制。</p>
+<p>只读限制包括备注纠错，不能仅锁结果。计划暂停/归档不删除这些记录；运行/暂停计划删除先归档；归档后再次永久删除才按FR29清除历史。记录仅只读，不限制合法未记录日期的新增补记，后者单独判断FR12。验收AT12；只读查看见图22；图12/13历史区域同样遵守权限。</p></div></details>
+<details class="shared" id="requirement-fr16"><summary>FR16｜单计划历史</summary><div class="shared-body"><p>按业务日期倒序（P）显示记录及固定应执行但未记录日；周目标只对有效日期明确空白，不生成每日失败。显示当时规则和状态；跨规则版本回顾不改写旧日期资格。分页或虚拟列表避免长历史导致页面无法操作（工程P）。</p>
+<p>暂停/归档计划仍可回顾；统计按相同日期模型计算。详情若使用月历日期格，也按FR14单下标规则筛选该计划，不能重新并列多个状态；独立记录列表保留结果符号。验收AT18、AT21。设计图12、13、14。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT04 · FR03、12</h4><p><strong>前置及操作：</strong>已有周二/四计划；10/7周三操作，选10/6、10/7、10/8业务日期</p><p><strong>期望结果：</strong>有效周二可补记并只读；周三非选日拒绝；未来周四拒绝；不把操作星期作为资格</p></section>
+<section class="test"><h4>AT11 · FR12、15</h4><p><strong>前置及操作：</strong>运行中历史合法空日补记；生效前/非星期/暂停无效日尝试补记</p><p><strong>期望结果：</strong>合法一次保存并标补记/提交时间；非法无入口或明确拒绝；不移到提交日</p></section>
+<section class="test"><h4>AT12 · FR11–13</h4><p><strong>前置及操作：</strong>当天普通记录改结果/备注；昨日普通记录修改；今天提交历史补记后改备注；编辑页跨午夜保存</p><p><strong>期望结果：</strong>仅普通当天允许；后三项拒绝，原值不变；所有入口权限一致；禁止撤回</p></section>
+<section class="test"><h4>AT22 · FR24、25、27</h4><p><strong>前置及操作：</strong>10/9申请暂停；10/10看状态；暂停时补历史；申请恢复及次日看；同日取消变更</p><p><strong>期望结果：</strong>10/9仍按运行规则；10/10暂停无新要求且不能补记；恢复次日生效；恢复后旧阶段不能补；生效前可取消申请</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr12">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-11">
+    <div class="page-heading"><div><span class="eyebrow">图11 · Pen真实导出</span><h2>全局日历</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/c6Yye.png" target="_blank" rel="noopener" aria-label="查看全局日历原图"><img src="previews/c6Yye.png" width="393" height="1100" alt="全局日历设计截图" loading="lazy"></a><figcaption>对应FR14–15。日期12sp、金黄色分数10sp；今日浅色无进度；无含义介绍行。10/8·5项计划下方为状态筛选框，默认全部（5），可选已完成（2）/未完成（3）。 跨月保留弱色真实日号。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR14、FR15、FR16<br><strong>验收：</strong>AT11、AT13、AT18、AT25 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr14"><h3>FR14｜全局月历</h3><ul><li>入口：日历tab；默认当前月、今天选中（P）；支持上/下月与回到今天。</li><li>网格：周一开头，七列星期与日期严格对齐；跨月日期弱化，选中态与结果态可同时辨认。</li><li>单一下标（本轮C）：除今天外，日期格最多显示一个汇总；全部完成显示绿色✓，否则显示“完成数量/全部数量”，例如2/5、0/3。失败、跳过、未标记/未记录、待处理、取消均不增加完成数。不再在日期格并列多个结果符号。</li><li>点击：每个日期均可选以查看摘要；可记录性由逐计划资格决定，不能禁用整个无记录日导致无法补记。</li><li>未来：可查看固定计划及一次性任务的未来安排；有安排时显示0/总数，明细明确“未来安排”，无记录动作，不把未来日期写成失败。</li><li>今天（用户本轮追加）：日期格使用浅色填充，只显示加粗日期；不使用实心点，不显示✓、C/T或其他完成进度，下标始终为空，包括全完成和零项。选中今天仍可展示下方任务明细与汇总；被选中的日期边框保留，今天填充同时可辨。</li><li>零项：全部数量=0时下标留空，不显示✓、0/0或100%。</li><li>下标样式（用户追加）：C/T为黄色，使用$calendarProgress=#866500金黄色，10sp/600字重，小于日期12sp；按系统字号同比缩放。✓保持绿色，不给失败/跳过各加日期格符号。筛选框与选日明细使用正文样式，不与日期格下标混同。</li><li>选日区域（用户追加）：移除月历下“✓全部完成、C/T完成/全部”的含义介绍行；保留“日期 · T项计划”标题，标题下面不再单列完成统计，改为FR15状态筛选下拉框。逐条明细保留成功、失败、跳过、未记录、取消的颜色/形状。</li><li>统一时区（C）：月份、选中日、今天均按首次使用固定时区；设备时区变化不转换旧日期。</li><li>月历尺寸与边距见§12；验收AT18、AT25。设计图11。</li></ul>
+<p><strong>每日总数的唯一口径（Q28/Q29）：</strong> 对选中业务日期d建立集合U(d)，同一计划同一天最多1项；全部数量T=集合大小，完成数量C=其中成功/完成的数量。名称、备注、修改次数和提交次数不增加项数。按当时规则和保留事实计算，不能只按当前运行状态过滤历史。</p>
+<div class="table-scroll"><table><thead><tr><th>计划类型/事实</th><th>进入U(d)的条件</th><th>完成数</th></tr></thead><tbody><tr><td>固定星期</td><td>d是当时执行期、运行阶段及星期规则的有效执行日；当天/过去/未来均可构成安排；手动归档当日无记录要求取消</td><td>已保存成功+1；失败/跳过/空日+0</td></tr><tr><td>每周N天</td><td>仅d已有周目标记录时计1项（Q28）；未记录的有效日不计日历总数，不产生每日执行债务</td><td>成功+1；失败/跳过+0；周达标不替空白日加勾</td></tr><tr><td>未终结一次性</td><td>仅当前截止日计1项（Q29）；一次性没有暂停/恢复；手动归档取消归档当日及未来未记录安排，过去截止安排仍按保留历史回顾</td><td>尚无终态，+0</td></tr><tr><td>已终结一次性</td><td>仅结果业务日计1项，替代原截止安排（Q29）；完成日=实际完成日，失败/取消沿用既定结果业务日</td><td>完成+1，失败/取消+0；取消明细独立灰色⊘</td></tr><tr><td>暂停/归档保留历史</td><td>有效固定要求及已有记录按原规则保留；当前状态不抹去历史；永久删除才移除该计划全部项</td><td>依既有事实计算</td></tr></tbody></table></div>
+<p>一次性结果与安排不跨日重复：10/10截止、10/9实际完成、10/11补报后，10/9计1个完成项，10/10移除旧截止安排；未终结截止由10/10延至10/15，旧安排移到10/15。旧截止版本留作规则追溯，但不继续生成日历未完成项。补记计业务日，不计提交日。</p>
+<p><strong>指标区别：</strong> 日历C/T表达当天列入集合的任务完成情况，跳过属于未完成且保留在T；FR17固定历史完成率仍按Q11排除跳过，FR19仍只计算已结束完整周。例如2成功＋1跳过，日历2/3，固定历史完成率2/2并另列跳过1；不能共用一个分母函数。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared" id="requirement-fr15"><summary>FR15｜选中日期明细</summary><div class="shared-body"><p>列表逐条显示计划、方向、当时规则、状态、备注摘要和补记/已修改标记（适用时）；当前记录结果与月历、详情一致。</p>
+<p>主列表来源为FR14的U(d)，未筛选数量可从逐条明细核对：固定空日按今天/过去/未来显示待处理/未记录/未来安排；未终结一次性仅截止日出现；周目标已有记录显示真实结果。</p>
+<p><strong>筛选框：</strong> 放在“日期 · T项计划”下面，48dp高、低圆角，默认“全部状态（T）”。展开后为全部状态（T）、已完成（C）、未完成（T−C）；已完成仅成功/完成，未完成包含失败、跳过、未记录/待处理、未来安排、取消。点击选项只筛选主列表，不改日历格C/T、日期标题T、记录或统计；选项数量始终基于筛选前集合，不能越筛越小。</p>
+<p>选择新日期/切月重新选日/回今天时重置全部；从记录页返回同一日保留筛选，数量重新读取。展开框支持Back/点击外部关闭且不改变原筛选，选择后关闭；TalkBack读出选中项和数量。结果为空时显示“该日没有已完成项/未完成项”，可切回全部；整日T=0则显示“该日没有执行项”，不创建伪记录。</p>
+<p>仅历史有效且尚无记录的周目标日期可在独立“可补记的周目标”区提供入口，明确未计入总数、不受主列表状态筛选，不能显示失败；未来周目标可单独说明本周N而不创造每日任务。保存成功后该记录加入集合，更新日期格/筛选选项数量，再按当前筛选显示。</p>
+<p>已有历史记录进入FR13；合法空日进入FR12；今天普通记录进入FR11。暂停/归档及旧执行阶段不给补记入口；已失效安排不提供提交入口。同日期按计划创建先后稳定排序（Q27确认）；日期使用统一固定时区。验收AT11、AT18。</p></div></details>
+<details class="shared"><summary>FR16｜单计划历史</summary><div class="shared-body"><p>按业务日期倒序（P）显示记录及固定应执行但未记录日；周目标只对有效日期明确空白，不生成每日失败。显示当时规则和状态；跨规则版本回顾不改写旧日期资格。分页或虚拟列表避免长历史导致页面无法操作（工程P）。</p>
+<p>暂停/归档计划仍可回顾；统计按相同日期模型计算。详情若使用月历日期格，也按FR14单下标规则筛选该计划，不能重新并列多个状态；独立记录列表保留结果符号。验收AT18、AT21。设计图12、13、14。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT11 · FR12、15</h4><p><strong>前置及操作：</strong>运行中历史合法空日补记；生效前/非星期/暂停无效日尝试补记</p><p><strong>期望结果：</strong>合法一次保存并标补记/提交时间；非法无入口或明确拒绝；不移到提交日</p></section>
+<section class="test"><h4>AT13 · §4、FR14</h4><p><strong>前置及操作：</strong>设备从上海切纽约，查看旧计划记录、截止和周边界</p><p><strong>期望结果：</strong>固定计划时区/业务日期不变；所有计划和全局日期仍按初次固定时区；不可静默移动历史</p></section>
+<section class="test"><h4>AT18 · FR14–16、22</h4><p><strong>前置及操作：</strong>切月/回今天；历史混合5项；全成功/零项/未来/今天/跨午夜；切全部/已完成/未完成并返回；周空白新增；一次性提前完成/延期/取消</p><p><strong>期望结果：</strong>混合日仅2/5，其他全成功仅绿✓，零项空白，未来0/T无提交；今天浅色无点/✓/分数，跨日恢复历史下标；无含义介绍，筛选5/2/3项且标题/格子总数不变；切日重置、返回保留、空筛选有提示；周空白不计、已有失败/跳过计未完成；一次性按Q29替代安排/业务日归属，取消未完成；跳过两种分母分开</p></section>
+<section class="test"><h4>AT25 · FR14、§12</h4><p><strong>前置及操作：</strong>393与360dp宽；6行月份；单下标含0/1、2/5、99/100；100%/200%字号</p><p><strong>期望结果：</strong>合理边距、七列对齐、命中≥48dp；分数10sp/黄色小于日期12sp，完成勾绿，今天无下标；大数和大字号统一增高/换行，不截断分子分母；无横向溢出，阴影不挡触控</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr14">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-12">
+    <div class="page-heading"><div><span class="eyebrow">图12 · Pen真实导出</span><h2>固定详情</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/acN0e.png" target="_blank" rel="noopener" aria-label="查看固定详情原图"><img src="previews/acN0e.png" width="393" height="852" alt="固定详情设计截图" loading="lazy"></a><figcaption>对应FR16–18。全部历史起止与6/8；跳过1、未记录1单列；10/7跳过、10/8成功，今天未提交，连续1。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR17、FR16、FR18、FR22<br><strong>验收：</strong>AT14、AT15、AT18、AT21 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr17"><h3>FR17｜固定计划完成率</h3><p>C：今日已提交立即进入计算，未提交的今天不进入。C：跳过排除分母并独立展示数量；统计期间为全部历史（C），明确显示开始日、截至日和分子/分母。</p>
+<p>统计显示区间（T13已确认）：开始日为既定startsOn；运行/暂停截至当前业务日；自然到期归档截至结束日，其他归档截至归档业务日。显示区间与实际分母分开，暂停空档及今日未提交不因此计入；未来未开始显示“尚未开始”，开始前即归档显示开始日/归档日与“尚未开始即归档”，不显示倒置执行期间。</p>
+<p>设T＝计划今天，E＝按历史规则与生命周期生成的有效固定应执行日期集合，R＝已有记录：</p>
+<ul><li>统计候选集合 S ＝ E中早于T的日期 ＋ E中等于T且已有有效记录的日期。手动归档当天，已有合法记录保留为有效；无记录的当天要求从E取消。自然到期归档保留结束日要求。</li><li>分母 D ＝ S中结果不是跳过的日期数；早于T未记录仍在D。</li><li>分子 N ＝ S中成功日期数；完成率＝N/D，D为0显示“暂无可计算记录”。</li><li>显示成功N/分母D、跳过数、未记录数、统计起止日期；P显示整数百分比四舍五入，内部不截断。</li><li>不把未来纳入、不把操作日期替代业务日期、不让同一天重复计数；范围或跳过政策改变须同步所有页面。</li></ul>
+<div class="table-scroll"><table><thead><tr><th>例子（历史已有6/8）</th><th>保存后的值</th><th>含义</th></tr></thead><tbody><tr><td>今天未提交</td><td>6/8＝75%</td><td>未提交今天排除</td></tr><tr><td>今天成功</td><td>7/9≈78%</td><td>C今日立即计入</td></tr><tr><td>今天失败</td><td>6/9≈67%</td><td>C今日提交，进入分母</td></tr><tr><td>今天跳过</td><td>6/8＝75%，跳过数+1</td><td>C跳过不计分母</td></tr><tr><td>历史未记录补成功</td><td>对原分母日期分子+1</td><td>不新增应执行次数</td></tr><tr><td>今天成功改失败</td><td>分子减1，分母不变</td><td>当日修订立即更新</td></tr></tbody></table></div>
+<p>原公式“只统计已结束”已被C今日计入修正。验收AT14–AT15。设计图12。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR16｜单计划历史</summary><div class="shared-body"><p>按业务日期倒序（P）显示记录及固定应执行但未记录日；周目标只对有效日期明确空白，不生成每日失败。显示当时规则和状态；跨规则版本回顾不改写旧日期资格。分页或虚拟列表避免长历史导致页面无法操作（工程P）。</p>
+<p>暂停/归档计划仍可回顾；统计按相同日期模型计算。详情若使用月历日期格，也按FR14单下标规则筛选该计划，不能重新并列多个状态；独立记录列表保留结果符号。验收AT18、AT21。设计图12、13、14。</p></div></details>
+<details class="shared" id="requirement-fr18"><summary>FR18｜固定连续成功</summary><div class="shared-body"><p>B：按有效应执行日期序列连续成功；失败、跳过、过去未记录中断。七天全选才称“连续成功天数”；否则称“连续成功次数”，星期间隔不是漏做。</p>
+<p>C：未提交今天不立即打断昨日日终值；今天成功后延长，失败/跳过后打断；跨日无记录则中断。只显示当前连续，最长连续延期；暂停实际生效时中断，恢复从新执行阶段累计（C）。例：10/7跳过、10/8成功、10/9未提交，显示连续1。验收AT15，设计图12样例已更正。</p></div></details>
+<details class="shared"><summary>FR22｜计划详情</summary><div class="shared-body"><p>入口为今日卡片标题、计划列表或日历明细。显示名称、说明、方向/类型、时区、有效区间/截止、当前状态、对应统计、历史；右上角管理菜单进入允许的操作。</p>
+<p>未开始、运行中、明日起暂停/恢复等状态要有文字区分；不能在次日生效前就按新状态撤销今天资格。暂停/归档不开放新增补记（C）；查看已有记录仍允许。数据尚未读取/失败、计划已被删除时要有明确状态，不呈现旧缓存作为可保存内容。验收AT18–AT22；设计图12–14。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT14 · FR17</h4><p><strong>前置及操作：</strong>合法历史6成功/8分母，今天分别未提交/成功/失败；今天成功改失败；运行/暂停/归档/未来未开始查看起止</p><p><strong>期望结果：</strong>6/8→7/9或6/9；修订只变分子；截图、详情、全局状态一致；起止按T13，显示截至today不扩大分母，未开始不显示倒置区间；百分比格式按P</p></section>
+<section class="test"><h4>AT15 · FR17、18</h4><p><strong>前置及操作：</strong>10/7跳过、10/8成功、10/9未提交；全跳过数据；给历史未记录补成功</p><p><strong>期望结果：</strong>连续1；零分母无百分比；补记改变统计但不改旧资格；今天未提交保留昨日日终值，暂停中断</p></section>
+<section class="test"><h4>AT18 · FR14–16、22</h4><p><strong>前置及操作：</strong>切月/回今天；历史混合5项；全成功/零项/未来/今天/跨午夜；切全部/已完成/未完成并返回；周空白新增；一次性提前完成/延期/取消</p><p><strong>期望结果：</strong>混合日仅2/5，其他全成功仅绿✓，零项空白，未来0/T无提交；今天浅色无点/✓/分数，跨日恢复历史下标；无含义介绍，筛选5/2/3项且标题/格子总数不变；切日重置、返回保留、空筛选有提示；周空白不计、已有失败/跳过计未完成；一次性按Q29替代安排/业务日归属，取消未完成；跳过两种分母分开</p></section>
+<section class="test"><h4>AT21 · FR16、23</h4><p><strong>前置及操作：</strong>星期/N多次修改、只改名称、保存回当前规则、查看旧日期并合法补记；结束改昨天/今天；逾期截止延后</p><p><strong>期望结果：</strong>星期次日、N下周一且最后保存生效；名称编辑保留待生效规则，保存回当前值取消该字段申请；结束/截止保存即生效，过去日期拒绝，逾期可转待完成；旧日期按旧版本，记录不移动，结束次日归档</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr17">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-13">
+    <div class="page-heading"><div><span class="eyebrow">图13 · Pen真实导出</span><h2>周目标详情</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/i0tdn.png" target="_blank" rel="noopener" aria-label="查看周目标详情原图"><img src="previews/i0tdn.png" width="393" height="852" alt="周目标详情设计截图" loading="lazy"></a><figcaption>对应FR16、19。当前2/3与已结束完整周3/4分开；当前部分周未结束，连续保留2周，周结束时中断。 整周暂停不计达标率，周结束时中断连续。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR19、FR04、FR16、FR22<br><strong>验收：</strong>AT05、AT16、AT17、AT18 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR19｜每周进度与周达标率</h3><p>B：周一至周日、每个成功日期计1天、失败/跳过不加成功天数；同一天重试不重复，4/3仍显示4/3，进度条最多100%。</p>
+<p>C：本周进度随记录立即更新；历史周达标率仅算已结束完整有效周：达标周数÷已结束完整有效周数。完整周无记录时目标未达成；未结束周不提前宣告失败；分母0写暂无完整周。</p>
+<p>全部历史的显示开始/截至日沿用FR17与T13；截至当前业务日不代表当前未结束周进入历史分母。归档的显示截至日冻结，归档造成的部分周仍在自然周结束时中断连续。</p>
+<p>部分周保留实际成功数，标注原因，排除周达标率（B）。部分周结束时中断连续达标（C）；连续周仅统计已结束周，未结束的完整/部分周均暂时保持之前已结束周的连续值；部分周结束后归零，下个完整达标周重新累计。目标N从下周一生效，固定星期次日生效（C）。验收AT16–AT17；设计图13。</p>
+<p><strong>整周暂停（Q32）：</strong> 整个自然周均处于暂停时，该周不是完整有效执行周，不进入周达标率分母；在该周结束时中断连续，结束前保留此前已结束周连续值。达标完整周A → 整周暂停B → 恢复后完整达标周C，C结束后连续为1周，不能跳过B累计为2。尚未开始或已归档后的周不创建执行要求；不能扫描有效周集合并忽略执行阶段间的暂停空档。验收AT17。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR04｜每周N天</summary><div class="shared-body"><ul><li>输入：整数N为1–7，默认3（P）；循环开始/结束采用FR02规则。</li><li>资格：有效期和有效生命周期内，自选当天记录，不要求每天完成；同一业务日期最多计一个成功日。</li><li>进度：本周成功日期数/N；4/3保留实际数4，进度条最高100%；失败/跳过不增加成功天数。</li><li>空白：未选择记录的日子是空白，不能渲染成每天未记录。</li><li>部分周：保存记录并标记原因，不套用完整周结果；周达标率和连续统计仅纳入已结束完整周，部分周中断连续。</li><li>验收：AT05、AT16–AT17。设计图05、13。</li></ul></div></details>
+<details class="shared"><summary>FR16｜单计划历史</summary><div class="shared-body"><p>按业务日期倒序（P）显示记录及固定应执行但未记录日；周目标只对有效日期明确空白，不生成每日失败。显示当时规则和状态；跨规则版本回顾不改写旧日期资格。分页或虚拟列表避免长历史导致页面无法操作（工程P）。</p>
+<p>暂停/归档计划仍可回顾；统计按相同日期模型计算。详情若使用月历日期格，也按FR14单下标规则筛选该计划，不能重新并列多个状态；独立记录列表保留结果符号。验收AT18、AT21。设计图12、13、14。</p></div></details>
+<details class="shared"><summary>FR22｜计划详情</summary><div class="shared-body"><p>入口为今日卡片标题、计划列表或日历明细。显示名称、说明、方向/类型、时区、有效区间/截止、当前状态、对应统计、历史；右上角管理菜单进入允许的操作。</p>
+<p>未开始、运行中、明日起暂停/恢复等状态要有文字区分；不能在次日生效前就按新状态撤销今天资格。暂停/归档不开放新增补记（C）；查看已有记录仍允许。数据尚未读取/失败、计划已被删除时要有明确状态，不呈现旧缓存作为可保存内容。验收AT18–AT22；设计图12–14。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT05 · FR04、10</h4><p><strong>前置及操作：</strong>完整周目标3天，三天成功；其中一天反复提交；第四天成功</p><p><strong>期望结果：</strong>3/3→4/3；同日不重复计数；条最大100%；其他空日不显示失败/未记录</p></section>
+<section class="test"><h4>AT16 · FR19</h4><p><strong>前置及操作：</strong>完整周成功3/3但周未结束；结束后再看；另一完整周0成功</p><p><strong>期望结果：</strong>进度即时3/3；当前未结束周不进入历史周达标率/连续周；空白日不逐日失败，完整周未达标可明确</p></section>
+<section class="test"><h4>AT17 · FR19、23–25</h4><p><strong>前置及操作：</strong>周中开始/暂停/恢复，跨部分周前后两个达标完整周；达标A→整周暂停B→周一恢复并达标C；另测周中改N并下周一生效</p><p><strong>期望结果：</strong>部分周和整周暂停均不计达标率，周结束才中断；A→部分/暂停→C均连续1；暂停周结束前保留此前连续值；合法周一目标变更不令任一完整周变部分周；本周按旧N，下周按最后保存的N</p></section>
+<section class="test"><h4>AT18 · FR14–16、22</h4><p><strong>前置及操作：</strong>切月/回今天；历史混合5项；全成功/零项/未来/今天/跨午夜；切全部/已完成/未完成并返回；周空白新增；一次性提前完成/延期/取消</p><p><strong>期望结果：</strong>混合日仅2/5，其他全成功仅绿✓，零项空白，未来0/T无提交；今天浅色无点/✓/分数，跨日恢复历史下标；无含义介绍，筛选5/2/3项且标题/格子总数不变；切日重置、返回保留、空筛选有提示；周空白不计、已有失败/跳过计未完成；一次性按Q29替代安排/业务日归属，取消未完成；跳过两种分母分开</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr19">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-14">
+    <div class="page-heading"><div><span class="eyebrow">图14 · Pen真实导出</span><h2>一次性详情</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/o7qx2G.png" target="_blank" rel="noopener" aria-label="查看一次性详情原图"><img src="previews/o7qx2G.png" width="393" height="852" alt="一次性详情设计截图" loading="lazy"></a><figcaption>对应FR20。独立逾期状态样例，与其他画板同名任务不是同一数据时间线。 一次性结果参与日历完成数量，不计算固定计划历史完成率或连续。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR20、FR05、FR09、FR22、FR28<br><strong>验收：</strong>AT06、AT07、AT08、AT19、AT20 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr20"><h3>FR20｜一次性回顾</h3><p>仅显示任务状态、截止、实际完成日（完成时）、提交时间、备注和必要修订/补报标记。逾期未终结显示“逾期X天”（P，按计划日差）；按时/迟完成明确来源是实际完成日。失败/取消不伪造完成日期，不显示循环完成率或连续天数。验收AT06–AT08，设计图14、21。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR05｜一次性任务</summary><div class="shared-body"><ul><li>输入：必填截止日期，默认计划今天（P），只允许今天/未来（B）；没有循环星期、每周目标或不要做方向。</li><li>结果状态：待完成、逾期、按时完成、迟完成、失败、取消；逾期是未终结时的时间状态，不自动变成失败。</li><li>判定：实际完成日期≤截止为按时，&gt;截止为迟完成；提交时间不参与该判定（C）。</li><li>限制：未来实际完成日期禁止；实际完成日必须在创建日到今天之间（C）；不允许撤回；普通当天可修正完成/失败/取消，记录业务日期不移动（C）。</li><li>验收：AT06–AT08。设计图06、14、21。</li></ul></div></details>
+<details class="shared"><summary>FR09｜一次性登记完成、失败与取消</summary><div class="shared-body"><ul><li>完成入口：待完成或逾期任务点击“登记完成”，进入独立确认页，不直接终结。</li><li>完成字段：实际完成日期默认计划今天，可选合法过去日期；备注可空；页面同时展示截止日期和预判结果。</li><li>时间：保存实际完成日期与提交时间。10/10截止、10/9完成、10/11录入仍为按时完成，并标记历史补报。</li><li>历史权限：过去完成日的补报保存后立即只读；今天的普通记录仅当天可改。不能因10/11提交而开放修改10/9事实。</li><li>失败/取消：显式结果确认和可选备注，分别显示失败/取消；不是循环“跳过”。结果业务日期为提交当天；普通当日可在完成/失败/取消间修正，业务日期不移动；历史补报只读（C）。</li><li>终态显示：结果、截止、实际完成日（适用时）、提交时间、备注、补记/已修改标签；不计算固定计划历史完成率或连续打卡，结果仍按FR14进入日历每日完成集合。</li><li>验收AT06–AT08、AT12；设计图14、21。失败/取消共用确认行为，尚无独立完整画板。</li></ul></div></details>
+<details class="shared"><summary>FR22｜计划详情</summary><div class="shared-body"><p>入口为今日卡片标题、计划列表或日历明细。显示名称、说明、方向/类型、时区、有效区间/截止、当前状态、对应统计、历史；右上角管理菜单进入允许的操作。</p>
+<p>未开始、运行中、明日起暂停/恢复等状态要有文字区分；不能在次日生效前就按新状态撤销今天资格。暂停/归档不开放新增补记（C）；查看已有记录仍允许。数据尚未读取/失败、计划已被删除时要有明确状态，不呈现旧缓存作为可保存内容。验收AT18–AT22；设计图12–14。</p></div></details>
+<details class="shared"><summary>FR28｜自然结束与一次性终态归类</summary><div class="shared-body"><p>循环结束日期当天仍可执行，次日自动归档（C）。此后历史只读、不能补记、不能恢复或续期；归档前可按FR23编辑合法结束日期。</p>
+<p>一次性普通终态移入今日已记录，保留到当天结束，次日自动归档；历史补报保存后立即归档（C）。未归档普通当天可修正三种结果，但不撤回、不移动记录日期；归档或历史补报只能查看。未归档列表须明确标结果，不能把列表归类写成仍待完成。验收AT19、AT23。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（5组）</summary><section class="test"><h4>AT06 · FR05、09、20</h4><p><strong>前置及操作：</strong>截止10/10；10/11登记实际10/9完成</p><p><strong>期望结果：</strong>按时完成；实际日10/9、提交日10/11分开；历史补报标记，保存后不可改</p></section>
+<section class="test"><h4>AT07 · FR05、09</h4><p><strong>前置及操作：</strong>同截止任务，实际10/11完成；实际未来10/12；不填写实际日</p><p><strong>期望结果：</strong>10/11迟完成；未来拒绝；日期必填；无提交成功则任务仍保持原状态</p></section>
+<section class="test"><h4>AT08 · FR05、09、28</h4><p><strong>前置及操作：</strong>10/11查看未终结10/10任务，分别确认失败/取消</p><p><strong>期望结果：</strong>未操作显示逾期并仍可见；失败/取消分别成为显式终态，无伪造完成日；普通终态次日、历史补报立即归档</p></section>
+<section class="test"><h4>AT19 · FR21、28</h4><p><strong>前置及操作：</strong>分别查看未来计划、暂停、归档、自然结束和一次性各种终态</p><p><strong>期望结果：</strong>每项可在明确分类找到；无数据说明筛选；循环结束次日自动归档；普通终态次日、历史补报立即归档</p></section>
+<section class="test"><h4>AT20 · FR22</h4><p><strong>前置及操作：</strong>详情打开后计划被删除，或读库失败，继续操作</p><p><strong>期望结果：</strong>明确不可用状态；不从旧缓存提交新记录</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr20">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-15">
+    <div class="page-heading"><div><span class="eyebrow">图15 · Pen真实导出</span><h2>编辑计划</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/s1Nbh.png" target="_blank" rel="noopener" aria-label="查看编辑计划原图"><img src="previews/s1Nbh.png" width="393" height="852" alt="编辑计划设计截图" loading="lazy"></a><figcaption>对应FR23。仅运行中可编辑；固定星期明天、每周N下周一，结束/截止即时；暂停/归档不可编辑。图为固定计划示例。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR23、FR02、FR16、FR22、FR31<br><strong>验收：</strong>AT02、AT17、AT21 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr23"><h3>FR23｜编辑基本信息与规则</h3><div class="table-scroll"><table><thead><tr><th>字段</th><th>基线/提案</th><th>历史影响与开放点</th></tr></thead><tbody><tr><td>名称、说明</td><td>仅运行中允许修改（C）</td><td>历史结果不改变，历史列表显示新名称</td></tr><tr><td>方向、类型、时区、既定开始日</td><td>首版不可修改（C）</td><td>页面只读说明；要改变则新建</td></tr><tr><td>固定星期</td><td>允许修改并留规则版本</td><td>次日生效（C），旧日期仍按旧版本</td></tr><tr><td>每周N</td><td>允许修改</td><td>下周一生效（C），一周使用一个目标值</td></tr><tr><td>循环结束日</td><td>运行中可修改（C）</td><td>保存后立即生效（T9）；新值不能早于今天/开始；不追溯否定历史，结束包含当日</td></tr><tr><td>一次性截止日</td><td>未终结且未归档才可修改（C）</td><td>保存后立即生效（T9）；新值不早于今天；逾期延后可立即转待完成，终态后截止只读</td></tr></tbody></table></div>
+<p>编辑页按字段展示生效时间：名称/说明和结束/截止保存后立即，固定星期次日，每周N下周一。待生效规则多次编辑仅最后保存生效（T7），同时显示当前值与待生效值；只改名称不覆盖已有待生效规则。T12已确认：将该字段保存回当前生效值即取消该字段待生效申请，未触及字段保留；输入初值优先显示待生效值，避免无意取消。保存前比较旧值，无变化可直接返回（P）。规则变化不会移动或删除已有记录；补记仍按旧日期对应版本判合法，统计按FR17–19重聚合。已归档仅查看或永久删除（C），不提供编辑；暂停不能编辑任何字段，仅可改状态；未终结一次性任务可编辑截止，归档全部不可编辑（C）。验收AT21；设计图15。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR02｜创建公共字段与校验</summary><div class="shared-body"><div class="table-scroll"><table><thead><tr><th>字段</th><th>输入/默认</th><th>校验与反馈</th><th>状态</th></tr></thead><tbody><tr><td>名称</td><td>必填；默认空</td><td>去首尾空白后非空，上限80；错误贴近字段</td><td>B；计数口径P</td></tr><tr><td>类型</td><td>固定/每周/一次性</td><td>切换后只提交当前类型字段；不把隐藏旧值写入新类型</td><td>B/P</td></tr><tr><td>方向</td><td>循环要做/不要做，默认要做</td><td>一次性固定要做，无方向切换</td><td>B</td></tr><tr><td>说明</td><td>可选，默认空</td><td>上限1000，可换行；空值合法</td><td>B</td></tr><tr><td>时区</td><td>使用首次使用固定时区，只读</td><td>所有计划共用；获取失败禁止不明日期保存</td><td>C/P异常</td></tr><tr><td>循环开始</td><td>默认计划今天</td><td>只允许今天/未来</td><td>C</td></tr><tr><td>循环结束</td><td>可空</td><td>有值时≥开始，包含当日</td><td>B</td></tr><tr><td>结果备注</td><td>可空</td><td>上限2000，无备注也可保存</td><td>B</td></tr></tbody></table></div>
+<p>C：长度按Unicode码点计数，避免UTF-16将常用emoji拆成两个字符；组合emoji可能包含多个码点。标题单行，内部换行拒绝；同名计划允许，由规则/方向辅助辨认。输入限制与错误文案一致，不仅靠客户端截断。标题单行、限制与同名政策均按本版执行。</p>
+<p>保存按钮仅在必填合法时可提交；保存中禁用，失败保留所有输入。取消有变更需确认。成功后进入新计划详情（P），返回今日/列表时计划立即可见；未来开始的循环暂不进入今日。类型切换保留共通字段，清除不适用字段前提示（P，D26）。</p></div></details>
+<details class="shared"><summary>FR16｜单计划历史</summary><div class="shared-body"><p>按业务日期倒序（P）显示记录及固定应执行但未记录日；周目标只对有效日期明确空白，不生成每日失败。显示当时规则和状态；跨规则版本回顾不改写旧日期资格。分页或虚拟列表避免长历史导致页面无法操作（工程P）。</p>
+<p>暂停/归档计划仍可回顾；统计按相同日期模型计算。详情若使用月历日期格，也按FR14单下标规则筛选该计划，不能重新并列多个状态；独立记录列表保留结果符号。验收AT18、AT21。设计图12、13、14。</p></div></details>
+<details class="shared"><summary>FR22｜计划详情</summary><div class="shared-body"><p>入口为今日卡片标题、计划列表或日历明细。显示名称、说明、方向/类型、时区、有效区间/截止、当前状态、对应统计、历史；右上角管理菜单进入允许的操作。</p>
+<p>未开始、运行中、明日起暂停/恢复等状态要有文字区分；不能在次日生效前就按新状态撤销今天资格。暂停/归档不开放新增补记（C）；查看已有记录仍允许。数据尚未读取/失败、计划已被删除时要有明确状态，不呈现旧缓存作为可保存内容。验收AT18–AT22；设计图12–14。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（3组）</summary><section class="test"><h4>AT02 · FR02</h4><p><strong>前置及操作：</strong>名称全空白、81码点、80码点；空说明与超1000；一次性切回循环；首次固定星期未选、选择一天、全部取消</p><p><strong>期望结果：</strong>非法值字段提示；合法边界可保存；隐藏类型字段不混入；码点计数与边界如FR02；星期默认未选，至少手动选一天才能保存，全部取消再禁用</p></section>
+<section class="test"><h4>AT17 · FR19、23–25</h4><p><strong>前置及操作：</strong>周中开始/暂停/恢复，跨部分周前后两个达标完整周；达标A→整周暂停B→周一恢复并达标C；另测周中改N并下周一生效</p><p><strong>期望结果：</strong>部分周和整周暂停均不计达标率，周结束才中断；A→部分/暂停→C均连续1；暂停周结束前保留此前连续值；合法周一目标变更不令任一完整周变部分周；本周按旧N，下周按最后保存的N</p></section>
+<section class="test"><h4>AT21 · FR16、23</h4><p><strong>前置及操作：</strong>星期/N多次修改、只改名称、保存回当前规则、查看旧日期并合法补记；结束改昨天/今天；逾期截止延后</p><p><strong>期望结果：</strong>星期次日、N下周一且最后保存生效；名称编辑保留待生效规则，保存回当前值取消该字段申请；结束/截止保存即生效，过去日期拒绝，逾期可转待完成；旧日期按旧版本，记录不移动，结束次日归档</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr23">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-16">
+    <div class="page-heading"><div><span class="eyebrow">图16 · Pen真实导出</span><h2>暂停与恢复确认</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/QpNMQ.png" target="_blank" rel="noopener" aria-label="查看暂停与恢复确认原图"><img src="previews/QpNMQ.png" width="393" height="852" alt="暂停与恢复确认设计截图" loading="lazy"></a><figcaption>对应FR24–25。并列确认暂停、恢复说明、待生效可取消三种状态样例；实际页面只呈现当前适用状态。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR24、FR25、FR27、FR28<br><strong>验收：</strong>AT17、AT22 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr24"><h3>FR24｜暂停（C生效日）</h3><ul><li>前置：当前运行中的循环；一次性任务不提供暂停入口（Q27确认）。</li><li>确认：显示“从计划时区的明天暂停；今天仍可记录，已有记录保留”及具体生效日期。</li><li>结果：保存生命周期事件，生效前展示“明日起暂停”；生效后停止新要求，列表归暂停。</li><li>补记：实际处于暂停时不能新增补记（C）；暂停之前已保存补记依旧只读。</li><li>重复：已有同类待生效申请时不再新增；生效前可取消，取消后仍按原状态。</li><li>验收AT22；设计图16（并列确认、恢复说明和待生效申请样例；实际页面只展示适用状态）。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared" id="requirement-fr25"><summary>FR25｜恢复（C生效日）</summary><div class="shared-body"><p>暂停循环可申请恢复，从计划时区明天生效；恢复当天仍按原暂停状态，不立即产生今天执行资格。生效后按当时有效规则生成后续日期，不把暂停期间空白补成漏做。</p>
+<p>恢复后不能补记暂停前的任何日期（C），暂停期间无效日期同样不能补记。恢复只开启新的执行阶段；新阶段内过去的合法空日可补记。周内恢复产生部分周（B，统计D14）。确认页展示生效日与恢复后的规则摘要。验收AT22；设计图16。</p></div></details>
+<details class="shared" id="requirement-fr27"><summary>FR27｜同日待生效状态变更</summary><div class="shared-body"><p>因暂停/恢复均次日生效，当天必须区分当前有效状态与已申请状态。C：生效前可取消申请；同一计划同一生效日只保留一个有效状态申请（Q27确认），取消后沿用原状态。取消暂停不叫恢复，不能借取消改写已经生效的暂停历史。</p>
+<p>表单若在午夜跨入生效日，重新读取有效状态；已生效的申请不能取消。验收AT22。</p></div></details>
+<details class="shared"><summary>FR28｜自然结束与一次性终态归类</summary><div class="shared-body"><p>循环结束日期当天仍可执行，次日自动归档（C）。此后历史只读、不能补记、不能恢复或续期；归档前可按FR23编辑合法结束日期。</p>
+<p>一次性普通终态移入今日已记录，保留到当天结束，次日自动归档；历史补报保存后立即归档（C）。未归档普通当天可修正三种结果，但不撤回、不移动记录日期；归档或历史补报只能查看。未归档列表须明确标结果，不能把列表归类写成仍待完成。验收AT19、AT23。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（2组）</summary><section class="test"><h4>AT17 · FR19、23–25</h4><p><strong>前置及操作：</strong>周中开始/暂停/恢复，跨部分周前后两个达标完整周；达标A→整周暂停B→周一恢复并达标C；另测周中改N并下周一生效</p><p><strong>期望结果：</strong>部分周和整周暂停均不计达标率，周结束才中断；A→部分/暂停→C均连续1；暂停周结束前保留此前连续值；合法周一目标变更不令任一完整周变部分周；本周按旧N，下周按最后保存的N</p></section>
+<section class="test"><h4>AT22 · FR24、25、27</h4><p><strong>前置及操作：</strong>10/9申请暂停；10/10看状态；暂停时补历史；申请恢复及次日看；同日取消变更</p><p><strong>期望结果：</strong>10/9仍按运行规则；10/10暂停无新要求且不能补记；恢复次日生效；恢复后旧阶段不能补；生效前可取消申请</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr24">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-17">
+    <div class="page-heading"><div><span class="eyebrow">图17 · Pen真实导出</span><h2>删除并保留历史</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/lsJHj.png" target="_blank" rel="noopener" aria-label="查看删除并保留历史原图"><img src="previews/lsJHj.png" width="393" height="852" alt="删除并保留历史设计截图" loading="lazy"></a><figcaption>对应FR26、29。运行/暂停删除后立即归档，保留历史，所有记录只读；不可恢复，未记录当日要求取消。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR26、FR27、FR28、FR29、FR32<br><strong>验收：</strong>AT23、AT24 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr26"><h3>FR26｜删除后立即归档（C）</h3><p>运行中或暂停的计划选择删除，只移入归档，不清除计划、打卡、备注和统计。确认页明确“删除后移入归档，保留全部历史”，主按钮“确认移入归档”，不能提供直接清库的旁路。归档当日已有记录计入历史，尚未记录的要求取消（C）。</p>
+<p>确认并成功落盘后立即归档：从今日移除，取消未生效的暂停/恢复等后续执行申请，不再产生新要求；列表可在已归档找到。归档当日已有普通记录也变为只读，不能继续改或补记。</p>
+<p>归档后不恢复，不提供名称/规则编辑和新增记录；只能查看历史或进入归档计划的永久删除。暂时停用使用暂停。因归档导致本周不完整，标部分周、排除周达标率，并在该部分周结束时中断连续（C），不在归档瞬间提前归零。失败时仍保留原状态与数据，不假报归档成功。</p>
+<p>验收AT23，设计图17。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR27｜同日待生效状态变更</summary><div class="shared-body"><p>因暂停/恢复均次日生效，当天必须区分当前有效状态与已申请状态。C：生效前可取消申请；同一计划同一生效日只保留一个有效状态申请（Q27确认），取消后沿用原状态。取消暂停不叫恢复，不能借取消改写已经生效的暂停历史。</p>
+<p>表单若在午夜跨入生效日，重新读取有效状态；已生效的申请不能取消。验收AT22。</p></div></details>
+<details class="shared"><summary>FR28｜自然结束与一次性终态归类</summary><div class="shared-body"><p>循环结束日期当天仍可执行，次日自动归档（C）。此后历史只读、不能补记、不能恢复或续期；归档前可按FR23编辑合法结束日期。</p>
+<p>一次性普通终态移入今日已记录，保留到当天结束，次日自动归档；历史补报保存后立即归档（C）。未归档普通当天可修正三种结果，但不撤回、不移动记录日期；归档或历史补报只能查看。未归档列表须明确标结果，不能把列表归类写成仍待完成。验收AT19、AT23。</p></div></details>
+<details class="shared" id="requirement-fr29"><summary>FR29｜归档后永久删除（C）</summary><div class="shared-body"><ul><li>两阶段入口：运行/暂停计划的删除走FR26；只有已归档计划才显示“永久删除”。</li><li>确认：显示计划名称及记录数量（P），说明“计划和全部历史打卡、文字备注将永久删除，不能撤销”；取消继续保留归档数据。</li><li>提交：再次显式确认后，以一个事务删除计划、规则、生命周期、记录及修订信息；落盘成功才返回已归档列表。</li><li>异常：失败保留整套归档数据，提示重试；不能只删计划、留下关联记录，也不能提前从界面假移除。</li><li>影响：永久删除后今日、日历、详情、列表和统计均不再包含该计划。归档不会清除这些历史。</li><li>边界：不能直接永久删除运行/暂停计划，不提供单条历史记录删除、撤回或清空全部数据库入口。</li><li>验收AT23–AT24，设计图18。</li></ul></div></details>
+<details class="shared"><summary>FR32｜读写、升级与异常</summary><div class="shared-body"><p>B：SQLite是本机权威数据源，关联更新使用事务；初始化、查询、保存、迁移失败分别处理：</p>
+<ul><li>初始化/读库失败：阻断正常数据页，显示“无法读取本机数据”，可重试，不伪装首次空态。</li><li>保存失败：保留表单输入，原已保存数据不变；“继续编辑/重试”可用，重试幂等。</li><li>迁移失败：保留原库，不悄悄清空重建，不声称升级成功；应用可显示恢复指引但无首版导入恢复功能。</li><li>存储空间不足/数据库不可写：明确失败，不内存假成功；可离开页面查看已有数据（能读取时）。</li><li>已确认采用普通SQLite和Android应用私有目录（T2），不引入数据库密钥错误流程；读取异常仍不能当作无记录。</li></ul>
+<p>独立APK内置JS、字体、图标与所需资产；关闭Metro后核心读写仍可用。验收AT24、AT28；设计图20。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（2组）</summary><section class="test"><h4>AT23 · FR26、29</h4><p><strong>前置及操作：</strong>运行/暂停计划删除；分别有/无今天记录；归档查看；归档计划永久删除取消再确认</p><p><strong>期望结果：</strong>立即归档且历史保留；已有今日继续统计、今日未记录要求取消；自然到期保留结束日；永久删除仅归档可达、取消保留、确认事务清除</p></section>
+<section class="test"><h4>AT24 · FR10、29、31、32</h4><p><strong>前置及操作：</strong>注入写失败、空间不足、双击、并发同日新增、迁移失败和重启</p><p><strong>期望结果：</strong>不假报成功；输入保留；记录唯一；事务无半成品；迁移原库保留，不静默清库</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr26">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-18">
+    <div class="page-heading"><div><span class="eyebrow">图18 · Pen真实导出</span><h2>归档后永久删除</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/IlUYa.png" target="_blank" rel="noopener" aria-label="查看归档后永久删除原图"><img src="previews/IlUYa.png" width="393" height="852" alt="归档后永久删除设计截图" loading="lazy"></a><figcaption>对应FR29。只有已归档计划可永久删除，明确清除计划及全部记录、备注；取消继续保留。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR29、FR26、FR32<br><strong>验收：</strong>AT23、AT24 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR29｜归档后永久删除（C）</h3><ul><li>两阶段入口：运行/暂停计划的删除走FR26；只有已归档计划才显示“永久删除”。</li><li>确认：显示计划名称及记录数量（P），说明“计划和全部历史打卡、文字备注将永久删除，不能撤销”；取消继续保留归档数据。</li><li>提交：再次显式确认后，以一个事务删除计划、规则、生命周期、记录及修订信息；落盘成功才返回已归档列表。</li><li>异常：失败保留整套归档数据，提示重试；不能只删计划、留下关联记录，也不能提前从界面假移除。</li><li>影响：永久删除后今日、日历、详情、列表和统计均不再包含该计划。归档不会清除这些历史。</li><li>边界：不能直接永久删除运行/暂停计划，不提供单条历史记录删除、撤回或清空全部数据库入口。</li><li>验收AT23–AT24，设计图18。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR26｜删除后立即归档（C）</summary><div class="shared-body"><p>运行中或暂停的计划选择删除，只移入归档，不清除计划、打卡、备注和统计。确认页明确“删除后移入归档，保留全部历史”，主按钮“确认移入归档”，不能提供直接清库的旁路。归档当日已有记录计入历史，尚未记录的要求取消（C）。</p>
+<p>确认并成功落盘后立即归档：从今日移除，取消未生效的暂停/恢复等后续执行申请，不再产生新要求；列表可在已归档找到。归档当日已有普通记录也变为只读，不能继续改或补记。</p>
+<p>归档后不恢复，不提供名称/规则编辑和新增记录；只能查看历史或进入归档计划的永久删除。暂时停用使用暂停。因归档导致本周不完整，标部分周、排除周达标率，并在该部分周结束时中断连续（C），不在归档瞬间提前归零。失败时仍保留原状态与数据，不假报归档成功。</p>
+<p>验收AT23，设计图17。</p></div></details>
+<details class="shared"><summary>FR32｜读写、升级与异常</summary><div class="shared-body"><p>B：SQLite是本机权威数据源，关联更新使用事务；初始化、查询、保存、迁移失败分别处理：</p>
+<ul><li>初始化/读库失败：阻断正常数据页，显示“无法读取本机数据”，可重试，不伪装首次空态。</li><li>保存失败：保留表单输入，原已保存数据不变；“继续编辑/重试”可用，重试幂等。</li><li>迁移失败：保留原库，不悄悄清空重建，不声称升级成功；应用可显示恢复指引但无首版导入恢复功能。</li><li>存储空间不足/数据库不可写：明确失败，不内存假成功；可离开页面查看已有数据（能读取时）。</li><li>已确认采用普通SQLite和Android应用私有目录（T2），不引入数据库密钥错误流程；读取异常仍不能当作无记录。</li></ul>
+<p>独立APK内置JS、字体、图标与所需资产；关闭Metro后核心读写仍可用。验收AT24、AT28；设计图20。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（2组）</summary><section class="test"><h4>AT23 · FR26、29</h4><p><strong>前置及操作：</strong>运行/暂停计划删除；分别有/无今天记录；归档查看；归档计划永久删除取消再确认</p><p><strong>期望结果：</strong>立即归档且历史保留；已有今日继续统计、今日未记录要求取消；自然到期保留结束日；永久删除仅归档可达、取消保留、确认事务清除</p></section>
+<section class="test"><h4>AT24 · FR10、29、31、32</h4><p><strong>前置及操作：</strong>注入写失败、空间不足、双击、并发同日新增、迁移失败和重启</p><p><strong>期望结果：</strong>不假报成功；输入保留；记录唯一；事务无半成品；迁移原库保留，不静默清库</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr29">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-19">
+    <div class="page-heading"><div><span class="eyebrow">图19 · Pen真实导出</span><h2>本机设置</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/l0Vci.png" target="_blank" rel="noopener" aria-label="查看本机设置原图"><img src="previews/l0Vci.png" width="393" height="852" alt="本机设置设计截图" loading="lazy"></a><figcaption>对应FR30。本机保存、无备份/云同步；首次使用固定时区且全部计划共用。版本为样例。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR30、FR01、FR32<br><strong>验收：</strong>AT01、AT13、AT27 · <span class="not-run">尚未执行</span></p><section class="requirement" id="requirement-fr30"><h3>FR30｜本机设置</h3><p>今日右上角进入。显示应用版本、数据保存在本设备、无账号/云同步、无手动备份、卸载/清除数据后记录消失、时区与结果规则说明。不能显示“已同步”或虚假的恢复按钮。需要能查到“归档＝停止执行但保留历史”的解释。</p>
+<p>设置不承担计划删除入口；V1无整库重置按钮（P）。版本信息来自安装包，不能把设计样例“1.0.0”硬编码成所有构建版本。验收AT01/AT27，设计图19。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR01｜首次启动与今日空态</summary><div class="shared-body"><ul><li>目的/入口：安装后直接进入今日，免登录；数据库读取完成且计划数为0才展示空态。</li><li>展示：应用定位、一句本机说明、“创建第一个计划”按钮；不预置样例计划。</li><li>操作结果：进入统一新建页，默认类型为固定日期循环（P）；已存在数据直接显示真实内容。</li><li>异常：读库失败显示FR32错误状态，不显示“开始使用”伪空态。</li><li>验收：AT01。设计图01。</li></ul></div></details>
+<details class="shared"><summary>FR32｜读写、升级与异常</summary><div class="shared-body"><p>B：SQLite是本机权威数据源，关联更新使用事务；初始化、查询、保存、迁移失败分别处理：</p>
+<ul><li>初始化/读库失败：阻断正常数据页，显示“无法读取本机数据”，可重试，不伪装首次空态。</li><li>保存失败：保留表单输入，原已保存数据不变；“继续编辑/重试”可用，重试幂等。</li><li>迁移失败：保留原库，不悄悄清空重建，不声称升级成功；应用可显示恢复指引但无首版导入恢复功能。</li><li>存储空间不足/数据库不可写：明确失败，不内存假成功；可离开页面查看已有数据（能读取时）。</li><li>已确认采用普通SQLite和Android应用私有目录（T2），不引入数据库密钥错误流程；读取异常仍不能当作无记录。</li></ul>
+<p>独立APK内置JS、字体、图标与所需资产；关闭Metro后核心读写仍可用。验收AT24、AT28；设计图20。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（3组）</summary><section class="test"><h4>AT01 · FR01、30、32</h4><p><strong>前置及操作：</strong>清洁安装，飞行模式启动；创建每日计划，提交，关闭应用再启动</p><p><strong>期望结果：</strong>无登录；读取完才显示空态；最终保存后反馈本机成功；重启名称、结果和备注一致</p></section>
+<section class="test"><h4>AT13 · §4、FR14</h4><p><strong>前置及操作：</strong>设备从上海切纽约，查看旧计划记录、截止和周边界</p><p><strong>期望结果：</strong>固定计划时区/业务日期不变；所有计划和全局日期仍按初次固定时区；不可静默移动历史</p></section>
+<section class="test"><h4>AT27 · §3、FR30</h4><p><strong>前置及操作：</strong>检查所有入口、权限弹窗与设置说明</p><p><strong>期望结果：</strong>无延期能力空按钮；无通知/照片权限请求；无备份承诺、无同步文案，版本真实</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr30">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-20">
+    <div class="page-heading"><div><span class="eyebrow">图20 · Pen真实导出</span><h2>存储异常</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/B46K5.png" target="_blank" rel="noopener" aria-label="查看存储异常原图"><img src="previews/B46K5.png" width="393" height="852" alt="存储异常设计截图" loading="lazy"></a><figcaption>对应FR10、32。此图为写入失败；初始化/读取/迁移需不同提示，不能清库；使用普通SQLite。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR32、FR10、FR31<br><strong>验收：</strong>AT01、AT09、AT20、AT24、AT28 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR32｜读写、升级与异常</h3><p>B：SQLite是本机权威数据源，关联更新使用事务；初始化、查询、保存、迁移失败分别处理：</p>
+<ul><li>初始化/读库失败：阻断正常数据页，显示“无法读取本机数据”，可重试，不伪装首次空态。</li><li>保存失败：保留表单输入，原已保存数据不变；“继续编辑/重试”可用，重试幂等。</li><li>迁移失败：保留原库，不悄悄清空重建，不声称升级成功；应用可显示恢复指引但无首版导入恢复功能。</li><li>存储空间不足/数据库不可写：明确失败，不内存假成功；可离开页面查看已有数据（能读取时）。</li><li>已确认采用普通SQLite和Android应用私有目录（T2），不引入数据库密钥错误流程；读取异常仍不能当作无记录。</li></ul>
+<p>独立APK内置JS、字体、图标与所需资产；关闭Metro后核心读写仍可用。验收AT24、AT28；设计图20。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（5组）</summary><section class="test"><h4>AT01 · FR01、30、32</h4><p><strong>前置及操作：</strong>清洁安装，飞行模式启动；创建每日计划，提交，关闭应用再启动</p><p><strong>期望结果：</strong>无登录；读取完才显示空态；最终保存后反馈本机成功；重启名称、结果和备注一致</p></section>
+<section class="test"><h4>AT09 · FR07、09、10、12、31</h4><p><strong>前置及操作：</strong>今日点成功，填备注后取消；再进入确认保存；重复点保存；首次循环/一次性完成页10/9跨至10/10保存</p><p><strong>期望结果：</strong>取消不落盘；正常最终保存仅一条；跨日旧提交不写、输入保留；合法日期显式重进补记确认，确认只读/一次性归档后才提交；暂停/归档后禁止；一次性失败/取消重新确认新的当日结果；已成功重试不重复</p></section>
+<section class="test"><h4>AT20 · FR22</h4><p><strong>前置及操作：</strong>详情打开后计划被删除，或读库失败，继续操作</p><p><strong>期望结果：</strong>明确不可用状态；不从旧缓存提交新记录</p></section>
+<section class="test"><h4>AT24 · FR10、29、31、32</h4><p><strong>前置及操作：</strong>注入写失败、空间不足、双击、并发同日新增、迁移失败和重启</p><p><strong>期望结果：</strong>不假报成功；输入保留；记录唯一；事务无半成品；迁移原库保留，不静默清库</p></section>
+<section class="test"><h4>AT28 · FR32、§12</h4><p><strong>前置及操作：</strong>安装独立APK、关Metro、飞行模式冷启动；基础数据量与支持系统矩阵</p><p><strong>期望结果：</strong>内置资源完整、核心读写可用、重启保留；性能按确定预算测量，不能用开发包替代</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr32">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-21">
+    <div class="page-heading"><div><span class="eyebrow">图21 · Pen真实导出</span><h2>一次性实际完成日</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/L47R3V.png" target="_blank" rel="noopener" aria-label="查看一次性实际完成日原图"><img src="previews/L47R3V.png" width="393" height="852" alt="一次性实际完成日设计截图" loading="lazy"></a><figcaption>对应FR09。实际完成日与提交时间分开，日期范围为创建日到今天；历史补报立即归档并只读。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR09、FR05、FR10、FR13、FR28、FR31<br><strong>验收：</strong>AT06、AT07、AT08、AT12 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR09｜一次性登记完成、失败与取消</h3><ul><li>完成入口：待完成或逾期任务点击“登记完成”，进入独立确认页，不直接终结。</li><li>完成字段：实际完成日期默认计划今天，可选合法过去日期；备注可空；页面同时展示截止日期和预判结果。</li><li>时间：保存实际完成日期与提交时间。10/10截止、10/9完成、10/11录入仍为按时完成，并标记历史补报。</li><li>历史权限：过去完成日的补报保存后立即只读；今天的普通记录仅当天可改。不能因10/11提交而开放修改10/9事实。</li><li>失败/取消：显式结果确认和可选备注，分别显示失败/取消；不是循环“跳过”。结果业务日期为提交当天；普通当日可在完成/失败/取消间修正，业务日期不移动；历史补报只读（C）。</li><li>终态显示：结果、截止、实际完成日（适用时）、提交时间、备注、补记/已修改标签；不计算固定计划历史完成率或连续打卡，结果仍按FR14进入日历每日完成集合。</li><li>验收AT06–AT08、AT12；设计图14、21。失败/取消共用确认行为，尚无独立完整画板。</li></ul></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR05｜一次性任务</summary><div class="shared-body"><ul><li>输入：必填截止日期，默认计划今天（P），只允许今天/未来（B）；没有循环星期、每周目标或不要做方向。</li><li>结果状态：待完成、逾期、按时完成、迟完成、失败、取消；逾期是未终结时的时间状态，不自动变成失败。</li><li>判定：实际完成日期≤截止为按时，&gt;截止为迟完成；提交时间不参与该判定（C）。</li><li>限制：未来实际完成日期禁止；实际完成日必须在创建日到今天之间（C）；不允许撤回；普通当天可修正完成/失败/取消，记录业务日期不移动（C）。</li><li>验收：AT06–AT08。设计图06、14、21。</li></ul></div></details>
+<details class="shared"><summary>FR10｜最终提交、唯一性与并发</summary><div class="shared-body"><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></div></details>
+<details class="shared"><summary>FR13｜历史只读查看（C）</summary><div class="shared-body"><p>已有普通历史记录及所有已提交补记，显示结果、业务日期、备注、原提交/最近修改时间、补记/已修改标签。无可编辑字段和保存按钮；解释“历史记录只读”或“补记保存后不能修改”。不能通过详情快捷入口、深层导航或持久化接口绕过限制。</p>
+<p>只读限制包括备注纠错，不能仅锁结果。计划暂停/归档不删除这些记录；运行/暂停计划删除先归档；归档后再次永久删除才按FR29清除历史。记录仅只读，不限制合法未记录日期的新增补记，后者单独判断FR12。验收AT12；只读查看见图22；图12/13历史区域同样遵守权限。</p></div></details>
+<details class="shared"><summary>FR28｜自然结束与一次性终态归类</summary><div class="shared-body"><p>循环结束日期当天仍可执行，次日自动归档（C）。此后历史只读、不能补记、不能恢复或续期；归档前可按FR23编辑合法结束日期。</p>
+<p>一次性普通终态移入今日已记录，保留到当天结束，次日自动归档；历史补报保存后立即归档（C）。未归档普通当天可修正三种结果，但不撤回、不移动记录日期；归档或历史补报只能查看。未归档列表须明确标结果，不能把列表归类写成仍待完成。验收AT19、AT23。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（4组）</summary><section class="test"><h4>AT06 · FR05、09、20</h4><p><strong>前置及操作：</strong>截止10/10；10/11登记实际10/9完成</p><p><strong>期望结果：</strong>按时完成；实际日10/9、提交日10/11分开；历史补报标记，保存后不可改</p></section>
+<section class="test"><h4>AT07 · FR05、09</h4><p><strong>前置及操作：</strong>同截止任务，实际10/11完成；实际未来10/12；不填写实际日</p><p><strong>期望结果：</strong>10/11迟完成；未来拒绝；日期必填；无提交成功则任务仍保持原状态</p></section>
+<section class="test"><h4>AT08 · FR05、09、28</h4><p><strong>前置及操作：</strong>10/11查看未终结10/10任务，分别确认失败/取消</p><p><strong>期望结果：</strong>未操作显示逾期并仍可见；失败/取消分别成为显式终态，无伪造完成日；普通终态次日、历史补报立即归档</p></section>
+<section class="test"><h4>AT12 · FR11–13</h4><p><strong>前置及操作：</strong>当天普通记录改结果/备注；昨日普通记录修改；今天提交历史补记后改备注；编辑页跨午夜保存</p><p><strong>期望结果：</strong>仅普通当天允许；后三项拒绝，原值不变；所有入口权限一致；禁止撤回</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr09">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-22">
+    <div class="page-heading"><div><span class="eyebrow">图22 · Pen真实导出</span><h2>历史记录只读</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/N7Gnu.png" target="_blank" rel="noopener" aria-label="查看历史记录只读原图"><img src="previews/N7Gnu.png" width="393" height="852" alt="历史记录只读设计截图" loading="lazy"></a><figcaption>对应FR13。保留业务日期、提交时间、结果和备注；无编辑入口，返回日历。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR13、FR11、FR12<br><strong>验收：</strong>AT12、AT18 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR13｜历史只读查看（C）</h3><p>已有普通历史记录及所有已提交补记，显示结果、业务日期、备注、原提交/最近修改时间、补记/已修改标签。无可编辑字段和保存按钮；解释“历史记录只读”或“补记保存后不能修改”。不能通过详情快捷入口、深层导航或持久化接口绕过限制。</p>
+<p>只读限制包括备注纠错，不能仅锁结果。计划暂停/归档不删除这些记录；运行/暂停计划删除先归档；归档后再次永久删除才按FR29清除历史。记录仅只读，不限制合法未记录日期的新增补记，后者单独判断FR12。验收AT12；只读查看见图22；图12/13历史区域同样遵守权限。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR11｜普通记录当日修改（C）</summary><div class="shared-body"><ul><li>前置：非补记，记录业务日期等于该计划今天；已有记录可从今日/日历/详情进入修改。</li><li>可改：结果、文字备注；不可改：计划ID、业务日期、记录种类、原始提交时间。</li><li>展示：加载当前已保存的结果、备注；原提交时间与最近修改时间另列，修改后显示“已修改”。再次修改不得重新加载首次提交的旧值。</li><li>保存：按FR10重新检查权限，合法时原记录修订而非新增；统计立即重算。</li><li>跨日：10/9编辑页未关闭、10/10再点保存，必须拒绝，原记录保留并提示“已过记录当天，此记录只读”。</li><li>撤回：不允许撤回（C），只改结果/备注，不提供删除单条记录或恢复为空白的入口。</li><li>验收AT12、AT14；设计图09已改为10/9当天场景。</li></ul></div></details>
+<details class="shared"><summary>FR12｜历史补记（C权限＋B资格）</summary><div class="shared-body"><ul><li>前置：过去日期、当时有效、尚无记录；不得补未来、生效前、固定未选日、暂停无效日。</li><li>暂停/归档：当前暂停/归档均禁止补记；恢复后也不能补暂停前的日期。只有当前运行阶段内已过去的有效空日可补记（C）；已保存历史仍可查看。</li><li>表单：计划名、完整业务日期、当时规则、结果、可选备注；提交前明确“请确认，补记保存后不能修改”。</li><li>保存：同日唯一，提交时标记补记并保存实际提交时间；成功后只读，不能再次覆盖。</li><li>统计：使用补记所属业务日期和当时规则重新聚合；不能按提交日算成今天成功。</li><li>验收AT11–AT12、AT14；设计图10。</li></ul></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（2组）</summary><section class="test"><h4>AT12 · FR11–13</h4><p><strong>前置及操作：</strong>当天普通记录改结果/备注；昨日普通记录修改；今天提交历史补记后改备注；编辑页跨午夜保存</p><p><strong>期望结果：</strong>仅普通当天允许；后三项拒绝，原值不变；所有入口权限一致；禁止撤回</p></section>
+<section class="test"><h4>AT18 · FR14–16、22</h4><p><strong>前置及操作：</strong>切月/回今天；历史混合5项；全成功/零项/未来/今天/跨午夜；切全部/已完成/未完成并返回；周空白新增；一次性提前完成/延期/取消</p><p><strong>期望结果：</strong>混合日仅2/5，其他全成功仅绿✓，零项空白，未来0/T无提交；今天浅色无点/✓/分数，跨日恢复历史下标；无含义介绍，筛选5/2/3项且标题/格子总数不变；切日重置、返回保留、空筛选有提示；周空白不计、已有失败/跳过计未完成；一次性按Q29替代安排/业务日归属，取消未完成；跳过两种分母分开</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr13">查看需求文档中的本页</a></p></div>
+    </div></article>
+<article id="screen-23">
+    <div class="page-heading"><div><span class="eyebrow">图23 · Pen真实导出</span><h2>跨日重新确认</h2></div><a href="#page-index">回到目录 ↑</a></div>
+    <div class="pair"><figure><a href="previews/HEOev.png" target="_blank" rel="noopener" aria-label="查看跨日重新确认原图"><img src="previews/HEOev.png" width="393" height="852" alt="跨日重新确认设计截图" loading="lazy"></a><figcaption>对应FR10/12、Q31。首次确认页跨午夜阻止旧提交并保留输入；进入补记确认本身不保存，合法补记最终保存后只读。<br>点击截图查看原图</figcaption></figure>
+      <div class="spec"><p class="refs"><strong>需求：</strong>FR10、FR12、FR09、FR13、FR31<br><strong>验收：</strong>AT09、AT12 · <span class="not-run">尚未执行</span></p><section class="requirement"><h3>FR10｜最终提交、唯一性与并发</h3><p>同一循环计划＋业务日期最多一条有效记录，一次性任务最多一条当前有效结果。点击最终保存后：</p>
+<ol><li>重新取得计划今天、有效规则和生命周期，校验日期资格与修改权限。</li><li>固定本次提交标识，在本机事务内写记录和必要修订信息。</li><li>提交成功才刷新来源页、日历、详情与统计，显示“已保存到本机”。</li><li>保存中禁止重复；重试不能产生第二条或将成功天数多计一次。</li></ol>
+<p>若页面打开后另一个入口已保存同日记录，停止新增并加载现有记录；若现有记录可改，明确进入修改，不能无提示覆盖。保存失败不把内存状态显示为成功，保留输入和失败理由。验收AT09、AT24；设计图20。</p>
+<p><strong>首次记录跨日（Q31）：</strong> 确认页保存前校验所确认的计划今天与当前计划今天。若不同，阻止这次首次提交，不创建记录、不自动改成补记、不自动移动业务日期，保留当前会话的结果和备注，提示“日期已变化，请重新确认”。循环和一次性过去完成日可在重新校验资格后进入历史补记确认，明确保存后只读；一次性历史完成另提示保存后立即归档。进入确认页本身不落盘，最终保存才执行FR10事务。</p>
+<p>若跨日后暂停、归档或执行阶段改变导致原日期不再可补记，不显示可保存的补记入口，说明原因并可返回查看。一次性失败/取消没有过去完成日补报，需明确重新确认新的当日结果，不能将旧日期伪装成历史补报。返回或放弃未保存输入沿用FR31。已经提交成功后的同一命令重试只返回原成功结果，不要求重新提交。已有记录的跨日修改继续按FR11拒绝。验收AT09、AT12；设计图23。</p></section>
+      <div class="related"><h3>相关共用规则</h3><p class="hint">按需展开，正文与当前需求文档一致。</p><details class="shared"><summary>FR12｜历史补记（C权限＋B资格）</summary><div class="shared-body"><ul><li>前置：过去日期、当时有效、尚无记录；不得补未来、生效前、固定未选日、暂停无效日。</li><li>暂停/归档：当前暂停/归档均禁止补记；恢复后也不能补暂停前的日期。只有当前运行阶段内已过去的有效空日可补记（C）；已保存历史仍可查看。</li><li>表单：计划名、完整业务日期、当时规则、结果、可选备注；提交前明确“请确认，补记保存后不能修改”。</li><li>保存：同日唯一，提交时标记补记并保存实际提交时间；成功后只读，不能再次覆盖。</li><li>统计：使用补记所属业务日期和当时规则重新聚合；不能按提交日算成今天成功。</li><li>验收AT11–AT12、AT14；设计图10。</li></ul></div></details>
+<details class="shared"><summary>FR09｜一次性登记完成、失败与取消</summary><div class="shared-body"><ul><li>完成入口：待完成或逾期任务点击“登记完成”，进入独立确认页，不直接终结。</li><li>完成字段：实际完成日期默认计划今天，可选合法过去日期；备注可空；页面同时展示截止日期和预判结果。</li><li>时间：保存实际完成日期与提交时间。10/10截止、10/9完成、10/11录入仍为按时完成，并标记历史补报。</li><li>历史权限：过去完成日的补报保存后立即只读；今天的普通记录仅当天可改。不能因10/11提交而开放修改10/9事实。</li><li>失败/取消：显式结果确认和可选备注，分别显示失败/取消；不是循环“跳过”。结果业务日期为提交当天；普通当日可在完成/失败/取消间修正，业务日期不移动；历史补报只读（C）。</li><li>终态显示：结果、截止、实际完成日（适用时）、提交时间、备注、补记/已修改标签；不计算固定计划历史完成率或连续打卡，结果仍按FR14进入日历每日完成集合。</li><li>验收AT06–AT08、AT12；设计图14、21。失败/取消共用确认行为，尚无独立完整画板。</li></ul></div></details>
+<details class="shared"><summary>FR13｜历史只读查看（C）</summary><div class="shared-body"><p>已有普通历史记录及所有已提交补记，显示结果、业务日期、备注、原提交/最近修改时间、补记/已修改标签。无可编辑字段和保存按钮；解释“历史记录只读”或“补记保存后不能修改”。不能通过详情快捷入口、深层导航或持久化接口绕过限制。</p>
+<p>只读限制包括备注纠错，不能仅锁结果。计划暂停/归档不删除这些记录；运行/暂停计划删除先归档；归档后再次永久删除才按FR29清除历史。记录仅只读，不限制合法未记录日期的新增补记，后者单独判断FR12。验收AT12；只读查看见图22；图12/13历史区域同样遵守权限。</p></div></details>
+<details class="shared"><summary>FR31｜草稿、取消与保存反馈</summary><div class="shared-body"><p>C：首版草稿只保留在当前编辑会话，进程退出/被系统杀死后未提交内容不保证恢复；已提交数据必须持久化。不能将“保存失败保留输入”宣传为草稿自动备份。失败保留输入不等于退出后保存草稿。</p>
+<p>取消、系统Back、类型切换造成丢失输入时明确提示；继续编辑不清空；放弃只丢弃未提交变更，不影响原记录。保存中主按钮禁用并读出状态，成功反馈只在事务提交后出现。进入只读页没有未保存退出提示。验收AT09、AT24、AT26。</p></div></details></div>
+      <details class="tests"><summary>验收场景与期望结果（2组）</summary><section class="test"><h4>AT09 · FR07、09、10、12、31</h4><p><strong>前置及操作：</strong>今日点成功，填备注后取消；再进入确认保存；重复点保存；首次循环/一次性完成页10/9跨至10/10保存</p><p><strong>期望结果：</strong>取消不落盘；正常最终保存仅一条；跨日旧提交不写、输入保留；合法日期显式重进补记确认，确认只读/一次性归档后才提交；暂停/归档后禁止；一次性失败/取消重新确认新的当日结果；已成功重试不重复</p></section>
+<section class="test"><h4>AT12 · FR11–13</h4><p><strong>前置及操作：</strong>当天普通记录改结果/备注；昨日普通记录修改；今天提交历史补记后改备注；编辑页跨午夜保存</p><p><strong>期望结果：</strong>仅普通当天允许；后三项拒绝，原值不变；所有入口权限一致；禁止撤回</p></section></details>
+      <p class="source"><a href="../设计需求文档-计划打卡-Android-v1.md#fr10">查看需求文档中的本页</a></p></div>
+    </div></article></main>
+<footer>更新：2026-10-09 · 图文内容由当前需求正文生成 · 无需联网即可浏览</footer>
+<script>
+function revealHash(){const node=document.getElementById(location.hash.slice(1));if(!node)return;for(let parent=node;parent;parent=parent.parentElement){if(parent.tagName==='DETAILS')parent.open=true;}}
+window.addEventListener('hashchange',revealHash);revealHash();
+</script></body></html>

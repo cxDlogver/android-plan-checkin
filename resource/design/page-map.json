@@ -1,0 +1,664 @@
+{
+  "schemaVersion": 1,
+  "designName": "计划打卡 Android V1",
+  "designFile": "../ui.pen",
+  "status": "confirmed",
+  "diskSave": "saved",
+  "viewport": {
+    "width": 393,
+    "height": 852
+  },
+  "verification": {
+    "canvasLayout": "PASS",
+    "clippedNodes": 0,
+    "exportedPreviews": 23,
+    "nativeBuild": "NOT_RUN",
+    "androidEmulator": "NOT_RUN",
+    "standaloneApk": "NOT_RUN",
+    "penFileWritten": "PASS",
+    "currentCanvasMatchesSnapshot": "PASS",
+    "savedFileReopen": "NOT_RUN"
+  },
+  "screens": [
+    {
+      "order": 1,
+      "key": "today-empty",
+      "title": "今日空态",
+      "frameId": "bCoiJ",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/bCoiJ.png",
+      "primaryRequirement": "FR01",
+      "requirements": [
+        "FR01",
+        "FR02",
+        "FR32"
+      ],
+      "acceptance": [
+        "AT01"
+      ],
+      "documentAnchor": "screen-01",
+      "designCaption": "对应FR01。真正无数据时展示创建入口；读取失败不能用此状态。"
+    },
+    {
+      "order": 2,
+      "key": "today-active",
+      "title": "今日有计划",
+      "frameId": "yB844",
+      "canvasSize": {
+        "width": 393,
+        "height": 1140
+      },
+      "preview": "previews/yB844.png",
+      "primaryRequirement": "FR06",
+      "requirements": [
+        "FR06",
+        "FR07",
+        "FR08",
+        "FR09",
+        "FR10",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT09",
+        "AT10",
+        "AT14"
+      ],
+      "documentAnchor": "screen-02",
+      "designCaption": "对应FR06–10。四分区和结果入口；点结果先确认，不直接保存。分区排序已固定，全部计划共用首次使用固定时区。"
+    },
+    {
+      "order": 3,
+      "key": "plan-list",
+      "title": "计划列表",
+      "frameId": "P3WWL",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/P3WWL.png",
+      "primaryRequirement": "FR21",
+      "requirements": [
+        "FR21",
+        "FR22",
+        "FR28"
+      ],
+      "acceptance": [
+        "AT19"
+      ],
+      "documentAnchor": "screen-03",
+      "designCaption": "对应FR21。展示状态分类。采用运行中、暂停、归档三个筛选；循环到期次日归档，一次性普通终态次日、历史补报立即归档。"
+    },
+    {
+      "order": 4,
+      "key": "create-fixed",
+      "title": "新建固定星期",
+      "frameId": "SvK1L",
+      "canvasSize": {
+        "width": 393,
+        "height": 1040
+      },
+      "preview": "previews/SvK1L.png",
+      "primaryRequirement": "FR03",
+      "requirements": [
+        "FR03",
+        "FR02",
+        "FR12",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT02",
+        "AT03",
+        "AT04"
+      ],
+      "documentAnchor": "screen-04",
+      "designCaption": "对应FR02–03。至少一个星期，开始今天/未来；必填与错误反馈见字段规格。"
+    },
+    {
+      "order": 5,
+      "key": "create-weekly",
+      "title": "新建每周N天",
+      "frameId": "JUDAa",
+      "canvasSize": {
+        "width": 393,
+        "height": 940
+      },
+      "preview": "previews/JUDAa.png",
+      "primaryRequirement": "FR04",
+      "requirements": [
+        "FR04",
+        "FR02",
+        "FR19",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT02",
+        "AT03",
+        "AT05",
+        "AT16",
+        "AT17"
+      ],
+      "documentAnchor": "screen-05",
+      "designCaption": "对应FR02、04。N为1–7，自选记录日，空白不等于未记录。"
+    },
+    {
+      "order": 6,
+      "key": "create-one-time",
+      "title": "新建一次性任务",
+      "frameId": "qq7vq",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/qq7vq.png",
+      "primaryRequirement": "FR05",
+      "requirements": [
+        "FR05",
+        "FR02",
+        "FR09",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT02",
+        "AT06",
+        "AT07",
+        "AT08"
+      ],
+      "documentAnchor": "screen-06",
+      "designCaption": "对应FR02、05。截止今天/未来，固定要做。"
+    },
+    {
+      "order": 7,
+      "key": "checkin-do",
+      "title": "要做确认记录",
+      "frameId": "mTDhJ",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/mTDhJ.png",
+      "primaryRequirement": "FR07",
+      "requirements": [
+        "FR07",
+        "FR10",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT09",
+        "AT24",
+        "AT26"
+      ],
+      "documentAnchor": "screen-07",
+      "designCaption": "对应FR07、10。结果、可选备注和最终保存；绿色成功、红色失败、橙色跳过。"
+    },
+    {
+      "order": 8,
+      "key": "checkin-avoid",
+      "title": "不要做确认记录",
+      "frameId": "HGmI6",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/HGmI6.png",
+      "primaryRequirement": "FR08",
+      "requirements": [
+        "FR08",
+        "FR10",
+        "FR11",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT10",
+        "AT12",
+        "AT24"
+      ],
+      "documentAnchor": "screen-08",
+      "designCaption": "对应FR08、10。区分没有发生与发生目标行为，当天可修正。"
+    },
+    {
+      "order": 9,
+      "key": "edit-record",
+      "title": "修改当日记录",
+      "frameId": "I3hcqn",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/I3hcqn.png",
+      "primaryRequirement": "FR11",
+      "requirements": [
+        "FR11",
+        "FR10",
+        "FR13",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT10",
+        "AT12",
+        "AT14",
+        "AT26"
+      ],
+      "documentAnchor": "screen-09",
+      "designCaption": "对应FR11。示例业务日期10/9、今天10/9；仅未归档普通当日可改结果/备注，日期不移动、不撤回。"
+    },
+    {
+      "order": 10,
+      "key": "backfill-record",
+      "title": "补记",
+      "frameId": "Y8mJyU",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/Y8mJyU.png",
+      "primaryRequirement": "FR12",
+      "requirements": [
+        "FR12",
+        "FR10",
+        "FR13",
+        "FR16",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT04",
+        "AT11",
+        "AT12",
+        "AT22"
+      ],
+      "documentAnchor": "screen-10",
+      "designCaption": "对应FR12。示例补10/6；提交前提示保存后不能修改，结果和备注一并锁定。"
+    },
+    {
+      "order": 11,
+      "key": "calendar",
+      "title": "全局日历",
+      "frameId": "c6Yye",
+      "canvasSize": {
+        "width": 393,
+        "height": 1100
+      },
+      "preview": "previews/c6Yye.png",
+      "primaryRequirement": "FR14",
+      "requirements": [
+        "FR14",
+        "FR15",
+        "FR16"
+      ],
+      "acceptance": [
+        "AT11",
+        "AT13",
+        "AT18",
+        "AT25"
+      ],
+      "documentAnchor": "screen-11",
+      "designCaption": "对应FR14–15。日期12sp、金黄色分数10sp；今日浅色无进度；无含义介绍行。10/8·5项计划下方为状态筛选框，默认全部（5），可选已完成（2）/未完成（3）。 跨月保留弱色真实日号。"
+    },
+    {
+      "order": 12,
+      "key": "plan-detail-fixed",
+      "title": "固定详情",
+      "frameId": "acN0e",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/acN0e.png",
+      "primaryRequirement": "FR17",
+      "requirements": [
+        "FR17",
+        "FR16",
+        "FR18",
+        "FR22"
+      ],
+      "acceptance": [
+        "AT14",
+        "AT15",
+        "AT18",
+        "AT21"
+      ],
+      "documentAnchor": "screen-12",
+      "designCaption": "对应FR16–18。全部历史起止与6/8；跳过1、未记录1单列；10/7跳过、10/8成功，今天未提交，连续1。"
+    },
+    {
+      "order": 13,
+      "key": "plan-detail-weekly",
+      "title": "周目标详情",
+      "frameId": "i0tdn",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/i0tdn.png",
+      "primaryRequirement": "FR19",
+      "requirements": [
+        "FR19",
+        "FR04",
+        "FR16",
+        "FR22"
+      ],
+      "acceptance": [
+        "AT05",
+        "AT16",
+        "AT17",
+        "AT18"
+      ],
+      "documentAnchor": "screen-13",
+      "designCaption": "对应FR16、19。当前2/3与已结束完整周3/4分开；当前部分周未结束，连续保留2周，周结束时中断。 整周暂停不计达标率，周结束时中断连续。"
+    },
+    {
+      "order": 14,
+      "key": "plan-detail-one-time",
+      "title": "一次性详情",
+      "frameId": "o7qx2G",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/o7qx2G.png",
+      "primaryRequirement": "FR20",
+      "requirements": [
+        "FR20",
+        "FR05",
+        "FR09",
+        "FR22",
+        "FR28"
+      ],
+      "acceptance": [
+        "AT06",
+        "AT07",
+        "AT08",
+        "AT19",
+        "AT20"
+      ],
+      "documentAnchor": "screen-14",
+      "designCaption": "对应FR20。独立逾期状态样例，与其他画板同名任务不是同一数据时间线。 一次性结果参与日历完成数量，不计算固定计划历史完成率或连续。"
+    },
+    {
+      "order": 15,
+      "key": "edit-plan",
+      "title": "编辑计划",
+      "frameId": "s1Nbh",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/s1Nbh.png",
+      "primaryRequirement": "FR23",
+      "requirements": [
+        "FR23",
+        "FR02",
+        "FR16",
+        "FR22",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT02",
+        "AT17",
+        "AT21"
+      ],
+      "documentAnchor": "screen-15",
+      "designCaption": "对应FR23。仅运行中可编辑；固定星期明天、每周N下周一，结束/截止即时；暂停/归档不可编辑。图为固定计划示例。"
+    },
+    {
+      "order": 16,
+      "key": "pause-resume-confirmation",
+      "title": "暂停与恢复确认",
+      "frameId": "QpNMQ",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/QpNMQ.png",
+      "primaryRequirement": "FR24",
+      "requirements": [
+        "FR24",
+        "FR25",
+        "FR27",
+        "FR28"
+      ],
+      "acceptance": [
+        "AT17",
+        "AT22"
+      ],
+      "documentAnchor": "screen-16",
+      "designCaption": "对应FR24–25。并列确认暂停、恢复说明、待生效可取消三种状态样例；实际页面只呈现当前适用状态。"
+    },
+    {
+      "order": 17,
+      "key": "archive-confirmation",
+      "title": "删除并保留历史",
+      "frameId": "lsJHj",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/lsJHj.png",
+      "primaryRequirement": "FR26",
+      "requirements": [
+        "FR26",
+        "FR27",
+        "FR28",
+        "FR29",
+        "FR32"
+      ],
+      "acceptance": [
+        "AT23",
+        "AT24"
+      ],
+      "documentAnchor": "screen-17",
+      "designCaption": "对应FR26、29。运行/暂停删除后立即归档，保留历史，所有记录只读；不可恢复，未记录当日要求取消。"
+    },
+    {
+      "order": 18,
+      "key": "delete-confirmation",
+      "title": "归档后永久删除",
+      "frameId": "IlUYa",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/IlUYa.png",
+      "primaryRequirement": "FR29",
+      "requirements": [
+        "FR29",
+        "FR26",
+        "FR32"
+      ],
+      "acceptance": [
+        "AT23",
+        "AT24"
+      ],
+      "documentAnchor": "screen-18",
+      "designCaption": "对应FR29。只有已归档计划可永久删除，明确清除计划及全部记录、备注；取消继续保留。"
+    },
+    {
+      "order": 19,
+      "key": "settings-local",
+      "title": "本机设置",
+      "frameId": "l0Vci",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/l0Vci.png",
+      "primaryRequirement": "FR30",
+      "requirements": [
+        "FR30",
+        "FR01",
+        "FR32"
+      ],
+      "acceptance": [
+        "AT01",
+        "AT13",
+        "AT27"
+      ],
+      "documentAnchor": "screen-19",
+      "designCaption": "对应FR30。本机保存、无备份/云同步；首次使用固定时区且全部计划共用。版本为样例。"
+    },
+    {
+      "order": 20,
+      "key": "storage-error",
+      "title": "存储异常",
+      "frameId": "B46K5",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/B46K5.png",
+      "primaryRequirement": "FR32",
+      "requirements": [
+        "FR32",
+        "FR10",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT01",
+        "AT09",
+        "AT20",
+        "AT24",
+        "AT28"
+      ],
+      "documentAnchor": "screen-20",
+      "designCaption": "对应FR10、32。此图为写入失败；初始化/读取/迁移需不同提示，不能清库；使用普通SQLite。"
+    },
+    {
+      "order": 21,
+      "key": "one-time-completion",
+      "title": "一次性实际完成日",
+      "frameId": "L47R3V",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/L47R3V.png",
+      "primaryRequirement": "FR09",
+      "requirements": [
+        "FR09",
+        "FR05",
+        "FR10",
+        "FR13",
+        "FR28",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT06",
+        "AT07",
+        "AT08",
+        "AT12"
+      ],
+      "documentAnchor": "screen-21",
+      "designCaption": "对应FR09。实际完成日与提交时间分开，日期范围为创建日到今天；历史补报立即归档并只读。"
+    },
+    {
+      "order": 22,
+      "key": "record-readonly",
+      "title": "历史记录只读",
+      "frameId": "N7Gnu",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/N7Gnu.png",
+      "primaryRequirement": "FR13",
+      "requirements": [
+        "FR13",
+        "FR11",
+        "FR12"
+      ],
+      "acceptance": [
+        "AT12",
+        "AT18"
+      ],
+      "documentAnchor": "screen-22",
+      "designCaption": "对应FR13。保留业务日期、提交时间、结果和备注；无编辑入口，返回日历。"
+    },
+    {
+      "order": 23,
+      "key": "record-day-changed",
+      "title": "跨日重新确认",
+      "frameId": "HEOev",
+      "canvasSize": {
+        "width": 393,
+        "height": 852
+      },
+      "preview": "previews/HEOev.png",
+      "primaryRequirement": "FR10",
+      "requirements": [
+        "FR10",
+        "FR12",
+        "FR09",
+        "FR13",
+        "FR31"
+      ],
+      "acceptance": [
+        "AT09",
+        "AT12"
+      ],
+      "documentAnchor": "screen-23",
+      "designCaption": "对应FR10/12、Q31。首次确认页跨午夜阻止旧提交并保留输入；进入补记确认本身不保存，合法补记最终保存后只读。"
+    }
+  ],
+  "style": "polished-metal",
+  "baseline": {
+    "version": "1.1",
+    "status": "confirmed",
+    "previousVersion": "1.0",
+    "previousDecision": "Q27",
+    "date": "2026-10-09",
+    "decision": "Q33",
+    "confirmation": "用户确认PRD/UI 1.1；技术架构仍为评审草案"
+  },
+  "documentationView": {
+    "layout": "screenshot_with_requirements",
+    "source": "../设计需求文档-计划打卡-Android-v1.md",
+    "preview": "preview.html",
+    "date": "2026-10-09"
+  },
+  "calendarPresentation": {
+    "today": {
+      "fill": "$primarySoft",
+      "marker": "none",
+      "dot": false
+    },
+    "otherDates": {
+      "zeroTotal": "none",
+      "allCompleted": "check",
+      "otherwise": "completed/total",
+      "fraction": {
+        "fontSize": 10,
+        "fontWeight": 600,
+        "color": "$calendarProgress"
+      }
+    },
+    "weekly": "recorded_days_only",
+    "oneTime": "current_due_or_result_business_day",
+    "selectedDayFilter": {
+      "type": "dropdown",
+      "default": "all",
+      "options": [
+        "all",
+        "completed",
+        "incomplete"
+      ],
+      "counts": "before_filter",
+      "scope": "detail_list_only",
+      "reset": "date_change",
+      "restore": "return_from_record"
+    },
+    "adjacentMonthDates": {
+      "visible": true,
+      "color": "$mutedText",
+      "identity": "full_business_date"
+    }
+  },
+  "saveEvidence": {
+    "confirmedBy": "用户回复已保存",
+    "fileBytes": 463513,
+    "lastWriteTime": "2026-10-09T15:55:10.3521128+08:00",
+    "scope": "最后设计修改后保存；截图导出为只读操作",
+    "reopen": "NOT_RUN"
+  }
+}
