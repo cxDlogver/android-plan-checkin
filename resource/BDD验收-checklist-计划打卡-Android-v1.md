@@ -34,7 +34,7 @@
 
 ### 工程准入
 
-- [ ] [AC001｜精确依赖与冻结安装可重现](acceptance/scenarios/01-工程准入.md#ac001)
+- [x] [AC001｜精确依赖与冻结安装可重现](acceptance/scenarios/01-工程准入.md#ac001)
 - [ ] [AC002｜包身份与系统备份排除可重复生成](acceptance/scenarios/01-工程准入.md#ac002)
 - [ ] [AC003｜SDK模板原生编译与长期签名](acceptance/scenarios/01-工程准入.md#ac003)
 - [ ] [AC004｜安卓SQLite连接参数与版本读回](acceptance/scenarios/01-工程准入.md#ac004)
@@ -47,7 +47,7 @@
 - [ ] [AC011｜日志与构建证据不泄露用户文本和签名材料](acceptance/scenarios/01-工程准入.md#ac011)
 - [ ] [AC103｜一次性根删除延迟复合引用级联提交成功](acceptance/scenarios/01-工程准入.md#ac103)
 - [ ] [AC104｜revision分配一致且取消版本不复用序号](acceptance/scenarios/01-工程准入.md#ac104)
-- [ ] [AC117｜原生配置生成先于APK编译可独立准入](acceptance/scenarios/01-工程准入.md#ac117)
+- [x] [AC117｜原生配置生成先于APK编译可独立准入](acceptance/scenarios/01-工程准入.md#ac117)
 - [ ] [AC118｜金属组件原生展示先于完整页面准入](acceptance/scenarios/01-工程准入.md#ac118)
 - [ ] [AC119｜revision和CAS原语无业务服务即可验证](acceptance/scenarios/01-工程准入.md#ac119)
 

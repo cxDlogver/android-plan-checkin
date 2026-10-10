@@ -38,31 +38,31 @@ flowchart LR
 
 ## 总 checklist
 
-- [ ] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，IN_PROGRESS
-- [ ] [IP02｜原生身份、备份排除与可重建配置](#ip02) — P1，NOT_STARTED
-- [ ] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，NOT_STARTED
-- [ ] [IP04｜最小原生模块与视觉小样](#ip04) — P1，NOT_STARTED
-- [ ] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，NOT_STARTED
-- [ ] [IP06｜业务日期和固定时区适配器](#ip06) — P2，NOT_STARTED
-- [ ] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，NOT_STARTED
-- [ ] [IP08｜唯一连接执行器、快照与revision](#ip08) — P2，NOT_STARTED
-- [ ] [IP09｜字段规则版本与合法编辑](#ip09) — P2，NOT_STARTED
-- [ ] [IP10｜生命周期、阶段与离线对账](#ip10) — P2，NOT_STARTED
-- [ ] [IP11｜普通、补记、只读权限](#ip11) — P2，NOT_STARTED
-- [ ] [IP12｜命令信封、幂等、冲突和稳定错误](#ip12) — P2，NOT_STARTED
-- [ ] [IP13｜固定统计、区间与连续](#ip13) — P2，NOT_STARTED
-- [ ] [IP14｜每周目标、完整周与连续](#ip14) — P2，NOT_STARTED
-- [ ] [IP15｜一次性日期、终态和归档](#ip15) — P2，NOT_STARTED
-- [ ] [IP16｜今日、月历、列表、详情查询投影](#ip16) — P2，NOT_STARTED
-- [ ] [IP17｜主题、金属组件与弹性布局](#ip17) — P3，NOT_STARTED
-- [ ] [IP18｜初始化、路由和会话边界](#ip18) — P3，NOT_STARTED
-- [ ] [IP19｜三类型新建与运行中编辑表单](#ip19) — P3，NOT_STARTED
-- [ ] [IP20｜今日四分区与保存反馈](#ip20) — P3，NOT_STARTED
-- [ ] [IP21｜记录、修正、补记与只读页面](#ip21) — P3，NOT_STARTED
-- [ ] [IP22｜全局日历与状态筛选](#ip22) — P3，NOT_STARTED
-- [ ] [IP23｜三类详情、全部历史与只读入口](#ip23) — P3，NOT_STARTED
-- [ ] [IP24｜计划列表与两阶段删除管理](#ip24) — P3，NOT_STARTED
-- [ ] [IP25｜本机设置、隐私与错误反馈](#ip25) — P3，NOT_STARTED
+- [x] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，DONE
+- [x] [IP02｜原生身份、备份排除与可重建配置](#ip02) — P1，DONE
+- [ ] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，BLOCKED
+- [ ] [IP04｜最小原生模块与视觉小样](#ip04) — P1，IN_PROGRESS
+- [ ] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，IN_PROGRESS
+- [ ] [IP06｜业务日期和固定时区适配器](#ip06) — P2，IN_PROGRESS
+- [ ] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，IN_PROGRESS
+- [ ] [IP08｜唯一连接执行器、快照与revision](#ip08) — P2，IN_PROGRESS
+- [ ] [IP09｜字段规则版本与合法编辑](#ip09) — P2，IN_PROGRESS
+- [ ] [IP10｜生命周期、阶段与离线对账](#ip10) — P2，IN_PROGRESS
+- [ ] [IP11｜普通、补记、只读权限](#ip11) — P2，IN_PROGRESS
+- [ ] [IP12｜命令信封、幂等、冲突和稳定错误](#ip12) — P2，IN_PROGRESS
+- [ ] [IP13｜固定统计、区间与连续](#ip13) — P2，IN_PROGRESS
+- [ ] [IP14｜每周目标、完整周与连续](#ip14) — P2，IN_PROGRESS
+- [ ] [IP15｜一次性日期、终态和归档](#ip15) — P2，IN_PROGRESS
+- [ ] [IP16｜今日、月历、列表、详情查询投影](#ip16) — P2，IN_PROGRESS
+- [ ] [IP17｜主题、金属组件与弹性布局](#ip17) — P3，IN_PROGRESS
+- [ ] [IP18｜初始化、路由和会话边界](#ip18) — P3，IN_PROGRESS
+- [ ] [IP19｜三类型新建与运行中编辑表单](#ip19) — P3，IN_PROGRESS
+- [ ] [IP20｜今日四分区与保存反馈](#ip20) — P3，IN_PROGRESS
+- [ ] [IP21｜记录、修正、补记与只读页面](#ip21) — P3，IN_PROGRESS
+- [ ] [IP22｜全局日历与状态筛选](#ip22) — P3，IN_PROGRESS
+- [ ] [IP23｜三类详情、全部历史与只读入口](#ip23) — P3，IN_PROGRESS
+- [ ] [IP24｜计划列表与两阶段删除管理](#ip24) — P3，IN_PROGRESS
+- [ ] [IP25｜本机设置、隐私与错误反馈](#ip25) — P3，IN_PROGRESS
 - [ ] [IP26｜全功能BDD执行与缺陷回归](#ip26) — P4，NOT_STARTED
 - [ ] [IP27｜八组合、视觉和无障碍验收](#ip27) — P4，NOT_STARTED
 - [ ] [IP28｜独立release与性能预算](#ip28) — P4，NOT_STARTED
@@ -75,23 +75,23 @@ flowchart LR
 
 ### IP01｜建立应用工程与冻结依赖
 
-阶段：P1；状态：IN_PROGRESS；前置：已确认技术0.8；当前项目目录
+阶段：P1；状态：DONE；前置：已确认技术0.8；当前项目目录
 
 需求关联：[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
 实现 checklist：
 
-- [ ] IP01.W1 — 在当前目录生成app/src/assets/plugins/tests，保留resource
-- [ ] IP01.W2 — 按技术0.8清单精确安装33项依赖与pnpm
-- [ ] IP01.W3 — strict peer、hoisted、TypeScript strict和移动/Node测试tsconfig分离
-- [ ] IP01.W4 — Expo版本检查与Android bundle
-- [ ] IP01.W5 — 首个实际应用锁文件固定摘要，不复制评审锁后宣称已安装
+- [x] IP01.W1 — 在当前目录生成app/src/assets/plugins/tests，保留resource
+- [x] IP01.W2 — 按技术0.8清单精确安装33项依赖与pnpm
+- [x] IP01.W3 — strict peer、hoisted、TypeScript strict和移动/Node测试tsconfig分离
+- [x] IP01.W4 — Expo版本检查与Android bundle
+- [x] IP01.W5 — 首个实际应用锁文件固定摘要，不复制评审锁后宣称已安装
 
 产物 checklist：
 
-- [ ] IP01.D1 — 应用package.json/lockfile/tsconfig/Babel/Metro
-- [ ] IP01.D2 — 真实安装与Expo检查原始日志
-- [ ] IP01.D3 — 工作区快照和版本清单
+- [x] IP01.D1 — 应用package.json/lockfile/tsconfig/Babel/Metro
+- [x] IP01.D2 — 真实安装与Expo检查原始日志
+- [x] IP01.D3 — 工作区快照和版本清单
 
 验收关联（点击到具体场景；主责项与汇总消费项分开）：
 
@@ -107,8 +107,8 @@ flowchart LR
 
 </details>
 
-- [ ] IP01.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
-- [ ] IP01.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
+- [x] IP01.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
+- [x] IP01.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
 执行记录：负责人Codex；开始2026-10-10T05:17:47.674Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
@@ -116,24 +116,24 @@ flowchart LR
 
 ### IP02｜原生身份、备份排除与可重建配置
 
-阶段：P1；状态：NOT_STARTED；前置：[IP01](#ip01)
+阶段：P1；状态：DONE；前置：[IP01](#ip01)
 
 需求关联：[FR30](设计需求文档-计划打卡-Android-v1.md#fr30)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
 实现 checklist：
 
-- [ ] IP02.W1 — 配置计划打卡、正式com.xiang.plancheckin及开发.dev
-- [ ] IP02.W2 — min29/compile36/target36
-- [ ] IP02.W3 — 插件生成旧/新XML，禁云备份和设备迁移
-- [ ] IP02.W4 — 实际file/SQLite及所有使用域排除
-- [ ] IP02.W5 — 重复prebuild保留配置
-- [ ] IP02.W6 — 不请求通知/照片/定位权限，不接远程OTA
+- [x] IP02.W1 — 配置计划打卡、正式com.xiang.plancheckin及开发.dev
+- [x] IP02.W2 — min29/compile36/target36
+- [x] IP02.W3 — 插件生成旧/新XML，禁云备份和设备迁移
+- [x] IP02.W4 — 实际file/SQLite及所有使用域排除
+- [x] IP02.W5 — 重复prebuild保留配置
+- [x] IP02.W6 — 不请求通知/照片/定位权限，不接远程OTA
 
 产物 checklist：
 
-- [ ] IP02.D1 — app.config.ts/config plugins
-- [ ] IP02.D2 — 最终manifest/XML及合并报告
-- [ ] IP02.D3 — 重复生成差异证据
+- [x] IP02.D1 — app.config.ts/config plugins
+- [x] IP02.D2 — 最终manifest/XML及合并报告
+- [x] IP02.D3 — 重复生成差异证据
 
 验收关联（点击到具体场景；主责项与汇总消费项分开）：
 
@@ -149,8 +149,8 @@ flowchart LR
 
 </details>
 
-- [ ] IP02.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
-- [ ] IP02.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
+- [x] IP02.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
+- [x] IP02.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
 执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
@@ -158,7 +158,7 @@ flowchart LR
 
 ### IP03｜签名与Debug/Release原生编译
 
-阶段：P1；状态：NOT_STARTED；前置：[IP01](#ip01)、[IP02](#ip02)
+阶段：P1；状态：BLOCKED；前置：[IP01](#ip01)、[IP02](#ip02)
 
 需求关联：[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -200,7 +200,7 @@ flowchart LR
 
 ### IP04｜最小原生模块与视觉小样
 
-阶段：P1；状态：NOT_STARTED；前置：[IP03](#ip03)
+阶段：P1；状态：IN_PROGRESS；前置：[IP03](#ip03)
 
 需求关联：[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -244,7 +244,7 @@ flowchart LR
 
 ### IP05｜测试驱动、隔离夹具与证据采集
 
-阶段：P1；状态：NOT_STARTED；前置：[IP03](#ip03)
+阶段：P1；状态：IN_PROGRESS；前置：[IP03](#ip03)
 
 需求关联：[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -286,7 +286,7 @@ flowchart LR
 
 ### IP06｜业务日期和固定时区适配器
 
-阶段：P2；状态：NOT_STARTED；前置：[IP04](#ip04)、[IP05](#ip05)
+阶段：P2；状态：IN_PROGRESS；前置：[IP04](#ip04)、[IP05](#ip05)
 
 需求关联：[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)
 
@@ -328,7 +328,7 @@ flowchart LR
 
 ### IP07｜9表Schema、引用与全链迁移
 
-阶段：P2；状态：NOT_STARTED；前置：[IP04](#ip04)、[IP05](#ip05)
+阶段：P2；状态：IN_PROGRESS；前置：[IP04](#ip04)、[IP05](#ip05)
 
 需求关联：[FR11](设计需求文档-计划打卡-Android-v1.md#fr11)、[FR13](设计需求文档-计划打卡-Android-v1.md#fr13)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -372,7 +372,7 @@ flowchart LR
 
 ### IP08｜唯一连接执行器、快照与revision
 
-阶段：P2；状态：NOT_STARTED；前置：[IP06](#ip06)、[IP07](#ip07)
+阶段：P2；状态：IN_PROGRESS；前置：[IP06](#ip06)、[IP07](#ip07)
 
 需求关联：[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -414,7 +414,7 @@ flowchart LR
 
 ### IP09｜字段规则版本与合法编辑
 
-阶段：P2；状态：NOT_STARTED；前置：[IP06](#ip06)、[IP08](#ip08)
+阶段：P2；状态：IN_PROGRESS；前置：[IP06](#ip06)、[IP08](#ip08)
 
 需求关联：[FR02](设计需求文档-计划打卡-Android-v1.md#fr02)、[FR03](设计需求文档-计划打卡-Android-v1.md#fr03)、[FR04](设计需求文档-计划打卡-Android-v1.md#fr04)、[FR05](设计需求文档-计划打卡-Android-v1.md#fr05)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR23](设计需求文档-计划打卡-Android-v1.md#fr23)
 
@@ -455,7 +455,7 @@ flowchart LR
 
 ### IP10｜生命周期、阶段与离线对账
 
-阶段：P2；状态：NOT_STARTED；前置：[IP06](#ip06)、[IP08](#ip08)、[IP09](#ip09)
+阶段：P2；状态：IN_PROGRESS；前置：[IP06](#ip06)、[IP08](#ip08)、[IP09](#ip09)
 
 需求关联：[FR24](设计需求文档-计划打卡-Android-v1.md#fr24)、[FR25](设计需求文档-计划打卡-Android-v1.md#fr25)、[FR26](设计需求文档-计划打卡-Android-v1.md#fr26)、[FR27](设计需求文档-计划打卡-Android-v1.md#fr27)、[FR28](设计需求文档-计划打卡-Android-v1.md#fr28)
 
@@ -496,7 +496,7 @@ flowchart LR
 
 ### IP11｜普通、补记、只读权限
 
-阶段：P2；状态：NOT_STARTED；前置：[IP09](#ip09)、[IP10](#ip10)
+阶段：P2；状态：IN_PROGRESS；前置：[IP09](#ip09)、[IP10](#ip10)
 
 需求关联：[FR07](设计需求文档-计划打卡-Android-v1.md#fr07)、[FR08](设计需求文档-计划打卡-Android-v1.md#fr08)、[FR09](设计需求文档-计划打卡-Android-v1.md#fr09)、[FR11](设计需求文档-计划打卡-Android-v1.md#fr11)、[FR12](设计需求文档-计划打卡-Android-v1.md#fr12)、[FR13](设计需求文档-计划打卡-Android-v1.md#fr13)
 
@@ -538,7 +538,7 @@ flowchart LR
 
 ### IP12｜命令信封、幂等、冲突和稳定错误
 
-阶段：P2；状态：NOT_STARTED；前置：[IP08](#ip08)、[IP10](#ip10)、[IP11](#ip11)
+阶段：P2；状态：IN_PROGRESS；前置：[IP08](#ip08)、[IP10](#ip10)、[IP11](#ip11)
 
 需求关联：[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)、[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -583,7 +583,7 @@ flowchart LR
 
 ### IP13｜固定统计、区间与连续
 
-阶段：P2；状态：NOT_STARTED；前置：[IP09](#ip09)、[IP10](#ip10)、[IP11](#ip11)
+阶段：P2；状态：IN_PROGRESS；前置：[IP09](#ip09)、[IP10](#ip10)、[IP11](#ip11)
 
 需求关联：[FR17](设计需求文档-计划打卡-Android-v1.md#fr17)、[FR18](设计需求文档-计划打卡-Android-v1.md#fr18)
 
@@ -622,7 +622,7 @@ flowchart LR
 
 ### IP14｜每周目标、完整周与连续
 
-阶段：P2；状态：NOT_STARTED；前置：[IP09](#ip09)、[IP10](#ip10)、[IP11](#ip11)
+阶段：P2；状态：IN_PROGRESS；前置：[IP09](#ip09)、[IP10](#ip10)、[IP11](#ip11)
 
 需求关联：[FR04](设计需求文档-计划打卡-Android-v1.md#fr04)、[FR19](设计需求文档-计划打卡-Android-v1.md#fr19)
 
@@ -663,7 +663,7 @@ flowchart LR
 
 ### IP15｜一次性日期、终态和归档
 
-阶段：P2；状态：NOT_STARTED；前置：[IP09](#ip09)、[IP10](#ip10)、[IP11](#ip11)
+阶段：P2；状态：IN_PROGRESS；前置：[IP09](#ip09)、[IP10](#ip10)、[IP11](#ip11)
 
 需求关联：[FR05](设计需求文档-计划打卡-Android-v1.md#fr05)、[FR09](设计需求文档-计划打卡-Android-v1.md#fr09)、[FR20](设计需求文档-计划打卡-Android-v1.md#fr20)、[FR28](设计需求文档-计划打卡-Android-v1.md#fr28)
 
@@ -704,7 +704,7 @@ flowchart LR
 
 ### IP16｜今日、月历、列表、详情查询投影
 
-阶段：P2；状态：NOT_STARTED；前置：[IP12](#ip12)、[IP13](#ip13)、[IP14](#ip14)、[IP15](#ip15)
+阶段：P2；状态：IN_PROGRESS；前置：[IP12](#ip12)、[IP13](#ip13)、[IP14](#ip14)、[IP15](#ip15)
 
 需求关联：[FR06](设计需求文档-计划打卡-Android-v1.md#fr06)、[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR15](设计需求文档-计划打卡-Android-v1.md#fr15)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR21](设计需求文档-计划打卡-Android-v1.md#fr21)、[FR22](设计需求文档-计划打卡-Android-v1.md#fr22)
 
@@ -745,7 +745,7 @@ flowchart LR
 
 ### IP17｜主题、金属组件与弹性布局
 
-阶段：P3；状态：NOT_STARTED；前置：[IP04](#ip04)
+阶段：P3；状态：IN_PROGRESS；前置：[IP04](#ip04)
 
 需求关联：[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -785,7 +785,7 @@ flowchart LR
 
 ### IP18｜初始化、路由和会话边界
 
-阶段：P3；状态：NOT_STARTED；前置：[IP16](#ip16)、[IP17](#ip17)
+阶段：P3；状态：IN_PROGRESS；前置：[IP16](#ip16)、[IP17](#ip17)
 
 需求关联：[FR01](设计需求文档-计划打卡-Android-v1.md#fr01)、[FR22](设计需求文档-计划打卡-Android-v1.md#fr22)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -829,7 +829,7 @@ flowchart LR
 
 ### IP19｜三类型新建与运行中编辑表单
 
-阶段：P3；状态：NOT_STARTED；前置：[IP09](#ip09)、[IP18](#ip18)
+阶段：P3；状态：IN_PROGRESS；前置：[IP09](#ip09)、[IP18](#ip18)
 
 需求关联：[FR02](设计需求文档-计划打卡-Android-v1.md#fr02)、[FR03](设计需求文档-计划打卡-Android-v1.md#fr03)、[FR04](设计需求文档-计划打卡-Android-v1.md#fr04)、[FR05](设计需求文档-计划打卡-Android-v1.md#fr05)、[FR23](设计需求文档-计划打卡-Android-v1.md#fr23)
 
@@ -885,7 +885,7 @@ flowchart LR
 
 ### IP20｜今日四分区与保存反馈
 
-阶段：P3；状态：NOT_STARTED；前置：[IP16](#ip16)、[IP18](#ip18)
+阶段：P3；状态：IN_PROGRESS；前置：[IP16](#ip16)、[IP18](#ip18)
 
 需求关联：[FR06](设计需求文档-计划打卡-Android-v1.md#fr06)、[FR07](设计需求文档-计划打卡-Android-v1.md#fr07)、[FR08](设计需求文档-计划打卡-Android-v1.md#fr08)、[FR09](设计需求文档-计划打卡-Android-v1.md#fr09)、[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)
 
@@ -927,7 +927,7 @@ flowchart LR
 
 ### IP21｜记录、修正、补记与只读页面
 
-阶段：P3；状态：NOT_STARTED；前置：[IP11](#ip11)、[IP12](#ip12)、[IP15](#ip15)、[IP18](#ip18)
+阶段：P3；状态：IN_PROGRESS；前置：[IP11](#ip11)、[IP12](#ip12)、[IP15](#ip15)、[IP18](#ip18)
 
 需求关联：[FR07](设计需求文档-计划打卡-Android-v1.md#fr07)、[FR08](设计需求文档-计划打卡-Android-v1.md#fr08)、[FR09](设计需求文档-计划打卡-Android-v1.md#fr09)、[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)、[FR11](设计需求文档-计划打卡-Android-v1.md#fr11)、[FR12](设计需求文档-计划打卡-Android-v1.md#fr12)、[FR13](设计需求文档-计划打卡-Android-v1.md#fr13)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)
 
@@ -990,7 +990,7 @@ flowchart LR
 
 ### IP22｜全局日历与状态筛选
 
-阶段：P3；状态：NOT_STARTED；前置：[IP16](#ip16)、[IP17](#ip17)、[IP18](#ip18)、[IP21](#ip21)
+阶段：P3；状态：IN_PROGRESS；前置：[IP16](#ip16)、[IP17](#ip17)、[IP18](#ip18)、[IP21](#ip21)
 
 需求关联：[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR15](设计需求文档-计划打卡-Android-v1.md#fr15)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)
 
@@ -1042,7 +1042,7 @@ flowchart LR
 
 ### IP23｜三类详情、全部历史与只读入口
 
-阶段：P3；状态：NOT_STARTED；前置：[IP13](#ip13)、[IP14](#ip14)、[IP15](#ip15)、[IP16](#ip16)、[IP18](#ip18)、[IP21](#ip21)
+阶段：P3；状态：IN_PROGRESS；前置：[IP13](#ip13)、[IP14](#ip14)、[IP15](#ip15)、[IP16](#ip16)、[IP18](#ip18)、[IP21](#ip21)
 
 需求关联：[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR17](设计需求文档-计划打卡-Android-v1.md#fr17)、[FR18](设计需求文档-计划打卡-Android-v1.md#fr18)、[FR19](设计需求文档-计划打卡-Android-v1.md#fr19)、[FR20](设计需求文档-计划打卡-Android-v1.md#fr20)、[FR22](设计需求文档-计划打卡-Android-v1.md#fr22)
 
@@ -1093,7 +1093,7 @@ flowchart LR
 
 ### IP24｜计划列表与两阶段删除管理
 
-阶段：P3；状态：NOT_STARTED；前置：[IP10](#ip10)、[IP12](#ip12)、[IP18](#ip18)
+阶段：P3；状态：IN_PROGRESS；前置：[IP10](#ip10)、[IP12](#ip12)、[IP18](#ip18)
 
 需求关联：[FR21](设计需求文档-计划打卡-Android-v1.md#fr21)、[FR24](设计需求文档-计划打卡-Android-v1.md#fr24)、[FR25](设计需求文档-计划打卡-Android-v1.md#fr25)、[FR26](设计需求文档-计划打卡-Android-v1.md#fr26)、[FR27](设计需求文档-计划打卡-Android-v1.md#fr27)、[FR28](设计需求文档-计划打卡-Android-v1.md#fr28)、[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)
 
@@ -1144,7 +1144,7 @@ flowchart LR
 
 ### IP25｜本机设置、隐私与错误反馈
 
-阶段：P3；状态：NOT_STARTED；前置：[IP12](#ip12)、[IP18](#ip18)
+阶段：P3；状态：IN_PROGRESS；前置：[IP12](#ip12)、[IP18](#ip18)
 
 需求关联：[FR30](设计需求文档-计划打卡-Android-v1.md#fr30)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 

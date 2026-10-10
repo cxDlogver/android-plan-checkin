@@ -1,1 +1,3 @@
-此目录将按 IP04 嵌入已核查的 Noto Sans SC 静态 400/600/700 字体及 OFL。当前系统字体仅用于 P1 打包与原生构建，不能计为 AC005 字体验收通过。
+# 静态中文字体
+
+Noto Sans SC 400、600、700三个静态字重已随包保存。来源和SHA-256见 `resource/progress/font-vendoring.json`；许可见 `LICENSE_FONT`。应用入口在字体加载完成后显示业务界面，原生呈现仍需设备专项验收。

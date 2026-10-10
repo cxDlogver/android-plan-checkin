@@ -25,7 +25,7 @@ function save(state) {
   fs.writeFileSync(temp, JSON.stringify(state, null, 2)+'\n');
   fs.renameSync(temp, statePath);
   const lines = [ '# 开发进度与证据', '', `更新：${new Date(state.updatedAt).toLocaleString('zh-CN', {timeZone:'Asia/Shanghai'})}（Asia/Shanghai）`, '', `公开仓库：[cxDlogver/android-plan-checkin](${state.remote.url})`, '', '执行基线：PRD/UI 1.1、技术 0.8、实施/BDD 1.0；用户于2026-10-10授权开始执行。', '', '任务 DONE 必须满足其退出验收范围；代码或文件存在不代表 PASS。已通过且输入与证据摘要未变的检查自动复用；输入改变后仅重跑受影响检查。失败报告保留，新执行记录关联前次失败。', '', '| 实施项 | 状态 | 已完成实现项 | 证据 / 阻碍 |', '| --- | --- | --- | --- |' ];
-  for (const task of state.tasks) lines.push(`| ${task.id} ${task.title} | ${task.status} | ${task.workDone.join('、') || '—'} | ${task.evidence.map(p=>`[报告](${path.relative(directory,p).replaceAll('\\','/')})`).join(' / ') || task.blockedReason || '—'} |`);
+  for (const task of state.tasks) lines.push(`| ${task.id} ${task.title} | ${task.status}${task.implementationStatus==='CODE_WRITTEN'?'；代码已实现':''} | ${task.workDone.join('、') || '—'} | ${task.evidence.map(p=>`[报告](${path.relative(directory,p).replaceAll('\\','/')})`).join(' / ') || task.blockedReason || '—'} |`);
   lines.push('', '## 当前执行记录', '', '| 检查 | 状态 | 输入摘要 | 记录 |', '| --- | --- | --- | --- |');
   for (const [id, command] of Object.entries(state.commands)) lines.push(`| ${id} | ${command.status} | ${(command.inputSha256||'').slice(0,12)} | ${command.record ? `[证据](${path.relative(directory,command.record).replaceAll('\\','/')})` : '执行中'} |`);
   lines.push('', '## 已复用的历史证据', '', ...state.reusedEvidence.map(item=>`- ${item.gate}：${item.scope}。[原报告](${path.relative(directory,item.path).replaceAll('\\','/')})`), '', '## 下一步', '', state.next, '', '产品场景未执行前保持 NOT_RUN；后续原生测试、八组合、正式签名、离线、性能与升级均独立留证。', '');

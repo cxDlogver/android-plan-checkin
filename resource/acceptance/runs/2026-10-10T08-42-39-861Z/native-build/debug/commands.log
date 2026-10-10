@@ -1,0 +1,50 @@
+2026-10-10T08:42:39.913Z
+cmd.exe /d /s /c gradlew.bat assembleDebug -PreactNativeArchitectures=x86_64 --no-daemon --no-parallel --max-workers=1 --console=plain
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7897 -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 -Dhttp.nonProxyHosts=localhost|127.*
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+> Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :gradle-plugin:shared:compileKotlin FAILED
+The message received from the daemon indicates that the daemon has disappeared.
+Build request sent: Build{id=d25a22fd-1ca0-4323-8701-0937a5c4efb6, currentDir=F:\CX_notes\cx-learn-notes\android-plan-checkin\android}
+Attempting to read last messages from the daemon log...
+Daemon pid: 57644
+  log file: F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\daemon\9.3.1\daemon-57644.out.log
+----- Last 20 lines from daemon log file - daemon-57644.out.log -----
+2026-10-10T16:42:54.308+0800 [DEBUG] [org.gradle.launcher.daemon.server.DefaultIncomingConnectionHandler] Starting executing command: Build{id=d25a22fd-1ca0-4323-8701-0937a5c4efb6, currentDir=F:\CX_notes\cx-learn-notes\android-plan-checkin\android} with connection: socket connection from /127.0.0.1:55183 to /127.0.0.1:55247.
+2026-10-10T16:42:54.318+0800 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Command execution: started DaemonCommandExecution[command = Build{id=d25a22fd-1ca0-4323-8701-0937a5c4efb6, currentDir=F:\CX_notes\cx-learn-notes\android-plan-checkin\android}, connection = DefaultDaemonConnection: socket connection from /127.0.0.1:55183 to /127.0.0.1:55247] after 0.005866666666666667 minutes of idle
+2026-10-10T16:42:54.318+0800 [INFO] [org.gradle.launcher.daemon.server.DaemonRegistryUpdater] Marking the daemon as busy, address: [ceb0fa6d-76d3-45d2-8c38-1a9b5665a9fd port:55183, addresses:[localhost/127.0.0.1]]
+2026-10-10T16:42:54.319+0800 [DEBUG] [org.gradle.launcher.daemon.registry.PersistentDaemonRegistry] Marking busy by address: [ceb0fa6d-76d3-45d2-8c38-1a9b5665a9fd port:55183, addresses:[localhost/127.0.0.1]]
+2026-10-10T16:42:54.333+0800 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Waiting to acquire exclusive lock on daemon addresses registry.
+2026-10-10T16:42:54.342+0800 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Lock acquired on daemon addresses registry.
+2026-10-10T16:42:54.350+0800 [DEBUG] [org.gradle.cache.internal.DefaultFileLockManager] Releasing lock on daemon addresses registry.
+2026-10-10T16:42:54.351+0800 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] resetting idle timer
+2026-10-10T16:42:54.351+0800 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] daemon is running. Sleeping until state changes.
+2026-10-10T16:42:54.361+0800 [INFO] [org.gradle.launcher.daemon.server.exec.StartBuildOrRespondWithBusy] Daemon is about to start building Build{id=d25a22fd-1ca0-4323-8701-0937a5c4efb6, currentDir=F:\CX_notes\cx-learn-notes\android-plan-checkin\android}. Dispatching build started information...
+2026-10-10T16:42:54.362+0800 [DEBUG] [org.gradle.launcher.daemon.server.SynchronizedDispatchConnection] thread 22: dispatching org.gradle.launcher.daemon.protocol.BuildStarted@61be321d
+2026-10-10T16:42:54.384+0800 [DEBUG] [org.gradle.launcher.daemon.server.exec.EstablishBuildEnvironment] Configuring env variables: [PATH, BROWSER_USE_ACCESS_VERIFYING_IDENTITY, NVM_SYMLINK, _CONDA_EXE, CONDA_DEFAULT_ENV, ALLUSERSPROFILE, CONDA_PYTHON_EXE, GCM_INTERACTIVE, GATEWAY_VM_OPTIONS, ANDROID_HOME, SystemDrive, CONDA_PREFIX, GH_PAGER, COLORTERM, DIRNAME, USERNAME, CODEX_TASK_WORKSPACE_VERIFYING_IDENTITY, STUDIO_VM_OPTIONS, ProgramFiles(x86), FPS_BROWSER_USER_PROFILE_STRING, DEFAULT_JVM_OPTS, PATHEXT, APPCODE_VM_OPTIONS, DriverData, _CONDA_ROOT, PAGER, ANDROID_AI_TOOL_ROOT, CODEX_WINDOWS_SANDBOX_PACKAGE_FAMILY, HOMEPATH, LC_ALL, PROCESSOR_IDENTIFIER, CONDA_PROMPT_MODIFIER, ProgramFiles, PUBLIC, ZSH_TMUX_AUTOSTARTED, npm_config_cache, windir, LC_CTYPE, CODEX_SESSION_ID, ZES_ENABLE_SYSMAN, CONDA_EXE, FPS_BROWSER_APP_PROFILE_STRING, WEBSTORM_VM_OPTIONS, JAVA_HOME, PROMPT, CLION_VM_OPTIONS, RUST_LOG, TERM, GOLAND_VM_OPTIONS, OneDrive, APPDATA, GRADLE_USER_HOME, CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS, JAVA_TOOL_OPTIONS, JAVA_EXE, CODEX_THREAD_ID, JETBRAINS_CLIENT_VM_OPTIONS, DISABLE_AUTO_UPDATE, CI, COMPUTERNAME, APPIUM_HOME, ComSpec, APP_BASE_NAME, ZSH_TMUX_AUTOSTART, npm_config_registry, WEBIDE_VM_OPTIONS, HOMEDRIVE, CODEX_TECTONIC_PATH, NUMBER_OF_PROCESSORS, USERDOMAIN_ROAMINGPROFILE, PROCESSOR_LEVEL, GIT_PAGER, CODEX_MCP_NODE_PATH, CODEX_SHELL, PROCESSOR_ARCHITECTURE, NodeJS, __COMPAT_LAYER, PSModulePath, CODEX_CLI_PATH, CODEX_APP_TOOLS_PIPE_PATH, RIDER_VM_OPTIONS, npm_config_https_proxy, DEVECOSTUDIO_VM_OPTIONS, CODEX_INTERNAL_ORIGINATOR_OVERRIDE, CUDA_PATH_V12_1, APP_HOME, CODEX_SAGE_BACKFILL_TRACKER_TAB_REUSE, CODEX_SANDBOX_NETWORK_DISABLED, SHELL, OneDriveConsumer, Anconda_HOME, FIGMA_API_KEY, GIT_TERMINAL_PROMPT, CODEX_PERMISSION_PROFILE, DATASPELL_VM_OPTIONS, LOG_FORMAT, ProgramData, =F:, ProgramW6432, DATAGRIP_VM_OPTIONS, LOCALAPPDATA, USERDOMAIN, LOGONSERVER, PYCHARM_VM_OPTIONS, CMAKE_BUILD_PARALLEL_LEVEL, JETBRAINSCLIENT_VM_OPTIONS, LANG, EXPO_NO_TELEMETRY, IDEA_VM_OPTIONS, RUBYMINE_VM_OPTIONS, NO_COLOR, CONDA_SHLVL, NODE_PATH, CODEX_CI, CommonProgramFiles, OS, npm_config_proxy, CUDA_PATH, ANDROID_SDK_ROOT, ANDROID_USER_HOME, NVM_HOME, PROCESSOR_REVISION, CommonProgramW6432, SystemRoot, TEMP, USERPROFILE, TMP, CommonProgramFiles(x86), CODEX_VERSION, PHPSTORM_VM_OPTIONS, ANDROID_AVD_HOME]
+2026-10-10T16:42:54.412+0800 [DEBUG] [org.gradle.launcher.daemon.server.exec.LogToClient] About to start relaying all logs to the client via the connection.
+2026-10-10T16:42:54.412+0800 [INFO] [org.gradle.launcher.daemon.server.exec.LogToClient] The client will now receive all logging from the daemon (pid: 57644). The daemon log file: F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\daemon\9.3.1\daemon-57644.out.log
+2026-10-10T16:42:54.419+0800 [DEBUG] [org.gradle.launcher.daemon.server.exec.RequestStopIfSingleUsedDaemon] Requesting daemon stop after processing Build{id=d25a22fd-1ca0-4323-8701-0937a5c4efb6, currentDir=F:\CX_notes\cx-learn-notes\android-plan-checkin\android}
+2026-10-10T16:42:54.420+0800 [LIFECYCLE] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Daemon will be stopped at the end of the build 
+2026-10-10T16:42:54.421+0800 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] Stop as soon as idle requested. The daemon is busy
+2026-10-10T16:42:54.422+0800 [DEBUG] [org.gradle.launcher.daemon.server.DaemonStateCoordinator] daemon stop has been requested. Sleeping until state changes.
+2026-10-10T16:42:54.442+0800 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] The daemon has started executing the build.
+2026-10-10T16:42:54.443+0800 [DEBUG] [org.gradle.launcher.daemon.server.exec.ExecuteBuild] Executing build with daemon context: DefaultDaemonContext[uid=dc9f133a-16da-4051-94f0-37f6dd70e30e,javaHome=D:\xiang\CX_application\1_Configuration_Files\JAVA\jdk-17.0.1,javaVersion=17,javaVendor=Oracle Corporation,daemonRegistryDir=F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\daemon,pid=57644,idleTimeout=120000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=384m,-XX:ActiveProcessorCount=2,-Xss512k,-Xmx1024m,-Dfile.encoding=UTF-8,-Duser.country=CN,-Duser.language=zh,-Duser.variant]----- End of the daemon log -----
+
+JVM crash log found: file:///F:/CX_notes/cx-learn-notes/android-plan-checkin/android/hs_err_pid57644.log
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 236976 bytes for Chunk::new
+[thread 70124 also had an error]
+# An error report file with more information is saved as:
+# F:\CX_notes\cx-learn-notes\android-plan-checkin\android\hs_err_pid45420.log
+[thread 51368 also had an error]
+[thread 29116 also had an error]
+#
+# Compiler replay data is saved as:
+# F:\CX_notes\cx-learn-notes\android-plan-checkin\android\replay_pid45420.log
+
+2026-10-10T08:43:34.355Z exitCode=1

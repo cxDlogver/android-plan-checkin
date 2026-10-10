@@ -1,0 +1,49 @@
+2026-10-10T08:38:38.699Z
+cmd.exe /d /s /c gradlew.bat assembleDebug -PreactNativeArchitectures=x86_64 --no-daemon --no-parallel --max-workers=1 -Pkotlin.compiler.execution.strategy=in-process -Dorg.gradle.jvmargs="-Xmx1024m -XX:MaxMetaspaceSize=384m -XX:ActiveProcessorCount=2 -Xss512k -Dfile.encoding=UTF-8" --console=plain
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7897 -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 -Dhttp.nonProxyHosts=localhost|127.*
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Could not write standard input to Gradle build daemon.
+java.io.IOException: 管道正在被关闭。
+	at java.base/java.io.FileOutputStream.writeBytes(Native Method)
+	at java.base/java.io.FileOutputStream.write(FileOutputStream.java:349)
+	at java.base/java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:81)
+	at java.base/java.io.BufferedOutputStream.flush(BufferedOutputStream.java:142)
+	at org.gradle.process.internal.streams.ExecOutputHandleRunner.writeBuffer(ExecOutputHandleRunner.java:98)
+	at org.gradle.process.internal.streams.ExecOutputHandleRunner.forwardContent(ExecOutputHandleRunner.java:85)
+	at org.gradle.process.internal.streams.ExecOutputHandleRunner.run(ExecOutputHandleRunner.java:64)
+	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+	at org.gradle.internal.concurrent.AbstractManagedExecutor$1.run(AbstractManagedExecutor.java:47)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:833)
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Unable to start the daemon process.
+This problem might be caused by incorrect configuration of the daemon.
+For example, an unrecognized jvm option is used.For more details on the daemon, please refer to https://docs.gradle.org/9.3.1/userguide/gradle_daemon.html in the Gradle documentation.
+Process command line: D:\xiang\CX_application\1_Configuration_Files\JAVA\jdk-17.0.1\bin\java.exe --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED -Xmx1024m -Dfile.encoding=UTF-8" -Duser.country=CN -Duser.language=zh -Duser.variant -cp F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\wrapper\dists\gradle-9.3.1-bin\23ovyewtku6u96viwx3xl3oks\gradle-9.3.1\lib\gradle-daemon-main-9.3.1.jar -javaagent:F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\wrapper\dists\gradle-9.3.1-bin\23ovyewtku6u96viwx3xl3oks\gradle-9.3.1\lib\agents\gradle-instrumentation-agent-9.3.1.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.3.1
+Please read the following process output to find out more:
+-----------------------
+Picked up JAVA_TOOL_OPTIONS: -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=7897 -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=7897 -Dhttp.nonProxyHosts=localhost|127.*
+Error occurred during initialization of VM
+java.nio.charset.IllegalCharsetNameException: UTF-8 -Duser.country=CN -Duser.language=zh -Duser.variant -cp F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\wrapper\dists\gradle-9.3.1-bin\23ovyewtku6u96viwx3xl3oks\gradle-9.3.1\lib\gradle-daemon-main-9.3.1.jar -javaagent:F:\CX_notes\cx-learn-notes\android-plan-checkin\.cache\gradle\wrapper\dists\gradle-9.3.1-bin\23ovyewtku6u96viwx3xl3oks\gradle-9.3.1\lib\agents\gradle-instrumentation-agent-9.3.1.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.3.1
+	at java.nio.charset.Charset.checkName(java.base/Charset.java:305)
+	at java.nio.charset.Charset.lookup2(java.base/Charset.java:481)
+	at java.nio.charset.Charset.lookup(java.base/Charset.java:461)
+	at java.nio.charset.Charset.defaultCharset(java.base/Charset.java:608)
+	at java.io.OutputStreamWriter.<init>(java.base/OutputStreamWriter.java:110)
+	at java.io.PrintStream.<init>(java.base/PrintStream.java:110)
+	at java.io.PrintStream.<init>(java.base/PrintStream.java:152)
+	at java.lang.System.newPrintStream(java.base/System.java:2014)
+	at java.lang.System.initPhase1(java.base/System.java:2116)
+
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+2026-10-10T08:38:46.147Z exitCode=1

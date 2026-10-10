@@ -1,6 +1,27 @@
 # 计划打卡 Android V1
 
-免登录、本机保存的安卓个人计划与执行记录工具，技术方向React Native/Expo。当前交付已确认需求、Pen设计与技术基线；应用实现尚未开始。最终目标是Windows安卓模拟器实测与无需开发服务器的独立APK。
+免登录、本机保存的安卓个人计划与执行记录工具，技术方向React Native/Expo。三类计划、记录/补记、暂停恢复/归档、月历、历史统计与本机设置已实现；代码与验收结果分别跟踪。最终目标是Windows安卓模拟器实测与无需开发服务器的独立APK。
+
+## 运行与证据
+
+[公开仓库](https://github.com/cxDlogver/android-plan-checkin) · [实时开发进度](resource/progress/开发进度.md) · [代码与验证交付记录](resource/progress/代码交付记录.md) · [构建与签名](resource/progress/构建与签名.md)
+
+使用 Node 24.21.0、pnpm 10.28.2 和 JDK 17；Android SDK 编译/目标36，最低29。项目依赖33项精确固定，TypeScript根据Expo实际检查调整为6.0.3，原因与原始失败记录见[技术执行调整](resource/progress/技术执行调整.md)。
+
+```powershell
+pnpm install --frozen-lockfile
+pnpm typecheck
+pnpm test:domain
+$env:APP_VARIANT = 'development'
+pnpm exec expo prebuild --platform android --no-install
+pnpm exec expo run:android
+```
+
+工程分为纯领域规则、单SQLite执行器/应用服务、查询投影、界面与文件路由。开发包 `/native` 提供原生模块核查页；正式bundle通过Metro别名替换为空入口，不包含开发核查实现。全部事实保存在应用私有数据库，字体400/600/700随包离线加载。
+
+本机证据命令：`node scripts/p1.cjs <检查名>`；其工具路径可由 `ANDROID_AI_TOOL_ROOT` 覆盖。检查名包括 `typecheck`、`bundle`、`domain-compile`、`domain-tests`、`query-tests`、`integration-compile`、`integration-tests`、`signing-check`、`prebuild-first`、`prebuild-repeat`。已通过且输入/输出/证据摘要未变时自动SKIP；输入变化仅执行受影响项。SQLite宿主集成测试使用Node原生SQLite和测试专用Expo适配层，不能替代Android桥接验收。
+
+签名密钥在仓库外保存。未提供签名环境或原生身份错误时，正式release构建拒绝执行；不得把模板debug签名当正式产物。`.cache`、`.artifacts`、生成的 `android/`、密钥和本地环境文件均不入Git。
 
 - [详细需求：截图紧邻功能正文、32项功能与28组验收](resource/设计需求文档-计划打卡-Android-v1.md)
 - [技术设计文档（0.8已确认基线）](resource/技术设计文档-计划打卡-Android-v1.md)
@@ -24,7 +45,7 @@
 
 首版为个人核心闭环：三类计划、今日结果确认、文字备注、合法补记、日历与全部历史统计。普通记录只能当天改；补记保存后立即只读；不允许撤回。暂停/归档禁止补记，恢复后也不能补暂停前日期。
 
-本轮已明确新建固定星期默认不选，必须手动选择至少一天；“每日”为显式全选快捷操作。实施和BDD文档按固定IP/AC编号双向关联，每个参数/设备实例单独保存断言及证据。所有实施项未开始、产品验收NOT_RUN，.feature尚无步骤定义，不代表已可自动运行。
+本轮已明确新建固定星期默认不选，必须手动选择至少一天；“每日”为显式全选快捷操作。实施和BDD文档按固定IP/AC编号双向关联，每个参数/设备实例单独保存断言及证据。当前实现及命令结果见实时进度；完整产品BDD与八组合仍待原生执行。.feature是验收规格，尚无全量自动化步骤定义。
 
 运行中/暂停计划删除后立即移入归档，保留历史；归档后无恢复，只有查看和永久删除。循环到期次日自动归档；一次性普通终态次日、历史补报立即归档。暂停不可编辑，只改状态；固定时区在首次使用确定并全部计划共用。
 
@@ -40,4 +61,4 @@
 
 SDK57精确依赖、Node要求和静态中文字体已核查；33个应用/开发依赖＋pnpm通过发布元数据核查，完整依赖图strict peer解析及冻结锁文件复核PASS。SQLite候选内置3.50.3，方案严格保持单原生连接以避开已知WAL-reset多连接触发前提；实际原生版本与Gradle9.3.1/AGP8.12构建仍需P1留证。
 
-独立Node24、现有JDK17、SDK/ADB、API29/36 AVD与Appium3.8.0/UiAutomator2 8.7.0已按授权配置；WHPX、两套模拟器启动及原生点击/输入/返回/截图均PASS，一键启停及API36控制复核PASS。F盘空闲约36.6GiB，原空间阻碍解除。应用完整安装、原生构建、产品验收和APK运行仍NOT_RUN。
+独立Node24、现有JDK17、SDK/ADB、API29/36 AVD与Appium3.8.0/UiAutomator2 8.7.0已按授权配置；WHPX、两套模拟器启动及原生点击/输入/返回/截图均PASS，一键启停及API36控制复核PASS。F盘空闲约36.6GiB，原空间阻碍解除。应用依赖安装、冻结锁复核、类型检查和Android JS打包已执行；原生构建结果持续写入，完整产品验收与独立release仍单列跟踪。

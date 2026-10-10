@@ -1,0 +1,9 @@
+2026-10-10T09:19:18.093Z
+D:\xiang\CX_application\1_Configuration_Files\Android-AI\node-v24.21.0-win-x64\node.exe node_modules/typescript/bin/tsc -p tsconfig.integration.json
+src/application/service.ts(16,7): error TS2322: Type '{ ok: boolean; code: string; objectId: string; dataRevision: number; replayed: boolean; } | { ok: true; code: "OK"; objectId: string | undefined; dataRevision: number; replayed: true; }' is not assignable to type 'CommandResult'.
+  Type '{ ok: boolean; code: string; objectId: string; dataRevision: number; replayed: boolean; }' is not assignable to type 'CommandResult'.
+    Type '{ ok: boolean; code: string; objectId: string; dataRevision: number; replayed: boolean; }' is not assignable to type '{ ok: true; code: "OK"; objectId?: string | undefined; dataRevision: number; replayed: boolean; }'.
+      Types of property 'ok' are incompatible.
+        Type 'boolean' is not assignable to type 'true'.
+
+2026-10-10T09:19:31.626Z exitCode=2

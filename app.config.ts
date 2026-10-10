@@ -1,7 +1,8 @@
 import type { ExpoConfig } from 'expo/config';
 
+export default function config(): ExpoConfig {
 const development = process.env.APP_VARIANT === 'development';
-const config: ExpoConfig = {
+return {
   name: '计划打卡',
   slug: 'android-plan-checkin',
   version: '1.0.0',
@@ -29,7 +30,8 @@ const config: ExpoConfig = {
     'expo-router',
     ['expo-build-properties', { android: { minSdkVersion: 29, compileSdkVersion: 36, targetSdkVersion: 36 } }],
     './plugins/with-local-only.cjs',
+    './plugins/with-release-signing.cjs',
     ...(development ? ['expo-dev-client'] : []),
   ],
 };
-export default config;
+}
