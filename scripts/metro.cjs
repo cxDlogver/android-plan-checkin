@@ -1,0 +1,10 @@
+const fs=require('node:fs');
+const {spawn}=require('node:child_process');
+const {env,node}=require('./task-env.cjs');
+fs.mkdirSync('.cache',{recursive:true});
+const output=fs.createWriteStream('.cache/metro-development.log',{flags:'a'});
+const child=spawn(node,['node_modules/expo/bin/cli','start','--dev-client','--localhost','--port','8081','--max-workers','1'],{env:{...env,CI:'false',APP_VARIANT:'development'},windowsHide:true,stdio:['ignore','pipe','pipe']});
+for(const stream of [child.stdout,child.stderr])stream.on('data',chunk=>output.write(chunk));
+child.on('error',error=>console.error(error.message));
+child.on('close',code=>{output.end();process.exitCode=code??1;});
+console.log(`Development Metro PID ${child.pid}; .cache/metro-development.log`);

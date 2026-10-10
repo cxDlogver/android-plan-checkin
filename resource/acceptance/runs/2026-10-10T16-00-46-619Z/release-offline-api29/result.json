@@ -1,0 +1,31 @@
+{
+  "status": "FAIL",
+  "api": 29,
+  "startedAt": "2026-10-10T16:00:46.619Z",
+  "endedAt": "2026-10-10T16:00:47.748Z",
+  "apkSha256": "ba023a925b207f6939ad52a0d697e67768f3e4ab9b3067e179609a8234380337",
+  "buildRecord": "resource/acceptance/runs/2026-10-10T15-00-09-453Z/native-build/release/result.json",
+  "previousRecord": null,
+  "seededName": "离线持久化 API29 16:00:46",
+  "scope": "first signed release install, airplane mode, embedded JS/fonts/settings, process-death persistence, production route exclusion; upgrade and full BDD excluded",
+  "assertions": [
+    {
+      "id": "no-metro-server",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "execution",
+      "status": "FAIL",
+      "expected": "complete offline scope",
+      "actual": "Command failed: D:\\xiang\\CX_application\\1_Configuration_Files\\Android-AI\\sdk\\platform-tools\\adb.exe -s emulator-5560 shell pm path com.xiang.plancheckin"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-10T16-00-46-619Z/release-offline-api29/device.json",
+      "sha256": "1c7d1ba6695606e7258682ed7c10a76770d225d23905ee7d685c9b8f9f31a2d1"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+const fs=require('node:fs'),{apkZip}=require('./apk-zip.cjs'),progress=require('./progress.cjs');
+const build=progress.read().commands['native-release'],zip=apkZip(build.artifacts[0].path),map=JSON.parse(fs.readFileSync('android/app/build/generated/sourcemaps/react/release/index.android.bundle.map','utf8'));
+console.log(JSON.stringify({assets:zip.entries.filter(e=>e.name.startsWith('assets/')).map(({name,size})=>({name,size})),maps:{keys:Object.keys(map),sources:map.sources?.filter(name=>/verification|\/src\/(domain\/date|features\/|ui\/|state\/)|\/app\//.test(name)),sourceContentCount:map.sourcesContent?.length,firstSources:map.sources?.slice(0,3)},hermes:zip.read('assets/index.android.bundle').subarray(0,8).toString('hex')},null,2));

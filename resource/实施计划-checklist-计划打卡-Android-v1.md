@@ -40,7 +40,7 @@ flowchart LR
 
 - [x] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，DONE
 - [x] [IP02｜原生身份、备份排除与可重建配置](#ip02) — P1，DONE
-- [ ] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，BLOCKED
+- [x] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，DONE
 - [ ] [IP04｜最小原生模块与视觉小样](#ip04) — P1，IN_PROGRESS
 - [ ] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，IN_PROGRESS
 - [ ] [IP06｜业务日期和固定时区适配器](#ip06) — P2，IN_PROGRESS
@@ -64,8 +64,8 @@ flowchart LR
 - [ ] [IP24｜计划列表与两阶段删除管理](#ip24) — P3，IN_PROGRESS
 - [ ] [IP25｜本机设置、隐私与错误反馈](#ip25) — P3，IN_PROGRESS
 - [ ] [IP26｜全功能BDD执行与缺陷回归](#ip26) — P4，NOT_STARTED
-- [ ] [IP27｜八组合、视觉和无障碍验收](#ip27) — P4，NOT_STARTED
-- [ ] [IP28｜独立release与性能预算](#ip28) — P4，NOT_STARTED
+- [ ] [IP27｜八组合、视觉和无障碍验收](#ip27) — P4，IN_PROGRESS
+- [ ] [IP28｜独立release与性能预算](#ip28) — P4，IN_PROGRESS
 - [ ] [IP29｜覆盖升级、备份关闭与故障验收](#ip29) — P4，NOT_STARTED
 - [ ] [IP30｜发布证据归档与完整交付](#ip30) — P4，NOT_STARTED
 
@@ -110,7 +110,7 @@ flowchart LR
 - [x] IP01.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [x] IP01.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始2026-10-10T05:17:47.674Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T05:17:47.674Z；完成2026-10-10T09:26:05.059Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip02"></a>
 
@@ -152,29 +152,29 @@ flowchart LR
 - [x] IP02.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [x] IP02.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:08:50.771Z；完成2026-10-10T09:26:05.934Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip03"></a>
 
 ### IP03｜签名与Debug/Release原生编译
 
-阶段：P1；状态：BLOCKED；前置：[IP01](#ip01)、[IP02](#ip02)
+阶段：P1；状态：DONE；前置：[IP01](#ip01)、[IP02](#ip02)
 
 需求关联：[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
 实现 checklist：
 
-- [ ] IP03.W1 — 任务终端加载Node24/JDK17/SDK，重查容量并按生成工程准备NDK
-- [ ] IP03.W2 — 保存Wrapper/AGP/Kotlin/SDK解析版本
-- [ ] IP03.W3 — 验证Gradle9.3.1与AGP8.12实际构建
-- [ ] IP03.W4 — 正式签名密钥仓库外保护，Gradle安全读取，versionCode递增
-- [ ] IP03.W5 — 生成development与非debuggable长期签名release，验证证书和APK摘要
+- [x] IP03.W1 — 任务终端加载Node24/JDK17/SDK，重查容量并按生成工程准备NDK
+- [x] IP03.W2 — 保存Wrapper/AGP/Kotlin/SDK解析版本
+- [x] IP03.W3 — 验证Gradle9.3.1与AGP8.12实际构建
+- [x] IP03.W4 — 正式签名密钥仓库外保护，Gradle安全读取，versionCode递增
+- [x] IP03.W5 — 生成development与非debuggable长期签名release，验证证书和APK摘要
 
 产物 checklist：
 
-- [ ] IP03.D1 — Debug/Release构建原始日志
-- [ ] IP03.D2 — apksigner验证/证书摘要
-- [ ] IP03.D3 — build-manifest和APK，不交付私钥
+- [x] IP03.D1 — Debug/Release构建原始日志
+- [x] IP03.D2 — apksigner验证/证书摘要
+- [x] IP03.D3 — build-manifest和APK，不交付私钥
 
 验收关联（点击到具体场景；主责项与汇总消费项分开）：
 
@@ -191,10 +191,10 @@ flowchart LR
 
 </details>
 
-- [ ] IP03.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
-- [ ] IP03.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
+- [x] IP03.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
+- [x] IP03.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:10:39.074Z；完成2026-10-10T16:19:32.369Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip04"></a>
 
@@ -238,7 +238,7 @@ flowchart LR
 - [ ] IP04.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP04.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T09:27:29.409Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip05"></a>
 
@@ -280,7 +280,7 @@ flowchart LR
 - [ ] IP05.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP05.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T09:27:29.409Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip06"></a>
 
@@ -322,7 +322,7 @@ flowchart LR
 - [ ] IP06.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP06.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:40:10.306Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip07"></a>
 
@@ -366,7 +366,7 @@ flowchart LR
 - [ ] IP07.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP07.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip08"></a>
 
@@ -408,7 +408,7 @@ flowchart LR
 - [ ] IP08.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP08.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip09"></a>
 
@@ -449,7 +449,7 @@ flowchart LR
 - [ ] IP09.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP09.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip10"></a>
 
@@ -490,7 +490,7 @@ flowchart LR
 - [ ] IP10.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP10.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip11"></a>
 
@@ -532,7 +532,7 @@ flowchart LR
 - [ ] IP11.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP11.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip12"></a>
 
@@ -577,7 +577,7 @@ flowchart LR
 - [ ] IP12.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP12.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip13"></a>
 
@@ -616,7 +616,7 @@ flowchart LR
 - [ ] IP13.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP13.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip14"></a>
 
@@ -657,7 +657,7 @@ flowchart LR
 - [ ] IP14.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP14.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip15"></a>
 
@@ -698,7 +698,7 @@ flowchart LR
 - [ ] IP15.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP15.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip16"></a>
 
@@ -739,7 +739,7 @@ flowchart LR
 - [ ] IP16.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP16.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip17"></a>
 
@@ -779,7 +779,7 @@ flowchart LR
 - [ ] IP17.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP17.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip18"></a>
 
@@ -823,7 +823,7 @@ flowchart LR
 - [ ] IP18.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP18.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip19"></a>
 
@@ -879,7 +879,7 @@ flowchart LR
 - [ ] IP19.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP19.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip20"></a>
 
@@ -921,7 +921,7 @@ flowchart LR
 - [ ] IP20.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP20.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip21"></a>
 
@@ -984,7 +984,7 @@ flowchart LR
 - [ ] IP21.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP21.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip22"></a>
 
@@ -1036,7 +1036,7 @@ flowchart LR
 - [ ] IP22.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP22.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip23"></a>
 
@@ -1087,7 +1087,7 @@ flowchart LR
 - [ ] IP23.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP23.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip24"></a>
 
@@ -1138,7 +1138,7 @@ flowchart LR
 - [ ] IP24.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP24.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip25"></a>
 
@@ -1177,7 +1177,7 @@ flowchart LR
 - [ ] IP25.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP25.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip26"></a>
 
@@ -1326,7 +1326,7 @@ flowchart LR
 
 ### IP27｜八组合、视觉和无障碍验收
 
-阶段：P4；状态：NOT_STARTED；前置：[IP26](#ip26)
+阶段：P4；状态：IN_PROGRESS；前置：[IP26](#ip26)
 
 需求关联：[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR15](设计需求文档-计划打卡-Android-v1.md#fr15)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -1384,13 +1384,13 @@ flowchart LR
 - [ ] IP27.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP27.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T16:19:32.397Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip28"></a>
 
 ### IP28｜独立release与性能预算
 
-阶段：P4；状态：NOT_STARTED；前置：[IP03](#ip03)、[IP05](#ip05)、[IP26](#ip26)
+阶段：P4；状态：IN_PROGRESS；前置：[IP03](#ip03)、[IP05](#ip05)、[IP26](#ip26)
 
 需求关联：[FR01](设计需求文档-计划打卡-Android-v1.md#fr01)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -1427,7 +1427,7 @@ flowchart LR
 - [ ] IP28.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP28.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T16:19:32.397Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip29"></a>
 

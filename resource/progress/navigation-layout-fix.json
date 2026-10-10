@@ -1,0 +1,30 @@
+{
+  "status": "VERIFIED",
+  "recordedAt": "2026-10-10T16:13:08.779Z",
+  "defect": "Bottom-tab text is covered by the three-button system navigation bar in the first API29 release screenshot.",
+  "before": {
+    "sourceSha256": "07c45512c7ac775295fd9cb19f3da45a9d555246f81a3a0a7a480a52c6372f9b",
+    "apkSha256": "ba023a925b207f6939ad52a0d697e67768f3e4ab9b3067e179609a8234380337",
+    "screenshot": "resource/acceptance/runs/2026-10-10T16-01-10-880Z/release-offline-api29/first-offline-today.png",
+    "sha256": "ea38db1d067f35786fed4c32a917784e8f0d5a6c8ec7d4a17e3988c74bdd12dd"
+  },
+  "after": {
+    "path": "app/(tabs)/_layout.tsx",
+    "sha256": "4d62f82bbf02377740aa4306aa1c92c80bb0d55ac110c7ed1fb358093b8e9bf3",
+    "behavior": "content height includes 100%/200% text line and adds the live bottom safe-area inset"
+  },
+  "regression": "navigation-layout-api29/api36 report records each label bound relative to actual system bars; full matrix remains separate",
+  "verifiedAt": "2026-10-10T16:33:07.129Z",
+  "regressionReports": [
+    {
+      "api": 29,
+      "record": "resource/acceptance/runs/2026-10-10T16-26-12-634Z/navigation-layout-api29/result.json",
+      "apkSha256": "c9f547b2da835d3dd27b52fff2c871d08b41111566c143fdfd0d417437af9cce"
+    },
+    {
+      "api": 36,
+      "record": "resource/acceptance/runs/2026-10-10T16-21-56-751Z/navigation-layout-api36/result.json",
+      "apkSha256": "c9f547b2da835d3dd27b52fff2c871d08b41111566c143fdfd0d417437af9cce"
+    }
+  ]
+}

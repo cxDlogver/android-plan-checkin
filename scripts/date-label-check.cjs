@@ -1,0 +1,7 @@
+const fs=require('node:fs'),path=require('node:path'),Module=require('node:module'),ts=require('typescript'),{createHash}=require('node:crypto');
+const file='src/domain/date.ts',source=fs.readFileSync(file,'utf8');
+const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const loaded=new Module(path.resolve('.artifacts/integration/src/domain/date-label-check.js'),module);loaded.filename=loaded.id;loaded.paths=Module._nodeModulePaths(path.dirname(loaded.filename));loaded._compile(compiled,loaded.filename);
+const checks=[];
+for(const zone of ['Asia/Shanghai','America/New_York'])for(let day=5;day<=11;day++){const date=`2026-10-${String(day).padStart(2,'0')}`,expected=`10月${day}日 ${['星期一','星期二','星期三','星期四','星期五','星期六','星期日'][day-5]}`,actual=loaded.exports.formatDate(date,zone);checks.push({date,zone,expected,actual,status:expected===actual?'PASS':'FAIL'});}
+const status=checks.every(check=>check.status==='PASS')?'PASS':'FAIL';fs.writeFileSync('resource/progress/date-label-check.json',JSON.stringify({status,recordedAt:new Date().toISOString(),sourceFile:file,sourceSha256:createHash('sha256').update(source).digest('hex'),scope:'changed Chinese weekday labels only; no business calendar tests repeated',checks},null,2)+'\n');console.log(`${status}: ${checks.length} Chinese date labels`);if(status!=='PASS')process.exitCode=1;

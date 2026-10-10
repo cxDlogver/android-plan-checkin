@@ -1,0 +1,3 @@
+const fs=require('node:fs'),progress=require('./progress.cjs');
+const state=progress.read();
+console.log(JSON.stringify({tasks:state.tasks.map(({id,status,blockedReason})=>({id,status,blockedReason})),commands:Object.fromEntries(Object.entries(state.commands).map(([id,v])=>[id,{status:v.status,record:v.record}])),deviceScripts:fs.readdirSync('resource/scripts'),sourceMaps:fs.existsSync('android/app/build/generated/sourcemaps/react/release')?fs.readdirSync('android/app/build/generated/sourcemaps/react/release'):[],zipLibraries:['yauzl','yauzl-promise','adm-zip','ws'].map(name=>{try{return {name,path:require.resolve(name)};}catch{return {name,path:null};}})},null,2));

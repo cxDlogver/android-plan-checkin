@@ -1,0 +1,15 @@
+const fs=require('node:fs'),{createHash}=require('node:crypto'),{DeviceDriver}=require('./device-driver.cjs'),progress=require('./progress.cjs');
+const directory=`resource/acceptance/runs/${new Date().toISOString().replace(/[:.]/g,'-')}/apk-recovery`;
+const device=new DeviceDriver('36',directory);device.identity();
+const build=progress.read().commands['native-debug'];if(build?.status!=='PASS')throw new Error('A recorded successful debug build is required.');
+const expected=build.artifacts.find(file=>file.path.endsWith('.apk'));
+const remote=device.adb(['shell','pm','path','com.xiang.plancheckin.dev']).trim().replace(/^package:/,'');
+if(!/^\/data\/app\/[^\r\n]+\/base\.apk$/.test(remote))throw new Error('Unexpected dedicated development APK path');
+fs.mkdirSync('.artifacts/apk/development',{recursive:true});const target=`.artifacts/apk/development/${expected.sha256.slice(0,16)}.apk`;
+device.adb(['pull',remote,target]);const actual=createHash('sha256').update(fs.readFileSync(target)).digest('hex');
+if(actual!==expected.sha256)throw new Error('Installed development APK differs from the successful build.');
+const artifact={path:target,sha256:actual,bytes:fs.statSync(target).size};
+const result={status:'PASS',recordedAt:new Date().toISOString(),scope:'recover original APK after native prebuild removed generated build outputs; byte hash must match',originalBuildRecord:build.record,originalArtifact:expected,recoveredArtifact:artifact,device:{avd:'plancheckin_api36',package:'com.xiang.plancheckin.dev',serial:device.serial}};
+fs.writeFileSync(`${directory}/result.json`,JSON.stringify(result,null,2)+'\n');
+progress.update(state=>{state.commands['native-debug'].artifacts=[artifact];state.commands['apk-recovery']={...result,record:`${directory}/result.json`};});
+console.log(`Recovered original development APK with matching SHA-256: ${target}`);

@@ -1,10 +1,12 @@
 # 计划打卡 Android V1
 
-免登录、本机保存的安卓个人计划与执行记录工具，技术方向React Native/Expo。三类计划、记录/补记、暂停恢复/归档、月历、历史统计与本机设置已实现；代码与验收结果分别跟踪。最终目标是Windows安卓模拟器实测与无需开发服务器的独立APK。
+免登录、本机保存的安卓个人计划与执行记录工具，使用 React Native/Expo。三类计划、记录/补记、暂停恢复/归档、月历、历史统计与本机设置已实现。已生成长期签名的独立 APK；代码完成与各项验收分别跟踪。
 
 ## 运行与证据
 
 [公开仓库](https://github.com/cxDlogver/android-plan-checkin) · [实时开发进度](resource/progress/开发进度.md) · [代码与验证交付记录](resource/progress/代码交付记录.md) · [构建与签名](resource/progress/构建与签名.md)
+
+正式包版本、SHA256、证书、内嵌 Hermes 与字体摘要及冻结源码关联见 [build-manifest.json](resource/progress/build-manifest.json)，平台与 APK 的对应关系见 [独立运行及回归记录](resource/progress/release-device-results.json)。APK 保存在本机 `.artifacts/apk/release/`，未加入 Git。API 29/36 已分别通过原生 SQLite 参数、日期/DST 核查和创建/取消/提交/同日修正流程；正式包离线结果按平台另行记录。完整 BDD、八组合、TalkBack、性能、覆盖升级、备份和厂商真机尚未全部验收，不以这些局部结果代替。
 
 使用 Node 24.21.0、pnpm 10.28.2 和 JDK 17；Android SDK 编译/目标36，最低29。项目依赖33项精确固定，TypeScript根据Expo实际检查调整为6.0.3，原因与原始失败记录见[技术执行调整](resource/progress/技术执行调整.md)。
 
@@ -19,7 +21,9 @@ pnpm exec expo run:android
 
 工程分为纯领域规则、单SQLite执行器/应用服务、查询投影、界面与文件路由。开发包 `/native` 提供原生模块核查页；正式bundle通过Metro别名替换为空入口，不包含开发核查实现。全部事实保存在应用私有数据库，字体400/600/700随包离线加载。
 
-本机证据命令：`node scripts/p1.cjs <检查名>`；其工具路径可由 `ANDROID_AI_TOOL_ROOT` 覆盖。检查名包括 `typecheck`、`bundle`、`domain-compile`、`domain-tests`、`query-tests`、`integration-compile`、`integration-tests`、`signing-check`、`prebuild-first`、`prebuild-repeat`。已通过且输入/输出/证据摘要未变时自动SKIP；输入变化仅执行受影响项。SQLite宿主集成测试使用Node原生SQLite和测试专用Expo适配层，不能替代Android桥接验收。
+本机证据命令：`node scripts/p1.cjs <检查名>`；其工具路径可由 `ANDROID_AI_TOOL_ROOT` 覆盖。检查名包括 `typecheck`、`bundle`、`domain-compile`、`domain-tests`、`query-tests`、`integration-compile`、`integration-tests`、`fixture-tests`、`signing-check`、`prebuild-first`、`prebuild-repeat`。已通过且输入/输出/证据摘要未变时自动SKIP；输入变化仅执行受影响项。SQLite宿主集成测试使用Node原生SQLite和测试专用Expo适配层，不能替代Android桥接验收。
+
+F01–F08 与 PERF 使用固定种子，具体日期/时区/计数和合法数据库摘要见 [fixture-manifest.json](resource/progress/fixture-manifest.json)。PERF 为40个固定、40个周目标、20个一次性计划及三年分布的10000条循环记录。
 
 签名密钥在仓库外保存。未提供签名环境或原生身份错误时，正式release构建拒绝执行；不得把模板debug签名当正式产物。`.cache`、`.artifacts`、生成的 `android/`、密钥和本地环境文件均不入Git。
 
@@ -59,6 +63,6 @@ pnpm exec expo run:android
 
 技术基线0.8已通过T15整体确认，包含9表DDL、11个命令/查询契约、日期/生命周期/统计决策表及验收/构建证据规范。T1–T14逐项明确，名称计划打卡，正式包com.xiang.plancheckin，开发包com.xiang.plancheckin.dev；P0技术设计完成。宿主SQL原型13项检查PASS，不能替代Android原生验证。
 
-SDK57精确依赖、Node要求和静态中文字体已核查；33个应用/开发依赖＋pnpm通过发布元数据核查，完整依赖图strict peer解析及冻结锁文件复核PASS。SQLite候选内置3.50.3，方案严格保持单原生连接以避开已知WAL-reset多连接触发前提；实际原生版本与Gradle9.3.1/AGP8.12构建仍需P1留证。
+SDK57精确依赖、Node要求和静态中文字体已核查；33个应用/开发依赖＋pnpm通过发布元数据核查，完整依赖图strict peer解析及冻结锁文件复核PASS。API29/36实际读回SQLite3.50.3、WAL、FULL与外键启用；应用保持单原生连接。实际解析并构建使用Gradle9.3.1、AGP8.12.0、Kotlin2.1.20、SDK36和NDK27.1.12297006，原始工具链报告与构建日志见实时进度。
 
-独立Node24、现有JDK17、SDK/ADB、API29/36 AVD与Appium3.8.0/UiAutomator2 8.7.0已按授权配置；WHPX、两套模拟器启动及原生点击/输入/返回/截图均PASS，一键启停及API36控制复核PASS。F盘空闲约36.6GiB，原空间阻碍解除。应用依赖安装、冻结锁复核、类型检查和Android JS打包已执行；原生构建结果持续写入，完整产品验收与独立release仍单列跟踪。
+独立Node24、现有JDK17、SDK/ADB、API29/36 AVD与Appium3.8.0/UiAutomator2 8.7.0已按授权配置；WHPX、两套模拟器启动及原生点击/输入/返回/截图均PASS，一键启停及API36控制复核PASS。应用依赖安装、冻结锁复核、类型检查、Android JS打包及Debug/Release原生构建已通过。新建长期RSA4096密钥保存在仓库外，仅当前Windows用户可访问，密码使用DPAPI保护；公开仓库只保存证书及其摘要。

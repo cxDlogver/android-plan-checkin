@@ -1,0 +1,30 @@
+{
+  "runId": "2026-10-10T15-04-46-385Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-10T15:04:46.385Z",
+  "endedAt": "2026-10-10T15:04:49.580Z",
+  "inputSha256": "9d0d0de1d44370234d35b926e9f9f5205b0b734a5946a21d41e8bf9a94630166",
+  "previousRecord": "resource/acceptance/runs/2026-10-10T14-59-11-618Z/native-api36/result.json",
+  "scope": "development native assertions only",
+  "api": 36,
+  "mode": "modules",
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful native execution",
+      "actual": "ENOENT: no such file or directory, open 'F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\android\\app\\build\\outputs\\apk\\debug\\app-debug.apk'",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-04-46-385Z/native-api36/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    }
+  ],
+  "limitations": [
+    "AC004 A3 initialization-failure/device guard not fully exercised",
+    "AC005 release/offline/fonts/visual review pending",
+    "AC006 full fixture and private-directory load chain pending; parent scenarios stay NOT_RUN"
+  ]
+}

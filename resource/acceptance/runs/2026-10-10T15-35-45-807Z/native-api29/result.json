@@ -1,0 +1,113 @@
+{
+  "runId": "2026-10-10T15-35-45-807Z",
+  "status": "PASS",
+  "startedAt": "2026-10-10T15:35:45.807Z",
+  "endedAt": "2026-10-10T15:37:08.752Z",
+  "inputSha256": "96bee35b489759d60abb98aed7f21e975f310794f8ed0008938a0ed65975a01c",
+  "previousRecord": null,
+  "recoveredObservation": null,
+  "scope": "development native assertions only",
+  "api": 29,
+  "mode": "modules",
+  "assertions": [
+    {
+      "id": "AC004.A1",
+      "expected": {
+        "journal_mode": "wal",
+        "synchronous": 2,
+        "foreign_keys": 1
+      },
+      "actual": {
+        "journal_mode": "wal",
+        "synchronous": 2,
+        "foreign_keys": 1
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC004.A2.versionPresent",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC004.A2.privatePath",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.intl",
+      "expected": {
+        "shanghai": "2026-10-09",
+        "newYork": "2026-03-09",
+        "dstHours": 23
+      },
+      "actual": {
+        "shanghai": "2026-10-09",
+        "newYork": "2026-03-09",
+        "dstHours": 23
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC006.A1",
+      "expected": {
+        "api": 29,
+        "avd": "plancheckin_api29",
+        "serial": "emulator-5560",
+        "package": "com.xiang.plancheckin.dev"
+      },
+      "actual": {
+        "api": 29,
+        "avd": "plancheckin_api29",
+        "serial": "emulator-5560",
+        "package": "com.xiang.plancheckin.dev"
+      },
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/build-reference.json",
+      "sha256": "b9d290a6b2039e1c2fb4c848c1e0cf41381fcd0ec7fd7cc20f4f7391801c2b2e"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/native-report.json",
+      "sha256": "b046fec28494d2204bfdb759313ab372579923a874fb618a8a4ec87bfa852cd5"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/native-report.png",
+      "sha256": "79231437000c28d768afdd327a4a321f671b252bc23a2b4b68607a054854b33b"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/native-report.xml",
+      "sha256": "4092992db568e2b809e946d28ce4dbe460f0388504a071e256659d7c4249354c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/native-top.png",
+      "sha256": "39cf2108cc44d895761d6ce186f87eeaf3ce46d7df88e57db28644dcc82ec239"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/native-top.xml",
+      "sha256": "1ce8a5a68f6124d1f4e41ff214760567d79b0d0e39ca6e50aefab7587ce0d8e7"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/startup.png",
+      "sha256": "77a9d5bb716d91afd8a62013d7ab4bfe709e71d0204d4ceeb2620d19c4c78128"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-10T15-35-45-807Z/native-api29/startup.xml",
+      "sha256": "ecce7bbc04eef211d59acc299944d5bef7d8428657784a48a47cbcfa10dee734"
+    }
+  ],
+  "limitations": [
+    "AC004 A3 initialization-failure/device guard not fully exercised",
+    "AC005 release/offline/fonts/visual review pending",
+    "AC006 full fixture and private-directory load chain pending; parent scenarios stay NOT_RUN"
+  ]
+}

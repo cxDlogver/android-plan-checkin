@@ -1,0 +1,94 @@
+{
+  "status": "PASS",
+  "recordedAt": "2026-10-10T14:45:42.871Z",
+  "scope": "new build version inputs only",
+  "checks": [
+    {
+      "expected": {
+        "package": "com.xiang.plancheckin",
+        "versionCode": 1,
+        "version": "1.0.0"
+      },
+      "actual": {
+        "package": "com.xiang.plancheckin",
+        "versionCode": 1,
+        "version": "1.0.0"
+      },
+      "status": "PASS"
+    },
+    {
+      "expected": {
+        "package": "com.xiang.plancheckin",
+        "versionCode": 2,
+        "version": "1.0.1"
+      },
+      "actual": {
+        "package": "com.xiang.plancheckin",
+        "versionCode": 2,
+        "version": "1.0.1"
+      },
+      "status": "PASS"
+    },
+    {
+      "expected": {
+        "package": "com.xiang.plancheckin.dev",
+        "versionCode": 2,
+        "version": "1.0.1"
+      },
+      "actual": {
+        "package": "com.xiang.plancheckin.dev",
+        "versionCode": 2,
+        "version": "1.0.1"
+      },
+      "status": "PASS"
+    },
+    {
+      "input": {
+        "versionCode": "0"
+      },
+      "expected": "rejected",
+      "actual": "rejected",
+      "status": "PASS"
+    },
+    {
+      "input": {
+        "versionCode": "-1"
+      },
+      "expected": "rejected",
+      "actual": "rejected",
+      "status": "PASS"
+    },
+    {
+      "input": {
+        "versionCode": "2.5"
+      },
+      "expected": "rejected",
+      "actual": "rejected",
+      "status": "PASS"
+    },
+    {
+      "input": {
+        "versionCode": "2100000001"
+      },
+      "expected": "rejected",
+      "actual": "rejected",
+      "status": "PASS"
+    },
+    {
+      "input": {
+        "versionCode": "NaN"
+      },
+      "expected": "rejected",
+      "actual": "rejected",
+      "status": "PASS"
+    },
+    {
+      "input": {
+        "versionName": "invalid"
+      },
+      "expected": "rejected",
+      "actual": "rejected",
+      "status": "PASS"
+    }
+  ]
+}

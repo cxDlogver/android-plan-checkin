@@ -1,0 +1,33 @@
+const fs=require('node:fs');
+const path=require('node:path');
+const assert=require('node:assert/strict');
+const {execFileSync}=require('node:child_process');
+const {env,toolRoot}=require('./task-env.cjs');
+const elementKey='element-6066-11e4-a52e-4f735466cecf';
+const decode=text=>text.replace(/&quot;/g,'"').replace(/&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&#(\d+);/g,(_,n)=>String.fromCodePoint(Number(n))).replace(/&amp;/g,'&');
+function reportFromSource(source){const tag=source.match(/<[^>]*resource-id="native\.report"[^>]*>/)?.[0];const content=tag?.match(/content-desc=(["'])(.*?)\1/)?.[2];return content&&decode(content)!=='null'?JSON.parse(decode(content)):null;}
+class DeviceDriver{
+  constructor(api,directory){assert.ok(['29','36'].includes(String(api)));this.api=String(api);this.serial=api==='29'||api===29?'emulator-5560':'emulator-5562';this.directory=directory;this.package='com.xiang.plancheckin.dev';this.address='http://127.0.0.1:4723';fs.mkdirSync(directory,{recursive:true});}
+  adb(args){return execFileSync(path.join(toolRoot,'sdk/platform-tools/adb.exe'),['-s',this.serial,...args],{env,encoding:'utf8',timeout:180000,windowsHide:true});}
+  identity(){const avd=this.adb(['emu','avd','name']).split(/\r?\n/).map(line=>line.trim());assert.ok(avd.includes(`plancheckin_api${this.api}`),'Only the project disposable AVD is authorized.');const actualApi=this.adb(['shell','getprop','ro.build.version.sdk']).trim();assert.equal(actualApi,this.api);return {serial:this.serial,avd:`plancheckin_api${this.api}`,api:Number(actualApi),package:this.package,display:this.adb(['shell','wm','size']).trim(),density:this.adb(['shell','wm','density']).trim(),fontScale:this.adb(['shell','settings','get','system','font_scale']).trim(),timezone:this.adb(['shell','getprop','persist.sys.timezone']).trim()};}
+  async request(endpoint,method='GET',body){const response=await fetch(this.address+endpoint,{method,headers:{'content-type':'application/json'},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(180000)});const result=await response.json();if(!response.ok||result.value?.error)throw new Error(`${method} ${endpoint}: ${result.value?.message||response.status}`);return result.value;}
+  endpoint(suffix){assert.ok(this.sessionId,'No Appium session');return `/session/${this.sessionId}/${suffix}`;}
+  async open(){this.identity();const session=await this.request('/session','POST',{capabilities:{alwaysMatch:{platformName:'Android','appium:automationName':'UiAutomator2','appium:udid':this.serial,'appium:appPackage':this.package,'appium:appActivity':'.MainActivity','appium:noReset':true,'appium:forceAppLaunch':true,'appium:shouldTerminateApp':true,'appium:newCommandTimeout':240,'appium:uiautomator2ServerInstallTimeout':120000,'appium:uiautomator2ServerLaunchTimeout':120000},firstMatch:[{}]}});this.sessionId=session.sessionId;assert.ok(this.sessionId);}
+  async close(){if(this.sessionId){await this.request(`/session/${this.sessionId}`,'DELETE');this.sessionId=null;}}
+  async source(){return this.request(this.endpoint('source'));}
+  async save(name){const source=await this.source();fs.writeFileSync(`${this.directory}/${name}.xml`,source);const screenshot=await this.request(this.endpoint('screenshot'));fs.writeFileSync(`${this.directory}/${name}.png`,Buffer.from(screenshot,'base64'));return source;}
+  async element(using,value){const found=await this.request(this.endpoint('element'),'POST',{using,value});assert.ok(found[elementKey]);return found[elementKey];}
+  async id(testID){return this.element('xpath',`//*[@resource-id="${testID}"]`);}
+  async click(testID){const id=await this.id(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
+  async text(text){const id=await this.element('-android uiautomator',`new UiSelector().text(${JSON.stringify(text)})`);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
+  async input(testID,text){const id=await this.id(testID);await this.request(this.endpoint(`element/${id}/clear`),'POST',{});await this.request(this.endpoint(`element/${id}/value`),'POST',{text});}
+  async seek(testID){for(let attempt=0;attempt<10;attempt++){const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);await this.scroll();}throw new Error(`Product control unavailable: ${testID}`);}
+  async clickVisible(testID){const id=await this.seek(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
+  async hideKeyboard(){await this.request(this.endpoint('appium/device/hide_keyboard'),'POST',{});}
+  async back(){await this.request(this.endpoint('appium/device/press_keycode'),'POST',{keycode:4});}
+  async waitSource(predicate,timeout=60000){const deadline=Date.now()+timeout;let source;do{source=await this.source();if(predicate(source))return source;await new Promise(resolve=>setTimeout(resolve,750));}while(Date.now()<deadline);await this.save('unexpected');throw new Error('Expected product UI did not appear; inspect unexpected.xml/png.');}
+  async scroll(direction='down',percent=.8){await this.request(this.endpoint('execute/sync'),'POST',{script:'mobile: scrollGesture',args:[{left:20,top:180,width:1000,height:1750,direction,percent}]});}
+  async report(){for(let attempt=0;attempt<12;attempt++){const report=reportFromSource(await this.source());if(report)return report;await this.scroll();}throw new Error('Native diagnostics report unavailable.');}
+  deepLink(url){this.adb(['shell','am','start','-W','-a','android.intent.action.VIEW','-d',url,this.package]);}
+}
+module.exports={DeviceDriver,decode,reportFromSource};

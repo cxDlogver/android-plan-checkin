@@ -1,0 +1,39 @@
+{
+  "status": "CURRENT_SCOPE_PASS",
+  "recordedAt": "2026-10-10T16:33:07.131Z",
+  "apk": {
+    "path": ".artifacts/apk/release/c9f547b2da835d3d.apk",
+    "originalPath": "android/app/build/outputs/apk/release/app-release.apk",
+    "sha256": "c9f547b2da835d3dd27b52fff2c871d08b41111566c143fdfd0d417437af9cce",
+    "bytes": 115229571
+  },
+  "firstOfflineInstall": [
+    {
+      "api": 29,
+      "record": "resource/acceptance/runs/2026-10-10T16-01-10-880Z/release-offline-api29/result.json",
+      "apkSha256": "ba023a925b207f6939ad52a0d697e67768f3e4ab9b3067e179609a8234380337"
+    },
+    {
+      "api": 36,
+      "record": "resource/acceptance/runs/2026-10-10T16-17-47-090Z/release-offline-api36/result.json",
+      "apkSha256": "c9f547b2da835d3dd27b52fff2c871d08b41111566c143fdfd0d417437af9cce"
+    }
+  ],
+  "finalApkRegression": [
+    {
+      "api": 29,
+      "record": "resource/acceptance/runs/2026-10-10T16-26-12-634Z/navigation-layout-api29/result.json",
+      "scope": "same-certificate replacement with preserved data under airplane mode, then 100%/200% tab bounds"
+    },
+    {
+      "api": 36,
+      "record": "resource/acceptance/runs/2026-10-10T16-21-56-751Z/navigation-layout-api36/result.json",
+      "scope": "100%/200% tab bounds after first offline install"
+    }
+  ],
+  "limitations": [
+    "API29首装离线证据属于导航修复前APK；最终APK在飞行模式替换安装后保留原数据并通过导航回归。",
+    "本轮未新增复测已通过创建/取消/记录/修正行为。",
+    "完整BDD、八组合、TalkBack、性能、版本递增及schema升级、备份和厂商真机未全部验收。"
+  ]
+}

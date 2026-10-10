@@ -1,0 +1,20 @@
+import groovy.json.JsonOutput
+gradle.projectsEvaluated {
+    def taskApp = gradle.rootProject.findProject(':app')
+    if (taskApp == null || !taskApp.plugins.hasPlugin('com.android.application')) return
+    def taskAndroid = taskApp.extensions.getByName('android')
+    def taskClasspath = gradle.rootProject.buildscript.configurations.classpath.resolvedConfiguration.resolvedArtifacts.collect {
+        [group: it.moduleVersion.id.group, name: it.name, version: it.moduleVersion.id.version]
+    }.findAll { (it.group == 'com.android.tools.build' && it.name == 'gradle') || (it.group == 'org.jetbrains.kotlin' && it.name == 'kotlin-gradle-plugin') }
+    println('PLANCHECKIN_ENVIRONMENT=' + JsonOutput.toJson([
+        gradle: gradle.gradleVersion,
+        java: System.getProperty('java.version'),
+        resolvedClasspath: taskClasspath,
+        applicationId: taskAndroid.defaultConfig.applicationId,
+        minSdk: taskAndroid.defaultConfig.minSdkVersion.apiLevel,
+        targetSdk: taskAndroid.defaultConfig.targetSdkVersion.apiLevel,
+        compileSdk: taskAndroid.compileSdk,
+        ndkVersion: taskAndroid.ndkVersion,
+        buildToolsVersion: taskAndroid.buildToolsVersion
+    ]))
+}

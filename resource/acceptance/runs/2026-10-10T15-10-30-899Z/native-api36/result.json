@@ -1,0 +1,25 @@
+{
+  "runId": "2026-10-10T15-10-30-899Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-10T15:10:30.899Z",
+  "endedAt": "2026-10-10T15:10:30.935Z",
+  "inputSha256": "6d6123fdfb65f7546e01d94203014ea950d284b30adda41cb6f2e35e50070bee",
+  "previousRecord": "resource/acceptance/runs/2026-10-10T15-06-54-719Z/native-api36/result.json",
+  "scope": "development native assertions only",
+  "api": 36,
+  "mode": "recover",
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful native execution",
+      "actual": "Recovery cannot reinterpret evidence from different source or APK.\n+ actual - expected\n\n+ undefined\n- '6d6123fdfb65f7546e01d94203014ea950d284b30adda41cb6f2e35e50070bee'\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [],
+  "limitations": [
+    "AC004 A3 initialization-failure/device guard not fully exercised",
+    "AC005 release/offline/fonts/visual review pending",
+    "AC006 full fixture and private-directory load chain pending; parent scenarios stay NOT_RUN"
+  ]
+}

@@ -35,8 +35,8 @@
 ### 工程准入
 
 - [x] [AC001｜精确依赖与冻结安装可重现](acceptance/scenarios/01-工程准入.md#ac001)
-- [ ] [AC002｜包身份与系统备份排除可重复生成](acceptance/scenarios/01-工程准入.md#ac002)
-- [ ] [AC003｜SDK模板原生编译与长期签名](acceptance/scenarios/01-工程准入.md#ac003)
+- [x] [AC002｜包身份与系统备份排除可重复生成](acceptance/scenarios/01-工程准入.md#ac002)
+- [x] [AC003｜SDK模板原生编译与长期签名](acceptance/scenarios/01-工程准入.md#ac003)
 - [ ] [AC004｜安卓SQLite连接参数与版本读回](acceptance/scenarios/01-工程准入.md#ac004)
 - [ ] [AC005｜原生字体导航和金属小样可独立运行](acceptance/scenarios/01-工程准入.md#ac005)
 - [ ] [AC006｜验收工具限定正确设备与隔离数据](acceptance/scenarios/01-工程准入.md#ac006)
