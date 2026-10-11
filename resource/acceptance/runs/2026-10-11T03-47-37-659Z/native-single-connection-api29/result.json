@@ -1,0 +1,85 @@
+{
+  "runId": "2026-10-11T03-47-37-659Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T03:47:37.659Z",
+  "endedAt": "2026-10-11T03:47:37.718Z",
+  "inputSha256": "1bf7b6ecf3bb941ffa878310f6a4d496f01ea7dd0a576f7d7d6d8a94fdd3a675",
+  "previousRecord": null,
+  "scope": "native-single-connection-api29",
+  "implementationIds": [
+    "IP04",
+    "IP08"
+  ],
+  "caseId": "AC010",
+  "rowId": "default",
+  "configId": "api29-393dp-font1",
+  "assertions": [
+    {
+      "id": "AC010.A1.successful-executor-attachments",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A1.concurrent-bootstrap-service",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A1.bootstrap-requests",
+      "expected": 5,
+      "actual": 5,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A1.production-open-site",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A1.cached-startup",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC004.A3.one-provider",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC004.A3.no-concurrent-checkpoint",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-47-37-659Z/native-single-connection-api29/executor.ts.source.txt",
+      "sha256": "78420bd0950dd6b3660e47d5a277393c10f3afafa7ab2469d74e8b6e5525580c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-47-37-659Z/native-single-connection-api29/inputs.json",
+      "sha256": "ba79dbac803ae5e9fcdc482004fffb0289031556d06a133ce65771f0811d7cfe"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-47-37-659Z/native-single-connection-api29/native-connection.json",
+      "sha256": "21bbd65b49c42b4f888aaf7f4fecdbbbd071c4b4ce45139dc3043751f8579172"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-47-37-659Z/native-single-connection-api29/service.ts.source.txt",
+      "sha256": "2d929fd5e3575ea00a081cf50643ff2388bb0aff72f2444ef09bf92e9fc933a7"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-47-37-659Z/native-single-connection-api29/_layout.tsx.source.txt",
+      "sha256": "95ee17c835c8c39671268912ab5059d1ae5e1854c37867a1b21325653afb0e7f"
+    }
+  ],
+  "limitations": [
+    "The initial-admission probe closes the original connection before its controlled reopen; no second live business connection is introduced."
+  ]
+}

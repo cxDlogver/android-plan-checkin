@@ -1,0 +1,9 @@
+2026-10-11T03:25:19.744Z
+D:\xiang\CX_application\1_Configuration_Files\Android-AI\node-v24.21.0-win-x64\node.exe node_modules/typescript/bin/tsc --noEmit
+src/verification/initialization-development.ts(20,5): error TS2322: Type '<T>(source: string, ...params: SQLiteBindValue[]) => Promise<T | null>' is not assignable to type '{ <T>(source: string, params: SQLiteBindParams): Promise<T | null>; <T>(source: string, ...params: SQLiteVariadicBindParams): Promise<...>; }'.
+  Types of parameters 'params' and 'params' are incompatible.
+    Type 'SQLiteBindParams' is not assignable to type 'SQLiteBindValue'.
+      Type 'Record<string, SQLiteBindValue>' is not assignable to type 'SQLiteBindValue'.
+        Type 'Record<string, SQLiteBindValue>' is missing the following properties from type 'Uint8Array<ArrayBufferLike>': BYTES_PER_ELEMENT, buffer, byteLength, byteOffset, and 36 more.
+
+2026-10-11T03:25:22.458Z exitCode=2

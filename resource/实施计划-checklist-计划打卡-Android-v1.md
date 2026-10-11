@@ -41,8 +41,8 @@ flowchart LR
 - [x] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，DONE
 - [x] [IP02｜原生身份、备份排除与可重建配置](#ip02) — P1，DONE
 - [x] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，DONE
-- [ ] [IP04｜最小原生模块与视觉小样](#ip04) — P1，IN_PROGRESS
-- [ ] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，IN_PROGRESS
+- [x] [IP04｜最小原生模块与视觉小样](#ip04) — P1，DONE
+- [x] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，DONE
 - [ ] [IP06｜业务日期和固定时区适配器](#ip06) — P2，IN_PROGRESS
 - [ ] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，IN_PROGRESS
 - [ ] [IP08｜唯一连接执行器、快照与revision](#ip08) — P2，IN_PROGRESS
@@ -63,7 +63,7 @@ flowchart LR
 - [ ] [IP23｜三类详情、全部历史与只读入口](#ip23) — P3，IN_PROGRESS
 - [ ] [IP24｜计划列表与两阶段删除管理](#ip24) — P3，IN_PROGRESS
 - [ ] [IP25｜本机设置、隐私与错误反馈](#ip25) — P3，IN_PROGRESS
-- [ ] [IP26｜全功能BDD执行与缺陷回归](#ip26) — P4，NOT_STARTED
+- [ ] [IP26｜全功能BDD执行与缺陷回归](#ip26) — P4，IN_PROGRESS
 - [ ] [IP27｜八组合、视觉和无障碍验收](#ip27) — P4，IN_PROGRESS
 - [ ] [IP28｜独立release与性能预算](#ip28) — P4，IN_PROGRESS
 - [ ] [IP29｜覆盖升级、备份关闭与故障验收](#ip29) — P4，NOT_STARTED
@@ -194,31 +194,31 @@ flowchart LR
 - [x] IP03.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [x] IP03.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始2026-10-10T08:10:39.074Z；完成2026-10-10T16:19:32.369Z；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:10:39.074Z；完成2026-10-11T04:15:00.590Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip04"></a>
 
 ### IP04｜最小原生模块与视觉小样
 
-阶段：P1；状态：IN_PROGRESS；前置：[IP03](#ip03)
+阶段：P1；状态：DONE；前置：[IP03](#ip03)
 
 需求关联：[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
 实现 checklist：
 
-- [ ] IP04.W1 — 两API验证SQLite版本/路径/wal/2/1、单连接事务
-- [ ] IP04.W2 — Hermes Intl上海/纽约和日期运算
-- [ ] IP04.W3 — Router/Worklets原生匹配
-- [ ] IP04.W4 — 嵌入静态字体400/600/700及OFL
-- [ ] IP04.W5 — 渐变/金属高光/内外阴影、安全区/键盘
-- [ ] IP04.W6 — 关Metro验证release资源
+- [x] IP04.W1 — 两API验证SQLite版本/路径/wal/2/1、单连接事务
+- [x] IP04.W2 — Hermes Intl上海/纽约和日期运算
+- [x] IP04.W3 — Router/Worklets原生匹配
+- [x] IP04.W4 — 嵌入静态字体400/600/700及OFL
+- [x] IP04.W5 — 渐变/金属高光/内外阴影、安全区/键盘
+- [x] IP04.W6 — 关Metro验证release资源
 
 产物 checklist：
 
-- [ ] IP04.D1 — 原生小样源码
-- [ ] IP04.D2 — API29/36技术断言日志和实测截图
-- [ ] IP04.D3 — 字体文件摘要/许可
-- [ ] IP04.D4 — G2报告
+- [x] IP04.D1 — 原生小样源码
+- [x] IP04.D2 — API29/36技术断言日志和实测截图
+- [x] IP04.D3 — 字体文件摘要/许可
+- [x] IP04.D4 — G2报告
 
 验收关联（点击到具体场景；主责项与汇总消费项分开）：
 
@@ -235,33 +235,33 @@ flowchart LR
 
 </details>
 
-- [ ] IP04.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
-- [ ] IP04.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
+- [x] IP04.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
+- [x] IP04.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始2026-10-10T09:27:29.409Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T09:27:29.409Z；完成2026-10-11T04:14:58.111Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip05"></a>
 
 ### IP05｜测试驱动、隔离夹具与证据采集
 
-阶段：P1；状态：IN_PROGRESS；前置：[IP03](#ip03)
+阶段：P1；状态：DONE；前置：[IP03](#ip03)
 
 需求关联：[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
 实现 checklist：
 
-- [ ] IP05.W1 — 复用已有Appium/AVD脚本，验证正确设备和包身份
-- [ ] IP05.W2 — .dev才编译Clock/seed/故障入口，正式包排除
-- [ ] IP05.W3 — 固定testID与自然中文accessibilityLabel
-- [ ] IP05.W4 — 准备F01–F08合法数据及性能夹具
-- [ ] IP05.W5 — P1验证可丢弃AOSP AVD的root/私有目录载入链路
-- [ ] IP05.W6 — 建立assertions/evidence报告与哈希清单，不触碰个人库
+- [x] IP05.W1 — 复用已有Appium/AVD脚本，验证正确设备和包身份
+- [x] IP05.W2 — .dev才编译Clock/seed/故障入口，正式包排除
+- [x] IP05.W3 — 固定testID与自然中文accessibilityLabel
+- [x] IP05.W4 — 准备F01–F08合法数据及性能夹具
+- [x] IP05.W5 — P1验证可丢弃AOSP AVD的root/私有目录载入链路
+- [x] IP05.W6 — 建立assertions/evidence报告与哈希清单，不触碰个人库
 
 产物 checklist：
 
-- [ ] IP05.D1 — 测试目录/夹具生成器/版本摘要
-- [ ] IP05.D2 — 设备读回与载入链路证据
-- [ ] IP05.D3 — 逐场景执行报告模板
+- [x] IP05.D1 — 测试目录/夹具生成器/版本摘要
+- [x] IP05.D2 — 设备读回与载入链路证据
+- [x] IP05.D3 — 逐场景执行报告模板
 
 验收关联（点击到具体场景；主责项与汇总消费项分开）：
 
@@ -277,10 +277,10 @@ flowchart LR
 
 </details>
 
-- [ ] IP05.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
-- [ ] IP05.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
+- [x] IP05.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
+- [x] IP05.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始2026-10-10T09:27:29.409Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T09:27:29.409Z；完成2026-10-11T04:01:11.484Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip06"></a>
 
@@ -1183,7 +1183,7 @@ flowchart LR
 
 ### IP26｜全功能BDD执行与缺陷回归
 
-阶段：P4；状态：NOT_STARTED；前置：[IP05](#ip05)、[IP19](#ip19)、[IP20](#ip20)、[IP21](#ip21)、[IP22](#ip22)、[IP23](#ip23)、[IP24](#ip24)、[IP25](#ip25)
+阶段：P4；状态：IN_PROGRESS；前置：[IP05](#ip05)、[IP19](#ip19)、[IP20](#ip20)、[IP21](#ip21)、[IP22](#ip22)、[IP23](#ip23)、[IP24](#ip24)、[IP25](#ip25)
 
 需求关联：[FR01](设计需求文档-计划打卡-Android-v1.md#fr01)、[FR02](设计需求文档-计划打卡-Android-v1.md#fr02)、[FR03](设计需求文档-计划打卡-Android-v1.md#fr03)、[FR04](设计需求文档-计划打卡-Android-v1.md#fr04)、[FR05](设计需求文档-计划打卡-Android-v1.md#fr05)、[FR06](设计需求文档-计划打卡-Android-v1.md#fr06)、[FR07](设计需求文档-计划打卡-Android-v1.md#fr07)、[FR08](设计需求文档-计划打卡-Android-v1.md#fr08)、[FR09](设计需求文档-计划打卡-Android-v1.md#fr09)、[FR10](设计需求文档-计划打卡-Android-v1.md#fr10)、[FR11](设计需求文档-计划打卡-Android-v1.md#fr11)、[FR12](设计需求文档-计划打卡-Android-v1.md#fr12)、[FR13](设计需求文档-计划打卡-Android-v1.md#fr13)、[FR14](设计需求文档-计划打卡-Android-v1.md#fr14)、[FR15](设计需求文档-计划打卡-Android-v1.md#fr15)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR17](设计需求文档-计划打卡-Android-v1.md#fr17)、[FR18](设计需求文档-计划打卡-Android-v1.md#fr18)、[FR19](设计需求文档-计划打卡-Android-v1.md#fr19)、[FR20](设计需求文档-计划打卡-Android-v1.md#fr20)、[FR21](设计需求文档-计划打卡-Android-v1.md#fr21)、[FR22](设计需求文档-计划打卡-Android-v1.md#fr22)、[FR23](设计需求文档-计划打卡-Android-v1.md#fr23)、[FR24](设计需求文档-计划打卡-Android-v1.md#fr24)、[FR25](设计需求文档-计划打卡-Android-v1.md#fr25)、[FR26](设计需求文档-计划打卡-Android-v1.md#fr26)、[FR27](设计需求文档-计划打卡-Android-v1.md#fr27)、[FR28](设计需求文档-计划打卡-Android-v1.md#fr28)、[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)、[FR30](设计需求文档-计划打卡-Android-v1.md#fr30)、[FR31](设计需求文档-计划打卡-Android-v1.md#fr31)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -1320,7 +1320,7 @@ flowchart LR
 - [ ] IP26.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [ ] IP26.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始待开始；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-11T04:01:11.485Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip27"></a>
 

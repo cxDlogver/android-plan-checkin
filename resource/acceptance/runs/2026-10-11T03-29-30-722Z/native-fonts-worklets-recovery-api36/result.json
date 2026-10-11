@@ -1,0 +1,99 @@
+{
+  "runId": "2026-10-11T03-29-30-722Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T03:29:30.722Z",
+  "endedAt": "2026-10-11T03:29:30.784Z",
+  "inputSha256": "4a159d2eadf1121ae82a118d4051c4f8e43c18be2c2c26374d152ac949db70db",
+  "previousRecord": null,
+  "scope": "native-fonts-worklets-recovery-api36",
+  "implementationIds": [
+    "IP04"
+  ],
+  "caseId": "AC005",
+  "rowId": "default",
+  "configId": "api36-393dp-font1",
+  "recoveredObservation": {
+    "record": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/result.json",
+    "startedAt": "2026-10-11T03:28:13.112Z",
+    "endedAt": "2026-10-11T03:28:19.538Z"
+  },
+  "assertions": [
+    {
+      "id": "AC005.A1.native-fonts-loaded",
+      "expected": [
+        {
+          "name": "NotoSC400",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC600",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC700",
+          "loaded": true
+        }
+      ],
+      "actual": [
+        {
+          "name": "NotoSC400",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC600",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC700",
+          "loaded": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A1.three-weight-labels",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A1.worklets-native-translation",
+      "expected": 330,
+      "actual": 330,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A1.animation-roundtrip",
+      "expected": [
+        55,
+        1262,
+        138,
+        1344
+      ],
+      "actual": [
+        55,
+        1262,
+        138,
+        1344
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-29-30-722Z/native-fonts-worklets-recovery-api36/animation-timing-recovery.json",
+      "sha256": "8c54c8f541c63ae1a2a807e5744c97502e62848157b21514e1a619d0ae36ff50"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-29-30-722Z/native-fonts-worklets-recovery-api36/inputs.json",
+      "sha256": "a43e97065d487d661d1bff69179c4fa4a67ca3fc69a628d955dfe44dcf1f4fb5"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-29-30-722Z/native-fonts-worklets-recovery-api36/reused-evidence.json",
+      "sha256": "4d79be07b477099f535212cc097a1ca6dabaf77ddb016c4758dc9b9a55a88558"
+    }
+  ],
+  "limitations": [
+    "Reuses original native fonts/translation observations and their immutable XML/screenshots; original timing failure stays preserved."
+  ]
+}

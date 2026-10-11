@@ -1,0 +1,109 @@
+{
+  "runId": "2026-10-11T03-21-49-495Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T03:21:49.495Z",
+  "endedAt": "2026-10-11T03:21:51.396Z",
+  "inputSha256": "97e2d7bebf5b2e75bbeb65f3d5aead257a9de30d96c34a4a75db81547ad54397",
+  "previousRecord": null,
+  "scope": "AC010-default-api36-393dp-font1",
+  "implementationIds": [
+    "IP08"
+  ],
+  "caseId": "AC010",
+  "rowId": "default",
+  "configId": "api36-393dp-font1",
+  "fr": [
+    "FR10",
+    "FR11",
+    "FR16",
+    "FR32"
+  ],
+  "at": [
+    "AT24"
+  ],
+  "assertions": [
+    {
+      "id": "native-context-preserved",
+      "expected": "1791688897050-e656d4bfc59e4",
+      "actual": "1791688897050-e656d4bfc59e4",
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A1.serial-order",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A1.transaction-context-rejected",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A2.no-success-before-commit",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A2.failed-transaction-no-revision",
+      "expected": "5ca53e855ab29ca0d57fe6eee4dfed8771acc3530519e5ee9ec86e5735c03cf5",
+      "actual": "5ca53e855ab29ca0d57fe6eee4dfed8771acc3530519e5ee9ec86e5735c03cf5",
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A3.read-plan-count",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A3.read-complete-revision",
+      "expected": 2,
+      "actual": 2,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A3.read-data-revision",
+      "expected": "6",
+      "actual": "6",
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A3.next-write-plan-revision",
+      "expected": 3,
+      "actual": 3,
+      "status": "PASS"
+    },
+    {
+      "id": "AC010.A3.next-write-data-revision",
+      "expected": 7,
+      "actual": 7,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-21-49-495Z/AC010-default-api36-393dp-font1/bridge-identity.json",
+      "sha256": "e5b42f30526801b7851aaa90b32bc69518adcbf7088ff0472a6c858dec30dafb"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-21-49-495Z/AC010-default-api36-393dp-font1/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-21-49-495Z/AC010-default-api36-393dp-font1/inputs.json",
+      "sha256": "23fa6eb9a4838aa23e17a102da5d91273fa9e838420e36abc820825e294fc696"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-21-49-495Z/AC010-default-api36-393dp-font1/native-observation.json",
+      "sha256": "a50bf8b2946eba15c08c8e574b82799e100e6bc59fef249a514fcdde7ccf7200"
+    }
+  ],
+  "limitations": [
+    "Connection count is additionally established by the single-open source audit; this report exercises the real one-executor transaction queue.",
+    "DTO projections remain separate AC116",
+    "Parent acceptance remains incomplete until both APIs and all required scopes are linked."
+  ]
+}

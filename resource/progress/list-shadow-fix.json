@@ -1,0 +1,54 @@
+{
+  "recordedAt": "2026-10-11T03:55:29.040Z",
+  "status": "PASS",
+  "problem": "Lists clipped outer shadows because horizontal page padding narrowed the scroll viewport; API29 native stack also overrode status-bar icon appearance.",
+  "changes": [
+    {
+      "file": "src/ui/metal.tsx",
+      "beforeSha256": "4196f1b43f5290ca29ce39e3f4748d8f60241b1249154b1b7e853c1dae416855",
+      "afterSha256": "be4d6bd77ac357087539928a55f048866d8cfb51b7c0fbb1a87c3385d28441fa"
+    },
+    {
+      "file": "src/features/plans.tsx",
+      "beforeSha256": "8b05af752c707ae887eb25e2f668bf377a70ec107d0182b69bcfbf41686c2e0f",
+      "afterSha256": "bd6340210d3a3cef7af275e04bb6beff535f7507f6e73a3b058a7bd1845585a7"
+    },
+    {
+      "file": "src/features/calendar.tsx",
+      "beforeSha256": "b8665c4a69c27488ab40f0c792d432684e3b4e5fdc186b4291f3e5da511b6970",
+      "afterSha256": "4bcc0059ec1d00977ce3c3bc8cf9a5ad56240cf2de3c1f6c7f96ceae2536abd6"
+    },
+    {
+      "file": "src/features/plan-detail.tsx",
+      "beforeSha256": "a7bf3fdae30ecae0796d4a553ecb7a70bd7f973d84c56a3c91ec175449dfb10b",
+      "afterSha256": "ff10d4d0fc33e0b2377572c4a9a2c6ae7469a1971669c24216f4ec424bd2a8a0"
+    },
+    {
+      "file": "src/features/today.tsx",
+      "beforeSha256": "b8e6ca8555b1cc0ce24f39fb6978c59cdd2824f6d8389cf5ae79243a8852cc6f",
+      "afterSha256": "507c346630a9fb4436d6b901e8cff31e28be2eaadb62b6d7d14acef9e019c584"
+    },
+    {
+      "file": "src/features/plans.tsx",
+      "beforeSha256": "bd6340210d3a3cef7af275e04bb6beff535f7507f6e73a3b058a7bd1845585a7",
+      "afterSha256": "cd2745b9af56bc35be17c5f56b7a9741fa3a16b121cf38da63d197bb3e2d19af"
+    },
+    {
+      "file": "src/features/plans.tsx",
+      "beforeSha256": "cd2745b9af56bc35be17c5f56b7a9741fa3a16b121cf38da63d197bb3e2d19af",
+      "afterSha256": "a9d90b1c3be83667f323828f2bf90793505a653ad2a48b6bb2d1ee89febe027e"
+    }
+  ],
+  "scope": "Four list content containers retain the same 20dp horizontal inset, with 8dp breathing space inside their full-width scroll viewport; native stack explicitly requests dark status-bar icons.",
+  "businessLogicChanged": false,
+  "nativeReview": [
+    {
+      "api": "29",
+      "report": "resource/acceptance/runs/2026-10-11T04-14-57-661Z/AC005-visual-api29/result.json"
+    },
+    {
+      "api": "36",
+      "report": "resource/acceptance/runs/2026-10-11T04-14-57-866Z/AC005-visual-api36/result.json"
+    }
+  ]
+}

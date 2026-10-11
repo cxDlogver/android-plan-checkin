@@ -1,0 +1,136 @@
+{
+  "runId": "2026-10-11T03-28-13-112Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T03:28:13.112Z",
+  "endedAt": "2026-10-11T03:28:19.538Z",
+  "inputSha256": "3bdd6d142665fcbe897cf59e95b445b0805b5938ad8f924a0d5af6aba0411c47",
+  "previousRecord": null,
+  "scope": "native-fonts-worklets-api36",
+  "implementationIds": [
+    "IP04"
+  ],
+  "caseId": "AC005",
+  "rowId": "default",
+  "configId": "api36-393dp-font1",
+  "assertions": [
+    {
+      "id": "AC005.A1.native-fonts-loaded",
+      "expected": [
+        {
+          "name": "NotoSC400",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC600",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC700",
+          "loaded": true
+        }
+      ],
+      "actual": [
+        {
+          "name": "NotoSC400",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC600",
+          "loaded": true
+        },
+        {
+          "name": "NotoSC700",
+          "loaded": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A1.three-weight-labels",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A1.worklets-native-translation",
+      "expected": 330,
+      "actual": 330,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A1.animation-roundtrip",
+      "expected": [
+        55,
+        1262,
+        138,
+        1344
+      ],
+      "actual": [
+        362,
+        1262,
+        445,
+        1344
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "AC005.A1.animation-roundtrip\n\n'FAIL' !== 'PASS'\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/failure.png",
+      "sha256": "e07daac986691e5d58ab4e3a9605bb1957f9caf6e12f6e45cfd04c86514b905e"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/failure.xml",
+      "sha256": "b0c7d063c4438080882aea62d9f70a6f21ecda070b9df39edc25e4fe311ac2cd"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/inputs.json",
+      "sha256": "4bea13762d067553081cdf89b51c9b4fcac14164aa5f17f75b3868258576da43"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-animation-after.png",
+      "sha256": "94fe23a5f01fca345926de9898de5438eaa8297fe1692e0d3fd157a0190a0e52"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-animation-after.xml",
+      "sha256": "baeff9857d0e8f4ab7f3e96b2f4629c0c7a88b9b78cd219a5c9f55c1cdc6f732"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-animation-restored.png",
+      "sha256": "715eabd68497f479535ffee30f58ef09f67c30e29e64a4df22f4f65f902bc23f"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-animation-restored.xml",
+      "sha256": "a80745e66966a0da1429dd256f1db7be7c00fd024a498edb25039e72d2553361"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-fonts.json",
+      "sha256": "0b46fa6711f665f3335ad98e55dfd4b333f537fd938bc81ee36ffe5c5acc29ff"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-material-before.png",
+      "sha256": "08d902bf28aec5f09b2966426d64317c64eef42cddd0973bb6e3c40c009da473"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/native-material-before.xml",
+      "sha256": "01287add82f0139e8c8099ccce13e104a4659dd2ed4c8c42765ee7a9a3ba3957"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-28-13-112Z/native-fonts-worklets-api36/worklets-bounds.json",
+      "sha256": "7051e1816a8689064caa1930ea4c3522f61f58a09e47474371127eef13bfd133"
+    }
+  ],
+  "limitations": [
+    "AC005 visual review and release/offline evidence are linked separately; this report verifies fonts and native Worklets only."
+  ]
+}

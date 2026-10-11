@@ -1,0 +1,101 @@
+{
+  "runId": "2026-10-11T03-52-29-060Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T03:52:29.060Z",
+  "endedAt": "2026-10-11T03:52:43.959Z",
+  "inputSha256": "b246a900b356c0ac8ae8479d34a84a8b390b8f1d626f8abdc675a64ee1aed20c",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T03-50-04-233Z/release-material-api29/result.json",
+  "scope": "release-material-api29",
+  "implementationIds": [
+    "IP04",
+    "IP28"
+  ],
+  "caseId": "AC005",
+  "rowId": "default",
+  "configId": "api29-393dp-font1",
+  "apkSha256": "801597a9864541b02a34a005faa21e82acc50985c6fb7ebf15f7a818ff2a45ca",
+  "buildRecord": "resource/acceptance/runs/2026-10-11T03-29-35-686Z/native-build/release/result.json",
+  "assertions": [
+    {
+      "id": "AC005.A3.no-Metro",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A3.embedded-Chinese",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC005.A3.no-launcher-or-load-error",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "same-certificate-replacement-retains-existing-data",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "POST /session/96cf45f9-e358-4ece-9b1c-f8a17dd89750/element: An element could not be located on the page using the given search parameters.",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/connectivity-before.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/connectivity-offline.json",
+      "sha256": "a1e249d8659d9b13f565bd743ab354013e47c1051b8c08f5eced79d298c431a1"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/connectivity-restored.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/device.json",
+      "sha256": "1c7d1ba6695606e7258682ed7c10a76770d225d23905ee7d685c9b8f9f31a2d1"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/failure.png",
+      "sha256": "3e75df8b12db491fbd3ee8db431b5e8a3ded7e653e2dea46ad53a25cf41a6785"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/failure.xml",
+      "sha256": "7f70bb98bcc1ba7a0ceecd2ae880f94620e4694c7907c1f8b546c12a6a43bf7f"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/inputs.json",
+      "sha256": "ec9a0365c73b867a68838a48ec09d8ba3096b954e2d4a7a58f7f29db0fb41c82"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/offline-material-calendar.png",
+      "sha256": "5fd2b59fd56c595a25747e9f9fe23a68a1db90f2b1283a2849880292fd9aae02"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/offline-material-calendar.xml",
+      "sha256": "7f70bb98bcc1ba7a0ceecd2ae880f94620e4694c7907c1f8b546c12a6a43bf7f"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/previous-package.log",
+      "sha256": "ae15540a7553ce51e702fa5f558599490d103ca8de2af48d5e0a3075e6bf373c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-52-29-060Z/release-material-api29/reused-evidence.json",
+      "sha256": "75654aff11d9f030601ad47c887f5d26da55ab5e7a7458ff810013c49f5aaf24"
+    }
+  ],
+  "limitations": [
+    "Only material gradients/shadows and final APK resource/navigation rendering are newly checked; prior passing create/record/cancel flows are reused.",
+    "Replacement keeps versionCode=1 and is not the planned version/schema upgrade acceptance.",
+    "No new business write is submitted; the existing offline seed is read back."
+  ]
+}

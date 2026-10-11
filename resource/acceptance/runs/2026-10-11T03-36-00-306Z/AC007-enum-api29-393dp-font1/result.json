@@ -1,0 +1,116 @@
+{
+  "runId": "2026-10-11T03-36-00-306Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T03:36:00.306Z",
+  "endedAt": "2026-10-11T03:36:01.547Z",
+  "inputSha256": "99956395b6705697f247d0d9953bc4a681b99871fc105a37cc3881051391859c",
+  "previousRecord": null,
+  "scope": "AC007-enum-api29-393dp-font1",
+  "implementationIds": [
+    "IP07"
+  ],
+  "caseId": "AC007",
+  "rowId": "enum",
+  "configId": "api29-393dp-font1",
+  "fr": [
+    "FR10",
+    "FR11",
+    "FR13",
+    "FR29",
+    "FR32"
+  ],
+  "at": [
+    "AT24"
+  ],
+  "assertions": [
+    {
+      "id": "native-context-preserved",
+      "expected": "1791689746495-1298addbf61b47",
+      "actual": "1791689746495-1298addbf61b47",
+      "status": "PASS"
+    },
+    {
+      "id": "AC007.A1.rejected",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC007.A1.counts",
+      "expected": {
+        "plans": 5,
+        "rule_versions": 8,
+        "lifecycle_events": 0,
+        "cycle_records": 1,
+        "one_time_results": 1,
+        "cycle_record_originals": 0,
+        "one_time_result_originals": 0,
+        "command_receipts": 0,
+        "app_meta": 3
+      },
+      "actual": {
+        "plans": 5,
+        "rule_versions": 8,
+        "lifecycle_events": 0,
+        "cycle_records": 1,
+        "one_time_results": 1,
+        "cycle_record_originals": 0,
+        "one_time_result_originals": 0,
+        "command_receipts": 0,
+        "app_meta": 3
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC007.A1.foreignKeys",
+      "expected": [],
+      "actual": [],
+      "status": "PASS"
+    },
+    {
+      "id": "AC007.A2.deferred-schema",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC007.A3.logical-facts",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC007.enum.both-constraints",
+      "expected": [
+        "unknown_result",
+        "illegal_weekly_target"
+      ],
+      "actual": [
+        "unknown_result",
+        "illegal_weekly_target"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-36-00-306Z/AC007-enum-api29-393dp-font1/bridge-identity.json",
+      "sha256": "9c52c371dcf10c16ab433b177fc0c508089c6f521ce467747fe0dd4bb71aecf0"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-36-00-306Z/AC007-enum-api29-393dp-font1/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-36-00-306Z/AC007-enum-api29-393dp-font1/inputs.json",
+      "sha256": "9f7e95a60c7fb3dda73fa1b17fc46faaef605a13a6e7165c0c6814056c6c5753"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T03-36-00-306Z/AC007-enum-api29-393dp-font1/native-observation.json",
+      "sha256": "a8982f844a7bea01c111974529925a4c9550487f0a75a77ded1c031346c1f5c1"
+    }
+  ],
+  "limitations": [
+    "Parent acceptance remains incomplete until both APIs and all required scopes are linked."
+  ]
+}
