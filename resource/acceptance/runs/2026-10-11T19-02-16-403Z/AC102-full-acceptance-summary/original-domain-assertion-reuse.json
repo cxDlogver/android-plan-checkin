@@ -1,0 +1,74 @@
+{
+  "receiptScope": {
+    "original": "resource/acceptance/runs/2026-10-10T08-40-20-792Z-20a81f434a/commands/domain-tests/result.json",
+    "originalSha256": "7a69457f553e399a365924ef1fa5c398799daca5addce607104f52b313dfe6a6",
+    "retainedTest": {
+      "path": "tests/domain/rules.test.ts",
+      "currentSha256": "0747fb919552720ac1605e7a2167ebfcef95a97fb2b02e25df63405eba95cf0e",
+      "originalTestShaCaptured": false
+    },
+    "recordedOriginalCompleteCommandsSha256": "22a91c9b94c61412e5dd1a6a189dc62b1fba24685e29d21b902dc5667f18cd3e",
+    "completeOriginalBodyRecovered": false,
+    "currentPureReceiptSha256": "95a30b8cd154bef088f21c8c534a8a8e3b2ae2bca852e8068adcd362ca98b93e",
+    "retainedVersions": [
+      {
+        "commit": "93110d6",
+        "completeSha256": "809305eac965468547c21853ee1d358e0c37202bb41919213a2bd12c6e94e9bd",
+        "pureReceiptSha256": "95a30b8cd154bef088f21c8c534a8a8e3b2ae2bca852e8068adcd362ca98b93e"
+      },
+      {
+        "commit": "e48c6e5",
+        "completeSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "pureReceiptSha256": "95a30b8cd154bef088f21c8c534a8a8e3b2ae2bca852e8068adcd362ca98b93e"
+      }
+    ],
+    "scope": "Reuse the preserved actual independent receiptResult assertion from the original successful Node log. The current retained test explains these named assertions. All retained Git versions of the pure receipt function match current. The old runner omitted its test source snapshot and the original complete commands file body was not recovered; neither test-file nor complete commands-file original hash equality is claimed. Current native API29/36 transactions separately establish all service/database behavior; no test is repeated."
+  },
+  "ruleScope": {
+    "proof": [
+      {
+        "file": "src/domain/commands.ts",
+        "origin": "Recovered Git e48c6e5 exact complete original",
+        "expectedOriginalSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "actualOriginalSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "relevantOriginalSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "relevantCurrentSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "excluded": "    if((envelope.kind==='SubmitCycleRecord'||envelope.kind==='SubmitOneTimeResult')&&p.confirmedToday!==today)throw new DomainError('DAY_CHANGED');\n"
+      },
+      {
+        "file": "src/domain/rules.ts",
+        "origin": "Recovered Git e48c6e5 exact complete original",
+        "expectedOriginalSha256": "ba1bfb859a0c38bbfdc9ee8099cc20b736e33235882c4ed8d9f4f7f431a5c4db",
+        "actualOriginalSha256": "ba1bfb859a0c38bbfdc9ee8099cc20b736e33235882c4ed8d9f4f7f431a5c4db",
+        "relevantOriginalSha256": "ba1bfb859a0c38bbfdc9ee8099cc20b736e33235882c4ed8d9f4f7f431a5c4db",
+        "relevantCurrentSha256": "ba1bfb859a0c38bbfdc9ee8099cc20b736e33235882c4ed8d9f4f7f431a5c4db",
+        "excluded": "    if(plan.created_on>snapshot.today)continue;\n"
+      },
+      {
+        "file": "src/domain/model.ts",
+        "origin": "Current file identical",
+        "expectedOriginalSha256": "2cadcc006ecb37e6d1e8f0b916256b525df41722fa4aa40575438a9e087b0a32",
+        "actualOriginalSha256": "2cadcc006ecb37e6d1e8f0b916256b525df41722fa4aa40575438a9e087b0a32",
+        "relevantOriginalSha256": "2cadcc006ecb37e6d1e8f0b916256b525df41722fa4aa40575438a9e087b0a32",
+        "relevantCurrentSha256": "2cadcc006ecb37e6d1e8f0b916256b525df41722fa4aa40575438a9e087b0a32",
+        "excluded": null
+      },
+      {
+        "file": "src/domain/date.ts",
+        "origin": "Current file identical",
+        "expectedOriginalSha256": "5ec617803e1567fd2c6952b828b3327e8fa6c1d2302587d45490b694d732fbdf",
+        "actualOriginalSha256": "5ec617803e1567fd2c6952b828b3327e8fa6c1d2302587d45490b694d732fbdf",
+        "relevantOriginalSha256": "01f870a127284394beea10b571f9c5233f6a61d1d1c680246da848ae91324eae",
+        "relevantCurrentSha256": "01f870a127284394beea10b571f9c5233f6a61d1d1c680246da848ae91324eae",
+        "excluded": null
+      },
+      {
+        "file": "tests/domain/bdd-service-rules.test.ts",
+        "currentSha256": "8de137e31873e70a219fec7c33f5ebf32994b13e687fc2e2aa7414557a5a775d",
+        "originalTestShaCaptured": false,
+        "scope": "Retained test source explains the original named successful assertions; original test-file SHA equality is not claimed. Production algorithm equality is independently checked below."
+      }
+    ],
+    "scope": "The successful service rule tests submit confirmedToday equal to each operation day and do not call Today sections. Their command/statistics/permission branches are byte identical after excluding only the later first-submit day-priority guard and Today clock-rollback guard. New guards have separate actual scoped reports. Display date formatting is outside pure date arithmetic. No test was run again."
+  }
+}

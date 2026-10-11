@@ -1,0 +1,70 @@
+{
+  "dependencies": [
+    {
+      "key": "domain-tests",
+      "record": "resource/acceptance/runs/2026-10-10T08-40-20-792Z-20a81f434a/commands/domain-tests/result.json",
+      "sha256": "7a69457f553e399a365924ef1fa5c398799daca5addce607104f52b313dfe6a6"
+    },
+    {
+      "key": "business-rule-acceptance-tests",
+      "record": "resource/acceptance/runs/2026-10-11T08-08-20-718Z-fd65e14675/commands/business-rule-acceptance-tests/result.json",
+      "sha256": "26cd1c0b26137bc0c1e8d4bcdd064687b844e95d964f5a5199ceefb49beecf02"
+    },
+    {
+      "key": "AC042-reused-api29",
+      "record": "resource/acceptance/runs/2026-10-11T09-20-03-018Z/AC042-reused-api29/result.json",
+      "sha256": "4ed457ef63b98300da9a7e69ab1b4ad58d811bb96376ab2eef1d783f3db01fda"
+    },
+    {
+      "key": "AC042-expired-api29",
+      "record": "resource/acceptance/runs/2026-10-11T09-20-07-043Z/AC042-expired-api29/result.json",
+      "sha256": "ed8eb96650b6c8fad72631f7c89a3d919caf2c572283aaf1f28f772c2740903d"
+    },
+    {
+      "key": "AC042-expired_cleaned-api29",
+      "record": "resource/acceptance/runs/2026-10-11T09-20-11-520Z/AC042-expired_cleaned-api29/result.json",
+      "sha256": "977f0914d46c2cf217a1184184fb91313ab8a5108c21fc7772a64899e6be0f10"
+    },
+    {
+      "key": "AC042-removed-api29",
+      "record": "resource/acceptance/runs/2026-10-11T09-20-16-201Z/AC042-removed-api29/result.json",
+      "sha256": "c9061e22898daac332e15b1bc55eb8a182f2bdb3c8a823269d2f4d5e843f6dd1"
+    },
+    {
+      "key": "AC042-clock-api29",
+      "record": "resource/acceptance/runs/2026-10-11T09-20-20-599Z/AC042-clock-api29/result.json",
+      "sha256": "9c0d8ef290a489a2950e68f64ef1493df4c9fca445fabdb3ba61e02bf7504e4e"
+    },
+    {
+      "key": "AC042-reused-api36",
+      "record": "resource/acceptance/runs/2026-10-11T08-03-37-897Z/AC042-reused-api36/result.json",
+      "sha256": "f9a7b9b748e45efb77beafe69858b5f21d0e8d9de79f467a6e8870e24dbe5951"
+    },
+    {
+      "key": "AC042-expired-api36",
+      "record": "resource/acceptance/runs/2026-10-11T08-03-47-098Z/AC042-expired-api36/result.json",
+      "sha256": "06e8b3a45bccbafc26ccca279da4eb52dd61767a1ee3371f6fcc42d30d611354"
+    },
+    {
+      "key": "AC042-expired_cleaned-api36",
+      "record": "resource/acceptance/runs/2026-10-11T08-03-56-368Z/AC042-expired_cleaned-api36/result.json",
+      "sha256": "5b1f46f27a7ee515cabbb58b3325a08091902658e9859935198a09eb97b943d8"
+    },
+    {
+      "key": "AC042-removed-api36",
+      "record": "resource/acceptance/runs/2026-10-11T08-04-06-073Z/AC042-removed-api36/result.json",
+      "sha256": "0866675beb741aaa7db937d8f7c018285611ba0dcc7eb2812f5d230bcd04a884"
+    },
+    {
+      "key": "AC042-clock-api36",
+      "record": "resource/acceptance/runs/2026-10-11T08-04-14-931Z/AC042-clock-api36/result.json",
+      "sha256": "20f90d3b246d59ebba7870063992873c5cc5ccbcf4c734bb1d26e3765709ac48"
+    }
+  ],
+  "clause": {
+    "A1": "Different payload under same ID returns COMMAND_ID_REUSED, all user facts unchanged.",
+    "A2": "Both exact expiration and receipt-cleaned expiration return COMMAND_EXPIRED without reexecution.",
+    "A3": "Deleted-target replay returns TARGET_REMOVED, retained tombstone has null text/digest/object/plan references and target stays deleted.",
+    "A4": "Future issuedAt returns CLOCK_CHANGED, no target changes."
+  }
+}

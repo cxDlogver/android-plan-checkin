@@ -1,0 +1,375 @@
+{
+  "remote": "/data/user/0/com.xiang.plancheckin/files/SQLite/plan-checkin.db",
+  "version": 2,
+  "foreignKeys": [],
+  "facts": {
+    "app_meta": [
+      {
+        "key": "app_timezone",
+        "value": "GMT"
+      },
+      {
+        "key": "data_revision",
+        "value": "6"
+      },
+      {
+        "key": "initialized_at_ms",
+        "value": "1791745275130"
+      }
+    ],
+    "plans": [
+      {
+        "id": "00d033d0-183f-4150-a810-d89123388001",
+        "type": "one_time",
+        "direction": "do",
+        "name": "离线一次 2026-10-11",
+        "description": "正式包离线闭环",
+        "created_at_ms": 1791745681993,
+        "created_on": "2026-10-11",
+        "starts_on": "2026-10-11",
+        "revision": 2
+      },
+      {
+        "id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "type": "fixed",
+        "direction": "do",
+        "name": "离线固定 2026-10-11",
+        "description": "正式包离线闭环",
+        "created_at_ms": 1791745642112,
+        "created_on": "2026-10-11",
+        "starts_on": "2026-10-11",
+        "revision": 2
+      },
+      {
+        "id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "type": "weekly",
+        "direction": "do",
+        "name": "离线每周 2026-10-11",
+        "description": "正式包离线闭环",
+        "created_at_ms": 1791745660009,
+        "created_on": "2026-10-11",
+        "starts_on": "2026-10-11",
+        "revision": 2
+      }
+    ],
+    "rule_versions": [
+      {
+        "id": "09ae1deb-b31e-4b3b-8b48-6a68672e85ba",
+        "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "kind": "weekly_target",
+        "effective_on": "2026-10-11",
+        "revision": 1,
+        "value_json": "{\"weeklyTarget\":3}",
+        "created_at_ms": 1791745660009,
+        "cancelled_at_ms": null
+      },
+      {
+        "id": "2128663a-ebbe-47aa-8e37-ee369fd1f663",
+        "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "kind": "weekday_mask",
+        "effective_on": "2026-10-11",
+        "revision": 1,
+        "value_json": "{\"weekdayMask\":127}",
+        "created_at_ms": 1791745642112,
+        "cancelled_at_ms": null
+      },
+      {
+        "id": "2612cd80-ded5-40b7-97e8-25f06406bc4c",
+        "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "kind": "end_on",
+        "effective_on": "2026-10-11",
+        "revision": 1,
+        "value_json": "{\"endOn\":null}",
+        "created_at_ms": 1791745660009,
+        "cancelled_at_ms": null
+      },
+      {
+        "id": "592e7270-4a74-44f2-9c73-127ad149ec69",
+        "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+        "kind": "due_on",
+        "effective_on": "2026-10-11",
+        "revision": 1,
+        "value_json": "{\"dueOn\":\"2026-10-11\"}",
+        "created_at_ms": 1791745681993,
+        "cancelled_at_ms": null
+      },
+      {
+        "id": "99460497-2733-41cd-a2b6-4182bcb9275c",
+        "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "kind": "end_on",
+        "effective_on": "2026-10-11",
+        "revision": 1,
+        "value_json": "{\"endOn\":null}",
+        "created_at_ms": 1791745642112,
+        "cancelled_at_ms": null
+      }
+    ],
+    "lifecycle_events": [],
+    "cycle_records": [
+      {
+        "id": "6e57cb75-ebcd-445f-9921-304a14a303a7",
+        "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "business_on": "2026-10-11",
+        "result": "failure",
+        "note": "离线每周备注",
+        "entry_kind": "ordinary",
+        "submitted_at_ms": 1791745708089,
+        "modified_at_ms": null,
+        "revision": 1
+      },
+      {
+        "id": "cee0c860-15d7-4eef-aa36-f6dd50299ade",
+        "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "business_on": "2026-10-11",
+        "result": "success",
+        "note": "离线固定备注\n第二行",
+        "entry_kind": "ordinary",
+        "submitted_at_ms": 1791745698078,
+        "modified_at_ms": null,
+        "revision": 1
+      }
+    ],
+    "one_time_results": [
+      {
+        "id": "371fab41-c79d-42f0-8d6a-1b39a6b793fe",
+        "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+        "business_on": "2026-10-11",
+        "outcome": "cancelled",
+        "actual_completed_on": null,
+        "due_rule_version_id": "592e7270-4a74-44f2-9c73-127ad149ec69",
+        "note": "离线一次取消说明",
+        "entry_kind": "ordinary",
+        "submitted_at_ms": 1791745717956,
+        "modified_at_ms": null,
+        "revision": 1
+      }
+    ],
+    "cycle_record_originals": [],
+    "one_time_result_originals": [],
+    "command_receipts": [
+      {
+        "command_id": "09ffbb60-eef3-494c-ad88-4fd3517525e1",
+        "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+        "kind": "SubmitOneTimeResult",
+        "payload_digest": "514fab37c917bf854f5d7a6522e89974560898b885a1f08be722504953f91311",
+        "result_code": "OK",
+        "object_id": "371fab41-c79d-42f0-8d6a-1b39a6b793fe",
+        "issued_at_ms": 1791745717936,
+        "committed_at_ms": 1791745717956,
+        "expires_at_ms": 1792350517936
+      },
+      {
+        "command_id": "2e5db707-1072-4d75-906d-b676cd4c578e",
+        "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "kind": "CreatePlan",
+        "payload_digest": "298bb704a459521e82c7e0dfc02157fd0212b8492d1d1ef49a8c7a76388c11b8",
+        "result_code": "OK",
+        "object_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "issued_at_ms": 1791745659905,
+        "committed_at_ms": 1791745660009,
+        "expires_at_ms": 1792350459905
+      },
+      {
+        "command_id": "a589ca51-596f-49b3-aeb5-d86b03435292",
+        "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "kind": "SubmitCycleRecord",
+        "payload_digest": "0d26d5cea2e302747c20f48627fdee7d09075d73536406f70e2b743fc53a8cfc",
+        "result_code": "OK",
+        "object_id": "cee0c860-15d7-4eef-aa36-f6dd50299ade",
+        "issued_at_ms": 1791745698051,
+        "committed_at_ms": 1791745698078,
+        "expires_at_ms": 1792350498051
+      },
+      {
+        "command_id": "b02b85b2-6b8f-4d9c-8083-f63fa2c5477a",
+        "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "kind": "CreatePlan",
+        "payload_digest": "8e518bdf03ac3768eb41200ccbbb13421a5da24ab6a38ea10c2818b22ad94200",
+        "result_code": "OK",
+        "object_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+        "issued_at_ms": 1791745641984,
+        "committed_at_ms": 1791745642112,
+        "expires_at_ms": 1792350441984
+      },
+      {
+        "command_id": "b36c5100-3b55-4f1f-91f6-06c0ed6466d7",
+        "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+        "kind": "SubmitCycleRecord",
+        "payload_digest": "345e4ceebcd5116bf7507c2db1242d9465b9679cddaad606911fe2aa6b0aa88b",
+        "result_code": "OK",
+        "object_id": "6e57cb75-ebcd-445f-9921-304a14a303a7",
+        "issued_at_ms": 1791745708067,
+        "committed_at_ms": 1791745708089,
+        "expires_at_ms": 1792350508067
+      },
+      {
+        "command_id": "f3ddbcf4-28aa-4db3-8670-77c9100d0313",
+        "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+        "kind": "CreatePlan",
+        "payload_digest": "8b5c6e2d9cdb97ebfc0b8fc03db4ab459ea6dea86b57168f95344c20ae3923f9",
+        "result_code": "OK",
+        "object_id": "00d033d0-183f-4150-a810-d89123388001",
+        "issued_at_ms": 1791745681919,
+        "committed_at_ms": 1791745681993,
+        "expires_at_ms": 1792350481919
+      }
+    ]
+  },
+  "schema": [
+    {
+      "type": "index",
+      "name": "idx_cycle_calendar",
+      "tbl_name": "cycle_records",
+      "sql": "CREATE INDEX idx_cycle_calendar ON cycle_records(business_on, plan_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_lifecycle_resolve",
+      "tbl_name": "lifecycle_events",
+      "sql": "CREATE INDEX idx_lifecycle_resolve ON lifecycle_events(plan_id, effective_at_ms, requested_at_ms, id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_once_calendar",
+      "tbl_name": "one_time_results",
+      "sql": "CREATE INDEX idx_once_calendar ON one_time_results(business_on, plan_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_plans_order",
+      "tbl_name": "plans",
+      "sql": "CREATE INDEX idx_plans_order ON plans(created_at_ms, id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_receipts_expiry",
+      "tbl_name": "command_receipts",
+      "sql": "CREATE INDEX idx_receipts_expiry ON command_receipts(expires_at_ms)"
+    },
+    {
+      "type": "index",
+      "name": "idx_receipts_plan",
+      "tbl_name": "command_receipts",
+      "sql": "CREATE INDEX idx_receipts_plan ON command_receipts(plan_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_rules_resolve",
+      "tbl_name": "rule_versions",
+      "sql": "CREATE INDEX idx_rules_resolve ON rule_versions(plan_id, kind, effective_on, revision)"
+    },
+    {
+      "type": "table",
+      "name": "app_meta",
+      "tbl_name": "app_meta",
+      "sql": "CREATE TABLE app_meta (\n  key TEXT PRIMARY KEY NOT NULL,\n  value TEXT NOT NULL\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "command_receipts",
+      "tbl_name": "command_receipts",
+      "sql": "CREATE TABLE command_receipts (\n  command_id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT REFERENCES plans(id) ON DELETE SET NULL,\n  kind TEXT NOT NULL CHECK (kind IN ('CreatePlan', 'SubmitCycleRecord', 'ModifyCycleRecord', 'SubmitOneTimeResult', 'ModifyOneTimeResult', 'EditPlan', 'RequestPause', 'RequestResume', 'CancelPendingState', 'ArchivePlan', 'PermanentlyDeletePlan')),\n  payload_digest TEXT,\n  result_code TEXT NOT NULL CHECK (result_code IN ('OK', 'TARGET_REMOVED')),\n  object_id TEXT,\n  issued_at_ms INTEGER NOT NULL CHECK (issued_at_ms >= 0),\n  committed_at_ms INTEGER NOT NULL CHECK (committed_at_ms >= 0),\n  expires_at_ms INTEGER NOT NULL CHECK (expires_at_ms = issued_at_ms + 604800000),\n  CHECK ((result_code = 'OK' AND payload_digest IS NOT NULL AND length(payload_digest) = 64)\n    OR (result_code = 'TARGET_REMOVED' AND plan_id IS NULL AND object_id IS NULL AND payload_digest IS NULL))\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "cycle_record_originals",
+      "tbl_name": "cycle_record_originals",
+      "sql": "CREATE TABLE cycle_record_originals (\n  record_id TEXT PRIMARY KEY NOT NULL REFERENCES cycle_records(id) ON DELETE CASCADE,\n  original_result TEXT NOT NULL CHECK (original_result IN ('success', 'failure', 'skip')),\n  original_note TEXT NOT NULL\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "cycle_records",
+      "tbl_name": "cycle_records",
+      "sql": "CREATE TABLE cycle_records (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  business_on TEXT NOT NULL CHECK (business_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  result TEXT NOT NULL CHECK (result IN ('success', 'failure', 'skip')),\n  note TEXT NOT NULL DEFAULT '',\n  entry_kind TEXT NOT NULL CHECK (entry_kind IN ('ordinary', 'backfill')),\n  submitted_at_ms INTEGER NOT NULL CHECK (submitted_at_ms >= 0),\n  modified_at_ms INTEGER CHECK (modified_at_ms >= submitted_at_ms),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  UNIQUE (plan_id, business_on)\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "lifecycle_events",
+      "tbl_name": "lifecycle_events",
+      "sql": "CREATE TABLE lifecycle_events (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  kind TEXT NOT NULL CHECK (kind IN ('pause', 'resume', 'archive')),\n  source_key TEXT NOT NULL,\n  effective_on TEXT NOT NULL CHECK (effective_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  effective_at_ms INTEGER NOT NULL CHECK (effective_at_ms >= 0),\n  reason TEXT NOT NULL CHECK (reason IN ('user', 'cycle_end', 'one_time_terminal', 'historical_terminal')),\n  requested_at_ms INTEGER NOT NULL CHECK (requested_at_ms >= 0),\n  cancelled_at_ms INTEGER CHECK (cancelled_at_ms >= requested_at_ms),\n  UNIQUE (plan_id, source_key),\n  CHECK (kind = 'archive' OR reason = 'user')\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "one_time_result_originals",
+      "tbl_name": "one_time_result_originals",
+      "sql": "CREATE TABLE one_time_result_originals (\n  result_id TEXT PRIMARY KEY NOT NULL REFERENCES one_time_results(id) ON DELETE CASCADE,\n  original_outcome TEXT NOT NULL CHECK (original_outcome IN ('completed', 'failed', 'cancelled')),\n  original_note TEXT NOT NULL\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "one_time_results",
+      "tbl_name": "one_time_results",
+      "sql": "CREATE TABLE one_time_results (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL UNIQUE REFERENCES plans(id) ON DELETE CASCADE,\n  business_on TEXT NOT NULL CHECK (business_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  outcome TEXT NOT NULL CHECK (outcome IN ('completed', 'failed', 'cancelled')),\n  actual_completed_on TEXT,\n  due_rule_version_id TEXT NOT NULL,\n  note TEXT NOT NULL DEFAULT '',\n  entry_kind TEXT NOT NULL CHECK (entry_kind IN ('ordinary', 'backfill')),\n  submitted_at_ms INTEGER NOT NULL CHECK (submitted_at_ms >= 0),\n  modified_at_ms INTEGER CHECK (modified_at_ms >= submitted_at_ms),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  FOREIGN KEY (plan_id, due_rule_version_id) REFERENCES rule_versions(plan_id, id)\n    ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED,\n  CHECK ((outcome = 'completed' AND actual_completed_on IS NOT NULL AND actual_completed_on = business_on)\n    OR (outcome <> 'completed' AND actual_completed_on IS NULL)),\n  CHECK (entry_kind <> 'backfill' OR outcome = 'completed')\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "plans",
+      "tbl_name": "plans",
+      "sql": "CREATE TABLE plans (\n  id TEXT PRIMARY KEY NOT NULL,\n  type TEXT NOT NULL CHECK (type IN ('fixed', 'weekly', 'one_time')),\n  direction TEXT NOT NULL CHECK (direction IN ('do', 'avoid')),\n  name TEXT NOT NULL,\n  description TEXT NOT NULL DEFAULT '',\n  created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0),\n  created_on TEXT NOT NULL CHECK (created_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  starts_on TEXT NOT NULL CHECK (starts_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  CHECK (starts_on >= created_on),\n  CHECK (type <> 'one_time' OR (direction = 'do' AND starts_on = created_on))\n) STRICT"
+    },
+    {
+      "type": "table",
+      "name": "rule_versions",
+      "tbl_name": "rule_versions",
+      "sql": "CREATE TABLE rule_versions (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  kind TEXT NOT NULL CHECK (kind IN ('weekday_mask', 'weekly_target', 'end_on', 'due_on')),\n  effective_on TEXT NOT NULL CHECK (effective_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  revision INTEGER NOT NULL CHECK (revision >= 1),\n  value_json TEXT NOT NULL CHECK (json_valid(value_json)),\n  created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0),\n  cancelled_at_ms INTEGER CHECK (cancelled_at_ms >= created_at_ms),\n  UNIQUE (plan_id, id),\n  UNIQUE (plan_id, kind, revision),\n  CHECK (json_type(value_json) = 'object'),\n  CHECK (CASE kind\n    WHEN 'weekday_mask' THEN coalesce(json_type(value_json, '$.weekdayMask') = 'integer' AND json_extract(value_json, '$.weekdayMask') BETWEEN 1 AND 127, 0)\n    WHEN 'weekly_target' THEN coalesce(json_type(value_json, '$.weeklyTarget') = 'integer' AND json_extract(value_json, '$.weeklyTarget') BETWEEN 1 AND 7, 0)\n    WHEN 'end_on' THEN coalesce(json_type(value_json, '$.endOn') = 'null' OR (json_type(value_json, '$.endOn') = 'text' AND json_extract(value_json, '$.endOn') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'), 0)\n    WHEN 'due_on' THEN coalesce(json_type(value_json, '$.dueOn') = 'text' AND json_extract(value_json, '$.dueOn') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]', 0)\n    ELSE 0 END)\n) STRICT"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_cycle_record_originals",
+      "tbl_name": "cycle_record_originals",
+      "sql": "CREATE TRIGGER immutable_cycle_record_originals\nBEFORE UPDATE ON cycle_record_originals\nWHEN OLD.record_id IS NOT NEW.record_id OR OLD.original_result IS NOT NEW.original_result OR OLD.original_note IS NOT NEW.original_note\nBEGIN\n  SELECT RAISE(ABORT, 'immutable cycle_record_originals');\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_cycle_records",
+      "tbl_name": "cycle_records",
+      "sql": "CREATE TRIGGER immutable_cycle_records\nBEFORE UPDATE ON cycle_records\nWHEN OLD.id IS NOT NEW.id OR OLD.plan_id IS NOT NEW.plan_id OR OLD.business_on IS NOT NEW.business_on OR OLD.entry_kind IS NOT NEW.entry_kind OR OLD.submitted_at_ms IS NOT NEW.submitted_at_ms\nBEGIN\n  SELECT RAISE(ABORT, 'immutable cycle_records');\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_lifecycle_events",
+      "tbl_name": "lifecycle_events",
+      "sql": "CREATE TRIGGER immutable_lifecycle_events\nBEFORE UPDATE ON lifecycle_events\nWHEN OLD.id IS NOT NEW.id OR OLD.plan_id IS NOT NEW.plan_id OR OLD.kind IS NOT NEW.kind OR OLD.source_key IS NOT NEW.source_key OR OLD.effective_on IS NOT NEW.effective_on OR OLD.effective_at_ms IS NOT NEW.effective_at_ms OR OLD.reason IS NOT NEW.reason OR OLD.requested_at_ms IS NOT NEW.requested_at_ms\nBEGIN\n  SELECT RAISE(ABORT, 'immutable lifecycle_events');\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_one_time_result_originals",
+      "tbl_name": "one_time_result_originals",
+      "sql": "CREATE TRIGGER immutable_one_time_result_originals\nBEFORE UPDATE ON one_time_result_originals\nWHEN OLD.result_id IS NOT NEW.result_id OR OLD.original_outcome IS NOT NEW.original_outcome OR OLD.original_note IS NOT NEW.original_note\nBEGIN\n  SELECT RAISE(ABORT, 'immutable one_time_result_originals');\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_one_time_results",
+      "tbl_name": "one_time_results",
+      "sql": "CREATE TRIGGER immutable_one_time_results\nBEFORE UPDATE ON one_time_results\nWHEN OLD.id IS NOT NEW.id OR OLD.plan_id IS NOT NEW.plan_id OR OLD.business_on IS NOT NEW.business_on OR OLD.entry_kind IS NOT NEW.entry_kind OR OLD.submitted_at_ms IS NOT NEW.submitted_at_ms OR OLD.due_rule_version_id IS NOT NEW.due_rule_version_id\nBEGIN\n  SELECT RAISE(ABORT, 'immutable one_time_results');\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_plans",
+      "tbl_name": "plans",
+      "sql": "CREATE TRIGGER immutable_plans\nBEFORE UPDATE ON plans\nWHEN OLD.id IS NOT NEW.id OR OLD.type IS NOT NEW.type OR OLD.direction IS NOT NEW.direction OR OLD.created_at_ms IS NOT NEW.created_at_ms OR OLD.created_on IS NOT NEW.created_on OR OLD.starts_on IS NOT NEW.starts_on\nBEGIN\n  SELECT RAISE(ABORT, 'immutable plans');\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "immutable_rule_versions",
+      "tbl_name": "rule_versions",
+      "sql": "CREATE TRIGGER immutable_rule_versions\nBEFORE UPDATE ON rule_versions\nWHEN OLD.id IS NOT NEW.id OR OLD.plan_id IS NOT NEW.plan_id OR OLD.kind IS NOT NEW.kind OR OLD.effective_on IS NOT NEW.effective_on OR OLD.revision IS NOT NEW.revision OR OLD.value_json IS NOT NEW.value_json OR OLD.created_at_ms IS NOT NEW.created_at_ms\nBEGIN\n  SELECT RAISE(ABORT, 'immutable rule_versions');\nEND"
+    }
+  ],
+  "copies": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart.db",
+      "sha256": "f5cefc6b6bc0e57b30fddc25bdaf2fd848dea2b0dd25be8425cdb3a1bccd1efd",
+      "remote": "/data/user/0/com.xiang.plancheckin/files/SQLite/plan-checkin.db"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart.db-wal",
+      "sha256": "b5a70eda2f4ed67f76efa8fb2e5f2b4cc80805bb5cd53e2bb5caafb4ba7d664a",
+      "remote": "/data/user/0/com.xiang.plancheckin/files/SQLite/plan-checkin.db-wal"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart.db-shm",
+      "sha256": "75c37fed6c6af174a11a8b1607a39a9e361aacb0da53a43472308d71d765ac76",
+      "remote": "/data/user/0/com.xiang.plancheckin/files/SQLite/plan-checkin.db-shm"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "AC098.A1.final-APK-static-exclusions",
+    "expected": true,
+    "actual": true,
+    "status": "PASS"
+  },
+  {
+    "id": "AC098.A2.real-control-canary-created",
+    "expected": "plancheckin-system-backup-positive-control-v1",
+    "actual": "plancheckin-system-backup-positive-control-v1",
+    "status": "PASS"
+  },
+  {
+    "id": "AC098.A2.control-canary-absent-before-restore",
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  },
+  {
+    "id": "AC098.A2.real-system-restore-path-operates",
+    "expected": "plancheckin-system-backup-positive-control-v1",
+    "actual": "cat: /data/user/0/com.xiang.verification.backupcontrol/files/backup-positive-control.txt: No such file or directory\n",
+    "status": "FAIL"
+  },
+  {
+    "id": "execution",
+    "expected": "successful scoped verification",
+    "actual": "AC098.A2.real-system-restore-path-operates\n\n'FAIL' !== 'PASS'\n",
+    "status": "FAIL"
+  }
+]

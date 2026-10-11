@@ -1,0 +1,108 @@
+{
+  "caseId": "AC011",
+  "rowId": "default",
+  "configId": "M3",
+  "apkSha256": "be7196c9d7f14557865aeaba492bad234c81d876520785c6fc85f351eb3b61f9",
+  "runId": "2026-10-11T19-20-58-803Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T19:20:58.803Z",
+  "endedAt": "2026-10-11T19:20:59.060Z",
+  "inputSha256": "9747aec372566f0701d7382ad5bc1d8bd081b3303b73474dc0974c83d9a644c3",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T19-18-38-254Z/AC011-default-M3/result.json",
+  "scope": "AC011-default-M3",
+  "implementationIds": [
+    "IP30"
+  ],
+  "assertions": [
+    {
+      "id": "AC011.A1.actual-successful-save",
+      "expected": {
+        "name": "SYNTHETIC_PRIVACY_NAME_API29",
+        "description": "SYNTHETIC_PRIVACY_DESCRIPTION_API29"
+      },
+      "actual": {
+        "name": "SYNTHETIC_PRIVACY_NAME_API29",
+        "description": "SYNTHETIC_PRIVACY_DESCRIPTION_API29"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A1.no-name-marker-in-production-log",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A1.no-description-marker-in-production-log",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A1.no-note-marker-in-production-log",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A1.no-SQL-parameters-or-business-payload",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A1.failed-save-writes-no-record",
+      "expected": 0,
+      "actual": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A2.production-project-no-log-or-collector-calls",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A2.final-APK-OTA-disabled",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A2.no-remote-collection-SDK",
+      "expected": [],
+      "actual": [],
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A3.no-private-signing-files",
+      "expected": [],
+      "actual": [],
+      "status": "PASS"
+    },
+    {
+      "id": "AC011.A3.synthetic-data-explicitly-labelled",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-20-58-803Z/AC011-default-M3/delivery-private-material-audit.json",
+      "sha256": "8a6716bf882fbeb7ca2aaff6e71f74b861e36d905c048e440653bcf800b77995"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-20-58-803Z/AC011-default-M3/inputs.json",
+      "sha256": "5a6a25a20b7df3b96c2f3a5d8a37e65878e27fc26b9f5bc0ffc926668ad1849e"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-20-58-803Z/AC011-default-M3/reused-original-actual-operations.json",
+      "sha256": "782c8ba430bbb9677df633491de0b634cbe7edf6b3f09162dfaa3a64992d1dc9"
+    }
+  ],
+  "limitations": []
+}

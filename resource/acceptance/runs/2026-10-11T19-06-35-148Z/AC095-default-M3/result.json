@@ -1,0 +1,870 @@
+{
+  "caseId": "AC095",
+  "rowId": "default",
+  "configId": "M3",
+  "apkSha256": "be7196c9d7f14557865aeaba492bad234c81d876520785c6fc85f351eb3b61f9",
+  "runId": "2026-10-11T19-06-35-148Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T19:06:35.148Z",
+  "endedAt": "2026-10-11T19:08:52.598Z",
+  "inputSha256": "f6ce408b73b6968a82df92f6c0291e9efe3c8fea9c70c54850e78deb546a53b0",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/result.json",
+  "scope": "AC095-default-M3",
+  "implementationIds": [
+    "IP28"
+  ],
+  "assertions": [
+    {
+      "id": "AC095.A1.Metro-closed",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A1.actual-offline",
+      "expected": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "0"
+      },
+      "actual": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "0"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A1.embedded-operable-UI",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A2.native-version-code2",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A2.fixed-zone",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A3.exact-three-types",
+      "expected": [
+        "fixed",
+        "one_time",
+        "weekly"
+      ],
+      "actual": [
+        "fixed",
+        "one_time",
+        "weekly"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A3.unique-plan-IDs",
+      "expected": 3,
+      "actual": 3,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A2.persisted-native-first-zone",
+      "expected": "GMT",
+      "actual": "GMT",
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A3.two-cycle-and-one-once",
+      "expected": [
+        2,
+        1
+      ],
+      "actual": [
+        2,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A3.actual-legal-results-notes-dates",
+      "expected": [
+        {
+          "planId": "00d033d0-183f-4150-a810-d89123388001",
+          "result": "cancelled",
+          "note": "离线一次取消说明",
+          "businessOn": "2026-10-11"
+        },
+        {
+          "planId": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+          "result": "success",
+          "note": "离线固定备注\n第二行",
+          "businessOn": "2026-10-11"
+        },
+        {
+          "planId": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+          "result": "failure",
+          "note": "离线每周备注",
+          "businessOn": "2026-10-11"
+        }
+      ],
+      "actual": [
+        {
+          "planId": "00d033d0-183f-4150-a810-d89123388001",
+          "result": "cancelled",
+          "note": "离线一次取消说明",
+          "businessOn": "2026-10-11"
+        },
+        {
+          "planId": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+          "result": "success",
+          "note": "离线固定备注\n第二行",
+          "businessOn": "2026-10-11"
+        },
+        {
+          "planId": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+          "result": "failure",
+          "note": "离线每周备注",
+          "businessOn": "2026-10-11"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A3.same-IDs-dates-results-notes",
+      "expected": {
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "GMT"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791745275130"
+          }
+        ],
+        "plans": [
+          {
+            "id": "00d033d0-183f-4150-a810-d89123388001",
+            "type": "one_time",
+            "direction": "do",
+            "name": "离线一次 2026-10-11",
+            "description": "正式包离线闭环",
+            "created_at_ms": 1791745681993,
+            "created_on": "2026-10-11",
+            "starts_on": "2026-10-11",
+            "revision": 2
+          },
+          {
+            "id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "type": "fixed",
+            "direction": "do",
+            "name": "离线固定 2026-10-11",
+            "description": "正式包离线闭环",
+            "created_at_ms": 1791745642112,
+            "created_on": "2026-10-11",
+            "starts_on": "2026-10-11",
+            "revision": 2
+          },
+          {
+            "id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "type": "weekly",
+            "direction": "do",
+            "name": "离线每周 2026-10-11",
+            "description": "正式包离线闭环",
+            "created_at_ms": 1791745660009,
+            "created_on": "2026-10-11",
+            "starts_on": "2026-10-11",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "09ae1deb-b31e-4b3b-8b48-6a68672e85ba",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791745660009,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "2128663a-ebbe-47aa-8e37-ee369fd1f663",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791745642112,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "2612cd80-ded5-40b7-97e8-25f06406bc4c",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "end_on",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791745660009,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "592e7270-4a74-44f2-9c73-127ad149ec69",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "kind": "due_on",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-11\"}",
+            "created_at_ms": 1791745681993,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "99460497-2733-41cd-a2b6-4182bcb9275c",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "end_on",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791745642112,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "6e57cb75-ebcd-445f-9921-304a14a303a7",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "business_on": "2026-10-11",
+            "result": "failure",
+            "note": "离线每周备注",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791745708089,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "cee0c860-15d7-4eef-aa36-f6dd50299ade",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "business_on": "2026-10-11",
+            "result": "success",
+            "note": "离线固定备注\n第二行",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791745698078,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [
+          {
+            "id": "371fab41-c79d-42f0-8d6a-1b39a6b793fe",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "business_on": "2026-10-11",
+            "outcome": "cancelled",
+            "actual_completed_on": null,
+            "due_rule_version_id": "592e7270-4a74-44f2-9c73-127ad149ec69",
+            "note": "离线一次取消说明",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791745717956,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "09ffbb60-eef3-494c-ad88-4fd3517525e1",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "kind": "SubmitOneTimeResult",
+            "payload_digest": "514fab37c917bf854f5d7a6522e89974560898b885a1f08be722504953f91311",
+            "result_code": "OK",
+            "object_id": "371fab41-c79d-42f0-8d6a-1b39a6b793fe",
+            "issued_at_ms": 1791745717936,
+            "committed_at_ms": 1791745717956,
+            "expires_at_ms": 1792350517936
+          },
+          {
+            "command_id": "2e5db707-1072-4d75-906d-b676cd4c578e",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "CreatePlan",
+            "payload_digest": "298bb704a459521e82c7e0dfc02157fd0212b8492d1d1ef49a8c7a76388c11b8",
+            "result_code": "OK",
+            "object_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "issued_at_ms": 1791745659905,
+            "committed_at_ms": 1791745660009,
+            "expires_at_ms": 1792350459905
+          },
+          {
+            "command_id": "a589ca51-596f-49b3-aeb5-d86b03435292",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "0d26d5cea2e302747c20f48627fdee7d09075d73536406f70e2b743fc53a8cfc",
+            "result_code": "OK",
+            "object_id": "cee0c860-15d7-4eef-aa36-f6dd50299ade",
+            "issued_at_ms": 1791745698051,
+            "committed_at_ms": 1791745698078,
+            "expires_at_ms": 1792350498051
+          },
+          {
+            "command_id": "b02b85b2-6b8f-4d9c-8083-f63fa2c5477a",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "CreatePlan",
+            "payload_digest": "8e518bdf03ac3768eb41200ccbbb13421a5da24ab6a38ea10c2818b22ad94200",
+            "result_code": "OK",
+            "object_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "issued_at_ms": 1791745641984,
+            "committed_at_ms": 1791745642112,
+            "expires_at_ms": 1792350441984
+          },
+          {
+            "command_id": "b36c5100-3b55-4f1f-91f6-06c0ed6466d7",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "345e4ceebcd5116bf7507c2db1242d9465b9679cddaad606911fe2aa6b0aa88b",
+            "result_code": "OK",
+            "object_id": "6e57cb75-ebcd-445f-9921-304a14a303a7",
+            "issued_at_ms": 1791745708067,
+            "committed_at_ms": 1791745708089,
+            "expires_at_ms": 1792350508067
+          },
+          {
+            "command_id": "f3ddbcf4-28aa-4db3-8670-77c9100d0313",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "kind": "CreatePlan",
+            "payload_digest": "8b5c6e2d9cdb97ebfc0b8fc03db4ab459ea6dea86b57168f95344c20ae3923f9",
+            "result_code": "OK",
+            "object_id": "00d033d0-183f-4150-a810-d89123388001",
+            "issued_at_ms": 1791745681919,
+            "committed_at_ms": 1791745681993,
+            "expires_at_ms": 1792350481919
+          }
+        ]
+      },
+      "actual": {
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "GMT"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791745275130"
+          }
+        ],
+        "plans": [
+          {
+            "id": "00d033d0-183f-4150-a810-d89123388001",
+            "type": "one_time",
+            "direction": "do",
+            "name": "离线一次 2026-10-11",
+            "description": "正式包离线闭环",
+            "created_at_ms": 1791745681993,
+            "created_on": "2026-10-11",
+            "starts_on": "2026-10-11",
+            "revision": 2
+          },
+          {
+            "id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "type": "fixed",
+            "direction": "do",
+            "name": "离线固定 2026-10-11",
+            "description": "正式包离线闭环",
+            "created_at_ms": 1791745642112,
+            "created_on": "2026-10-11",
+            "starts_on": "2026-10-11",
+            "revision": 2
+          },
+          {
+            "id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "type": "weekly",
+            "direction": "do",
+            "name": "离线每周 2026-10-11",
+            "description": "正式包离线闭环",
+            "created_at_ms": 1791745660009,
+            "created_on": "2026-10-11",
+            "starts_on": "2026-10-11",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "09ae1deb-b31e-4b3b-8b48-6a68672e85ba",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791745660009,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "2128663a-ebbe-47aa-8e37-ee369fd1f663",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791745642112,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "2612cd80-ded5-40b7-97e8-25f06406bc4c",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "end_on",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791745660009,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "592e7270-4a74-44f2-9c73-127ad149ec69",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "kind": "due_on",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-11\"}",
+            "created_at_ms": 1791745681993,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "99460497-2733-41cd-a2b6-4182bcb9275c",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "end_on",
+            "effective_on": "2026-10-11",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791745642112,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "6e57cb75-ebcd-445f-9921-304a14a303a7",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "business_on": "2026-10-11",
+            "result": "failure",
+            "note": "离线每周备注",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791745708089,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "cee0c860-15d7-4eef-aa36-f6dd50299ade",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "business_on": "2026-10-11",
+            "result": "success",
+            "note": "离线固定备注\n第二行",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791745698078,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [
+          {
+            "id": "371fab41-c79d-42f0-8d6a-1b39a6b793fe",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "business_on": "2026-10-11",
+            "outcome": "cancelled",
+            "actual_completed_on": null,
+            "due_rule_version_id": "592e7270-4a74-44f2-9c73-127ad149ec69",
+            "note": "离线一次取消说明",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791745717956,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "09ffbb60-eef3-494c-ad88-4fd3517525e1",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "kind": "SubmitOneTimeResult",
+            "payload_digest": "514fab37c917bf854f5d7a6522e89974560898b885a1f08be722504953f91311",
+            "result_code": "OK",
+            "object_id": "371fab41-c79d-42f0-8d6a-1b39a6b793fe",
+            "issued_at_ms": 1791745717936,
+            "committed_at_ms": 1791745717956,
+            "expires_at_ms": 1792350517936
+          },
+          {
+            "command_id": "2e5db707-1072-4d75-906d-b676cd4c578e",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "CreatePlan",
+            "payload_digest": "298bb704a459521e82c7e0dfc02157fd0212b8492d1d1ef49a8c7a76388c11b8",
+            "result_code": "OK",
+            "object_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "issued_at_ms": 1791745659905,
+            "committed_at_ms": 1791745660009,
+            "expires_at_ms": 1792350459905
+          },
+          {
+            "command_id": "a589ca51-596f-49b3-aeb5-d86b03435292",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "0d26d5cea2e302747c20f48627fdee7d09075d73536406f70e2b743fc53a8cfc",
+            "result_code": "OK",
+            "object_id": "cee0c860-15d7-4eef-aa36-f6dd50299ade",
+            "issued_at_ms": 1791745698051,
+            "committed_at_ms": 1791745698078,
+            "expires_at_ms": 1792350498051
+          },
+          {
+            "command_id": "b02b85b2-6b8f-4d9c-8083-f63fa2c5477a",
+            "plan_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "kind": "CreatePlan",
+            "payload_digest": "8e518bdf03ac3768eb41200ccbbb13421a5da24ab6a38ea10c2818b22ad94200",
+            "result_code": "OK",
+            "object_id": "05e5738e-9a58-4cb7-8955-8e09666b4532",
+            "issued_at_ms": 1791745641984,
+            "committed_at_ms": 1791745642112,
+            "expires_at_ms": 1792350441984
+          },
+          {
+            "command_id": "b36c5100-3b55-4f1f-91f6-06c0ed6466d7",
+            "plan_id": "d20a8c31-a6b0-469a-ab90-247aca146ce7",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "345e4ceebcd5116bf7507c2db1242d9465b9679cddaad606911fe2aa6b0aa88b",
+            "result_code": "OK",
+            "object_id": "6e57cb75-ebcd-445f-9921-304a14a303a7",
+            "issued_at_ms": 1791745708067,
+            "committed_at_ms": 1791745708089,
+            "expires_at_ms": 1792350508067
+          },
+          {
+            "command_id": "f3ddbcf4-28aa-4db3-8670-77c9100d0313",
+            "plan_id": "00d033d0-183f-4150-a810-d89123388001",
+            "kind": "CreatePlan",
+            "payload_digest": "8b5c6e2d9cdb97ebfc0b8fc03db4ab459ea6dea86b57168f95344c20ae3923f9",
+            "result_code": "OK",
+            "object_id": "00d033d0-183f-4150-a810-d89123388001",
+            "issued_at_ms": 1791745681919,
+            "committed_at_ms": 1791745681993,
+            "expires_at_ms": 1792350481919
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A3.schema-two-with-valid-FKs",
+      "expected": [
+        2,
+        []
+      ],
+      "actual": [
+        2,
+        []
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/actual-process-restart-plans.png",
+      "sha256": "ebc397053c42a31c1254ea238f04f4cf4ff0a1409ddd8c38c0ecb3f7d0b33f1b"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/actual-process-restart-plans.xml",
+      "sha256": "936f8146a85d9e093917f97f3074180241f781f1b49999c26fb118f4e738c8e3"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/actual-process-restart-today.png",
+      "sha256": "d4bb396c3964f68dd710e544368bf0cd86b744f4ebd4a79a084a6471665d4be7"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/actual-process-restart-today.xml",
+      "sha256": "d27f8aa44e62ae9911b61213fc744f2f888704e5b6cec6d5d103ddc798d63627"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-final-restart-facts.json",
+      "sha256": "5896b4ab49b187c525c0022130e59088e9ef3d666d33d732fd21c332b7f0d3ba"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-final-restart.db",
+      "sha256": "f5cefc6b6bc0e57b30fddc25bdaf2fd848dea2b0dd25be8425cdb3a1bccd1efd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-final-restart.db-shm",
+      "sha256": "5beab92405ccba60e7edd5ba396eeb010e31652c72d198c0c068800dff865269"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-final-restart.db-wal",
+      "sha256": "b5a70eda2f4ed67f76efa8fb2e5f2b4cc80805bb5cd53e2bb5caafb4ba7d664a"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-three-plan-creation-facts.json",
+      "sha256": "eea72e162fd24568590dd162ad2fda1d07c9d24d1d3623f17c1d51cfbe3f3c99"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-three-plan-creation.db",
+      "sha256": "f5cefc6b6bc0e57b30fddc25bdaf2fd848dea2b0dd25be8425cdb3a1bccd1efd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-three-plan-creation.db-shm",
+      "sha256": "84d4eb13b480dec76dfa1d323b2acc0ac56dcffa159b8d0f3a9f78ef9f4a1bf1"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/after-three-plan-creation.db-wal",
+      "sha256": "cbd813caab47fdd054caadcb9ef26df17d713ad89f74495ade6b9db9c73feaf0"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/appium.log",
+      "sha256": "5019d53b9d8a43e22b5dbb3948397915100471c85d03723fd9bd66e3400960e0"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-create-fixed.png",
+      "sha256": "efc3ca64f4a87a8805d5dbe42751ae3ec698d0adf2ca1f83f36bbbc2ba0f3eb9"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-create-fixed.xml",
+      "sha256": "e27a2a6d53cfd9c1f50ba2a8eb70c187b4fb1ac936d0e7bb95b986e8192f8417"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-create-one_time.png",
+      "sha256": "dd736db47c2eeb68b908b0d77d58f2c58c6fdb9db4b861c1afa7368d302a37a9"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-create-one_time.xml",
+      "sha256": "28920d7f522de5eb8c07310d353cb6dd7b00ecc970b8a512dfff2d0745b21e1f"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-create-weekly.png",
+      "sha256": "5c572538589f59fd9bf235836eaeb29d3d94b8bbd56c9ded2ec4cdbafe44377a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-create-weekly.xml",
+      "sha256": "807da1f502390a3f5870363483dfb0ab825b9aa081fa4f4213dcffbcf5b09941"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart-facts.json",
+      "sha256": "2650d834a7ba296bec5d3db16e17b4fec94ac13bca8b8b9ee6febf3969bac886"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart.db",
+      "sha256": "f5cefc6b6bc0e57b30fddc25bdaf2fd848dea2b0dd25be8425cdb3a1bccd1efd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart.db-shm",
+      "sha256": "5beab92405ccba60e7edd5ba396eeb010e31652c72d198c0c068800dff865269"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-final-restart.db-wal",
+      "sha256": "b5a70eda2f4ed67f76efa8fb2e5f2b4cc80805bb5cd53e2bb5caafb4ba7d664a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-save-fixed.png",
+      "sha256": "1fb32b1cdc0f747ea1b2fcfcf540fa60372c613b7e5068a9891b4b57243920fb"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-save-fixed.xml",
+      "sha256": "5d0144f02955bc66681fe897091b045c4b01d50ce0706cbc1c242ecdef7fde70"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-save-one_time.png",
+      "sha256": "b4238f0029b7a85971d8b359b2fff6f979b84d9c103182a4152838ac5203f7ad"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-save-one_time.xml",
+      "sha256": "34559e889426b0da99c0b8cf156d7db10aa3960f48fff046af5aeb3b5e3bde3b"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-save-weekly.png",
+      "sha256": "6eac98038b1bb70963ea2baa61fbb7cbf5acfcaba839b5bc766faf3622e2a07c"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/before-save-weekly.xml",
+      "sha256": "2fdd5d20c118d54233a86c52212f22529cbffb6cf4fe3de69ca976506f2a8cd9"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/checkpoint.json",
+      "sha256": "5721da4af280bf7feb403aa4b04a223cc02d262cc1c347fa2b46f12ff4b22355"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/connectivity-before.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/connectivity-restored.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/created-fixed.png",
+      "sha256": "33cef58f8df83df2dd599aa94ad4c5eaf3663860ab071ee50547ce211ba82586"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/created-fixed.xml",
+      "sha256": "9ecbed18221242521cc1266109f5e1a52df33d63e1b8ad2a490a63c7c957539a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/created-one_time.png",
+      "sha256": "4326bf198252d6fabcf0df7dc1719acb9ced85bc2d4f114a6e9b17402199cc0a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/created-one_time.xml",
+      "sha256": "4edd1af401fcf937445c79a5066db9d66298b53743d5b1fbaf240fe0355f2521"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/created-weekly.png",
+      "sha256": "6ff01485c04e539c44f40f229e2312b4559622c71a067720e4b760de7e2cccc8"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/created-weekly.xml",
+      "sha256": "d0d05546e477b38791d43c40e6e5d6051a482768ae5edc5f5be5f5acbd0ebef1"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/device.json",
+      "sha256": "fca3239ca9531c54d4a3efe9596420b61a48804883843ef6af7afd49592ff63d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/inputs.json",
+      "sha256": "8ee8c075f6a90e53fe0b8b3de3e47fcd09cef80e8d92988c6b1eae38a556782f"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/installed-package.log",
+      "sha256": "5cc7862f7555e372580b40d26cee1fbca97709ba3962276ce46db6db1b2d5424"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/original-native-calendar-zone-reference.json",
+      "sha256": "616fe7349852b50d93cdd52b7dd78f9acfc15fb6106a234ae88dc4f811a42ae5"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/original-When-identity.json",
+      "sha256": "0a59e7b78718337d3ca3960f492ec324471ac03265dab6a1fd24fa7a7267f2eb"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/recovered-original-committed-facts.json",
+      "sha256": "377aa361dfb23194c37218dd78307d4c21a4e92edf26a560f3838516a0c4c2f5"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/recovered-original-committed.db",
+      "sha256": "f5cefc6b6bc0e57b30fddc25bdaf2fd848dea2b0dd25be8425cdb3a1bccd1efd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/recovered-original-committed.db-shm",
+      "sha256": "4d33cf17ec3bd07967e22a3cedb7d52b168c5d3facf240022dd8b819f3c5cde1"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/recovered-original-committed.db-wal",
+      "sha256": "7f4dfe87ff175cc9e4dc2aa3a17a1614d10851572e65a1430e87bb5d0708ed26"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/release-evidence-links.json",
+      "sha256": "f199daef431c1652597c2affa3d7df0d5f16acbc7e253edd9d89a0771b2867d7"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/release-identity.json",
+      "sha256": "0845403d740a5672eb797af08b0553f7b130f497b65f927d247da1fc51c2b95c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/resume-original-When.json",
+      "sha256": "23e805fb408a231521d413f81a6693b673ec19230a52337a88ef21222e2c80c8"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/reused-original-cold-start-and-settings.json",
+      "sha256": "b3549c87b28b8931522ecd40abb40eb09c974166337a2209b602ba421c8e82c9"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/saved-fixed.png",
+      "sha256": "3b763f9432d2330e7eb5bfba9b272350dba0cbe539d1b2386a9da346304a858d"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/saved-fixed.xml",
+      "sha256": "bbdcbd706bd846c1468057cb018d90816def83014754358e30da2e6dd25ad5bf"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/saved-one_time.png",
+      "sha256": "4bb18619940f46ac2ab03698dc18d97f0761579985893e9369471fd748746e1a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/saved-one_time.xml",
+      "sha256": "5ecd9b7a63815c5b0d8a1b4160f51b261d656227c97c282dc04fe856b16f66b7"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/saved-weekly.png",
+      "sha256": "d968cd090e83f203fc93543b4ab6df3915718e2cf0bc50bc2c2cd9f1db963a1f"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-06-35-148Z/AC095-default-M3/saved-weekly.xml",
+      "sha256": "5625c34e313a0d1c64e22566c115037860b5697dfa06592e618608200630cc23"
+    }
+  ],
+  "limitations": [
+    "Only the final signed independent APK runs in this scenario. Device root reads the stopped disposable AVD database for exact factual evidence; no runtime test controls or test Clock are used."
+  ]
+}

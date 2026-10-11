@@ -1,0 +1,112 @@
+{
+  "caseId": "AC095",
+  "rowId": "default",
+  "configId": "M3",
+  "apkSha256": "be7196c9d7f14557865aeaba492bad234c81d876520785c6fc85f351eb3b61f9",
+  "runId": "2026-10-11T19-04-56-953Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T19:04:56.953Z",
+  "endedAt": "2026-10-11T19:05:02.533Z",
+  "inputSha256": "276ae50aabf94745a4083b98aa7bf4614bd6841c22ae0cac44c3321d3c90e6e0",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T19-04-00-267Z/AC095-default-M3/result.json",
+  "scope": "AC095-default-M3",
+  "implementationIds": [
+    "IP28"
+  ],
+  "assertions": [
+    {
+      "id": "AC095.A1.Metro-closed",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A1.actual-offline",
+      "expected": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "0"
+      },
+      "actual": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "0"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A1.embedded-operable-UI",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A2.native-version-code2",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC095.A2.fixed-zone",
+      "expected": true,
+      "actual": false,
+      "status": "FAIL"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "AC095.A2.fixed-zone\n\n'FAIL' !== 'PASS'\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/appium.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/connectivity-before.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/connectivity-restored.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/device.json",
+      "sha256": "fca3239ca9531c54d4a3efe9596420b61a48804883843ef6af7afd49592ff63d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/inputs.json",
+      "sha256": "8765032123dbcd3d3d112d9cd4ee4d324e6a343965213c1fa5908e934e96dc18"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/installed-package.log",
+      "sha256": "5cc7862f7555e372580b40d26cee1fbca97709ba3962276ce46db6db1b2d5424"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/release-identity.json",
+      "sha256": "0845403d740a5672eb797af08b0553f7b130f497b65f927d247da1fc51c2b95c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/resume-original-When.json",
+      "sha256": "8a14e5d4dd98974dd21afea940fcb49bba687935348103debddc3813374e65bd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T19-04-56-953Z/AC095-default-M3/reused-original-cold-start-and-settings.json",
+      "sha256": "4a571573180b8d029ee80f36456f7a2289f155299a9f49c4b573dd8043f206cf"
+    }
+  ],
+  "limitations": [
+    "Only the final signed independent APK runs in this scenario. Device root reads the stopped disposable AVD database for exact factual evidence; no runtime test controls or test Clock are used."
+  ]
+}

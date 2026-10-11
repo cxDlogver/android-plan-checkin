@@ -1,6 +1,6 @@
 # BDD 参数与配置进度
 
-更新：2026-10-11T18:57:48.129Z。完整验收项 23/120；已留证且摘要有效的显式参数/配置实例 488。实例通过不等于整个验收项通过。
+更新：2026-10-11T19:26:25.120Z。完整验收项 27/120；已留证且摘要有效的显式参数/配置实例 495。实例通过不等于整个验收项通过。
 
 | 验收项 | 完整状态 | 显式通过实例 |
 | --- | --- | --- |
@@ -14,7 +14,7 @@
 | AC008 全部待迁移失败时恢复升级前结构与事实 | PASS | sql_error/M7、process_before_commit/M7、sql_error/M3、process_before_commit/M3 |
 | AC009 高于代码支持的数据库版本被阻断 | PASS | default/M7、default/M3 |
 | AC010 单连接事务和查询快照不混入其他写入 | PASS | default/M7、default/M3 |
-| AC011 日志与构建证据不泄露用户文本和签名材料 | NOT_RUN | — |
+| AC011 日志与构建证据不泄露用户文本和签名材料 | NOT_RUN | default/M3 |
 | AC012 首次时区获取失败不猜测日期 | NOT_RUN | — |
 | AC013 换设备时区不移动计划今天与历史 | NOT_RUN | default/M3 |
 | AC014 公历加一天覆盖DST和月年边界 | PASS | spring/M7、fall/M7、leap/M7、year/M7、spring/M3、fall/M3、leap/M3、year/M3、spring/DOMAIN、fall/DOMAIN、leap/DOMAIN、year/DOMAIN |
@@ -45,7 +45,7 @@
 | AC039 一次性首次跨日不自动补报失败取消 | NOT_RUN | completed/M3、failed/M3、cancelled/M3 |
 | AC040 重复同命令及跨日成功重试只返回一次事实 | NOT_RUN | — |
 | AC041 不同命令争抢同日或旧revision不静默覆盖 | NOT_RUN | — |
-| AC042 命令ID复用、过期和删除重放被拒绝 | NOT_RUN | reused/M7、expired/M7、expired_cleaned/M7、removed/M7、clock/M7、reused/M3、expired/M3、expired_cleaned/M3、removed/M3、clock/M3 |
+| AC042 命令ID复用、过期和删除重放被拒绝 | PASS | reused/M7、expired/M7、expired_cleaned/M7、removed/M7、clock/M7、reused/M3、expired/M3、expired_cleaned/M3、removed/M3、clock/M3 |
 | AC043 写失败或空间不足保留输入并完整回滚 | NOT_RUN | io/M3、full/M3、busy/M3、archive_fail/M3 |
 | AC044 commit前后进程中断恢复事实而非草稿 | NOT_RUN | before_commit/M3、after_commit/M3 |
 | AC045 暂停明天生效且今天仍可记录 | NOT_RUN | default/M3、default/M1、default/M2、default/M4 |
@@ -94,20 +94,20 @@
 | AC088 草稿退出与Back优先级 | NOT_RUN | keyboard/M3、modal/M3、dirty/M3、clean/M3 |
 | AC089 本机设置显示真实版本和无备份边界 | NOT_RUN | valid/M3、null/M3 |
 | AC090 金属材质字体边距与结果语义 | NOT_RUN | default/M3、default/M1、default/M2、default/M4 |
-| AC091 8组合读回与核心操作逐配置验收 | NOT_RUN | M3/M3、M1/M1、M2/M2 |
+| AC091 8组合读回与核心操作逐配置验收 | NOT_RUN | M3/M3、M1/M1、M2/M2、M4/M4 |
 | AC092 六行日历和大数字号不截断 | NOT_RUN | default/M3、default/M1、default/M2、default/M4 |
-| AC093 键盘系统栏与两种导航Back可用 | NOT_RUN | three_button/M3、gesture/M3、three_button/M1、gesture/M1、gesture/M2、three_button/M2、three_button/M4 |
-| AC094 TalkBack朗读完整日期结果权限及筛选数量 | NOT_RUN | default/M3、default/M2、default/M1 |
-| AC095 独立APK关Metro离线首次使用与重启 | NOT_RUN | — |
+| AC093 键盘系统栏与两种导航Back可用 | NOT_RUN | three_button/M3、gesture/M3、three_button/M1、gesture/M1、gesture/M2、three_button/M2、three_button/M4、gesture/M4 |
+| AC094 TalkBack朗读完整日期结果权限及筛选数量 | NOT_RUN | default/M3、default/M2、default/M1、default/M4 |
+| AC095 独立APK关Metro离线首次使用与重启 | NOT_RUN | default/M3 |
 | AC096 性能数据和正式包计时满足P95预算 | NOT_RUN | — |
-| AC097 覆盖升级保留历史时区和待生效申请 | NOT_RUN | — |
-| AC098 备份禁用和换机边界分别验证 | NOT_RUN | — |
+| AC097 覆盖升级保留历史时区和待生效申请 | NOT_RUN | default/M3 |
+| AC098 备份禁用和换机边界分别验证 | NOT_RUN | default/M3 |
 | AC099 FR与AT和每个参数执行结果闭合 | NOT_RUN | — |
 | AC100 交付清单证据一致且签名资料不外泄 | NOT_RUN | — |
 | AC101 一次性创建截止必填且没有循环字段 | PASS | today/M7、future/M7、past/M7、empty/M7、today/M3、future/M3、past/M3、empty/M3 |
-| AC102 重试窗口边界与凭据限批清理 | NOT_RUN | default/M7、default/M3 |
+| AC102 重试窗口边界与凭据限批清理 | PASS | default/M7、default/M3 |
 | AC103 一次性根删除延迟复合引用级联提交成功 | PASS | default/M7、default/M3 |
-| AC104 revision分配一致且取消版本不复用序号 | NOT_RUN | default/M7、default/M3 |
+| AC104 revision分配一致且取消版本不复用序号 | PASS | default/M7、default/M3 |
 | AC105 未选结果不能最终保存且提交中禁重复操作 | NOT_RUN | default/M3 |
 | AC106 一次性回顾显示实际日期而非固定完成率 | NOT_RUN | default/M3 |
 | AC107 新建表单跨日重新校验且不自动挪日期 | NOT_RUN | default/M7、default/M3 |
@@ -115,7 +115,7 @@
 | AC109 创建编辑和待生效规则服务的精确出口 | PASS | mask0/M7、weekday/M7、weekly/M7、cancel/M7、name/M7、paused/M7、due/M7、mask0/M3、weekday/M3、weekly/M3、cancel/M3、name/M3、paused/M3、due/M3 |
 | AC110 生命周期对账可在无页面时验证 | NOT_RUN | pause/M7、resume/M7、cancel/M7、manual/M7、natural/M7、pause/M3、resume/M3、cancel/M3、manual/M3、natural/M3 |
 | AC111 记录权限和原值服务不依赖确认页 | NOT_RUN | today/M7、backfill/M7、history/M7、paused/M7、archived/M7、oldstage/M7、future/M7、today/M3、backfill/M3、history/M3、paused/M3、archived/M3、oldstage/M3、future/M3 |
-| AC112 命令事务、跨日和重放服务出口 | NOT_RUN | day/M7、replay/M7、revision/M7、duplicate/M7、rollback/M7、day/M3、replay/M3、revision/M3、duplicate/M3、rollback/M3 |
+| AC112 命令事务、跨日和重放服务出口 | PASS | day/M7、replay/M7、revision/M7、duplicate/M7、rollback/M7、day/M3、replay/M3、revision/M3、duplicate/M3、rollback/M3 |
 | AC113 固定聚合和连续的数值出口 | NOT_RUN | pending/M7、success/M7、failure/M7、skip/M7、pending/M3、success/M3、failure/M3、skip/M3 |
 | AC114 周聚合按完整自然周和真实终止边界计算 | NOT_RUN | over/M7、partial/M7、whole/M7、natural/M7、manual/M7、over/M3、partial/M3、whole/M3、natural/M3、manual/M3 |
 | AC115 一次性终态与冻结截止的服务出口 | NOT_RUN | ontime/M7、late/M7、history/M7、fail/M7、cancel/M7、ontime/M3、late/M3、history/M3、fail/M3、cancel/M3 |
