@@ -1,0 +1,46 @@
+[
+  {
+    "id": "Given.plan-created",
+    "expected": "OK",
+    "actual": "OK",
+    "status": "PASS"
+  },
+  {
+    "id": "AC043.real-full.Given-no-WAL-reserve",
+    "expected": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "actual": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "status": "PASS"
+  },
+  {
+    "id": "AC043.real-full.OS-ENOSPC",
+    "expected": true,
+    "actual": true,
+    "status": "PASS"
+  },
+  {
+    "id": "AC043.real-full.OS-available-zero",
+    "expected": 0,
+    "actual": 0,
+    "status": "PASS"
+  },
+  {
+    "id": "AC043.real-full.classification",
+    "expected": true,
+    "actual": false,
+    "status": "FAIL"
+  },
+  {
+    "id": "execution",
+    "expected": "successful scoped verification",
+    "actual": "AC043.real-full.classification\n\n'FAIL' !== 'PASS'\n",
+    "status": "FAIL"
+  }
+]

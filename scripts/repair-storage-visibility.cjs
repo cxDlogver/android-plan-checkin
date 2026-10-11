@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/bdd-ui-storage-more.cjs';let s=fs.readFileSync(file,'utf8');s=s.replaceAll("await t.device.waitSource(s=>s.includes('尚未确认保存'));", "await t.device.seeText('尚未确认保存');");s=s.replace("await t.device.waitSource(s=>s.includes('plan.delete'));", "await t.device.seek('plan.delete');");fs.writeFileSync(file,s);

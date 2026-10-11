@@ -15,7 +15,7 @@ function createRun(name,inputs,implementationIds=[],metadata={}){
   const write=(file,data)=>fs.writeFileSync(`${directory}/${file}`,typeof data==='string'?data:JSON.stringify(data,null,2)+'\n');
   write('inputs.json',inputs);
   progress.update(state=>{state.commands[name]={status:'IN_PROGRESS',inputSha256,record:null};state.next=`继续未完成验收；${name} 正在执行，已通过且输入相同的功能复用原报告。`;});
-  return {directory,write,assertions,
+  return {directory,write,assertions,previousRecord:previous?.record||null,
     check(id,expected,actual){const status=JSON.stringify(expected)===JSON.stringify(actual)?'PASS':'FAIL';assertions.push({id,expected,actual,status});write('assertions.json',assertions);assert.equal(status,'PASS',id);},
     finish(error=null,limitations=[]){
       if(error)assertions.push({id:'execution',expected:'successful scoped verification',actual:error.message,status:'FAIL'});

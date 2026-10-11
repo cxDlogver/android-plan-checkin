@@ -33,7 +33,7 @@ class UiCase {
   async newPlan(type,name='BDD 新计划'){
     await this.nav('/(tabs)/today');await this.click('plan.create');await this.device.waitSource(s=>s.includes('plan.name'));if(type!=='fixed')await this.type(type);await this.input('plan.name',name);if(type==='fixed')await this.click('plan.weekday.everyday');
   }
-  async textPresent(id,text){const source=await this.device.source();this.check(id,true,source.includes(text));}
+  async textPresent(id,text){let visible=false;try{visible=(await this.device.seeText(text)).includes(text);}catch{}this.check(id,true,visible);}
   async property(id,name){await this.device.seek(id);const xml=await this.device.source();return name==='text'&&attr(xml,id,'showing-hint')==='true'?'':attr(xml,id,name);}
   async savePlan(){await this.click('plan.save');await this.device.waitSource(s=>s.includes('计划详情')||s.includes('请检查输入')||s.includes('日期不能')||s.includes('日期不存在'));
   }

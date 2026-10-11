@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/bdd-ui-records-more.cjs';let s=fs.readFileSync(file,'utf8');if(!s.includes("original_note:'首次迟完成'"))throw new Error('Missing original first-note expectation');s=s.replace("original_note:'首次迟完成'","original_note:initial.note");fs.writeFileSync(file,s);

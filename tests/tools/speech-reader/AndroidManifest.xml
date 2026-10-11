@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.xiang.verification.reader" android:versionCode="1" android:versionName="1.0">
+  <uses-sdk android:minSdkVersion="29" android:targetSdkVersion="36"/>
+  <queries><package android:name="com.reecedunn.espeak"/><package android:name="com.android.talkback"/></queries>
+  <application android:label="BDD speech recorder" android:allowBackup="false" android:debuggable="true">
+    <service android:name=".ReaderService" android:exported="true">
+      <intent-filter><action android:name="android.intent.action.TTS_SERVICE"/><category android:name="android.intent.category.DEFAULT"/></intent-filter>
+      <meta-data android:name="android.speech.tts" android:resource="@xml/tts_engine"/>
+    </service>
+  </application>
+</manifest>

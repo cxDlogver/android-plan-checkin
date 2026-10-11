@@ -10,11 +10,13 @@ let attachments=0;
 let releaseGate:(()=>void)|null=null;
 let readInitialization:(()=>Promise<void>)|undefined;
 let versionOverride: {version:string|null;build:string|null}|undefined;
+let storageFailure:{code:string;nativeType:string;sqliteSignal:string;atMs:number}|null=null;
 export const now=()=>instant??Date.now();
 export function setClock(value:number|null){if(value!==null&&!Number.isSafeInteger(value))throw new Error('Invalid test instant');instant=value;}
-export function injectFault(value:typeof fault){releaseGate?.();releaseGate=null;fault=value;reached=null;envelope=null;}
-export function observeUserCommand(value:Envelope){if(fault?.endsWith('_hold'))envelope=JSON.parse(JSON.stringify(value)) as Envelope;}
-export const faultStatus=()=>({armed:fault,reached,envelope});
+export function injectFault(value:typeof fault){releaseGate?.();releaseGate=null;fault=value;reached=null;envelope=null;storageFailure=null;}
+export function observeUserCommand(value:Envelope){envelope=JSON.parse(JSON.stringify(value)) as Envelope;}
+export function observeStorageFailure(code:string,error:unknown){const message=String(error);storageFailure={code,nativeType:error instanceof Error?error.name:typeof error,sqliteSignal:message.match(/SQLITE_[A-Z_]+|disk I\/O error|database or disk is full|database is locked/i)?.[0]||'unclassified native rejection',atMs:now()};}
+export const faultStatus=()=>({armed:fault,reached,envelope,storageFailure});
 function hold(point:string){reached=point;console.info(`PlanCheckinVerificationGate:${point}`);return new Promise<void>(resolve=>{releaseGate=resolve;});}
 export function beforeStorage(sql:string):void|Promise<void>{if(fault==='read_hold'&&/^SELECT/i.test(sql)){fault=null;return hold('read_hold');}if(fault==='read_io'&&/^SELECT/i.test(sql)){fault=null;throw new Error('SQLITE_IOERR: development read fault');}if(sql.startsWith('BEGIN'))writeTransaction=sql==='BEGIN IMMEDIATE';if(sql==='COMMIT'&&writeTransaction){if(fault==='before_commit_hold')return hold(fault);if(fault==='before_commit'||fault==='before_commit_io'||fault==='before_commit_busy'){const point=fault;fault=null;throw new Error(point==='before_commit'?'SQLITE_FULL: development before-commit fault':point==='before_commit_busy'?'SQLITE_BUSY: development before-commit fault':'SQLITE_IOERR: development before-commit fault');}}}
 export function afterUserCommit():void|Promise<void>{if(fault==='after_commit_hold')return hold(fault);if(fault==='after_commit'){fault=null;throw new Error('SQLITE_IOERR: development lost commit acknowledgement');}}

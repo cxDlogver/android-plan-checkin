@@ -1,0 +1,231 @@
+{
+  "caseId": "AC049",
+  "rowId": "running",
+  "configId": "M3",
+  "runId": "2026-10-11T11-45-14-952Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T11:45:14.952Z",
+  "endedAt": "2026-10-11T11:45:36.766Z",
+  "inputSha256": "0560ef661d7301cc99f5ae2c6938fa437b4df0dc9e9d27d41280535755e57b78",
+  "previousRecord": null,
+  "scope": "AC049-running-M3",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A4.archived",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A2.history",
+      "expected": [
+        {
+          "id": "5e10bcf4-5bad-4c05-aad3-0a2fb122ce38",
+          "plan_id": "008cd0ca-47ab-4a69-9fdf-2736c7887c42",
+          "business_on": "2026-10-08",
+          "result": "success",
+          "note": "保留历史",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "actual": [
+        {
+          "id": "5e10bcf4-5bad-4c05-aad3-0a2fb122ce38",
+          "plan_id": "008cd0ca-47ab-4a69-9fdf-2736c7887c42",
+          "business_on": "2026-10-08",
+          "result": "success",
+          "note": "保留历史",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A2.rules",
+      "expected": [
+        {
+          "id": "8a5066ae-e169-42e1-bc8c-9cd177bc682e",
+          "plan_id": "008cd0ca-47ab-4a69-9fdf-2736c7887c42",
+          "kind": "weekday_mask",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"weekdayMask\":127}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "a7bcaaff-3f47-49f5-9f57-d23de10a184e",
+          "plan_id": "008cd0ca-47ab-4a69-9fdf-2736c7887c42",
+          "kind": "end_on",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "actual": [
+        {
+          "id": "8a5066ae-e169-42e1-bc8c-9cd177bc682e",
+          "plan_id": "008cd0ca-47ab-4a69-9fdf-2736c7887c42",
+          "kind": "weekday_mask",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"weekdayMask\":127}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "a7bcaaff-3f47-49f5-9f57-d23de10a184e",
+          "plan_id": "008cd0ca-47ab-4a69-9fdf-2736c7887c42",
+          "kind": "end_on",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A2.archive-boundary",
+      "expected": 1791518400000,
+      "actual": 1791518400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A4.no-management",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A3.read-only",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/7-management-confirmation.png",
+      "sha256": "3d779e33fc94ec41c6cc79808ae3746fd718ceca260d2565aba8971c02c6c8e2"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/7-management-confirmation.xml",
+      "sha256": "eb4d93acc37c1f09947044fb3597b650f278cf44b1e1c354f93ec2572f0568a6"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/8-final.png",
+      "sha256": "31cd2c36131d4da468bb36be56d0590070574a0a77d7bfe350702bd9f958e5e0"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/8-final.xml",
+      "sha256": "dce8fdfc841fd45b1556bfd1576a2813bdaaf3715da19ad33b3395281dec6163"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/after-facts.json",
+      "sha256": "7d4de92278a07794245fe9c4eaccc727ccca9abd6101ce2eb3c38b9436faecae"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/appium.log",
+      "sha256": "be2bbdafecd7ba76aac88d41e41b6644a5ee436ef4d497308735a15f4e8728c1"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/before-facts.json",
+      "sha256": "99edb27491a5b7cb5acb9dab93050dca057475f28853fffb6ded8dfa496e92e3"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/final-native-facts.json",
+      "sha256": "7d4de92278a07794245fe9c4eaccc727ccca9abd6101ce2eb3c38b9436faecae"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/fixture.json",
+      "sha256": "b4b9a4b6db4f64368062f7525f5dbe72fee832b5d5c0b7580930b844bfd21e61"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/inputs.json",
+      "sha256": "66dafad93ad313411e399eea291f0e592157ba267796fbdabff5e92bd427094e"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-1-clock.json",
+      "sha256": "463f59652083f1cd330641f8f0ad32d61313daac75b88122c0de624da2280904"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-2-clock.json",
+      "sha256": "65670a18a3185cb9bf517e7aa10c9d2ed77c8efbb0a485456c83c88c64442db8"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-3-given-create.json",
+      "sha256": "612f31c3997e967b40f0351e6a7baf90cf6379db41fde326f973b8f99891d3f8"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-4-clock.json",
+      "sha256": "c9c8224761b082e4a409a64be21438ae45239743e424608cfa04638eb5f1512a"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-5-given-command.json",
+      "sha256": "44073371acbc642cf0fb4c39752cf2ee314f756f0d5dca586f0e5965e0310db6"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-6-clock.json",
+      "sha256": "463f59652083f1cd330641f8f0ad32d61313daac75b88122c0de624da2280904"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-7.json",
+      "sha256": "6f1eafa88518d1fdce145f77ab9588fce97412d080c00db903437d6b51fd5b23"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T11-45-14-952Z/AC049-running-M3/step-8.json",
+      "sha256": "a865e7861edfd89bafb47019af9da39fab549bb5c83526bf39e5ec77707fa056"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

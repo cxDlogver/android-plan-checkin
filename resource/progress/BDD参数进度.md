@@ -1,6 +1,6 @@
 # BDD 参数与配置进度
 
-更新：2026-10-11T10:44:27.568Z。完整验收项 16/120；已留证且摘要有效的显式参数/配置实例 248。实例通过不等于整个验收项通过。
+更新：2026-10-11T12:02:05.483Z。完整验收项 16/120；已留证且摘要有效的显式参数/配置实例 288。实例通过不等于整个验收项通过。
 
 | 验收项 | 完整状态 | 显式通过实例 |
 | --- | --- | --- |
@@ -35,36 +35,36 @@
 | AC029 历史与補记保存后的结果备注均只读 | NOT_RUN | past_ordinary/M3、today_backfill/M3、archived_today/M3、past_once/M3 |
 | AC030 固定历史资格按目标星期判断 | NOT_RUN | valid_tue/M3、invalid_wed/M3、future_thu/M3 |
 | AC031 补记只限当前运行阶段合法空日 | NOT_RUN | new_stage/M3、old_stage/M3、pause_gap/M3、currently_paused/M3、archived/M3、before_start/M3 |
-| AC032 首次记录跨午夜拒绝旧保存再显式补记 | NOT_RUN | — |
-| AC033 跨日后状态不合法不提供补记确认 | NOT_RUN | — |
-| AC034 已有记录修改跨午夜直接只读 | NOT_RUN | — |
+| AC032 首次记录跨午夜拒绝旧保存再显式补记 | NOT_RUN | default/M3 |
+| AC033 跨日后状态不合法不提供补记确认 | NOT_RUN | pause/M3、archive/M3、oldstage/M3 |
+| AC034 已有记录修改跨午夜直接只读 | NOT_RUN | default/M3 |
 | AC035 一次性完成按实际日期区分按时与迟完成 | NOT_RUN | early/M3、boundary/M3、late/M3 |
 | AC036 一次性完成日期范围和必填校验 | NOT_RUN | before_created/M3、created/M3、future/M3、missing/M3 |
 | AC037 一次性失败取消独立于循环跳过 | NOT_RUN | failed/M3、cancelled/M3 |
-| AC038 一次性三结果同日可改但业务日期截止固定 | NOT_RUN | — |
-| AC039 一次性首次跨日不自动补报失败取消 | NOT_RUN | — |
+| AC038 一次性三结果同日可改但业务日期截止固定 | NOT_RUN | default/M3 |
+| AC039 一次性首次跨日不自动补报失败取消 | NOT_RUN | completed/M3、failed/M3、cancelled/M3 |
 | AC040 重复同命令及跨日成功重试只返回一次事实 | NOT_RUN | — |
 | AC041 不同命令争抢同日或旧revision不静默覆盖 | NOT_RUN | — |
 | AC042 命令ID复用、过期和删除重放被拒绝 | NOT_RUN | reused/M7、expired/M7、expired_cleaned/M7、removed/M7、clock/M7、reused/M3、expired/M3、expired_cleaned/M3、removed/M3、clock/M3 |
-| AC043 写失败或空间不足保留输入并完整回滚 | NOT_RUN | — |
-| AC044 commit前后进程中断恢复事实而非草稿 | NOT_RUN | — |
-| AC045 暂停明天生效且今天仍可记录 | NOT_RUN | — |
-| AC046 恢复明天开启新阶段但不补旧日期 | NOT_RUN | — |
-| AC047 生效前取消申请不改变执行阶段 | NOT_RUN | — |
-| AC048 跨日已生效申请不可取消且旧日期确认不能漂移 | NOT_RUN | — |
-| AC049 运行暂停删除均立即归档而保留全部历史 | NOT_RUN | — |
-| AC050 手动归档当天保留记录并取消空要求 | NOT_RUN | — |
-| AC051 自然结束包含末日并在次日归档 | NOT_RUN | — |
-| AC052 一次性普通终态与历史补报归档边界不同 | NOT_RUN | — |
+| AC043 写失败或空间不足保留输入并完整回滚 | NOT_RUN | io/M3、full/M3、busy/M3、archive_fail/M3 |
+| AC044 commit前后进程中断恢复事实而非草稿 | NOT_RUN | before_commit/M3、after_commit/M3 |
+| AC045 暂停明天生效且今天仍可记录 | NOT_RUN | default/M3 |
+| AC046 恢复明天开启新阶段但不补旧日期 | NOT_RUN | default/M3 |
+| AC047 生效前取消申请不改变执行阶段 | NOT_RUN | pause/M3、resume/M3 |
+| AC048 跨日已生效申请不可取消且旧日期确认不能漂移 | NOT_RUN | default/M3 |
+| AC049 运行暂停删除均立即归档而保留全部历史 | NOT_RUN | running/M3、paused/M3 |
+| AC050 手动归档当天保留记录并取消空要求 | NOT_RUN | recorded/M3、unrecorded/M3 |
+| AC051 自然结束包含末日并在次日归档 | NOT_RUN | empty/M3、recorded/M3 |
+| AC052 一次性普通终态与历史补报归档边界不同 | NOT_RUN | ordinary_complete/M3、ordinary_failed/M3、backfill/M3 |
 | AC053 长时间离线对账使用原边界且归档优先 | NOT_RUN | default/M3 |
 | AC054 拒绝旧提交不回滚独立合法对账 | NOT_RUN | default/M3 |
-| AC055 开始前管理不产生负执行区间 | NOT_RUN | — |
-| AC056 归档后永久删除取消保留确认才清空 | NOT_RUN | — |
-| AC057 固定星期明天生效且不改旧资格 | NOT_RUN | — |
-| AC058 周目标严格下周一生效并以最后值为准 | NOT_RUN | — |
-| AC059 pending优先显示且回current取消该字段 | NOT_RUN | — |
-| AC060 结束截止即时保存及逾期延期 | NOT_RUN | — |
-| AC061 规则生效日期确认跨边界需重新确认 | NOT_RUN | — |
+| AC055 开始前管理不产生负执行区间 | NOT_RUN | default/M3 |
+| AC056 归档后永久删除取消保留确认才清空 | NOT_RUN | default/M3 |
+| AC057 固定星期明天生效且不改旧资格 | NOT_RUN | default/M3 |
+| AC058 周目标严格下周一生效并以最后值为准 | NOT_RUN | friday/M3、monday/M3 |
+| AC059 pending优先显示且回current取消该字段 | NOT_RUN | default/M3 |
+| AC060 结束截止即时保存及逾期延期 | NOT_RUN | end_today/M3、end_past/M3、due_extend/M3、due_past/M3 |
+| AC061 规则生效日期确认跨边界需重新确认 | NOT_RUN | default/M3 |
 | AC062 固定今天提交立即计入，跳过排除率分母 | NOT_RUN | — |
 | AC063 过去未知、补记和零分母有明确公式 | NOT_RUN | — |
 | AC064 显示统计起止与分母集合分别处理 | NOT_RUN | — |

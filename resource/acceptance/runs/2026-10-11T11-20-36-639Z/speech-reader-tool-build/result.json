@@ -1,0 +1,33 @@
+{
+  "runId": "2026-10-11T11-20-36-639Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T11:20:36.639Z",
+  "endedAt": "2026-10-11T11:20:40.919Z",
+  "inputSha256": "984faf8d1cbb44a26c807ad7282e4fcab7bd8882e15c8856a4d452aaf022ea13",
+  "previousRecord": null,
+  "scope": "speech-reader-tool-build",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "aapt2.exe failed, see build.log",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T11-20-36-639Z/speech-reader-tool-build/build.log",
+      "sha256": "9422ab1d479fbf29b2bc503b6c255eb0ea644b75fc61a5d64763e5d91cf87b5a"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T11-20-36-639Z/speech-reader-tool-build/inputs.json",
+      "sha256": "ab80a6f0a494e1777b9e9fcc33ae7510fade05a76344dfb8b87008e9b7aea7a5"
+    }
+  ],
+  "limitations": [
+    "Tool compilation and signature verification only; speech and TalkBack acceptance require actual device requests and audio evidence."
+  ]
+}

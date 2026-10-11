@@ -134,6 +134,11 @@ async function dispatch({action,payload={}}:Request){
       return {contextId,observation:await runSqlCase(payload.name)};
     }
     case 'connectionInfo': return {contextId,observation:await connectionInfo()};
+    case 'storageCapacity': {
+      if(payload.confirm!=='TRUNCATE_ISOLATED_DEV_WAL')throw new Error('CAPACITY_PROBE_CONFIRMATION_REQUIRED');
+      const observation=await verificationExecutor().queue(async tx=>({checkpoint:await tx.first('PRAGMA wal_checkpoint(TRUNCATE)'),pageCount:await tx.first('PRAGMA page_count'),freelist:await tx.first('PRAGMA freelist_count')}));
+      return {contextId,observation};
+    }
     case 'dateProbe': return {contextId,observation:dateProbe()};
     case 'calendarProbe': return {contextId,observation:calendarProbe(await context.service.snapshot())};
     case 'timezoneProbe': {

@@ -1,11 +1,11 @@
 import * as Crypto from 'expo-crypto';
-import { now, afterUserCommit, observeUserCommand, attachExecutor } from '@verification/runtime';
+import { now, afterUserCommit, observeUserCommand, observeStorageFailure, attachExecutor } from '@verification/runtime';
 import { DatabaseExecutor, loadFacts, persist, Tx } from '../infrastructure/database/executor';
 import { applyCommand, canonical, normalizeEnvelope, receiptResult, reconcile } from '../domain/commands';
 import { CommandResult, DomainError, Envelope, Facts, Snapshot, metaValue } from '../domain/model';
 import { businessToday } from '../domain/date';
 
-function storageCode(error:unknown){if(error instanceof DomainError)return error;const message=String(error);return new DomainError(/SQLITE_FULL|disk.*full/i.test(message)?'STORAGE_FULL':/SQLITE_BUSY|database.*locked/i.test(message)?'STORAGE_BUSY':'STORAGE_IO');}
+function storageCode(error:unknown){if(error instanceof DomainError)return error;const message=String(error),code=/SQLITE_FULL|disk.*full/i.test(message)?'STORAGE_FULL':/SQLITE_BUSY|database.*locked/i.test(message)?'STORAGE_BUSY':'STORAGE_IO';observeStorageFailure(code,error);return new DomainError(code);}
 export class AppService {
   constructor(private executor:DatabaseExecutor,private clock:()=>number=now){}
   private async reconciled(tx:Tx,now:number){const before=await loadFacts(tx),zone=metaValue(before,'app_timezone')!;const result=reconcile(before,now,zone,Crypto.randomUUID);if(result.changed)await this.executor.transaction(tx,()=>persist(tx,before,result.facts));return result.facts;}

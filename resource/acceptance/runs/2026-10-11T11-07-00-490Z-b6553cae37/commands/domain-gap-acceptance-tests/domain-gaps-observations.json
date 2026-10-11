@@ -1,0 +1,2048 @@
+[
+  {
+    "id": "AC019.A2.end-inclusive",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "2588ce4d-13ba-4dd9-bc70-305446eb7718",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "23992b4e-99c6-4076-befb-72698c211aac",
+            "plan_id": "2588ce4d-13ba-4dd9-bc70-305446eb7718",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "478a24b4-e86d-40ff-bc65-7e8d62a1c5d1",
+            "plan_id": "2588ce4d-13ba-4dd9-bc70-305446eb7718",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "on": "2026-10-09"
+    },
+    "expected": true,
+    "actual": true,
+    "status": "PASS"
+  },
+  {
+    "id": "AC019.A2.day-after-end",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "2588ce4d-13ba-4dd9-bc70-305446eb7718",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "23992b4e-99c6-4076-befb-72698c211aac",
+            "plan_id": "2588ce4d-13ba-4dd9-bc70-305446eb7718",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "478a24b4-e86d-40ff-bc65-7e8d62a1c5d1",
+            "plan_id": "2588ce4d-13ba-4dd9-bc70-305446eb7718",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "on": "2026-10-10"
+    },
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  },
+  {
+    "id": "AC019/reversed",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [],
+        "rule_versions": [],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "0"
+          }
+        ]
+      },
+      "kind": "CreatePlan",
+      "payload": {
+        "planId": "2e4e4d28-b9b0-4cfc-b660-5de809fd9417",
+        "name": "倒置",
+        "description": "",
+        "type": "fixed",
+        "direction": "do",
+        "startsOn": "2026-10-10",
+        "endOn": "2026-10-09",
+        "weekdayMask": 127
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC019.A3.fixed.future",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "bc9b8b46-2763-4107-bfe4-f2af311f8c24",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-10",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "999673e9-f902-4abe-b540-0ce6e01d5aa4",
+            "plan_id": "bc9b8b46-2763-4107-bfe4-f2af311f8c24",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "bffcd225-180c-4d11-8eb6-e32d86cd39d1",
+            "plan_id": "bc9b8b46-2763-4107-bfe4-f2af311f8c24",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":\"2026-10-11\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "clock": 1791518400000
+    },
+    "expected": [
+      "not_started",
+      false,
+      true
+    ],
+    "actual": [
+      "not_started",
+      false,
+      true
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC019.A3.weekly.future",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "d2cedc4b-6f0f-456d-a9b5-4d6330443c43",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "weekly",
+            "direction": "do",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-10",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "c77f4f0e-540b-4f8b-9421-d7b686ebefcf",
+            "plan_id": "d2cedc4b-6f0f-456d-a9b5-4d6330443c43",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "d0f651c6-da8c-40c7-b42a-76e72215f132",
+            "plan_id": "d2cedc4b-6f0f-456d-a9b5-4d6330443c43",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":\"2026-10-11\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "clock": 1791518400000
+    },
+    "expected": [
+      "not_started",
+      false,
+      true
+    ],
+    "actual": [
+      "not_started",
+      false,
+      true
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC101/past",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [],
+        "rule_versions": [],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "0"
+          }
+        ]
+      },
+      "kind": "CreatePlan",
+      "payload": {
+        "planId": "4c03bb30-4b68-441e-a1d1-60322296ea2f",
+        "name": "截止边界",
+        "description": "",
+        "type": "one_time",
+        "direction": "do",
+        "dueOn": "2026-10-08"
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC101/empty",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [],
+        "rule_versions": [],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "0"
+          }
+        ]
+      },
+      "kind": "CreatePlan",
+      "payload": {
+        "planId": "6bfc9586-da07-473e-9fc3-8055d991f318",
+        "name": "截止边界",
+        "description": "",
+        "type": "one_time",
+        "direction": "do",
+        "dueOn": null
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/paused",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 3
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "05380ece-dd42-434f-bd31-9198dd3804ee",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "b12ae2f9-5901-49fc-97c9-1b310af96f42",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "24d8753a-49e6-44ca-9b4f-88964a63a643",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "pause",
+            "source_key": "user:24d8753a-49e6-44ca-9b4f-88964a63a643",
+            "effective_on": "2026-10-10",
+            "effective_at_ms": 1791561600000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "3"
+          },
+          {
+            "key": "reconciled_at:84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "value": "1791561600000"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+        "expectedPlanRevision": 3,
+        "changes": {
+          "name": "不可编辑"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791604800000
+    },
+    "expected": "PAUSED",
+    "actual": "PAUSED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/archived",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 4
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "05380ece-dd42-434f-bd31-9198dd3804ee",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "b12ae2f9-5901-49fc-97c9-1b310af96f42",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "24d8753a-49e6-44ca-9b4f-88964a63a643",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "pause",
+            "source_key": "user:24d8753a-49e6-44ca-9b4f-88964a63a643",
+            "effective_on": "2026-10-10",
+            "effective_at_ms": 1791561600000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "0d910ddf-638c-4fc5-870f-8e84562cf194",
+            "plan_id": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "kind": "archive",
+            "source_key": "user:0d910ddf-638c-4fc5-870f-8e84562cf194",
+            "effective_on": "2026-10-10",
+            "effective_at_ms": 1791604800000,
+            "reason": "user",
+            "requested_at_ms": 1791604800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "4"
+          },
+          {
+            "key": "reconciled_at:84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+            "value": "1791561600000"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "84425ee2-8e0e-44c3-9efe-d8dcf30bc0e2",
+        "expectedPlanRevision": 4,
+        "changes": {
+          "name": "不可编辑"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791604800000
+    },
+    "expected": "ARCHIVED",
+    "actual": "ARCHIVED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/immutable",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "34e175a1-9e61-4191-980d-90559064fa39",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "e3c1f8bb-e430-4f93-a729-96e2c62ada49",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "8c513d96-8002-454e-ba18-61639d6846d4",
+        "expectedPlanRevision": 1,
+        "changes": {
+          "type": "weekly"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/immutable",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "34e175a1-9e61-4191-980d-90559064fa39",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "e3c1f8bb-e430-4f93-a729-96e2c62ada49",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "8c513d96-8002-454e-ba18-61639d6846d4",
+        "expectedPlanRevision": 1,
+        "changes": {
+          "direction": "avoid"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/immutable",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "34e175a1-9e61-4191-980d-90559064fa39",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "e3c1f8bb-e430-4f93-a729-96e2c62ada49",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "8c513d96-8002-454e-ba18-61639d6846d4",
+        "expectedPlanRevision": 1,
+        "changes": {
+          "startsOn": "2026-10-02"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/immutable",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "fixed",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "34e175a1-9e61-4191-980d-90559064fa39",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "e3c1f8bb-e430-4f93-a729-96e2c62ada49",
+            "plan_id": "8c513d96-8002-454e-ba18-61639d6846d4",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "8c513d96-8002-454e-ba18-61639d6846d4",
+        "expectedPlanRevision": 1,
+        "changes": {
+          "timezone": "UTC"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791518400000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023/terminal_due",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "99236eed-1953-4b08-9438-af4a63b1f59f",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "cde19a53-0275-4079-b4d2-646435873cc5",
+            "plan_id": "99236eed-1953-4b08-9438-af4a63b1f59f",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [
+          {
+            "id": "4d775763-c032-47c0-9c1f-82e2072ea9af",
+            "plan_id": "99236eed-1953-4b08-9438-af4a63b1f59f",
+            "business_on": "2026-10-09",
+            "outcome": "completed",
+            "actual_completed_on": "2026-10-09",
+            "due_rule_version_id": "cde19a53-0275-4079-b4d2-646435873cc5",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791518400000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "99236eed-1953-4b08-9438-af4a63b1f59f",
+        "expectedPlanRevision": 2,
+        "changes": {
+          "dueOn": "2026-10-15"
+        },
+        "ruleConfirmations": []
+      },
+      "clock": 1791518400000
+    },
+    "expected": "READ_ONLY",
+    "actual": "READ_ONLY",
+    "status": "PASS"
+  },
+  {
+    "id": "AC023.A3.name-description-still-allowed",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "99236eed-1953-4b08-9438-af4a63b1f59f",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "cde19a53-0275-4079-b4d2-646435873cc5",
+            "plan_id": "99236eed-1953-4b08-9438-af4a63b1f59f",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [
+          {
+            "id": "4d775763-c032-47c0-9c1f-82e2072ea9af",
+            "plan_id": "99236eed-1953-4b08-9438-af4a63b1f59f",
+            "business_on": "2026-10-09",
+            "outcome": "completed",
+            "actual_completed_on": "2026-10-09",
+            "due_rule_version_id": "cde19a53-0275-4079-b4d2-646435873cc5",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791518400000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "clock": 1791518400000
+    },
+    "expected": [
+      "终态当日新名称",
+      "新的说明"
+    ],
+    "actual": [
+      "终态当日新名称",
+      "新的说明"
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC036/before_created",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "b7166923-5f75-41d6-acab-6049352eee79",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "82431121-a584-4629-9d23-d6ff8aa580f0",
+            "plan_id": "b7166923-5f75-41d6-acab-6049352eee79",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "SubmitOneTimeResult",
+      "payload": {
+        "planId": "b7166923-5f75-41d6-acab-6049352eee79",
+        "expectedPlanRevision": 1,
+        "resultId": "99648582-0ed7-4739-9858-6d631ff2c78e",
+        "outcome": "completed",
+        "actualCompletedOn": "2026-10-07",
+        "note": "保留输入",
+        "confirmedToday": "2026-10-11",
+        "confirmedEntryKind": "backfill"
+      },
+      "clock": 1791691200000
+    },
+    "expected": "DATE_INELIGIBLE",
+    "actual": "DATE_INELIGIBLE",
+    "status": "PASS"
+  },
+  {
+    "id": "AC036/future",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "d0eec0e5-5341-4ab7-8cdc-56c52f47f2d1",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "bd09eb3a-993b-4f6e-a962-efd52fbef057",
+            "plan_id": "d0eec0e5-5341-4ab7-8cdc-56c52f47f2d1",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "SubmitOneTimeResult",
+      "payload": {
+        "planId": "d0eec0e5-5341-4ab7-8cdc-56c52f47f2d1",
+        "expectedPlanRevision": 1,
+        "resultId": "29dff18a-9d3d-4ffd-8a95-e3f347c2814d",
+        "outcome": "completed",
+        "actualCompletedOn": "2026-10-12",
+        "note": "保留输入",
+        "confirmedToday": "2026-10-11",
+        "confirmedEntryKind": "backfill"
+      },
+      "clock": 1791691200000
+    },
+    "expected": "DATE_INELIGIBLE",
+    "actual": "DATE_INELIGIBLE",
+    "status": "PASS"
+  },
+  {
+    "id": "AC036/missing",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "36fb93ac-5d2d-4f66-ab08-3e00749b1cf8",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "96a535b9-390b-4275-aa71-723292d4451b",
+            "plan_id": "36fb93ac-5d2d-4f66-ab08-3e00749b1cf8",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "SubmitOneTimeResult",
+      "payload": {
+        "planId": "36fb93ac-5d2d-4f66-ab08-3e00749b1cf8",
+        "expectedPlanRevision": 1,
+        "resultId": "c59493ee-ee68-4154-813b-e0ccdd22eb35",
+        "outcome": "completed",
+        "actualCompletedOn": null,
+        "note": "保留输入",
+        "confirmedToday": "2026-10-11",
+        "confirmedEntryKind": "backfill"
+      },
+      "clock": 1791691200000
+    },
+    "expected": "VALIDATION_FAILED",
+    "actual": "VALIDATION_FAILED",
+    "status": "PASS"
+  },
+  {
+    "id": "AC037/failed.same-day",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "91a71752-508d-466c-8d32-ec65e21162de",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "9d9738ed-5f59-45a9-9ccc-222c5af53cca",
+            "plan_id": "91a71752-508d-466c-8d32-ec65e21162de",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [
+          {
+            "id": "3bd4bac1-07c3-42f5-bf0d-e44031389c78",
+            "plan_id": "91a71752-508d-466c-8d32-ec65e21162de",
+            "business_on": "2026-10-11",
+            "outcome": "failed",
+            "actual_completed_on": null,
+            "due_rule_version_id": "9d9738ed-5f59-45a9-9ccc-222c5af53cca",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791691200000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "clock": 1791691200000
+    },
+    "expected": [
+      "running",
+      "2026-10-11",
+      null
+    ],
+    "actual": [
+      "running",
+      "2026-10-11",
+      null
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC052/failed.original-boundary",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "91a71752-508d-466c-8d32-ec65e21162de",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "9d9738ed-5f59-45a9-9ccc-222c5af53cca",
+            "plan_id": "91a71752-508d-466c-8d32-ec65e21162de",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [
+          {
+            "id": "3bd4bac1-07c3-42f5-bf0d-e44031389c78",
+            "plan_id": "91a71752-508d-466c-8d32-ec65e21162de",
+            "business_on": "2026-10-11",
+            "outcome": "failed",
+            "actual_completed_on": null,
+            "due_rule_version_id": "9d9738ed-5f59-45a9-9ccc-222c5af53cca",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791691200000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "clock": 1792036800000
+    },
+    "expected": [
+      "archived",
+      "2026-10-12",
+      1791734400000
+    ],
+    "actual": [
+      "archived",
+      "2026-10-12",
+      1791734400000
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC037/cancelled.same-day",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "7a903fe2-84fa-436a-9ff5-5b2c8fdd569e",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "516a5166-da11-4796-8e2d-69de3656f25a",
+            "plan_id": "7a903fe2-84fa-436a-9ff5-5b2c8fdd569e",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [
+          {
+            "id": "6e80650b-cce4-4ba2-b281-294cb057d795",
+            "plan_id": "7a903fe2-84fa-436a-9ff5-5b2c8fdd569e",
+            "business_on": "2026-10-11",
+            "outcome": "cancelled",
+            "actual_completed_on": null,
+            "due_rule_version_id": "516a5166-da11-4796-8e2d-69de3656f25a",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791691200000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "clock": 1791691200000
+    },
+    "expected": [
+      "running",
+      "2026-10-11",
+      null
+    ],
+    "actual": [
+      "running",
+      "2026-10-11",
+      null
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC052/cancelled.original-boundary",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "7a903fe2-84fa-436a-9ff5-5b2c8fdd569e",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791432000000,
+            "created_on": "2026-10-08",
+            "starts_on": "2026-10-08",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "516a5166-da11-4796-8e2d-69de3656f25a",
+            "plan_id": "7a903fe2-84fa-436a-9ff5-5b2c8fdd569e",
+            "kind": "due_on",
+            "effective_on": "2026-10-08",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791432000000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [
+          {
+            "id": "6e80650b-cce4-4ba2-b281-294cb057d795",
+            "plan_id": "7a903fe2-84fa-436a-9ff5-5b2c8fdd569e",
+            "business_on": "2026-10-11",
+            "outcome": "cancelled",
+            "actual_completed_on": null,
+            "due_rule_version_id": "516a5166-da11-4796-8e2d-69de3656f25a",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791691200000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "clock": 1792036800000
+    },
+    "expected": [
+      "archived",
+      "2026-10-12",
+      1791734400000
+    ],
+    "actual": [
+      "archived",
+      "2026-10-12",
+      1791734400000
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC053.A1.archive-priority",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "weekly",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 4
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "c79e165e-33d6-463b-a089-d38566b84646",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "7e2e637c-e7a2-4c1a-b23e-bdbb220194fa",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":\"2026-10-11\"}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "6fd7644e-a3c6-4a34-abf8-0a58fde851f6",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "pause",
+            "source_key": "user:6fd7644e-a3c6-4a34-abf8-0a58fde851f6",
+            "effective_on": "2026-10-10",
+            "effective_at_ms": 1791561600000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "ca7bb16f-af6e-490c-b4c0-7e5ec6135b80",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "resume",
+            "source_key": "user:ca7bb16f-af6e-490c-b4c0-7e5ec6135b80",
+            "effective_on": "2026-10-12",
+            "effective_at_ms": 1791734400000,
+            "reason": "user",
+            "requested_at_ms": 1791691200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "4"
+          },
+          {
+            "key": "reconciled_at:e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "value": "1791561600000"
+          }
+        ]
+      },
+      "clock": 1792036800000
+    },
+    "expected": [
+      "archived",
+      "2026-10-12",
+      true
+    ],
+    "actual": [
+      "archived",
+      "2026-10-12",
+      true
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC053.A2.second-reconciliation",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "weekly",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "c79e165e-33d6-463b-a089-d38566b84646",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "7e2e637c-e7a2-4c1a-b23e-bdbb220194fa",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":\"2026-10-11\"}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "6fd7644e-a3c6-4a34-abf8-0a58fde851f6",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "pause",
+            "source_key": "user:6fd7644e-a3c6-4a34-abf8-0a58fde851f6",
+            "effective_on": "2026-10-10",
+            "effective_at_ms": 1791561600000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "ca7bb16f-af6e-490c-b4c0-7e5ec6135b80",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "resume",
+            "source_key": "user:ca7bb16f-af6e-490c-b4c0-7e5ec6135b80",
+            "effective_on": "2026-10-12",
+            "effective_at_ms": 1791734400000,
+            "reason": "user",
+            "requested_at_ms": 1791691200000,
+            "cancelled_at_ms": 1792036800000
+          },
+          {
+            "id": "cabd1880-929e-40ec-a88b-540aef11796e",
+            "plan_id": "e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "kind": "archive",
+            "source_key": "cycle_end:7e2e637c-e7a2-4c1a-b23e-bdbb220194fa",
+            "effective_on": "2026-10-12",
+            "effective_at_ms": 1791734400000,
+            "reason": "cycle_end",
+            "requested_at_ms": 1792036800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "5"
+          },
+          {
+            "key": "reconciled_at:e7220fec-e0f2-4c2d-8428-bc84c569428a",
+            "value": "1791561600000"
+          }
+        ]
+      },
+      "clock": 1792036800000
+    },
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  },
+  {
+    "id": "AC061.A2.old-Sunday-confirmation",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "weekly",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "dd5913a0-3286-4709-a7d8-72eaa4eaca27",
+            "plan_id": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "6a164b9a-4a99-42a2-be95-20f5e2defe3a",
+            "plan_id": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "kind": "EditPlan",
+      "payload": {
+        "planId": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+        "expectedPlanRevision": 1,
+        "changes": {
+          "weeklyTarget": 5
+        },
+        "ruleConfirmations": [
+          {
+            "field": "weekly_target",
+            "confirmedEffectiveOn": "2026-10-12"
+          }
+        ]
+      },
+      "clock": 1791777600000
+    },
+    "expected": "CONFIRMATION_STALE",
+    "actual": "CONFIRMATION_STALE",
+    "status": "PASS"
+  },
+  {
+    "id": "AC061.A2.current-versus-next-week",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "weekly",
+            "direction": "do",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "dd5913a0-3286-4709-a7d8-72eaa4eaca27",
+            "plan_id": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "6a164b9a-4a99-42a2-be95-20f5e2defe3a",
+            "plan_id": "75f9dece-2edc-403e-a5b7-86b03a6d109b",
+            "kind": "end_on",
+            "effective_on": "2026-10-01",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1790827200000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "clock": 1791777600000
+    },
+    "expected": [
+      3,
+      5
+    ],
+    "actual": [
+      3,
+      5
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC076/past",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "6049be82-96e2-4a39-b55a-00f80d7bf8df",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "2ae7ecd2-2215-49ce-9df7-f98a0eed9129",
+            "plan_id": "6049be82-96e2-4a39-b55a-00f80d7bf8df",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-08\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "5e1c3c2f-93c4-4636-b5a6-847d477c5838",
+            "plan_id": "6049be82-96e2-4a39-b55a-00f80d7bf8df",
+            "kind": "archive",
+            "source_key": "user:5e1c3c2f-93c4-4636-b5a6-847d477c5838",
+            "effective_on": "2026-10-09",
+            "effective_at_ms": 1791518400000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "on": "2026-10-08",
+      "clock": 1791518400000
+    },
+    "expected": true,
+    "actual": true,
+    "status": "PASS"
+  },
+  {
+    "id": "AC076/today",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "79a02461-db00-4472-8fa0-e77ea5c33d45",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "d7ae668f-7f5c-4232-bcb5-20a6946b4d33",
+            "plan_id": "79a02461-db00-4472-8fa0-e77ea5c33d45",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "a2654d25-5ef2-42c6-ac98-de348bdbb46b",
+            "plan_id": "79a02461-db00-4472-8fa0-e77ea5c33d45",
+            "kind": "archive",
+            "source_key": "user:a2654d25-5ef2-42c6-ac98-de348bdbb46b",
+            "effective_on": "2026-10-09",
+            "effective_at_ms": 1791518400000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "on": "2026-10-09",
+      "clock": 1791518400000
+    },
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  },
+  {
+    "id": "AC076/future",
+    "zone": "Asia/Shanghai",
+    "input": {
+      "facts": {
+        "plans": [
+          {
+            "id": "e8443289-9c33-4ef1-9015-9016238efbe9",
+            "name": "独立领域补充样本",
+            "description": "",
+            "type": "one_time",
+            "direction": "do",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 2
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "174226f0-442a-4cea-8d25-4a7242ca3b28",
+            "plan_id": "e8443289-9c33-4ef1-9015-9016238efbe9",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [
+          {
+            "id": "2099719b-fc72-426d-b6b9-f0852704e3ae",
+            "plan_id": "e8443289-9c33-4ef1-9015-9016238efbe9",
+            "kind": "archive",
+            "source_key": "user:2099719b-fc72-426d-b6b9-f0852704e3ae",
+            "effective_on": "2026-10-09",
+            "effective_at_ms": 1791518400000,
+            "reason": "user",
+            "requested_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "data_revision",
+            "value": "2"
+          }
+        ]
+      },
+      "on": "2026-10-10",
+      "clock": 1791518400000
+    },
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  }
+]
