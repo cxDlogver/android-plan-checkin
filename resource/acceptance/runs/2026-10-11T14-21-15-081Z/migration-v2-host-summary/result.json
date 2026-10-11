@@ -1,0 +1,49 @@
+{
+  "runId": "2026-10-11T14-21-15-081Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T14:21:15.081Z",
+  "endedAt": "2026-10-11T14:21:15.363Z",
+  "inputSha256": "195a437dc009552ab0f62ec759afcc0776c5cf006f369ee1225085ff41749c06",
+  "previousRecord": null,
+  "scope": "migration-v2-host-summary",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "original-test-source-reconstructed",
+      "expected": "a393518ba2aa8c6d9d6206be9359ffac697e9b0b7a679448cadcc51def6f99c1",
+      "actual": "a393518ba2aa8c6d9d6206be9359ffac697e9b0b7a679448cadcc51def6f99c1",
+      "status": "PASS"
+    },
+    {
+      "id": "original-two-complete-scenarios",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "remaining-preservation-scenario",
+      "expected": "PASS",
+      "actual": "PASS",
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-21-15-081Z/migration-v2-host-summary/inputs.json",
+      "sha256": "227904a7f421636c263f20027bca6ecc2daa2bff8d17029f4b30a59d39caf427"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-21-15-081Z/migration-v2-host-summary/reconstructed-original-test-source.txt",
+      "sha256": "a393518ba2aa8c6d9d6206be9359ffac697e9b0b7a679448cadcc51def6f99c1"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-21-15-081Z/migration-v2-host-summary/reused-source-scope.json",
+      "sha256": "9d3efffdb112f90710ee839f46a71bef1ff2753b04531d9a92083bcb2ed7508a"
+    }
+  ],
+  "limitations": [
+    "Aggregate three new migration scenarios without repeating the two that passed in the initial run. The original failed prototype-comparison report remains immutable."
+  ]
+}

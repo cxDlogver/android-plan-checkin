@@ -1,0 +1,4 @@
+const fs=require('node:fs'),path=require('node:path'),{DeviceDriver}=require('./device-driver.cjs'),progress=require('./progress.cjs');
+const d=new DeviceDriver('29','.cache/talkback-runtime'),c=progress.read().commands['AC094-default-M3'],folder=path.dirname(c.record);
+const service=fs.readFileSync(path.join(folder,'actual-enabled-service.log'),'utf8');console.log(service.split(/\r?\n/).filter(line=>/talkback|TouchExploration|touchExploration|Bound|bound|UiAutomation|mIsEnabled|isEnabled|suppres/i.test(line)).join('\n').slice(0,3000));
+const log=d.adb(['logcat','-d','-s','AndroidRuntime:E','TalkBack','SpeechControllerImpl','TextToSpeech','FailoverTextToSpeech','PlanCheckinSpeechEvidence']);fs.writeFileSync(path.resolve('.cache/talkback-runtime/latest-diagnostic.log'),log);console.log(log.slice(-6500));

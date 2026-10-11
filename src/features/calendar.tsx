@@ -9,6 +9,13 @@ import { Empty, PlanCard, openRecord, resultText, resultColor } from './shared';
 export default function Calendar({planId}:{planId?:string}){
   const {snapshot,queries}=useApp(),[month,setMonth]=useState(snapshot.today.slice(0,7)),[selected,setSelected]=useState(snapshot.today),[filter,setFilter]=useState('all');
   const {width,fontScale}=useWindowDimensions(),edge=width<380?4:20,cellWidth=(width-edge*2-4-12)/7,large=fontScale>=1.6;
+  const measurementKey=`${fontScale}:${cellWidth}`;
+  const [textHeights,setTextHeights]=useState({key:measurementKey,date:0,fraction:0});
+  const measure=(part:'date'|'fraction',height:number)=>setTextHeights(previous=>{
+    const current=previous.key===measurementKey?previous:{key:measurementKey,date:0,fraction:0};
+    return height>current[part]?{...current,[part]:height}:current;
+  });
+  const cellHeight=Math.max(large?104:70,textHeights.key===measurementKey?Math.ceil(textHeights.date+textHeights.fraction+18):0);
   const projection=planId&&!snapshot.facts.plans.some(p=>p.id===planId)?null:queries.calendar(snapshot,month,selected,planId);
   if(!projection)return <Page title="计划日历" back><Empty>目标已永久删除。</Empty></Page>;
   const all=projection.items,completed=all.filter(item=>item.completed).length;
@@ -23,7 +30,7 @@ export default function Calendar({planId}:{planId?:string}){
         const current=cell.on===snapshot.today,future=cell.on>snapshot.today;
         const label=cell.on+'，'+(current?'今天，':future?'未来，只读，':'')+(current?'':'完成'+cell.completed+'，共'+cell.total+'，')+(selected===cell.on?'已选中':'');
         const fraction=large?cell.label.replace('/','/\n'):cell.label;
-        return <Pressable key={cell.on} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{selected:selected===cell.on}} testID={'calendar.date.'+cell.on} onPress={()=>select(cell.on)} style={{width:cellWidth,minHeight:large?104:70,paddingVertical:8,alignItems:'center',backgroundColor:current?'#E0E6EB':'transparent',borderWidth:selected===cell.on?1:0,borderColor:colors.primary,opacity:cell.on.slice(0,7)===month?1:.45}}><Body strong={current} style={{fontSize:12}}>{Number(cell.on.slice(-2))}</Body><Body strong style={{fontSize:10,textAlign:'center',color:cell.label==='✓'?colors.success:colors.gold}}>{fraction}</Body></Pressable>;
+        return <Pressable key={cell.on} accessibilityRole="button" accessibilityLabel={label} accessibilityState={{selected:selected===cell.on}} testID={'calendar.date.'+cell.on} onPress={()=>select(cell.on)} style={{width:cellWidth,minHeight:cellHeight,paddingVertical:8,alignItems:'center',backgroundColor:current?'#E0E6EB':'transparent',borderWidth:1,borderColor:selected===cell.on?colors.primary:'transparent',opacity:cell.on.slice(0,7)===month?1:.45}}><Body strong={current} onLayout={event=>measure('date',event.nativeEvent.layout.height)} style={{fontSize:12}}>{Number(cell.on.slice(-2))}</Body><Body strong onLayout={event=>measure('fraction',event.nativeEvent.layout.height)} style={{fontSize:10,textAlign:'center',color:cell.label==='✓'?colors.success:colors.gold}}>{fraction}</Body></Pressable>;
       })}</View>
     </Metal>
     <Body title>{selected} · {all.length} 项计划</Body>

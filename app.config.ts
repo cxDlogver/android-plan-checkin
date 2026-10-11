@@ -2,7 +2,7 @@ import type { ExpoConfig } from 'expo/config';
 
 export default function config(): ExpoConfig {
 const development = process.env.APP_VARIANT === 'development';
-const versionCode = Number(process.env.PLANCHECKIN_VERSION_CODE || '1');
+const versionCode = Number(process.env.PLANCHECKIN_VERSION_CODE || '2');
 const version = process.env.PLANCHECKIN_VERSION_NAME || '1.0.0';
 if (!Number.isSafeInteger(versionCode) || versionCode < 1 || versionCode > 2100000000) throw new Error('PLANCHECKIN_VERSION_CODE must be a positive Android version code.');
 if (!/^\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?$/.test(version)) throw new Error('PLANCHECKIN_VERSION_NAME must be a semantic version.');

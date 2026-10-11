@@ -40,11 +40,11 @@ flowchart LR
 
 - [ ] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，IN_PROGRESS
 - [x] [IP02｜原生身份、备份排除与可重建配置](#ip02) — P1，DONE
-- [x] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，DONE
+- [ ] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，IN_PROGRESS
 - [x] [IP04｜最小原生模块与视觉小样](#ip04) — P1，DONE
 - [x] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，DONE
 - [ ] [IP06｜业务日期和固定时区适配器](#ip06) — P2，IN_PROGRESS
-- [x] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，DONE
+- [ ] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，IN_PROGRESS
 - [ ] [IP08｜唯一连接执行器、快照与revision](#ip08) — P2，IN_PROGRESS
 - [ ] [IP09｜字段规则版本与合法编辑](#ip09) — P2，IN_PROGRESS
 - [ ] [IP10｜生命周期、阶段与离线对账](#ip10) — P2，IN_PROGRESS
@@ -158,7 +158,7 @@ flowchart LR
 
 ### IP03｜签名与Debug/Release原生编译
 
-阶段：P1；状态：DONE；前置：[IP01](#ip01)、[IP02](#ip02)
+阶段：P1；状态：IN_PROGRESS；前置：[IP01](#ip01)、[IP02](#ip02)
 
 需求关联：[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
@@ -328,7 +328,7 @@ flowchart LR
 
 ### IP07｜9表Schema、引用与全链迁移
 
-阶段：P2；状态：DONE；前置：[IP04](#ip04)、[IP05](#ip05)
+阶段：P2；状态：IN_PROGRESS；前置：[IP04](#ip04)、[IP05](#ip05)
 
 需求关联：[FR11](设计需求文档-计划打卡-Android-v1.md#fr11)、[FR13](设计需求文档-计划打卡-Android-v1.md#fr13)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 

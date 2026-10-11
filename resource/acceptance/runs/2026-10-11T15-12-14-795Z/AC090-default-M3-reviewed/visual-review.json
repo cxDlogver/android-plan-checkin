@@ -1,0 +1,53 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "configuration": "API29 / 392.727dp / fontScale1 / density440",
+  "reports": [
+    {
+      "record": "resource/acceptance/runs/2026-10-11T13-49-04-740Z/AC090-default-M3/result.json",
+      "sha256": "473b03973112d4ceb142d3408b46bdc6c3c0d0840cce1c2c5e1ef42744f920da"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T15-06-14-954Z/M3-material-display-supplement/result.json",
+      "sha256": "1bc873479915de87b70062a40a2702ab33ded8d25e3ebbe8bb1ec83d67bf4af9"
+    }
+  ],
+  "conclusion": "PASS for M3 material assertions",
+  "observations": [
+    "The actual silver controls show multiple stops, a thin white reflection band, dark lower rim and outer shadow; card surfaces fade from white to pale silver with a highlighted upper edge. Low radii remain rectangular, matching the supplied Pen previews and token scheme.",
+    "Actual left page edge is 55px / 2.75 =20dp. Card text inset agrees with 16dp padding plus its border. Titles visibly use the heavy NotoSC700 face; body NotoSC400 and actual bordered Tag NotoSC600/radius1 are linked to the unchanged native font admission and current component source.",
+    "The new actual Tag appears around fixed type/direction/running text on the Today card. The detail description remains ordinary body text; this is the intended separate text role.",
+    "Success green ✓ 完成, failure red × 未完成 and orange — 跳过 are visible together, retaining text and symbol. The cancelled immutable one-time result displays a neutral dark gray ⊘ 取消 with its original date and note.",
+    "The calendar date selection border keeps the shared row height; visible gold fractions are complete. The full six-row and large-fraction geometry is separately proved by AC092 M3.",
+    "Differences from Pen are adaptive vertical spacing from Android font metrics and scrolling content density. No requested metallic treatment, label, color or control is obscured. The development Tools bubble is excluded from product visuals."
+  ],
+  "referencePreviews": [
+    {
+      "path": "resource/design/previews/yB844.png",
+      "sha256": "c226d45bed9655eaac0e1c1f659aba771b759cd9420b81c617b682e991cda22a"
+    },
+    {
+      "path": "resource/design/previews/SvK1L.png",
+      "sha256": "b85452bec706eceffb05678078504fd2b3f1bedbf2409c4016a3dd0ea460687a"
+    },
+    {
+      "path": "resource/design/previews/mTDhJ.png",
+      "sha256": "c7d373f026fcc4e34f25b49194a2acedc090202e598758cab2d8f7e12b68e319"
+    },
+    {
+      "path": "resource/design/previews/c6Yye.png",
+      "sha256": "383c1e7ee5572f6ed5bb34841391412c2cb4519dca1de4a83c732bf18c53f05a"
+    },
+    {
+      "path": "resource/design/previews/acN0e.png",
+      "sha256": "7bad4c2ef7fe8c639efedfd1f4334546d2bd6d4ae84a6c11191ce054da82358c"
+    }
+  ],
+  "unchangedSourceReuse": [
+    "Actual original create form and result selector are reused; the affected Today Tag, calendar and detail/cancel views were refreshed without repeating create or submit actions."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-UI",
+    "E-NATIVE"
+  ]
+}

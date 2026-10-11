@@ -3,7 +3,7 @@ param(
     [string]$SigningDirectory = (Join-Path $env:USERPROFILE '.android-plan-checkin-signing'),
     [string]$ExistingKey,
     [string]$Alias = 'plancheckin-release',
-    [ValidateRange(1,2100000000)][int]$VersionCode = 1,
+    [ValidateRange(1,2100000000)][int]$VersionCode = 2,
     [string]$VersionName = '1.0.0',
     [string]$ReuseNativeFrom,
     [string]$ToolRoot = 'D:\xiang\CX_application\1_Configuration_Files\Android-AI',

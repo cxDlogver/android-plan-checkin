@@ -1,0 +1,37 @@
+{
+  "runId": "2026-10-11T14-09-28-287Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T14:09:28.287Z",
+  "endedAt": "2026-10-11T14:10:12.698Z",
+  "inputSha256": "c58b5191c71564da11a1db6120f815b7d46f999af38c5f84d6f3403ef687eae1",
+  "previousRecord": null,
+  "scope": "schema-v2-native-api29",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Unsupported verification action",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-09-28-287Z/schema-v2-native-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-09-28-287Z/schema-v2-native-api29/inputs.json",
+      "sha256": "cc6cf88f85974bb915d25c302b5e7ecbf95f7a3077283ae3099a88e87cccf0ae"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-09-28-287Z/schema-v2-native-api29/native-before-probe.json",
+      "sha256": "f1c9f7fcaa8dcf9f340c473adc2cac763fe092847b2e1c7e036010fc51d3f5c6"
+    }
+  ],
+  "limitations": [
+    "This probe verifies only the new production schema 1 → 2 step and SQLite immutable guards, using the single production executor. The first-version formal APK coverage upgrade remains separately required."
+  ]
+}

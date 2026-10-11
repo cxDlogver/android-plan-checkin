@@ -1,0 +1,38 @@
+{
+  "caseId": "AC094",
+  "rowId": "default",
+  "configId": "M3",
+  "runId": "2026-10-11T14-37-43-644Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T14:37:43.644Z",
+  "endedAt": "2026-10-11T14:38:13.192Z",
+  "inputSha256": "bedd3c4c8a36723124d20bb099ed9cdf9c2001e1eab8c35d11f20363ca65f94c",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T14-31-12-865Z/AC094-default-M3/result.json",
+  "scope": "AC094-default-M3",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "GET /session/1fb43e19-bbb1-4468-a0c2-7b72777bb12c/source: Timed out after 10519ms waiting for the root AccessibilityNodeInfo in the active window. Make sure the active window is not constantly hogging the main UI thread (e.g. the application is being idle long enough), so the accessibility manager could do its work",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-37-43-644Z/AC094-default-M3/appium.log",
+      "sha256": "e78ff7cf4cd17b62a6c66b88bdf280c1463befe7c1a103394415d3252a610a0b"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T14-37-43-644Z/AC094-default-M3/inputs.json",
+      "sha256": "a0c96fe37b17e8dcefb3c182ad477a54f7059547d18a9330eb5a2964731cd962"
+    }
+  ],
+  "limitations": [
+    "Audio is the real PCM accepted by Android SynthesisCallback for caller com.android.talkback, backed by the installed eSpeak engine; no scripted substitute TTS or microphone recording. Original emulator accessibility/TTS settings are restored. Visual and audible review references remain separate from these machine observations."
+  ]
+}

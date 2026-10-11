@@ -1,0 +1,3 @@
+const fs=require('node:fs'),path=require('node:path'),{spawnSync}=require('node:child_process'),{javaRoot,toolRoot,env}=require('./task-env.cjs');
+const folder=path.resolve('.cache/espeak-resource-probe');fs.mkdirSync(folder,{recursive:true});const jar=path.join(javaRoot,'bin/jar.exe');spawnSync(jar,['xf',path.resolve('.cache/espeak-22.apk'),'res/t8.zip'],{cwd:folder,env,windowsHide:true});const r=spawnSync(jar,['tf','res/t8.zip'],{cwd:folder,env,encoding:'utf8',windowsHide:true});console.log(r.stdout.split(/\r?\n/).slice(0,25).join('\n'));
+const log=spawnSync(path.join(toolRoot,'sdk/platform-tools/adb.exe'),['-s','emulator-5560','logcat','-d','-t','2500','-s','System.err'],{env,encoding:'utf8',windowsHide:true});console.log(log.stdout.slice(-5500));

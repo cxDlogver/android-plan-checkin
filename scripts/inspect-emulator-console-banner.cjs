@@ -1,0 +1,1 @@
+const net=require('node:net');const socket=net.createConnection({host:'127.0.0.1',port:5560});let text='';socket.on('data',chunk=>{text+=chunk;console.log(JSON.stringify(text));socket.end();});socket.setTimeout(5000,()=>{console.log('Console banner timeout');socket.destroy();});socket.on('error',e=>{console.error(e.message);process.exitCode=1;});

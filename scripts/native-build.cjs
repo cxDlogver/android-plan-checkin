@@ -32,14 +32,14 @@ const output=fs.createWriteStream(`${directory}/commands.log`);
 let command,args,cwd=process.cwd();
 const buildEnv={...env,CMAKE_BUILD_PARALLEL_LEVEL:'1'};
 let nativeReuseTasks=[];
-if(action==='release'&&process.env.PLANCHECKIN_REUSE_NATIVE_FROM)nativeReuseTasks=require('./native-reuse.cjs').validateNativeReuse(process.env.PLANCHECKIN_REUSE_NATIVE_FROM,sources,directory);
+if(action==='release'&&process.env.PLANCHECKIN_REUSE_NATIVE_FROM){nativeReuseTasks=require('./native-reuse.cjs').validateNativeReuse(process.env.PLANCHECKIN_REUSE_NATIVE_FROM,sources,directory);buildEnv.PLANCHECKIN_NATIVE_PAYLOAD=JSON.parse(fs.readFileSync(`${directory}/native-reuse.json`,'utf8')).payloadDirectory;}
 if(env.npm_config_https_proxy){const proxy=new URL(env.npm_config_https_proxy);buildEnv.JAVA_TOOL_OPTIONS=`-Dhttps.proxyHost=${proxy.hostname} -Dhttps.proxyPort=${proxy.port} -Dhttp.proxyHost=${proxy.hostname} -Dhttp.proxyPort=${proxy.port} -Dhttp.nonProxyHosts=localhost|127.*`;}
 if(action==='sdk'){
   command='cmd.exe';args=['/d','/s','/c',`${toolRoot}/sdk/cmdline-tools/22.0/bin/sdkmanager.bat --sdk_root=${toolRoot}/sdk ndk;27.1.12297006 cmake;3.22.1`];
 }else{
    const architectures=process.env.PLANCHECKIN_ARCHITECTURES||(action==='debug'?'x86_64':'arm64-v8a,x86_64');
    if(!/^(arm64-v8a|x86_64)(,(arm64-v8a|x86_64))*$/.test(architectures))throw new Error('Unsupported architecture');
-    command='cmd.exe';cwd=path.resolve('android');args=['/d','/s','/c',`gradlew.bat ${action==='environment'?'help --init-script ../scripts/gradle-evidence.init.gradle':action==='debug'?`:app:assembleDebug -PreactNativeArchitectures=${architectures}`:`:app:assembleRelease -PreactNativeArchitectures=${architectures}`} ${nativeReuseTasks.map(task=>`-x ${task}`).join(' ')} --no-daemon --no-parallel --max-workers=1 --console=plain`];
+    command='cmd.exe';cwd=path.resolve('android');args=['/d','/s','/c',`gradlew.bat ${action==='environment'?'help --init-script ../scripts/gradle-evidence.init.gradle':action==='debug'?`:app:assembleDebug -PreactNativeArchitectures=${architectures}`:`:app:assembleRelease -PreactNativeArchitectures=${architectures}`} ${nativeReuseTasks.map(task=>`-x ${task}`).join(' ')} ${nativeReuseTasks.length?'--init-script ../scripts/release-native-reuse.init.gradle':''} --no-daemon --no-parallel --max-workers=1 --console=plain`];
 }
 output.write(`${new Date().toISOString()}\n${command} ${args.join(' ')}\n`);
 progress.update(s=>{const t=s.tasks.find(t=>t.id==='IP03');t.status='IN_PROGRESS';t.blockedReason=null;t.startedAt??=startedAt;s.next='接续原生构建缓存；生成APK后执行尚未运行的Android原生模块与设备验收。';s.commands[`native-${action}`]={status:'RUNNING',startedAt,inputSha256,record:null,logPath:`${directory}/commands.log`};});

@@ -13,6 +13,7 @@ import { beginReadInitialization, injectFault, faultStatus, now, overrideSetting
 import { runSqlCase } from './sql-cases-development';
 import { connectionInfo, initializationProbe } from './initialization-development';
 import { migrationProbe, migrationStatus } from './migration-development';
+import { migrationV2Probe } from './migration-v2-development';
 import { calendarProbe, dateProbe, timezoneProbe } from './date-development';
 import { Projections } from '../application/projections';
 import { intervals, isOnTime, permission } from '../domain/rules';
@@ -149,6 +150,10 @@ async function dispatch({action,payload={}}:Request){
       return {contextId,observation:await timezoneProbe(payload.candidate as string|null,payload.empty)};
     }
     case 'migrationStatus': return {contextId,observation:migrationStatus()};
+    case 'migrationV2Probe': {
+      if(payload.confirm!=='MIGRATE_ISOLATED_DEV_DATABASE')throw new Error('MIGRATION_PROBE_CONFIRMATION_REQUIRED');
+      return {contextId,observation:await migrationV2Probe()};
+    }
     case 'migrationProbe': {
       if(payload.confirm!=='MIGRATE_ISOLATED_DEV_DATABASE'||typeof payload.kind!=='string')throw new Error('MIGRATION_PROBE_CONFIRMATION_REQUIRED');
       return {contextId,observation:await migrationProbe(payload.kind)};

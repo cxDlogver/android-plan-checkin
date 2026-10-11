@@ -3,7 +3,7 @@ const http=require('node:http');
 const {randomUUID}=require('node:crypto');
 const WebSocketServer=require('ws').Server;
 const {DeviceDriver}=require('./device-driver.cjs');
-const actions=new Set(['capture','clock','fixture','factsFixture','fault','refresh','faultStatus','readInitialization','settingsVersion','navigate','command','sqlCase','connectionInfo','storageCapacity','initializationProbe','migrationProbe','migrationStatus','dateProbe','timezoneProbe','calendarProbe','query','cleanReceipts']);
+const actions=new Set(['capture','clock','fixture','factsFixture','fault','refresh','faultStatus','readInitialization','settingsVersion','navigate','command','sqlCase','connectionInfo','storageCapacity','initializationProbe','migrationProbe','migrationV2Probe','migrationStatus','dateProbe','timezoneProbe','calendarProbe','query','cleanReceipts']);
 class VerificationClient {
   constructor(api){this.api=Number(api);this.contextId=null;}
   async status(){const response=await fetch('http://127.0.0.1:8098/status',{signal:AbortSignal.timeout(3000)});if(!response.ok)throw new Error(`Bridge status ${response.status}`);return response.json();}

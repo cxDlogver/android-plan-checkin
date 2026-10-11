@@ -1,0 +1,12 @@
+const fs=require('node:fs');
+let s=fs.readFileSync('scripts/talkback-speech-evidence.cjs','utf8');
+const start=s.indexOf('async function hardwareTap('),end=s.indexOf('module.exports=',start);if(start<0||end<0)throw new Error('Kernel helpers missing');
+s=s.slice(0,start)+"const {tap:hardwareTap,swipe:hardwareSwipe}=require('./emulator-kernel-touch.cjs');\n"+s.slice(end);fs.writeFileSync('scripts/talkback-speech-evidence.cjs',s);
+let t=fs.readFileSync('scripts/bdd-ui-talkback.cjs','utf8');
+const begin="await focusId('calendar.date.2026-10-09','2026-10-09');const today=";
+if(!t.includes(begin))throw new Error('Calendar anchor missing');
+t=t.replace(begin,"const completed=await require('./reuse-talkback-focus.cjs')(run);let historic;if(completed){order.push(...completed.order);step=completed.order.at(-1).step;historic=await focusId('calendar.date.2026-10-08','完成1');run.write('focus-continuation-Given.json',{reason:'Reanchor the actual service on the already validated historic node to complete the previously unexecuted double-tap selection.'});}else {await focusId('calendar.date.2026-10-09','2026-10-09');const today=");
+t=t.replace("const historic=await focusId('calendar.date.2026-10-08','完成1');","historic=await focusId('calendar.date.2026-10-08','完成1');");
+t=t.replace("includes('共4'));await activate(historic","includes('共4'));}await activate(historic");
+t=t.replace("finally{try{if(restore)restore();","finally{require('./emulator-kernel-touch.cjs').closeAll();try{if(restore)restore();");
+fs.writeFileSync('scripts/bdd-ui-talkback.cjs',t);

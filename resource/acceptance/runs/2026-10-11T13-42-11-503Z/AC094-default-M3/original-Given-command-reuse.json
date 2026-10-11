@@ -1,0 +1,107 @@
+{
+  "record": "resource/acceptance/runs/2026-10-11T13-38-20-225Z/AC094-default-M3/result.json",
+  "sha256": "fff7e8516b136c73b8243fa76e40067cba1ac9e20add4aeb5386d3d52f54cd6b",
+  "creates": [
+    {
+      "file": "step-3-given-create.json",
+      "payload": {
+        "planId": "c079a6ee-e495-43c4-9270-3f837dd316ef",
+        "name": "语音成功计划",
+        "description": "",
+        "type": "fixed",
+        "direction": "do",
+        "startsOn": "2026-10-01",
+        "endOn": null,
+        "weekdayMask": 127
+      }
+    },
+    {
+      "file": "step-5-given-create.json",
+      "payload": {
+        "planId": "090bf9c6-f382-4b21-8fdd-d50b2f65ff66",
+        "name": "语音失败计划",
+        "description": "",
+        "type": "fixed",
+        "direction": "avoid",
+        "startsOn": "2026-10-01",
+        "endOn": null,
+        "weekdayMask": 127
+      }
+    },
+    {
+      "file": "step-7-given-create.json",
+      "payload": {
+        "planId": "3c23bc6a-acb2-4bec-adfa-36425a2f3e69",
+        "name": "语音跳过计划",
+        "description": "",
+        "type": "weekly",
+        "direction": "do",
+        "startsOn": "2026-10-05",
+        "endOn": null,
+        "weeklyTarget": 3
+      }
+    },
+    {
+      "file": "step-9-given-create.json",
+      "payload": {
+        "planId": "47c5bd9d-74f0-455f-87e7-8a2c6a187475",
+        "name": "语音取消计划",
+        "description": "",
+        "type": "one_time",
+        "direction": "do",
+        "dueOn": "2026-10-08"
+      }
+    }
+  ],
+  "originalAssertions": [
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-11.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-13.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-15.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-16.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    }
+  ],
+  "reason": "Prepared plans and records still exist with the original IDs. No successful Given command is repeated."
+}

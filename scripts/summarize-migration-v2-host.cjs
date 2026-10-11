@@ -1,0 +1,12 @@
+const fs=require('node:fs'),path=require('node:path'),{sha}=require('./p1.cjs'),{createRun}=require('./evidence-run.cjs'),progress=require('./progress.cjs');
+const state=progress.read(),first=state.commands['migration-v2-tests'],last=state.commands['migration-v2-preservation-tests'];
+function read(c){const r=JSON.parse(fs.readFileSync(c.record,'utf8'));for(const e of r.evidence)if(sha(fs.readFileSync(e.path))!==e.sha256)throw new Error('Migration test evidence digest mismatch');return r;}
+const initial=read(first),completed=read(last),log=fs.readFileSync(path.join(path.dirname(first.record),'commands.log'),'utf8'),oldSources=JSON.parse(fs.readFileSync(path.join(path.dirname(first.record),'source-snapshot.json'),'utf8'));
+const file='tests/integration/migration-v2.test.ts',current=fs.readFileSync(file,'utf8'),original=current.replace('assert.deepEqual(JSON.parse(JSON.stringify(await executor.queue(loadFacts))),migrationV2Given())','assert.deepEqual(await executor.queue(loadFacts),migrationV2Given())');
+const run=createRun('migration-v2-host-summary',{initial:first.record,initialSha256:sha(fs.readFileSync(first.record)),completed:last.record,completedSha256:sha(fs.readFileSync(last.record))},['IP07']);if(run){let error;try{
+ run.check('original-test-source-reconstructed',oldSources.find(s=>s.path===file).sha256,sha(original));
+ run.check('original-two-complete-scenarios',true,log.includes('✔ seven guards reject real frozen-field rewrites')&&log.includes('✔ schema 2 validation failure rolls back every added guard'));
+ run.check('remaining-preservation-scenario', 'PASS',completed.status);
+ run.write('reused-source-scope.json',{originalTestSha256:sha(original),currentTestSha256:sha(current),difference:'Only the first scenario normalizes node:sqlite null-prototype rows before comparing to plain fixture values. The two already passing test bodies, production migration/DDL and controlled Given are unchanged.',dependencies:[{path:first.record,sha256:sha(fs.readFileSync(first.record)),partialPassScope:['seven guards / legitimate updates / cascade','failed migration rollback']},{path:last.record,sha256:sha(fs.readFileSync(last.record)),passScope:['all nine-table facts / fixed zone / originals / future applications retained']}]});
+ run.write('reconstructed-original-test-source.txt',original);
+}catch(e){error=e;}run.finish(error,['Aggregate three new migration scenarios without repeating the two that passed in the initial run. The original failed prototype-comparison report remains immutable.']);}

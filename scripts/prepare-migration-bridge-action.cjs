@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/verification-bridge.cjs';fs.writeFileSync(file,fs.readFileSync(file,'utf8').replace("'migrationProbe','migrationStatus'","'migrationProbe','migrationV2Probe','migrationStatus'"));

@@ -1,0 +1,36 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "configuration": "API29 / 392.727dp / fontScale1 / actual three-button navigation",
+  "rawRecord": "resource/acceptance/runs/2026-10-11T14-48-42-080Z/AC093-three_button-M3/result.json",
+  "images": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-48-42-080Z/AC093-three_button-M3/3-keyboard-open-save-reachable.png",
+      "sha256": "7f77a4b62641525897dc0540a5941d893443e1d47c9155bf1f236acafb9b68f6"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-48-42-080Z/AC093-three_button-M3/4-date-modal-over-current-form.png",
+      "sha256": "c093515726e62c54e8f980b80626d0b70804e85ac1cc2900807a279427ec014c"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-48-42-080Z/AC093-three_button-M3/5-actual-system-bars-and-return.png",
+      "sha256": "b8e9f9258c774d4bdd4f708e0596a0d8bcb1e1bbd60970adc8c51aff11c4c310"
+    }
+  ],
+  "conclusion": "PASS for this configuration and navigation mode",
+  "observations": [
+    "Native Back triangle, Home circle and Recents square are actually visible in all three screenshots, agreeing with mode 0 and the enabled three-button overlay.",
+    "With the real keyboard open, Save is completely visible at y1154–1351, above IME top1428: 197px / 2.75 = 71.64dp. The complete button and label can be reached by scrolling.",
+    "The date modal fits between the status and navigation areas, exposes all six rows and its full cancel control, and dims the current form.",
+    "On return, product tabs sit above the three-button navigation area without content overlap or duplicate top inset.",
+    "The actual Back priority, discard cancellation/confirmation, retained note and unchanged facts are proved by the linked original UI/SQLite observations.",
+    "The developer Tools bubble is a dev-client overlay; the standalone release is assessed separately."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-MATRIX",
+    "E-UI"
+  ]
+}

@@ -1,0 +1,10 @@
+// Only used after native-reuse.cjs proves complete native input equality and payload SHA256.
+allprojects { p ->
+    p.afterEvaluate {
+        def payload = System.getenv('PLANCHECKIN_NATIVE_PAYLOAD')
+        if (p.path == ':app' && payload && p.extensions.findByName('android')) {
+            p.android.sourceSets.main.jniLibs.srcDir(payload)
+            p.android.packagingOptions.jniLibs.pickFirsts.add('**/*.so')
+        }
+    }
+}

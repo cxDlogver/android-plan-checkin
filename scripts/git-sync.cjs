@@ -14,7 +14,7 @@ else if(action==='commit'){
     if(require('node:fs').existsSync('resource/progress/code-delivery.json')){
       const check=spawnSync(process.execPath,['scripts/verify-evidence.cjs','--index'],{env:gitEnv,encoding:'utf8',windowsHide:true});console.log(check.stdout||check.stderr);if(check.status!==0){process.exitCode=1;return;}
     }
-    git(['commit','-m',message]);
+    git(['-c','gc.auto=0','commit','-m',message]);
   }
 }else if(action==='push')git(['push','-u','origin','main']);
 else throw new Error('Expected probe, commit or push');

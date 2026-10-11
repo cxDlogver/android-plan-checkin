@@ -1,0 +1,281 @@
+2026-10-11T14:07:41.626Z
+D:\xiang\CX_application\1_Configuration_Files\Android-AI\node-v24.21.0-win-x64\node.exe --require ./tests/integration/register.cjs --test .artifacts/integration/tests/integration/migration-v2.test.js
+✖ schema 1→2 preserves all nine-table facts, fixed zone, originals and future applications (1017.0089ms)
+✔ seven guards reject real frozen-field rewrites while legal mutable fields and cascade remain usable (684.5201ms)
+✔ schema 2 validation failure rolls back every added guard, version and all legacy facts (1083.0469ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 8201.1132
+
+✖ failing tests:
+
+test at .artifacts\integration\tests\integration\migration-v2.test.js:20:25
+✖ schema 1→2 preserves all nine-table facts, fixed zone, originals and future applications (1017.0089ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  ... Skipped lines
+  
+    {
+      app_meta: [
+  +     [Object: null prototype] {
+  -     {
+          key: 'app_timezone',
+          value: 'Asia/Shanghai'
+        },
+  +     [Object: null prototype] {
+  -     {
+          key: 'initialized_at_ms',
+          value: '1791475200000'
+        },
+  +     [Object: null prototype] {
+  -     {
+          key: 'data_revision',
+          value: '4'
+        }
+      ],
+      command_receipts: [],
+      cycle_record_originals: [
+  +     [Object: null prototype] {
+  -     {
+          original_note: '',
+          original_result: 'success',
+          record_id: '719c5080-0000-4000-8000-000000000005'
+        }
+      ],
+      cycle_records: [
+  +     [Object: null prototype] {
+  -     {
+          business_on: '2026-09-30',
+          entry_kind: 'ordinary',
+          id: '719c5080-0000-4000-8000-000000000005',
+          modified_at_ms: 1791478800000,
+          note: '更正后周期备注',
+  ...
+      lifecycle_events: [
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          effective_at_ms: 1790870400000,
+          effective_on: '2026-10-02',
+          id: '719c5080-0000-4000-8000-000000000007',
+          kind: 'pause',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          effective_at_ms: 1791216000000,
+          effective_on: '2026-10-06',
+          id: '719c5080-0000-4000-8000-000000000009',
+          kind: 'resume',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          effective_at_ms: 1791561600000,
+          effective_on: '2026-10-10',
+          id: '44444444-4444-4444-8444-444444444444',
+          kind: 'pause',
+  ...
+      one_time_result_originals: [
+  +     [Object: null prototype] {
+  -     {
+          original_note: '首次失败备注',
+          original_outcome: 'failed',
+          result_id: '22222222-2222-4222-8222-222222222222'
+        }
+      ],
+      one_time_results: [
+  +     [Object: null prototype] {
+  -     {
+          actual_completed_on: '2026-10-09',
+          business_on: '2026-10-09',
+          due_rule_version_id: '313f7653-0000-4000-8000-00000000000b',
+          entry_kind: 'ordinary',
+          id: '22222222-2222-4222-8222-222222222222',
+  ...
+      plans: [
+  +     [Object: null prototype] {
+  -     {
+          created_at_ms: 1789790400000,
+          created_on: '2026-09-19',
+          description: '隔离开发验收夹具',
+          direction: 'do',
+          id: '719c5080-0000-4000-8000-000000000001',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          created_at_ms: 1791518400000,
+          created_on: '2026-10-09',
+          description: '隔离开发验收夹具',
+          direction: 'do',
+          id: '313f7653-0000-4000-8000-000000000001',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          created_at_ms: 1791518400000,
+          created_on: '2026-10-09',
+          description: '隔离开发验收夹具',
+          direction: 'do',
+          id: '313f7653-0000-4000-8000-000000000005',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          created_at_ms: 1791518400000,
+          created_on: '2026-10-09',
+          description: '隔离开发验收夹具',
+          direction: 'do',
+          id: '313f7653-0000-4000-8000-000000000009',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          created_at_ms: 1791518400000,
+          created_on: '2026-10-09',
+          description: '隔离开发验收夹具',
+          direction: 'avoid',
+          id: '313f7653-0000-4000-8000-00000000000c',
+  ...
+      rule_versions: [
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1789790400000,
+          effective_on: '2026-09-19',
+          id: '719c5080-0000-4000-8000-000000000003',
+          kind: 'weekday_mask',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1789790400000,
+          effective_on: '2026-09-19',
+          id: '719c5080-0000-4000-8000-000000000004',
+          kind: 'end_on',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-000000000003',
+          kind: 'weekday_mask',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-000000000004',
+          kind: 'end_on',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-000000000007',
+          kind: 'weekly_target',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-000000000008',
+          kind: 'end_on',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-00000000000b',
+          kind: 'due_on',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-00000000000e',
+          kind: 'weekday_mask',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791518400000,
+          effective_on: '2026-10-09',
+          id: '313f7653-0000-4000-8000-00000000000f',
+          kind: 'end_on',
+  ...
+        },
+  +     [Object: null prototype] {
+  -     {
+          cancelled_at_ms: null,
+          created_at_ms: 1791478800000,
+          effective_on: '2026-10-12',
+          id: '33333333-3333-4333-8333-333333333333',
+          kind: 'weekly_target',
+  
+      at TestContext.<anonymous> (F:\CX_notes\cx-learn-notes\android-plan-checkin\.artifacts\integration\tests\integration\migration-v2.test.js:24:26)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: {
+      plans: [ [Object], [Object], [Object], [Object], [Object] ],
+      rule_versions: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      lifecycle_events: [ [Object], [Object], [Object] ],
+      cycle_records: [ [Object] ],
+      one_time_results: [ [Object] ],
+      cycle_record_originals: [ [Object] ],
+      one_time_result_originals: [ [Object] ],
+      command_receipts: [],
+      app_meta: [ [Object], [Object], [Object] ]
+    },
+    expected: {
+      plans: [ [Object], [Object], [Object], [Object], [Object] ],
+      rule_versions: [
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object],
+        [Object], [Object]
+      ],
+      lifecycle_events: [ [Object], [Object], [Object] ],
+      cycle_records: [ [Object] ],
+      one_time_results: [ [Object] ],
+      cycle_record_originals: [ [Object] ],
+      one_time_result_originals: [ [Object] ],
+      command_receipts: [],
+      app_meta: [ [Object], [Object], [Object] ]
+    },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+2026-10-11T14:07:50.529Z exitCode=1

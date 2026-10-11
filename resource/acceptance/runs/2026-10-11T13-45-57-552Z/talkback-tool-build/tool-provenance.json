@@ -1,0 +1,31 @@
+{
+  "repository": "https://github.com/google/talkback",
+  "commit": "229212fdf5842191d0a93fc95d9ca1423b346866",
+  "changed": [
+    {
+      "path": "shared.gradle",
+      "originalSha256": "5437099f56e417df79d67ec6ac2fd728d6a918ce29b1d48ef875886782659527",
+      "adjustedSha256": "33ea2961503884f5f8637848ab13df372ce3490f9cd413e184d9667267582d7f",
+      "adjustment": "Use installed NDK 27 and emulator ABI; enable core library desugaring for Java APIs missing on API29. No screen-reader semantic code changes."
+    },
+    {
+      "path": "braille/brltty/build.gradle",
+      "originalSha256": "2ca681751c57c4354ec02751f5cea29cae453e56e46c2e5c4a0edc0c4202d3f9",
+      "adjustedSha256": "1b8fbaf5391945e91d8fb281b737e675215625d1ffcfacd0972962b13da52d24",
+      "adjustment": "Use installed NDK 27 and emulator ABI; enable core library desugaring for Java APIs missing on API29. No screen-reader semantic code changes."
+    },
+    {
+      "path": "braille/translate/build.gradle",
+      "originalSha256": "db1291600bc655480e8e3a51263512013830c0576781efd19c3c5f1a55e56976",
+      "adjustedSha256": "fa5bb21768fc011b830ccda776881a80dea8edb313ed66598eb6c3838318236b",
+      "adjustment": "Use installed NDK 27 and emulator ABI; enable core library desugaring for Java APIs missing on API29. No screen-reader semantic code changes."
+    }
+  ],
+  "desugaring": {
+    "version": "2.1.5",
+    "guide": "https://developer.android.com/studio/write/java8-support",
+    "supportedApis": "https://developer.android.com/studio/write/java11-default-support-table",
+    "trigger": "Actual API29 NoSuchMethodError for Collectors.toUnmodifiableSet in TalkBackForBrailleImeImpl."
+  },
+  "scope": "Verification tool only; excluded from product and delivery sources."
+}

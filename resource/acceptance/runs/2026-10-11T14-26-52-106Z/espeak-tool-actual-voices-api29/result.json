@@ -1,0 +1,41 @@
+{
+  "runId": "2026-10-11T14-26-52-106Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T14:26:52.106Z",
+  "endedAt": "2026-10-11T14:28:07.304Z",
+  "inputSha256": "e845411d8536353fa6f8a2e653a69b79df867465dca47d38305b305db92f107b",
+  "previousRecord": null,
+  "scope": "espeak-tool-actual-voices-api29",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Expected product UI did not appear; inspect unexpected.xml/png.",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-26-52-106Z/espeak-tool-actual-voices-api29/inputs.json",
+      "sha256": "413aeb9cc77f7ceb6d96e3990d84cbefe6500eabdd05b2f9b482644bcf739267"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-26-52-106Z/espeak-tool-actual-voices-api29/original-default-engine.log",
+      "sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-26-52-106Z/espeak-tool-actual-voices-api29/unexpected.png",
+      "sha256": "e837ba8f619978d45353591bf58d24f7a062a65f253e62452493f529628ab787"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T14-26-52-106Z/espeak-tool-actual-voices-api29/unexpected.xml",
+      "sha256": "d9dc6da086afc4141d85c88b3ba6722a807215b05ecd197858b542fd57963699"
+    }
+  ],
+  "limitations": [
+    "Uses the actual eSpeak default engine for its diagnostic screen and restores the original engine. Positive voice count is preparation evidence; real TalkBack speech is still separate."
+  ]
+}

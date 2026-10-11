@@ -1,10 +1,11 @@
 import { DomainError } from '../../domain/model';
 import type { Tx } from './executor';
 import { schemaV1 } from './schema';
+import { schemaV2 } from './schema-v2';
 
-export const currentSchemaVersion=1;
+export const currentSchemaVersion=2;
 export interface Migration { version:number; sql:string; validate?:(tx:Tx)=>Promise<void> }
-const migrations:readonly Migration[]=[{version:1,sql:schemaV1}];
+const migrations:readonly Migration[]=[{version:1,sql:schemaV1},{version:2,sql:schemaV2}];
 
 // Every pending step, its checks, and the final version belong to one transaction.
 export async function migrateDatabase(tx:Tx,version:number,steps:readonly Migration[]=migrations){

@@ -1,0 +1,38 @@
+{
+  "caseId": "AC094",
+  "rowId": "default",
+  "configId": "M3",
+  "runId": "2026-10-11T13-30-43-340Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T13:30:43.340Z",
+  "endedAt": "2026-10-11T13:33:46.475Z",
+  "inputSha256": "8000261c20c16010b5d6292826b248f5e0b78c3e21a8945bab8db0d36c7b4276",
+  "previousRecord": null,
+  "scope": "AC094-default-M3",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Task Metro did not become healthy before development launch",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T13-30-43-340Z/AC094-default-M3/appium.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T13-30-43-340Z/AC094-default-M3/inputs.json",
+      "sha256": "f5b4d41eb70b1829d71ad8436bf87b89ff9b55cee1734dc8c420f28674cccffd"
+    }
+  ],
+  "limitations": [
+    "Audio is the real PCM accepted by Android SynthesisCallback for caller com.android.talkback, backed by the installed eSpeak engine; no scripted substitute TTS or microphone recording. Original emulator accessibility/TTS settings are restored. Visual and audible review references remain separate from these machine observations."
+  ]
+}

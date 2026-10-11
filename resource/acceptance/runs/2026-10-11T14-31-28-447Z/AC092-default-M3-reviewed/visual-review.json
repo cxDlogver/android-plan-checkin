@@ -1,0 +1,49 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "configuration": "API29 / 392.727dp / fontScale1 / density440",
+  "reference": {
+    "path": "resource/design/previews/c6Yye.png",
+    "sha256": "383c1e7ee5572f6ed5bb34841391412c2cb4519dca1de4a83c732bf18c53f05a"
+  },
+  "reviewed": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/2-actual-calendar-viewport-0.png",
+      "sha256": "1696441b15038c6f6a4bd1a1728253152c238098ee7c42ff6eaf755f5b41667e"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/3-actual-calendar-viewport-1.png",
+      "sha256": "64a225fe742bcd5bb96ffbf8b8e2e760b7720578858d177ad3e21a8a6d9d186d"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/4-actual-fraction-and-filter-0-1.png",
+      "sha256": "4a96fa3df9c549d1e3e2c07823b49b039498b5c52ac5a7e6c4e71fd2e2baa91c"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/5-actual-fraction-and-filter-2-5.png",
+      "sha256": "7888e038dbf0ddb57eb27d186f691ccb8754a512b33334a5ca506c05e5ac71f1"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/6-actual-fraction-and-filter-99-100.png",
+      "sha256": "ed900e8601f063ccfab601d810004e5cc95ae61a077ddf3c131d10e118142769"
+    }
+  ],
+  "conclusion": "PASS for this configuration",
+  "observations": [
+    "Seven columns align across all six rows. 42 native cells are measured; actual heights are 228/229px, the 1px raster rounding difference is below 1dp.",
+    "0/1, 2/5 and 99/100 are completely visible in gold; dates are larger than the fraction text. No ellipsis, horizontal clipping or font suppression is visible.",
+    "The current date is softly shaded, selected-date border preserves the common height, and real adjacent-month day numbers use reduced contrast.",
+    "All three filter dialogs display the full totals and result counts 1/0/1, 5/2/3 and 100/99/1 without clipping. The actual taps/open/close actions are linked in raw Appium evidence.",
+    "Calendar and modal remain scrollable; header/bottom navigation are separated from content. The dev-client Tools bubble is a verification-build overlay, excluded from the product visual conclusion."
+  ],
+  "originalRecord": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/result.json",
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-UI",
+    "E-MATRIX"
+  ]
+}

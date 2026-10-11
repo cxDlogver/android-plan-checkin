@@ -1,0 +1,3 @@
+const path=require('node:path'),{spawnSync}=require('node:child_process'),{javaRoot,toolRoot,env}=require('./task-env.cjs');
+const r=spawnSync(path.join(javaRoot,'bin/jar.exe'),['tf','.cache/espeak-22.apk'],{env,encoding:'utf8',windowsHide:true});console.log(r.stdout.split(/\r?\n/).filter(f=>/zip$|\.json$|raw|data/i.test(f)).join('\n'));
+const a=spawnSync(path.join(toolRoot,'sdk/platform-tools/adb.exe'),['-s','emulator-5560','logcat','-d','-t','1500','-s','eSpeakTTS','DownloadVoiceData','SpeechSynthesis','FileUtils','EspeakApp'],{env,encoding:'utf8',windowsHide:true});console.log(a.stdout.slice(-6000));
