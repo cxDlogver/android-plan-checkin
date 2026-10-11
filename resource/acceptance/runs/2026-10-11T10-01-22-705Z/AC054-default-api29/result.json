@@ -1,0 +1,43 @@
+{
+  "caseId": "AC054",
+  "rowId": "default",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T10-01-22-705Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T10:01:22.705Z",
+  "endedAt": "2026-10-11T10:01:24.968Z",
+  "inputSha256": "29bab80ad0626e78ff6721af633f1172ce6db7074144c72081c9329a3d2280d6",
+  "previousRecord": null,
+  "scope": "AC054-default-api29",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "REFRESH_FAILED",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-22-705Z/AC054-default-api29/bridge-identity.json",
+      "sha256": "5e966002e49c09bf8837a53387fd402a5f84888fb25a5a510b288cf141947ceb"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-22-705Z/AC054-default-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-22-705Z/AC054-default-api29/inputs.json",
+      "sha256": "7b70e1bc412c5c97ca580f916f2e2ed9bac7b6023d89abeab134a2af571314ad"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

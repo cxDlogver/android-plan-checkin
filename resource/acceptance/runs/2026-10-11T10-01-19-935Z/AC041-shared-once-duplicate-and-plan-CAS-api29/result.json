@@ -1,0 +1,43 @@
+{
+  "caseId": "AC041",
+  "rowId": "shared-once-duplicate-and-plan-CAS",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T10-01-19-935Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T10:01:19.935Z",
+  "endedAt": "2026-10-11T10:01:21.329Z",
+  "inputSha256": "151e3914008fd15a8d966d557431a458d3502de3baa1c357daa3e112a5a1b277",
+  "previousRecord": null,
+  "scope": "AC041-shared-once-duplicate-and-plan-CAS-api29",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "REFRESH_FAILED",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-19-935Z/AC041-shared-once-duplicate-and-plan-CAS-api29/bridge-identity.json",
+      "sha256": "5e966002e49c09bf8837a53387fd402a5f84888fb25a5a510b288cf141947ceb"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-19-935Z/AC041-shared-once-duplicate-and-plan-CAS-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-19-935Z/AC041-shared-once-duplicate-and-plan-CAS-api29/inputs.json",
+      "sha256": "a91c9230af42aa874795354adc153003887b229a042b38002666b09b8cb4d82f"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

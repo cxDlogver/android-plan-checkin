@@ -9,7 +9,7 @@ import { emptyFacts, Facts, setMeta } from '../domain/model';
 import { businessToday, validZone } from '../domain/date';
 import { loadFacts, persist } from '../infrastructure/database/executor';
 import { buildFixture, fixtureNames, FixtureName } from './fixtures';
-import { injectFault, now, setClock, verificationExecutor } from './runtime-development';
+import { beginReadInitialization, injectFault, faultStatus, now, overrideSettingsVersion, setClock, verificationExecutor } from './runtime-development';
 import { runSqlCase } from './sql-cases-development';
 import { connectionInfo, initializationProbe } from './initialization-development';
 import { migrationProbe, migrationStatus } from './migration-development';
@@ -78,9 +78,16 @@ async function dispatch({action,payload={}}:Request){
       const snapshot=await context.refresh(true);if(!snapshot)throw new Error('REFRESH_FAILED');
       return {contextId,today:snapshot.today,zone:snapshot.zone,counts:Object.fromEntries(Object.entries(snapshot.facts).map(([table,rows])=>[table,rows.length])),dataRevision:snapshot.dataRevision};
     }
+    case 'refresh': return {contextId,refreshed:!!await context.refresh()};
+    case 'readInitialization': beginReadInitialization();return {contextId,started:true};
+    case 'settingsVersion': {
+      if(![null,'native'].includes(payload.mode as null|string))throw new Error('INVALID_VERSION_PROBE');
+      overrideSettingsVersion(payload.mode===null?{version:null,build:null}:undefined);await context.refresh();return {contextId,mode:payload.mode};
+    }
+    case 'faultStatus': return {contextId,...faultStatus()};
     case 'fault': {
-      if(![null,'before_commit','before_commit_io','after_commit'].includes(payload.point as null|string)) throw new Error('INVALID_FAULT_POINT');
-      injectFault(payload.point as null|'before_commit'|'before_commit_io'|'after_commit');
+      if(![null,'before_commit','before_commit_io','before_commit_busy','after_commit','before_commit_hold','after_commit_hold','read_io','read_hold'].includes(payload.point as null|string)) throw new Error('INVALID_FAULT_POINT');
+      injectFault(payload.point as Parameters<typeof injectFault>[0]);
       return {contextId,point:payload.point};
     }
     case 'navigate': {

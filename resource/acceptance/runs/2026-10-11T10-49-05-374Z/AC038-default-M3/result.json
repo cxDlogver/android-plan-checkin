@@ -1,0 +1,148 @@
+{
+  "caseId": "AC038",
+  "rowId": "default",
+  "configId": "M3",
+  "runId": "2026-10-11T10-49-05-374Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T10:49:05.374Z",
+  "endedAt": "2026-10-11T10:50:26.423Z",
+  "inputSha256": "fd94a32169d440f9f012fd89445d13e356b7cc7da325f1885c620a2bf6e13cea",
+  "previousRecord": null,
+  "scope": "AC038-default-M3",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC038.A1.no-date-control",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC038.A1.identity-failed",
+      "expected": [
+        "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+        "2026-10-11",
+        "5c1f96bb-af7e-4127-9604-5bf98ee9dfed"
+      ],
+      "actual": [
+        "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+        "2026-10-11",
+        "5c1f96bb-af7e-4127-9604-5bf98ee9dfed"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC038.A2.actual-failed",
+      "expected": null,
+      "actual": null,
+      "status": "PASS"
+    },
+    {
+      "id": "AC038.A3.original",
+      "expected": [
+        {
+          "result_id": "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+          "original_outcome": "completed",
+          "original_note": "首次迟完成"
+        }
+      ],
+      "actual": [
+        {
+          "result_id": "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+          "original_outcome": "completed",
+          "original_note": ""
+        }
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "AC038.A3.original\n\n'FAIL' !== 'PASS'\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/5-failure.png",
+      "sha256": "cda5a909bbc0c0d6bec87d75beb8834628361d9517971b5f6001f48cb1be840d"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/5-failure.xml",
+      "sha256": "5cd073b02d8499b3a94a7eaecdcd288def09f7edff9316b10209881d85bd861b"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/after-failed.json",
+      "sha256": "5546e043f7fb97cff424384bb33be1cb1829250ef3cdaeb5d261ba77a5bc8025"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/appium.log",
+      "sha256": "13fd7743192d69ff13468318d9787677c93e42f18ee0e058f6910bfdfbe58932"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/failure-native-facts.json",
+      "sha256": "5546e043f7fb97cff424384bb33be1cb1829250ef3cdaeb5d261ba77a5bc8025"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/fixture.json",
+      "sha256": "6b5e97bec3119b487bb90536aba97033d640e160a637a7c0817939eff41e02f0"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/initial-facts.json",
+      "sha256": "b144e07582326186def20696c89be554411654afd96b07d749922ac9350ac4fd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/inputs.json",
+      "sha256": "7903e6a6f79bbe3f165a2f0667e70e2cc8b807951030322db2c8cd4140ae90c2"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/step-1-clock.json",
+      "sha256": "3e3400c56da9d0e8689a400aa8f573aa77bbe5548d465d4b1fa1f9ff56aa47de"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/step-2-clock.json",
+      "sha256": "599ef166489c9c736bc986f56b8bde113b3fbba0f8e101126ee6bfd536f1610f"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/step-3-given-create.json",
+      "sha256": "25d0401c68603cdd6ea7ad50b0b7ad04bab71167194274d1ef45c57a04d96cc3"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/step-4-clock.json",
+      "sha256": "046735058ba672c3545cf4fa0e815086832a3483451826b916c61409c50244cc"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-49-05-374Z/AC038-default-M3/step-5.json",
+      "sha256": "c0fcbd525125d62771d9b70204be979ed28462c0d6a73d54787f51132f6043df"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

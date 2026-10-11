@@ -1,0 +1,58 @@
+[
+  {
+    "id": "Given.plan-created",
+    "expected": "OK",
+    "actual": "OK",
+    "status": "PASS"
+  },
+  {
+    "id": "AC038.A1.no-date-control",
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  },
+  {
+    "id": "AC038.A1.identity-failed",
+    "expected": [
+      "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+      "2026-10-11",
+      "5c1f96bb-af7e-4127-9604-5bf98ee9dfed"
+    ],
+    "actual": [
+      "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+      "2026-10-11",
+      "5c1f96bb-af7e-4127-9604-5bf98ee9dfed"
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC038.A2.actual-failed",
+    "expected": null,
+    "actual": null,
+    "status": "PASS"
+  },
+  {
+    "id": "AC038.A3.original",
+    "expected": [
+      {
+        "result_id": "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+        "original_outcome": "completed",
+        "original_note": "首次迟完成"
+      }
+    ],
+    "actual": [
+      {
+        "result_id": "281ae58f-e6fb-4c13-9190-f5ca77b84305",
+        "original_outcome": "completed",
+        "original_note": ""
+      }
+    ],
+    "status": "FAIL"
+  },
+  {
+    "id": "execution",
+    "expected": "successful scoped verification",
+    "actual": "AC038.A3.original\n\n'FAIL' !== 'PASS'\n",
+    "status": "FAIL"
+  }
+]

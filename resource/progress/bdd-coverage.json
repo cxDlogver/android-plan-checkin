@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-11T09:49:28.078Z",
+  "updatedAt": "2026-10-11T10:44:27.568Z",
   "status": "IN_PROGRESS",
   "scope": "Explicit parameter/configuration executions. Shared assertion companions and raw log companions are retained separately; they do not count as completed Examples. Parent PASS requires its full A/E scope and all required configurations.",
-  "parentPassCount": 14,
+  "parentPassCount": 16,
   "totalCases": 120,
-  "explicitPassingInstances": 238,
+  "explicitPassingInstances": 248,
   "invalidReports": 0,
   "cases": [
     {
@@ -74,22 +74,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T03-47-37-765Z/native-invalid_parameters-api29/result.json",
           "recordSha256": "d5bbe244b17754e681680ab9027b5a50c25f939c441049761875baefbf97c9a6"
-        },
-        {
-          "caseId": "AC004",
-          "rowId": "all-required-rows",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-09-531Z/AC004-foundation-api29/result.json",
-          "recordSha256": "aec5d8168d80fcf04e122fd603377c9409e6fc896e6104a7fcabe06e94eb7626"
-        },
-        {
-          "caseId": "AC004",
-          "rowId": "all-required-rows",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-222Z/AC004-foundation-api36/result.json",
-          "recordSha256": "e1a64672220632864a8d2154cc14e571b93b74dd6d0b0a93cfa069a50abb88b1"
         }
       ]
     },
@@ -134,24 +118,7 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": [
-        {
-          "caseId": "AC006",
-          "rowId": "all-required-rows",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-09-665Z/AC006-foundation-api29/result.json",
-          "recordSha256": "eb5c7841f96c64ce03b8b4c01302b177a6599c7705bf98b71769adb3f55d8309"
-        },
-        {
-          "caseId": "AC006",
-          "rowId": "all-required-rows",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-312Z/AC006-foundation-api36/result.json",
-          "recordSha256": "ce39eaaa7b320a4bb60824cde93ed0fcd707b1cd506a5c49dfce030faf4f236c"
-        }
-      ]
+      "passingInstances": []
     },
     {
       "caseId": "AC007",
@@ -160,34 +127,30 @@
       "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "违规事实"
-        ],
-        [
-          "cycle_unique",
-          "同计划同日第二循环记录"
-        ],
-        [
-          "once_unique",
-          "同任务第二终态"
-        ],
-        [
-          "cross_plan_due",
-          "终态引用别计划截止版本"
-        ],
-        [
-          "missing_due",
-          "终态引用不存在截止版本"
-        ],
-        [
-          "actual_mismatch",
-          "完成实际日与businessOn不等"
-        ],
-        [
-          "enum",
-          "未知result或非法weeklyTarget"
-        ]
+        {
+          "rowId": "cycle_unique",
+          "违规事实": "同计划同日第二循环记录"
+        },
+        {
+          "rowId": "once_unique",
+          "违规事实": "同任务第二终态"
+        },
+        {
+          "rowId": "cross_plan_due",
+          "违规事实": "终态引用别计划截止版本"
+        },
+        {
+          "rowId": "missing_due",
+          "违规事实": "终态引用不存在截止版本"
+        },
+        {
+          "rowId": "actual_mismatch",
+          "违规事实": "完成实际日与businessOn不等"
+        },
+        {
+          "rowId": "enum",
+          "违规事实": "未知result或非法weeklyTarget"
+        }
       ],
       "passingInstances": [
         {
@@ -285,22 +248,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T03-36-00-306Z/AC007-enum-api29-393dp-font1/result.json",
           "recordSha256": "2294ac8e7ff2cdc98b015efcb670a505a7729944e2d42c88eb396e1cb4cab357"
-        },
-        {
-          "caseId": "AC007",
-          "rowId": "all-required-rows",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-09-774Z/AC007-foundation-api29/result.json",
-          "recordSha256": "279f280cc296f6eadfc5d856e1b2bf4500e230d16340f3fafe7ea8bf177ebb38"
-        },
-        {
-          "caseId": "AC007",
-          "rowId": "all-required-rows",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-415Z/AC007-foundation-api36/result.json",
-          "recordSha256": "ed8c208358d5212cb038a14f24e59f0007c7789f18cc87dbf065765bbffbce8a"
         }
       ]
     },
@@ -311,18 +258,14 @@
       "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "故障点"
-        ],
-        [
-          "sql_error",
-          "发生SQL异常"
-        ],
-        [
-          "process_before_commit",
-          "在事务commit之前进程中断"
-        ]
+        {
+          "rowId": "sql_error",
+          "故障点": "发生SQL异常"
+        },
+        {
+          "rowId": "process_before_commit",
+          "故障点": "在事务commit之前进程中断"
+        }
       ],
       "passingInstances": [
         {
@@ -386,22 +329,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T03-49-24-433Z/native-schema_too_new-api29/result.json",
           "recordSha256": "881b9a3eed046fb582738f6ed4c0f9ed434f53db4a1a35d370112b3cd3029847"
-        },
-        {
-          "caseId": "AC009",
-          "rowId": "all-required-rows",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-09-880Z/AC009-foundation-api29/result.json",
-          "recordSha256": "17a812038d97daf8188fa513f86dd12d72f698ace819253793ef57634a18aa31"
-        },
-        {
-          "caseId": "AC009",
-          "rowId": "all-required-rows",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-492Z/AC009-foundation-api36/result.json",
-          "recordSha256": "68d51f17a017bfe675f648d8eee184d29f260524ac27c4bae0a6d132fc37b5c5"
         }
       ]
     },
@@ -432,22 +359,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T03-47-37-659Z/native-single-connection-api29/result.json",
           "recordSha256": "017126de91e73737a5b8a70ecb7dd86c60918ba1ec9310f4d810c41380467b70"
-        },
-        {
-          "caseId": "AC010",
-          "rowId": "all-required-rows",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-015Z/AC010-foundation-api29/result.json",
-          "recordSha256": "3306996336ec3f60d889333a00efc34410265bc813cfc1a4d4e8c1f28d4b6f92"
-        },
-        {
-          "caseId": "AC010",
-          "rowId": "all-required-rows",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-593Z/AC010-foundation-api36/result.json",
-          "recordSha256": "d5002af320ad8ed667c4b4a4c023c79ef95e7d6d5a10a57852ec06d5fe6b24a0"
         }
       ]
     },
@@ -471,26 +382,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "时区值",
-          "预期"
-        ],
-        [
-          "valid",
-          "Asia/Shanghai",
-          "固定该时区后进入真实空态"
-        ],
-        [
-          "null",
-          "空值",
-          "阻断初始化并提示重试"
-        ],
-        [
-          "invalid",
-          "Invalid/Zone",
-          "阻断初始化并提示重试"
-        ]
+        {
+          "rowId": "valid",
+          "时区值": "Asia/Shanghai",
+          "预期": "固定该时区后进入真实空态"
+        },
+        {
+          "rowId": "null",
+          "时区值": "空值",
+          "预期": "阻断初始化并提示重试"
+        },
+        {
+          "rowId": "invalid",
+          "时区值": "Invalid/Zone",
+          "预期": "阻断初始化并提示重试"
+        }
       ],
       "passingInstances": []
     },
@@ -514,41 +420,34 @@
       "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "zone",
-          "日期",
-          "次日",
-          "小时"
-        ],
-        [
-          "spring",
-          "America/New_York",
-          "2026-03-08",
-          "2026-03-09",
-          "23"
-        ],
-        [
-          "fall",
-          "America/New_York",
-          "2026-11-01",
-          "2026-11-02",
-          "25"
-        ],
-        [
-          "leap",
-          "Asia/Shanghai",
-          "2028-02-28",
-          "2028-02-29",
-          "24"
-        ],
-        [
-          "year",
-          "Asia/Shanghai",
-          "2026-12-31",
-          "2027-01-01",
-          "24"
-        ]
+        {
+          "rowId": "spring",
+          "zone": "America/New_York",
+          "日期": "2026-03-08",
+          "次日": "2026-03-09",
+          "小时": "23"
+        },
+        {
+          "rowId": "fall",
+          "zone": "America/New_York",
+          "日期": "2026-11-01",
+          "次日": "2026-11-02",
+          "小时": "25"
+        },
+        {
+          "rowId": "leap",
+          "zone": "Asia/Shanghai",
+          "日期": "2028-02-28",
+          "次日": "2028-02-29",
+          "小时": "24"
+        },
+        {
+          "rowId": "year",
+          "zone": "Asia/Shanghai",
+          "日期": "2026-12-31",
+          "次日": "2027-01-01",
+          "小时": "24"
+        }
       ],
       "passingInstances": [
         {
@@ -699,72 +598,66 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "字段",
-          "样本",
-          "结果"
-        ],
-        [
-          "blank_name",
-          "名称",
-          "全空白",
-          "拒绝非空校验"
-        ],
-        [
-          "trim_name",
-          "名称",
-          "首尾空白包围的读书",
-          "保存为读书"
-        ],
-        [
-          "80_name",
-          "名称",
-          "80个码点含emoji",
-          "允许保存"
-        ],
-        [
-          "81_name",
-          "名称",
-          "81个码点",
-          "拒绝超长"
-        ],
-        [
-          "newline_name",
-          "名称",
-          "内部换行",
-          "拒绝多行"
-        ],
-        [
-          "1000_desc",
-          "说明",
-          "1000码点含换行",
-          "允许保存"
-        ],
-        [
-          "1001_desc",
-          "说明",
-          "1001码点",
-          "拒绝超长"
-        ],
-        [
-          "empty_note",
-          "备注",
-          "空串",
-          "允许保存"
-        ],
-        [
-          "2000_note",
-          "备注",
-          "2000码点",
-          "允许保存"
-        ],
-        [
-          "2001_note",
-          "备注",
-          "2001码点",
-          "拒绝超长"
-        ]
+        {
+          "rowId": "blank_name",
+          "字段": "名称",
+          "样本": "全空白",
+          "结果": "拒绝非空校验"
+        },
+        {
+          "rowId": "trim_name",
+          "字段": "名称",
+          "样本": "首尾空白包围的读书",
+          "结果": "保存为读书"
+        },
+        {
+          "rowId": "80_name",
+          "字段": "名称",
+          "样本": "80个码点含emoji",
+          "结果": "允许保存"
+        },
+        {
+          "rowId": "81_name",
+          "字段": "名称",
+          "样本": "81个码点",
+          "结果": "拒绝超长"
+        },
+        {
+          "rowId": "newline_name",
+          "字段": "名称",
+          "样本": "内部换行",
+          "结果": "拒绝多行"
+        },
+        {
+          "rowId": "1000_desc",
+          "字段": "说明",
+          "样本": "1000码点含换行",
+          "结果": "允许保存"
+        },
+        {
+          "rowId": "1001_desc",
+          "字段": "说明",
+          "样本": "1001码点",
+          "结果": "拒绝超长"
+        },
+        {
+          "rowId": "empty_note",
+          "字段": "备注",
+          "样本": "空串",
+          "结果": "允许保存"
+        },
+        {
+          "rowId": "2000_note",
+          "字段": "备注",
+          "样本": "2000码点",
+          "结果": "允许保存"
+        },
+        {
+          "rowId": "2001_note",
+          "字段": "备注",
+          "样本": "2001码点",
+          "结果": "拒绝超长"
+        }
       ],
       "passingInstances": [
         {
@@ -919,6 +812,14 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-48-18-554Z/AC017-2000_note-M3/result.json",
           "recordSha256": "7065becae552ae28d0c110e4e53155d0d02ba4131dd4b481f442a58e0e50f92f"
+        },
+        {
+          "caseId": "AC017",
+          "rowId": "2001_note",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T09-49-15-500Z/AC017-2001_note-M3/result.json",
+          "recordSha256": "1346729f03ded68f54bd06181c2a73737aff88f6186a2298cec215512d0e17ac"
         }
       ]
     },
@@ -926,7 +827,7 @@
       "caseId": "AC018",
       "title": "切换类型保留共通字段并拒绝隐藏字段混入",
       "owner": "IP19",
-      "parentStatus": "NOT_RUN",
+      "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
         {
@@ -959,48 +860,42 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "开始",
-          "结束",
-          "预期"
-        ],
-        [
-          "past",
-          "2026-10-08",
-          "空",
-          "拒绝过去开始"
-        ],
-        [
-          "today",
-          "2026-10-09",
-          "空",
-          "允许"
-        ],
-        [
-          "future",
-          "2026-10-10",
-          "2026-10-11",
-          "允许且未开始"
-        ],
-        [
-          "reversed",
-          "2026-10-10",
-          "2026-10-09",
-          "拒绝结束早于开始"
-        ],
-        [
-          "same",
-          "2026-10-09",
-          "2026-10-09",
-          "允许当天执行"
-        ],
-        [
-          "invalid_date",
-          "2026-02-30",
-          "空",
-          "拒绝非法公历日"
-        ]
+        {
+          "rowId": "past",
+          "开始": "2026-10-08",
+          "结束": "空",
+          "预期": "拒绝过去开始"
+        },
+        {
+          "rowId": "today",
+          "开始": "2026-10-09",
+          "结束": "空",
+          "预期": "允许"
+        },
+        {
+          "rowId": "future",
+          "开始": "2026-10-10",
+          "结束": "2026-10-11",
+          "预期": "允许且未开始"
+        },
+        {
+          "rowId": "reversed",
+          "开始": "2026-10-10",
+          "结束": "2026-10-09",
+          "预期": "拒绝结束早于开始"
+        },
+        {
+          "rowId": "same",
+          "开始": "2026-10-09",
+          "结束": "2026-10-09",
+          "预期": "允许当天执行"
+        },
+        {
+          "rowId": "invalid_date",
+          "开始": "2026-02-30",
+          "结束": "空",
+          "预期": "拒绝非法公历日"
+        }
       ],
       "passingInstances": [
         {
@@ -1138,41 +1033,36 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "目标",
-          "预期"
-        ],
-        [
-          "one",
-          "1",
-          "允许"
-        ],
-        [
-          "seven",
-          "7",
-          "允许"
-        ],
-        [
-          "zero",
-          "0",
-          "拒绝"
-        ],
-        [
-          "eight",
-          "8",
-          "拒绝"
-        ],
-        [
-          "decimal",
-          "3.5",
-          "拒绝"
-        ],
-        [
-          "empty",
-          "空值",
-          "拒绝"
-        ]
+        {
+          "rowId": "one",
+          "目标": "1",
+          "预期": "允许"
+        },
+        {
+          "rowId": "seven",
+          "目标": "7",
+          "预期": "允许"
+        },
+        {
+          "rowId": "zero",
+          "目标": "0",
+          "预期": "拒绝"
+        },
+        {
+          "rowId": "eight",
+          "目标": "8",
+          "预期": "拒绝"
+        },
+        {
+          "rowId": "decimal",
+          "目标": "3.5",
+          "预期": "拒绝"
+        },
+        {
+          "rowId": "empty",
+          "目标": "空值",
+          "预期": "拒绝"
+        }
       ],
       "passingInstances": [
         {
@@ -1277,7 +1167,7 @@
       "caseId": "AC022",
       "title": "同名计划保持独立且创建成功导航详情",
       "owner": "IP19",
-      "parentStatus": "NOT_RUN",
+      "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
         {
@@ -1292,6 +1182,14 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-11-42-313Z/AC022-default-M7/result.json",
           "recordSha256": "7f9f5da61b0c17d9b3c6f282d10787985efcd8aca61adeefaf3545df9b0e65e6"
+        },
+        {
+          "caseId": "AC022",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T09-50-09-747Z/AC022-default-M3/result.json",
+          "recordSha256": "19339dade7090a5eaad33569dbb745b3456b7db9c72c048a302977b3606987e4"
         }
       ]
     },
@@ -1302,42 +1200,28 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "条件",
-          "修改"
-        ],
-        [
-          "paused",
-          "暂停循环",
-          "名称或规则"
-        ],
-        [
-          "archived",
-          "已归档",
-          "任意字段"
-        ],
-        [
-          "immutable",
-          "运行循环",
-          "类型、方向、开始日或时区"
-        ],
-        [
-          "terminal_due",
-          "普通一次性终态未归档",
-          "截止日期"
-        ]
-      ],
-      "passingInstances": [
         {
-          "caseId": "AC023",
-          "rowId": "default",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-12-11-826Z/AC023-default-M7/result.json",
-          "recordSha256": "7fafb25ee178cad7c781d54f9a24364a9b6fa4f7462f567df9d32fcaa1748991"
+          "rowId": "paused",
+          "条件": "暂停循环",
+          "修改": "名称或规则"
+        },
+        {
+          "rowId": "archived",
+          "条件": "已归档",
+          "修改": "任意字段"
+        },
+        {
+          "rowId": "immutable",
+          "条件": "运行循环",
+          "修改": "类型、方向、开始日或时区"
+        },
+        {
+          "rowId": "terminal_due",
+          "条件": "普通一次性终态未归档",
+          "修改": "截止日期"
         }
-      ]
+      ],
+      "passingInstances": []
     },
     {
       "caseId": "AC024",
@@ -1346,32 +1230,69 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "结果"
-        ],
-        [
-          "success",
-          "循环成功"
-        ],
-        [
-          "failure",
-          "循环失败"
-        ],
-        [
-          "skip",
-          "循环跳过"
-        ],
-        [
-          "completed",
-          "一次性登记完成"
-        ],
-        [
-          "cancelled",
-          "一次性取消"
-        ]
+        {
+          "rowId": "success",
+          "结果": "循环成功"
+        },
+        {
+          "rowId": "failure",
+          "结果": "循环失败"
+        },
+        {
+          "rowId": "skip",
+          "结果": "循环跳过"
+        },
+        {
+          "rowId": "completed",
+          "结果": "一次性登记完成"
+        },
+        {
+          "rowId": "cancelled",
+          "结果": "一次性取消"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC024",
+          "rowId": "success",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-14-47-421Z/AC024-success-M3/result.json",
+          "recordSha256": "1fd1d59572ce8806f8dc92830dd81d5bd53a854e33da635a3a5450cacdff65cd"
+        },
+        {
+          "caseId": "AC024",
+          "rowId": "failure",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-15-08-360Z/AC024-failure-M3/result.json",
+          "recordSha256": "46abc023e154d9e7fb9a2d10eae67f7258dbe5c9a785d392d6d24ac326f140f6"
+        },
+        {
+          "caseId": "AC024",
+          "rowId": "skip",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-15-26-813Z/AC024-skip-M3/result.json",
+          "recordSha256": "e78034fb9917dc439c1549165833aec501d17cb5f507dedb0e544f06b90d568c"
+        },
+        {
+          "caseId": "AC024",
+          "rowId": "completed",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-15-45-560Z/AC024-completed-M3/result.json",
+          "recordSha256": "0db2b4a36795efa89977539742d712232975641d269e067cc17020a8a566859d"
+        },
+        {
+          "caseId": "AC024",
+          "rowId": "cancelled",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-16-09-517Z/AC024-cancelled-M3/result.json",
+          "recordSha256": "729fde8cf6f46e1cc23342b99b1ad1ed0e6e98835c760a2f4671d159dcfbd118"
+        }
+      ]
     },
     {
       "caseId": "AC025",
@@ -1384,7 +1305,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC025",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-16-35-705Z/AC025-default-M3/result.json",
+          "recordSha256": "a37bde89dc41177a25282c4f997c338e3f6b6a46c3dbdfb49fcd66b91e275a50"
+        }
+      ]
     },
     {
       "caseId": "AC026",
@@ -1397,7 +1327,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC026",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-17-25-121Z/AC026-default-M3/result.json",
+          "recordSha256": "0cab8d9564e45459f1b5afe66bf2216caa1c67ede4ee33c39629d4e9968c5b31"
+        }
+      ]
     },
     {
       "caseId": "AC027",
@@ -1410,7 +1349,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC027",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-17-57-440Z/AC027-default-M3/result.json",
+          "recordSha256": "eb3da777b59f163f1b5518f933df855923889541b456ede5188bfb49a1c18fe6"
+        }
+      ]
     },
     {
       "caseId": "AC028",
@@ -1423,7 +1371,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC028",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-18-28-822Z/AC028-default-M3/result.json",
+          "recordSha256": "b0179b2a841d836e7dcb43ef23bdf2c84cddaa7f5ec5dcb4dbe9667ed7704b9f"
+        }
+      ]
     },
     {
       "caseId": "AC029",
@@ -1432,28 +1389,57 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "记录类型"
-        ],
-        [
-          "past_ordinary",
-          "昨日普通记录"
-        ],
-        [
-          "today_backfill",
-          "今天提交昨日的补记"
-        ],
-        [
-          "archived_today",
-          "归档计划今日普通记录"
-        ],
-        [
-          "past_once",
-          "一次性历史完成补报"
-        ]
+        {
+          "rowId": "past_ordinary",
+          "记录类型": "昨日普通记录"
+        },
+        {
+          "rowId": "today_backfill",
+          "记录类型": "今天提交昨日的补记"
+        },
+        {
+          "rowId": "archived_today",
+          "记录类型": "归档计划今日普通记录"
+        },
+        {
+          "rowId": "past_once",
+          "记录类型": "一次性历史完成补报"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC029",
+          "rowId": "past_ordinary",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-18-49-299Z/AC029-past_ordinary-M3/result.json",
+          "recordSha256": "a2c0f5150370ddc613e25889bbf27911b6716753f7aac3a8e4051f58abe08a7a"
+        },
+        {
+          "caseId": "AC029",
+          "rowId": "today_backfill",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-19-08-756Z/AC029-today_backfill-M3/result.json",
+          "recordSha256": "54bec40bb201638053d6cb306e57bb2042407520299626320cf678b531f744e6"
+        },
+        {
+          "caseId": "AC029",
+          "rowId": "archived_today",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-19-30-132Z/AC029-archived_today-M3/result.json",
+          "recordSha256": "5067f8b39d201a6c3c864f151418490a9a87a9501622ab9d3af58de3d4e1bab5"
+        },
+        {
+          "caseId": "AC029",
+          "rowId": "past_once",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-27-07-653Z/AC029-past_once-M3/result.json",
+          "recordSha256": "5be2857e652b7e452dd7bf9a74988881fe0c04dccbea42a5767ab2fdf6c34718"
+        }
+      ]
     },
     {
       "caseId": "AC030",
@@ -1462,28 +1448,48 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "日期",
-          "预期"
-        ],
-        [
-          "valid_tue",
-          "2026-10-06",
-          "允许补记并只读"
-        ],
-        [
-          "invalid_wed",
-          "2026-10-07",
-          "拒绝非应执行日"
-        ],
-        [
-          "future_thu",
-          "2026-10-08",
-          "拒绝未来"
-        ]
+        {
+          "rowId": "valid_tue",
+          "日期": "2026-10-06",
+          "预期": "允许补记并只读"
+        },
+        {
+          "rowId": "invalid_wed",
+          "日期": "2026-10-07",
+          "预期": "拒绝非应执行日"
+        },
+        {
+          "rowId": "future_thu",
+          "日期": "2026-10-08",
+          "预期": "拒绝未来"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC030",
+          "rowId": "valid_tue",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-27-19-406Z/AC030-valid_tue-M3/result.json",
+          "recordSha256": "6b3550e6bc93695e23250fae4035a9ea19b51459757b7b77e47ade67a1585c11"
+        },
+        {
+          "caseId": "AC030",
+          "rowId": "invalid_wed",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-27-35-012Z/AC030-invalid_wed-M3/result.json",
+          "recordSha256": "6b70774c86e6c53622561a51f2b24f69aff67564f87f9a0cb28c934093d5bebb"
+        },
+        {
+          "caseId": "AC030",
+          "rowId": "future_thu",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-27-47-403Z/AC030-future_thu-M3/result.json",
+          "recordSha256": "6d721563c79e497143516951835d67cc1d0a443e9d328f11a60712a1f2b25695"
+        }
+      ]
     },
     {
       "caseId": "AC031",
@@ -1492,43 +1498,87 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "阶段情况",
-          "预期"
-        ],
-        [
-          "new_stage",
-          "恢复10/07后合法10/08空日",
-          "允许一次补记"
-        ],
-        [
-          "old_stage",
-          "暂停前10/03空日，现已恢复",
-          "拒绝旧阶段"
-        ],
-        [
-          "pause_gap",
-          "10/04至10/06暂停空日",
-          "拒绝无效日"
-        ],
-        [
-          "currently_paused",
-          "当前暂停但10/03原本有效",
-          "拒绝暂停"
-        ],
-        [
-          "archived",
-          "当前归档且历史空日",
-          "拒绝归档"
-        ],
-        [
-          "before_start",
-          "早于startsOn",
-          "拒绝未开始"
-        ]
+        {
+          "rowId": "new_stage",
+          "阶段情况": "恢复10/07后合法10/08空日",
+          "预期": "允许一次补记"
+        },
+        {
+          "rowId": "old_stage",
+          "阶段情况": "暂停前10/03空日，现已恢复",
+          "预期": "拒绝旧阶段"
+        },
+        {
+          "rowId": "pause_gap",
+          "阶段情况": "10/04至10/06暂停空日",
+          "预期": "拒绝无效日"
+        },
+        {
+          "rowId": "currently_paused",
+          "阶段情况": "当前暂停但10/03原本有效",
+          "预期": "拒绝暂停"
+        },
+        {
+          "rowId": "archived",
+          "阶段情况": "当前归档且历史空日",
+          "预期": "拒绝归档"
+        },
+        {
+          "rowId": "before_start",
+          "阶段情况": "早于startsOn",
+          "预期": "拒绝未开始"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC031",
+          "rowId": "new_stage",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-36-29-634Z/AC031-new_stage-M3/result.json",
+          "recordSha256": "7aae897f590e602ef2b5b4c39db527becff21bde242e984f8164ec35a1147a45"
+        },
+        {
+          "caseId": "AC031",
+          "rowId": "old_stage",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-37-38-240Z/AC031-old_stage-M3/result.json",
+          "recordSha256": "7d616a08a30d085c96ff045fcce5a6099120ecb67a649f08d75ab3cc29843c58"
+        },
+        {
+          "caseId": "AC031",
+          "rowId": "pause_gap",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-38-47-163Z/AC031-pause_gap-M3/result.json",
+          "recordSha256": "735ddb7351ba17c52dafc40450567fc6a049923fdf6161f381c4def7166b6136"
+        },
+        {
+          "caseId": "AC031",
+          "rowId": "currently_paused",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-40-04-049Z/AC031-currently_paused-M3/result.json",
+          "recordSha256": "d62678d330f32db653e8f96b1b316e63bc05099cfccc63af4fc47eb898412233"
+        },
+        {
+          "caseId": "AC031",
+          "rowId": "archived",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-41-18-320Z/AC031-archived-M3/result.json",
+          "recordSha256": "6e986ecc863bd27226098a96249421a1644b02a63ecbd66028cbf1d26941c884"
+        },
+        {
+          "caseId": "AC031",
+          "rowId": "before_start",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-42-48-466Z/AC031-before_start-M3/result.json",
+          "recordSha256": "7c913b38fc96bc87fa187f511d2a9fdf77dcb834f3c6d4923a07f40c4ce7c6cb"
+        }
+      ]
     },
     {
       "caseId": "AC032",
@@ -1550,26 +1600,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "核验日",
-          "状态"
-        ],
-        [
-          "pause",
-          "10/10",
-          "已暂停"
-        ],
-        [
-          "archive",
-          "10/10",
-          "自动到期归档"
-        ],
-        [
-          "oldstage",
-          "10/12暂停后再恢复",
-          "目标属于已关闭旧阶段"
-        ]
+        {
+          "rowId": "pause",
+          "核验日": "10/10",
+          "状态": "已暂停"
+        },
+        {
+          "rowId": "archive",
+          "核验日": "10/10",
+          "状态": "自动到期归档"
+        },
+        {
+          "rowId": "oldstage",
+          "核验日": "10/12暂停后再恢复",
+          "状态": "目标属于已关闭旧阶段"
+        }
       ],
       "passingInstances": []
     },
@@ -1593,28 +1638,48 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "实际日",
-          "预期"
-        ],
-        [
-          "early",
-          "2026-10-09",
-          "按时完成、历史补报立即归档"
-        ],
-        [
-          "boundary",
-          "2026-10-10",
-          "按时完成、历史补报立即归档"
-        ],
-        [
-          "late",
-          "2026-10-11",
-          "迟完成、普通终态"
-        ]
+        {
+          "rowId": "early",
+          "实际日": "2026-10-09",
+          "预期": "按时完成、历史补报立即归档"
+        },
+        {
+          "rowId": "boundary",
+          "实际日": "2026-10-10",
+          "预期": "按时完成、历史补报立即归档"
+        },
+        {
+          "rowId": "late",
+          "实际日": "2026-10-11",
+          "预期": "迟完成、普通终态"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC035",
+          "rowId": "early",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-28-42-963Z/AC035-early-M3/result.json",
+          "recordSha256": "39c917920e02bd7652d22511ed61ce2d5aedc0fbaaff4e31749a4162c2e14519"
+        },
+        {
+          "caseId": "AC035",
+          "rowId": "boundary",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-29-13-322Z/AC035-boundary-M3/result.json",
+          "recordSha256": "3ae8ebca17fa960482b8c1f20dacb7cdba7bca2d51867993bb6f58f7d5b4313b"
+        },
+        {
+          "caseId": "AC035",
+          "rowId": "late",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-29-41-523Z/AC035-late-M3/result.json",
+          "recordSha256": "a322c228afaa28ea92cf125777fb182fa4b6fdf03b29e0ff196d27324e67a4ac"
+        }
+      ]
     },
     {
       "caseId": "AC036",
@@ -1623,33 +1688,61 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "实际日",
-          "预期"
-        ],
-        [
-          "before_created",
-          "2026-10-07",
-          "拒绝"
-        ],
-        [
-          "created",
-          "2026-10-08",
-          "允许历史完成"
-        ],
-        [
-          "future",
-          "2026-10-12",
-          "拒绝"
-        ],
-        [
-          "missing",
-          "空值",
-          "拒绝必填"
-        ]
+        {
+          "rowId": "before_created",
+          "实际日": "2026-10-07",
+          "预期": "拒绝"
+        },
+        {
+          "rowId": "created",
+          "实际日": "2026-10-08",
+          "预期": "允许历史完成"
+        },
+        {
+          "rowId": "future",
+          "实际日": "2026-10-12",
+          "预期": "拒绝"
+        },
+        {
+          "rowId": "missing",
+          "实际日": "空值",
+          "预期": "拒绝必填"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC036",
+          "rowId": "before_created",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-30-07-949Z/AC036-before_created-M3/result.json",
+          "recordSha256": "3635cefb3414ee2157b692091d4dad3e53b8426ec9501cae54e24fbe424608f1"
+        },
+        {
+          "caseId": "AC036",
+          "rowId": "created",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-30-30-983Z/AC036-created-M3/result.json",
+          "recordSha256": "9b611ccf313712db61d3dbffec9a2db5fc2a7f6dcb204ff1ffd818aabab87f35"
+        },
+        {
+          "caseId": "AC036",
+          "rowId": "future",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-30-59-147Z/AC036-future-M3/result.json",
+          "recordSha256": "1637f1e090ff108539e644f3625361250de37e602c210af7b1e840cc059a034d"
+        },
+        {
+          "caseId": "AC036",
+          "rowId": "missing",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-31-22-281Z/AC036-missing-M3/result.json",
+          "recordSha256": "ce6b97fe43c109c91dae861cc31503ee8d4162113dbbb8968852c8ebe3ff8127"
+        }
+      ]
     },
     {
       "caseId": "AC037",
@@ -1658,20 +1751,33 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "结果"
-        ],
-        [
-          "failed",
-          "失败"
-        ],
-        [
-          "cancelled",
-          "取消"
-        ]
+        {
+          "rowId": "failed",
+          "结果": "失败"
+        },
+        {
+          "rowId": "cancelled",
+          "结果": "取消"
+        }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC037",
+          "rowId": "failed",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-31-48-952Z/AC037-failed-M3/result.json",
+          "recordSha256": "14bf618098474c12ddaf082560f04ec7c50078ca5e5afb8e9b04670ad5844824"
+        },
+        {
+          "caseId": "AC037",
+          "rowId": "cancelled",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-32-28-376Z/AC037-cancelled-M3/result.json",
+          "recordSha256": "c2f00ea0bfbfd318f66e632eebbfafd8fef4911578831c8b65f556adc7e40601"
+        }
+      ]
     },
     {
       "caseId": "AC038",
@@ -1693,22 +1799,18 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "结果"
-        ],
-        [
-          "completed",
-          "完成且实际10/09"
-        ],
-        [
-          "failed",
-          "失败"
-        ],
-        [
-          "cancelled",
-          "取消"
-        ]
+        {
+          "rowId": "completed",
+          "结果": "完成且实际10/09"
+        },
+        {
+          "rowId": "failed",
+          "结果": "失败"
+        },
+        {
+          "rowId": "cancelled",
+          "结果": "取消"
+        }
       ],
       "passingInstances": []
     },
@@ -1732,26 +1834,22 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "冲突类型"
-        ],
-        [
-          "duplicate_cycle",
-          "循环同日两条首次记录"
-        ],
-        [
-          "duplicate_once",
-          "一次性两个首次终态"
-        ],
-        [
-          "stale_record",
-          "旧记录revision修正"
-        ],
-        [
-          "stale_plan",
-          "旧计划revision管理/记录"
-        ]
+        {
+          "rowId": "duplicate_cycle",
+          "冲突类型": "循环同日两条首次记录"
+        },
+        {
+          "rowId": "duplicate_once",
+          "冲突类型": "一次性两个首次终态"
+        },
+        {
+          "rowId": "stale_record",
+          "冲突类型": "旧记录revision修正"
+        },
+        {
+          "rowId": "stale_plan",
+          "冲突类型": "旧计划revision管理/记录"
+        }
       ],
       "passingInstances": []
     },
@@ -1762,36 +1860,31 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "凭据情况",
-          "错误"
-        ],
-        [
-          "reused",
-          "相同commandId但不同内容",
-          "COMMAND_ID_REUSED"
-        ],
-        [
-          "expired",
-          "issuedAt已满7×24h",
-          "COMMAND_EXPIRED"
-        ],
-        [
-          "expired_cleaned",
-          "超过7天且receipt已清理",
-          "COMMAND_EXPIRED"
-        ],
-        [
-          "removed",
-          "目标已永久删除且receipt墓碑有效",
-          "TARGET_REMOVED"
-        ],
-        [
-          "clock",
-          "issuedAt晚于now",
-          "CLOCK_CHANGED"
-        ]
+        {
+          "rowId": "reused",
+          "凭据情况": "相同commandId但不同内容",
+          "错误": "COMMAND_ID_REUSED"
+        },
+        {
+          "rowId": "expired",
+          "凭据情况": "issuedAt已满7×24h",
+          "错误": "COMMAND_EXPIRED"
+        },
+        {
+          "rowId": "expired_cleaned",
+          "凭据情况": "超过7天且receipt已清理",
+          "错误": "COMMAND_EXPIRED"
+        },
+        {
+          "rowId": "removed",
+          "凭据情况": "目标已永久删除且receipt墓碑有效",
+          "错误": "TARGET_REMOVED"
+        },
+        {
+          "rowId": "clock",
+          "凭据情况": "issuedAt晚于now",
+          "错误": "CLOCK_CHANGED"
+        }
       ],
       "passingInstances": [
         {
@@ -1883,26 +1976,22 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "故障"
-        ],
-        [
-          "io",
-          "存储IO异常"
-        ],
-        [
-          "full",
-          "空间不足"
-        ],
-        [
-          "busy",
-          "SQLite busy"
-        ],
-        [
-          "archive_fail",
-          "归档/永久删除事务失败"
-        ]
+        {
+          "rowId": "io",
+          "故障": "存储IO异常"
+        },
+        {
+          "rowId": "full",
+          "故障": "空间不足"
+        },
+        {
+          "rowId": "busy",
+          "故障": "SQLite busy"
+        },
+        {
+          "rowId": "archive_fail",
+          "故障": "归档/永久删除事务失败"
+        }
       ],
       "passingInstances": []
     },
@@ -1913,21 +2002,16 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "中断点",
-          "预期"
-        ],
-        [
-          "before_commit",
-          "commit前",
-          "原事实保持"
-        ],
-        [
-          "after_commit",
-          "commit后返回前",
-          "已提交事实保留"
-        ]
+        {
+          "rowId": "before_commit",
+          "中断点": "commit前",
+          "预期": "原事实保持"
+        },
+        {
+          "rowId": "after_commit",
+          "中断点": "commit后返回前",
+          "预期": "已提交事实保留"
+        }
       ],
       "passingInstances": []
     },
@@ -1964,18 +2048,14 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "申请"
-        ],
-        [
-          "pause",
-          "暂停"
-        ],
-        [
-          "resume",
-          "恢复"
-        ]
+        {
+          "rowId": "pause",
+          "申请": "暂停"
+        },
+        {
+          "rowId": "resume",
+          "申请": "恢复"
+        }
       ],
       "passingInstances": []
     },
@@ -1999,18 +2079,14 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "状态"
-        ],
-        [
-          "running",
-          "运行中"
-        ],
-        [
-          "paused",
-          "暂停"
-        ]
+        {
+          "rowId": "running",
+          "状态": "运行中"
+        },
+        {
+          "rowId": "paused",
+          "状态": "暂停"
+        }
       ],
       "passingInstances": []
     },
@@ -2021,21 +2097,16 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "今日记录",
-          "预期"
-        ],
-        [
-          "recorded",
-          "success已提交",
-          "保留完成项和原分母"
-        ],
-        [
-          "unrecorded",
-          "没有记录",
-          "无当日执行项/分母/unknown"
-        ]
+        {
+          "rowId": "recorded",
+          "今日记录": "success已提交",
+          "预期": "保留完成项和原分母"
+        },
+        {
+          "rowId": "unrecorded",
+          "今日记录": "没有记录",
+          "预期": "无当日执行项/分母/unknown"
+        }
       ],
       "passingInstances": []
     },
@@ -2046,18 +2117,14 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "末日记录"
-        ],
-        [
-          "empty",
-          "空白"
-        ],
-        [
-          "recorded",
-          "success"
-        ]
+        {
+          "rowId": "empty",
+          "末日记录": "空白"
+        },
+        {
+          "rowId": "recorded",
+          "末日记录": "success"
+        }
       ],
       "passingInstances": []
     },
@@ -2068,26 +2135,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "终态类型",
-          "归档规则"
-        ],
-        [
-          "ordinary_complete",
-          "实际10/11完成",
-          "10/12午夜"
-        ],
-        [
-          "ordinary_failed",
-          "失败或取消",
-          "10/12午夜"
-        ],
-        [
-          "backfill",
-          "实际10/09历史完成",
-          "10/11保存now立即"
-        ]
+        {
+          "rowId": "ordinary_complete",
+          "终态类型": "实际10/11完成",
+          "归档规则": "10/12午夜"
+        },
+        {
+          "rowId": "ordinary_failed",
+          "终态类型": "失败或取消",
+          "归档规则": "10/12午夜"
+        },
+        {
+          "rowId": "backfill",
+          "终态类型": "实际10/09历史完成",
+          "归档规则": "10/11保存now立即"
+        }
       ],
       "passingInstances": []
     },
@@ -2102,7 +2164,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC053",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-12-37-471Z/AC053-default-api29/result.json",
+          "recordSha256": "f9388802b59436c1217ce58d2e4ee7bc1ed6f9b8430cd613fca2c7b215da56cd"
+        }
+      ]
     },
     {
       "caseId": "AC054",
@@ -2115,7 +2186,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC054",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-12-40-495Z/AC054-default-api29/result.json",
+          "recordSha256": "60406d5bcaba3abba0a0eb0ce2d0838c195a93da5bc7c9a7e6130f38a896b839"
+        }
+      ]
     },
     {
       "caseId": "AC055",
@@ -2163,21 +2243,16 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "编辑日",
-          "生效日"
-        ],
-        [
-          "friday",
-          "2026-10-09",
-          "2026-10-12"
-        ],
-        [
-          "monday",
-          "2026-10-12",
-          "2026-10-19"
-        ]
+        {
+          "rowId": "friday",
+          "编辑日": "2026-10-09",
+          "生效日": "2026-10-12"
+        },
+        {
+          "rowId": "monday",
+          "编辑日": "2026-10-12",
+          "生效日": "2026-10-19"
+        }
       ],
       "passingInstances": []
     },
@@ -2201,36 +2276,30 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "字段",
-          "新值",
-          "预期"
-        ],
-        [
-          "end_today",
-          "循环结束",
-          "2026-10-11",
-          "今日仍有效次日归档"
-        ],
-        [
-          "end_past",
-          "循环结束",
-          "2026-10-10",
-          "拒绝过去"
-        ],
-        [
-          "due_extend",
-          "逾期一次性截止10/10",
-          "2026-10-15",
-          "即时待完成，安排移动"
-        ],
-        [
-          "due_past",
-          "一次性截止",
-          "2026-10-10",
-          "拒绝过去"
-        ]
+        {
+          "rowId": "end_today",
+          "字段": "循环结束",
+          "新值": "2026-10-11",
+          "预期": "今日仍有效次日归档"
+        },
+        {
+          "rowId": "end_past",
+          "字段": "循环结束",
+          "新值": "2026-10-10",
+          "预期": "拒绝过去"
+        },
+        {
+          "rowId": "due_extend",
+          "字段": "逾期一次性截止10/10",
+          "新值": "2026-10-15",
+          "预期": "即时待完成，安排移动"
+        },
+        {
+          "rowId": "due_past",
+          "字段": "一次性截止",
+          "新值": "2026-10-10",
+          "预期": "拒绝过去"
+        }
       ],
       "passingInstances": []
     },
@@ -2254,42 +2323,36 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "处理",
-          "分数",
-          "百分比"
-        ],
-        [
-          "pending",
-          "未提交",
-          "6/8",
-          "75%"
-        ],
-        [
-          "success",
-          "success",
-          "7/9",
-          "78%"
-        ],
-        [
-          "failure",
-          "failure",
-          "6/9",
-          "67%"
-        ],
-        [
-          "skip",
-          "skip",
-          "6/8",
-          "75%且skipCount+1"
-        ],
-        [
-          "modify",
-          "今天success再改failure",
-          "6/9",
-          "67%"
-        ]
+        {
+          "rowId": "pending",
+          "处理": "未提交",
+          "分数": "6/8",
+          "百分比": "75%"
+        },
+        {
+          "rowId": "success",
+          "处理": "success",
+          "分数": "7/9",
+          "百分比": "78%"
+        },
+        {
+          "rowId": "failure",
+          "处理": "failure",
+          "分数": "6/9",
+          "百分比": "67%"
+        },
+        {
+          "rowId": "skip",
+          "处理": "skip",
+          "分数": "6/8",
+          "百分比": "75%且skipCount+1"
+        },
+        {
+          "rowId": "modify",
+          "处理": "今天success再改failure",
+          "分数": "6/9",
+          "百分比": "67%"
+        }
       ],
       "passingInstances": []
     },
@@ -2313,36 +2376,31 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "状态",
-          "截至"
-        ],
-        [
-          "running",
-          "运行中",
-          "today"
-        ],
-        [
-          "paused",
-          "暂停",
-          "today"
-        ],
-        [
-          "manual",
-          "手动归档",
-          "archiveOn"
-        ],
-        [
-          "natural",
-          "自然循环到期",
-          "endOn"
-        ],
-        [
-          "future",
-          "未来未开始",
-          "尚未开始而非倒置日期"
-        ]
+        {
+          "rowId": "running",
+          "状态": "运行中",
+          "截至": "today"
+        },
+        {
+          "rowId": "paused",
+          "状态": "暂停",
+          "截至": "today"
+        },
+        {
+          "rowId": "manual",
+          "状态": "手动归档",
+          "截至": "archiveOn"
+        },
+        {
+          "rowId": "natural",
+          "状态": "自然循环到期",
+          "截至": "endOn"
+        },
+        {
+          "rowId": "future",
+          "状态": "未来未开始",
+          "截至": "尚未开始而非倒置日期"
+        }
       ],
       "passingInstances": []
     },
@@ -2353,46 +2411,41 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "事件",
-          "连续"
-        ],
-        [
-          "pending",
-          "今日仍未提交",
-          "1"
-        ],
-        [
-          "success",
-          "今日success",
-          "2"
-        ],
-        [
-          "failure",
-          "今日failure",
-          "0"
-        ],
-        [
-          "skip",
-          "今日skip",
-          "0"
-        ],
-        [
-          "midnight",
-          "无记录跨至次日",
-          "0"
-        ],
-        [
-          "pause",
-          "暂停实际生效",
-          "0"
-        ],
-        [
-          "gap",
-          "自选星期之间无安排日",
-          "不因间隔减少"
-        ]
+        {
+          "rowId": "pending",
+          "事件": "今日仍未提交",
+          "连续": "1"
+        },
+        {
+          "rowId": "success",
+          "事件": "今日success",
+          "连续": "2"
+        },
+        {
+          "rowId": "failure",
+          "事件": "今日failure",
+          "连续": "0"
+        },
+        {
+          "rowId": "skip",
+          "事件": "今日skip",
+          "连续": "0"
+        },
+        {
+          "rowId": "midnight",
+          "事件": "无记录跨至次日",
+          "连续": "0"
+        },
+        {
+          "rowId": "pause",
+          "事件": "暂停实际生效",
+          "连续": "0"
+        },
+        {
+          "rowId": "gap",
+          "事件": "自选星期之间无安排日",
+          "连续": "不因间隔减少"
+        }
       ],
       "passingInstances": []
     },
@@ -2429,54 +2482,46 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "部分原因",
-          "此前连续",
-          "后续执行",
-          "结束前",
-          "后续连续"
-        ],
-        [
-          "starts",
-          "周中开始",
-          "0",
-          "下一完整周运行并达标",
-          "0",
-          "1"
-        ],
-        [
-          "pause",
-          "周中暂停",
-          "2",
-          "下周一恢复并完整达标",
-          "2",
-          "1"
-        ],
-        [
-          "resume",
-          "周中恢复",
-          "0",
-          "下一完整周运行并达标",
-          "0",
-          "1"
-        ],
-        [
-          "ends",
-          "周中自然结束",
-          "2",
-          "已归档，只读不再执行",
-          "2",
-          "0"
-        ],
-        [
-          "archive",
-          "周日17:00手动归档",
-          "2",
-          "已归档，只读不再执行",
-          "2",
-          "0"
-        ]
+        {
+          "rowId": "starts",
+          "部分原因": "周中开始",
+          "此前连续": "0",
+          "后续执行": "下一完整周运行并达标",
+          "结束前": "0",
+          "后续连续": "1"
+        },
+        {
+          "rowId": "pause",
+          "部分原因": "周中暂停",
+          "此前连续": "2",
+          "后续执行": "下周一恢复并完整达标",
+          "结束前": "2",
+          "后续连续": "1"
+        },
+        {
+          "rowId": "resume",
+          "部分原因": "周中恢复",
+          "此前连续": "0",
+          "后续执行": "下一完整周运行并达标",
+          "结束前": "0",
+          "后续连续": "1"
+        },
+        {
+          "rowId": "ends",
+          "部分原因": "周中自然结束",
+          "此前连续": "2",
+          "后续执行": "已归档，只读不再执行",
+          "结束前": "2",
+          "后续连续": "0"
+        },
+        {
+          "rowId": "archive",
+          "部分原因": "周日17:00手动归档",
+          "此前连续": "2",
+          "后续执行": "已归档，只读不再执行",
+          "结束前": "2",
+          "后续连续": "0"
+        }
       ],
       "passingInstances": []
     },
@@ -2500,21 +2545,16 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "方式",
-          "完整性"
-        ],
-        [
-          "manual",
-          "周日17:00手动归档",
-          "partial"
-        ],
-        [
-          "natural",
-          "结束日周日，次日00:00自然归档",
-          "full达标"
-        ]
+        {
+          "rowId": "manual",
+          "方式": "周日17:00手动归档",
+          "完整性": "partial"
+        },
+        {
+          "rowId": "natural",
+          "方式": "结束日周日，次日00:00自然归档",
+          "完整性": "full达标"
+        }
       ],
       "passingInstances": []
     },
@@ -2525,42 +2565,36 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "C",
-          "T",
-          "标记"
-        ],
-        [
-          "all",
-          "5",
-          "5",
-          "绿色✓"
-        ],
-        [
-          "partial",
-          "2",
-          "5",
-          "黄色2/5"
-        ],
-        [
-          "none_done",
-          "0",
-          "1",
-          "黄色0/1"
-        ],
-        [
-          "empty",
-          "0",
-          "0",
-          "空白"
-        ],
-        [
-          "large",
-          "99",
-          "100",
-          "完整黄色99/100"
-        ]
+        {
+          "rowId": "all",
+          "C": "5",
+          "T": "5",
+          "标记": "绿色✓"
+        },
+        {
+          "rowId": "partial",
+          "C": "2",
+          "T": "5",
+          "标记": "黄色2/5"
+        },
+        {
+          "rowId": "none_done",
+          "C": "0",
+          "T": "1",
+          "标记": "黄色0/1"
+        },
+        {
+          "rowId": "empty",
+          "C": "0",
+          "T": "0",
+          "标记": "空白"
+        },
+        {
+          "rowId": "large",
+          "C": "99",
+          "T": "100",
+          "标记": "完整黄色99/100"
+        }
       ],
       "passingInstances": []
     },
@@ -2597,22 +2631,18 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "结果"
-        ],
-        [
-          "success",
-          "success"
-        ],
-        [
-          "failure",
-          "failure"
-        ],
-        [
-          "skip",
-          "skip"
-        ]
+        {
+          "rowId": "success",
+          "结果": "success"
+        },
+        {
+          "rowId": "failure",
+          "结果": "failure"
+        },
+        {
+          "rowId": "skip",
+          "结果": "skip"
+        }
       ],
       "passingInstances": []
     },
@@ -2636,26 +2666,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "截止",
-          "预期"
-        ],
-        [
-          "past",
-          "2026-10-08",
-          "保留10/08未完成1项"
-        ],
-        [
-          "today",
-          "2026-10-09",
-          "取消10/09空安排"
-        ],
-        [
-          "future",
-          "2026-10-10",
-          "取消10/10未来安排"
-        ]
+        {
+          "rowId": "past",
+          "截止": "2026-10-08",
+          "预期": "保留10/08未完成1项"
+        },
+        {
+          "rowId": "today",
+          "截止": "2026-10-09",
+          "预期": "取消10/09空安排"
+        },
+        {
+          "rowId": "future",
+          "截止": "2026-10-10",
+          "预期": "取消10/10未来安排"
+        }
       ],
       "passingInstances": []
     },
@@ -2731,26 +2756,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "数据条件",
-          "预期"
-        ],
-        [
-          "loading",
-          "读取尚未完成",
-          "加载态"
-        ],
-        [
-          "empty",
-          "成功读到空库",
-          "真实空态和创建入口"
-        ],
-        [
-          "error",
-          "初始化/读库失败",
-          "无法读取本机数据及重试"
-        ]
+        {
+          "rowId": "loading",
+          "数据条件": "读取尚未完成",
+          "预期": "加载态"
+        },
+        {
+          "rowId": "empty",
+          "数据条件": "成功读到空库",
+          "预期": "真实空态和创建入口"
+        },
+        {
+          "rowId": "error",
+          "数据条件": "初始化/读库失败",
+          "预期": "无法读取本机数据及重试"
+        }
       ],
       "passingInstances": []
     },
@@ -2826,31 +2846,26 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "前台层",
-          "预期"
-        ],
-        [
-          "keyboard",
-          "键盘打开",
-          "先关键盘"
-        ],
-        [
-          "modal",
-          "日期/筛选弹层打开",
-          "先关弹层"
-        ],
-        [
-          "dirty",
-          "无浮层且有变更",
-          "继续编辑/放弃确认"
-        ],
-        [
-          "clean",
-          "无变更",
-          "直接返回"
-        ]
+        {
+          "rowId": "keyboard",
+          "前台层": "键盘打开",
+          "预期": "先关键盘"
+        },
+        {
+          "rowId": "modal",
+          "前台层": "日期/筛选弹层打开",
+          "预期": "先关弹层"
+        },
+        {
+          "rowId": "dirty",
+          "前台层": "无浮层且有变更",
+          "预期": "继续编辑/放弃确认"
+        },
+        {
+          "rowId": "clean",
+          "前台层": "无变更",
+          "预期": "直接返回"
+        }
       ],
       "passingInstances": []
     },
@@ -2861,21 +2876,16 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "版本条件",
-          "版本展示"
-        ],
-        [
-          "valid",
-          "原生字段可取",
-          "实际versionName/versionCode"
-        ],
-        [
-          "null",
-          "原生字段null",
-          "版本不可用"
-        ]
+        {
+          "rowId": "valid",
+          "版本条件": "原生字段可取",
+          "版本展示": "实际versionName/versionCode"
+        },
+        {
+          "rowId": "null",
+          "版本条件": "原生字段null",
+          "版本展示": "版本不可用"
+        }
       ],
       "passingInstances": []
     },
@@ -2899,60 +2909,54 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "API",
-          "宽",
-          "字号"
-        ],
-        [
-          "M1",
-          "29",
-          "360",
-          "1.0"
-        ],
-        [
-          "M2",
-          "29",
-          "360",
-          "2.0"
-        ],
-        [
-          "M3",
-          "29",
-          "393",
-          "1.0"
-        ],
-        [
-          "M4",
-          "29",
-          "393",
-          "2.0"
-        ],
-        [
-          "M5",
-          "36",
-          "360",
-          "1.0"
-        ],
-        [
-          "M6",
-          "36",
-          "360",
-          "2.0"
-        ],
-        [
-          "M7",
-          "36",
-          "393",
-          "1.0"
-        ],
-        [
-          "M8",
-          "36",
-          "393",
-          "2.0"
-        ]
+        {
+          "rowId": "M1",
+          "API": "29",
+          "宽": "360",
+          "字号": "1.0"
+        },
+        {
+          "rowId": "M2",
+          "API": "29",
+          "宽": "360",
+          "字号": "2.0"
+        },
+        {
+          "rowId": "M3",
+          "API": "29",
+          "宽": "393",
+          "字号": "1.0"
+        },
+        {
+          "rowId": "M4",
+          "API": "29",
+          "宽": "393",
+          "字号": "2.0"
+        },
+        {
+          "rowId": "M5",
+          "API": "36",
+          "宽": "360",
+          "字号": "1.0"
+        },
+        {
+          "rowId": "M6",
+          "API": "36",
+          "宽": "360",
+          "字号": "2.0"
+        },
+        {
+          "rowId": "M7",
+          "API": "36",
+          "宽": "393",
+          "字号": "1.0"
+        },
+        {
+          "rowId": "M8",
+          "API": "36",
+          "宽": "393",
+          "字号": "2.0"
+        }
       ],
       "passingInstances": []
     },
@@ -2976,18 +2980,14 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "导航"
-        ],
-        [
-          "gesture",
-          "手势导航"
-        ],
-        [
-          "three_button",
-          "三键导航"
-        ]
+        {
+          "rowId": "gesture",
+          "导航": "手势导航"
+        },
+        {
+          "rowId": "three_button",
+          "导航": "三键导航"
+        }
       ],
       "passingInstances": []
     },
@@ -3089,31 +3089,26 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "截止",
-          "预期"
-        ],
-        [
-          "today",
-          "2026-10-09",
-          "允许"
-        ],
-        [
-          "future",
-          "2026-10-10",
-          "允许"
-        ],
-        [
-          "past",
-          "2026-10-08",
-          "拒绝"
-        ],
-        [
-          "empty",
-          "空值",
-          "拒绝必填"
-        ]
+        {
+          "rowId": "today",
+          "截止": "2026-10-09",
+          "预期": "允许"
+        },
+        {
+          "rowId": "future",
+          "截止": "2026-10-10",
+          "预期": "允许"
+        },
+        {
+          "rowId": "past",
+          "截止": "2026-10-08",
+          "预期": "拒绝"
+        },
+        {
+          "rowId": "empty",
+          "截止": "空值",
+          "预期": "拒绝必填"
+        }
       ],
       "passingInstances": [
         {
@@ -3283,7 +3278,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC105",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T10-35-52-890Z/AC105-default-M3/result.json",
+          "recordSha256": "f3749c4d5b8ffafb9534d61550273739930b126e3f3507cb1983b69392cea70b"
+        }
+      ]
     },
     {
       "caseId": "AC106",
@@ -3317,6 +3321,14 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-12-30-566Z/AC107-default-M7/result.json",
           "recordSha256": "83e139e945fef2d017c4bb5d5cb85b32afa5fbdc9b9fa0473f50186feb2232ad"
+        },
+        {
+          "caseId": "AC107",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T09-52-44-315Z/AC107-default-M3/result.json",
+          "recordSha256": "d7c08bfab7d56eb4566cbcaa12301e0569b301680f1c82101483713b05dc9148"
         }
       ]
     },
@@ -3327,26 +3339,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "候选",
-          "预期"
-        ],
-        [
-          "valid",
-          "Asia/Shanghai",
-          "成功并持久保存"
-        ],
-        [
-          "null",
-          "null",
-          "初始化失败且无zone"
-        ],
-        [
-          "invalid",
-          "Invalid/Zone",
-          "初始化失败且无zone"
-        ]
+        {
+          "rowId": "valid",
+          "候选": "Asia/Shanghai",
+          "预期": "成功并持久保存"
+        },
+        {
+          "rowId": "null",
+          "候选": "null",
+          "预期": "初始化失败且无zone"
+        },
+        {
+          "rowId": "invalid",
+          "候选": "Invalid/Zone",
+          "预期": "初始化失败且无zone"
+        }
       ],
       "passingInstances": [
         {
@@ -3375,14 +3382,6 @@
         },
         {
           "caseId": "AC108",
-          "rowId": "shared-A3",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T07-54-32-766Z/AC108-midnight-cache-api36/result.json",
-          "recordSha256": "c81f6c5fec063fe58a99fe53fe3030bacc28ee3cd35d54919761311f36cea181"
-        },
-        {
-          "caseId": "AC108",
           "rowId": "valid",
           "configId": "M3",
           "status": "PASS",
@@ -3404,14 +3403,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-18-06-046Z/AC108-invalid-api29/result.json",
           "recordSha256": "c208ce812b5ff2c6ee8e81f69b22076bc913aad9184e30fd24ac41596bb79311"
-        },
-        {
-          "caseId": "AC108",
-          "rowId": "shared-A3",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-18-12-134Z/AC108-midnight-cache-api29/result.json",
-          "recordSha256": "10e1ca96543f910f0f548ec00fbbead5c796cc26c9b7963687b94140e69880c0"
         }
       ]
     },
@@ -3422,46 +3413,41 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "输入",
-          "预期"
-        ],
-        [
-          "mask0",
-          "新建weekdayMask=0",
-          "VALIDATION_FAILED且无新计划"
-        ],
-        [
-          "weekday",
-          "星期改周一/五",
-          "10/10生效版本"
-        ],
-        [
-          "weekly",
-          "3改5再改4",
-          "10/12只生效4"
-        ],
-        [
-          "cancel",
-          "pending5保存回current3",
-          "取消pending，仍3"
-        ],
-        [
-          "name",
-          "只改名称，pending5",
-          "名称即时且pending5保留"
-        ],
-        [
-          "paused",
-          "暂停时改名称",
-          "PAUSED且事实不变"
-        ],
-        [
-          "due",
-          "逾期截止10/08改10/15",
-          "立即待完成且旧版本保留"
-        ]
+        {
+          "rowId": "mask0",
+          "输入": "新建weekdayMask=0",
+          "预期": "VALIDATION_FAILED且无新计划"
+        },
+        {
+          "rowId": "weekday",
+          "输入": "星期改周一/五",
+          "预期": "10/10生效版本"
+        },
+        {
+          "rowId": "weekly",
+          "输入": "3改5再改4",
+          "预期": "10/12只生效4"
+        },
+        {
+          "rowId": "cancel",
+          "输入": "pending5保存回current3",
+          "预期": "取消pending，仍3"
+        },
+        {
+          "rowId": "name",
+          "输入": "只改名称，pending5",
+          "预期": "名称即时且pending5保留"
+        },
+        {
+          "rowId": "paused",
+          "输入": "暂停时改名称",
+          "预期": "PAUSED且事实不变"
+        },
+        {
+          "rowId": "due",
+          "输入": "逾期截止10/08改10/15",
+          "预期": "立即待完成且旧版本保留"
+        }
       ],
       "passingInstances": [
         {
@@ -3522,14 +3508,6 @@
         },
         {
           "caseId": "AC109",
-          "rowId": "shared-readonly-and-immutable",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T08-23-43-432Z/AC109-shared-readonly-and-immutable-api36/result.json",
-          "recordSha256": "6febfff12ac809cce6dfbc06a23aea5c25a2f64897a89b0128bb025ed7627c6a"
-        },
-        {
-          "caseId": "AC109",
           "rowId": "mask0",
           "configId": "M3",
           "status": "PASS",
@@ -3583,14 +3561,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-19-31-536Z/AC109-due-api29/result.json",
           "recordSha256": "ea5aca6fb224b3f0f44bc2baac8c4fff4e27b031f21d292f74141133b3a3ca02"
-        },
-        {
-          "caseId": "AC109",
-          "rowId": "shared-readonly-and-immutable",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-19-35-717Z/AC109-shared-readonly-and-immutable-api29/result.json",
-          "recordSha256": "fe935d37c3a457e28a141a8fd28455141b6b07916e12dc26cf9590f2fb5f4df5"
         }
       ]
     },
@@ -3601,42 +3571,36 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "事件",
-          "观察时点",
-          "预期"
-        ],
-        [
-          "pause",
-          "10/09申请暂停",
-          "10/10 00:00",
-          "paused，旧stage结束10/10"
-        ],
-        [
-          "resume",
-          "10/09已暂停申请恢复",
-          "10/10 00:00",
-          "active，新stage开始10/10"
-        ],
-        [
-          "cancel",
-          "10/09申请后当天取消",
-          "10/10 00:00",
-          "原active阶段未关闭"
-        ],
-        [
-          "manual",
-          "10/09立即归档",
-          "10/09提交后",
-          "archived，边界真实提交时刻"
-        ],
-        [
-          "natural",
-          "endOn=10/09",
-          "10/20离线重启",
-          "archived，边界10/10 00:00"
-        ]
+        {
+          "rowId": "pause",
+          "事件": "10/09申请暂停",
+          "观察时点": "10/10 00:00",
+          "预期": "paused，旧stage结束10/10"
+        },
+        {
+          "rowId": "resume",
+          "事件": "10/09已暂停申请恢复",
+          "观察时点": "10/10 00:00",
+          "预期": "active，新stage开始10/10"
+        },
+        {
+          "rowId": "cancel",
+          "事件": "10/09申请后当天取消",
+          "观察时点": "10/10 00:00",
+          "预期": "原active阶段未关闭"
+        },
+        {
+          "rowId": "manual",
+          "事件": "10/09立即归档",
+          "观察时点": "10/09提交后",
+          "预期": "archived，边界真实提交时刻"
+        },
+        {
+          "rowId": "natural",
+          "事件": "endOn=10/09",
+          "观察时点": "10/20离线重启",
+          "预期": "archived，边界10/10 00:00"
+        }
       ],
       "passingInstances": [
         {
@@ -3681,14 +3645,6 @@
         },
         {
           "caseId": "AC110",
-          "rowId": "shared-priority-and-rejection",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T08-07-24-486Z/AC110-shared-priority-and-rejection-api36/result.json",
-          "recordSha256": "846c506e830c904bfa424c39eb0ebd2f5ff3ae607a0f19eaadfdcf3b16d70b1d"
-        },
-        {
-          "caseId": "AC110",
           "rowId": "pause",
           "configId": "M3",
           "status": "PASS",
@@ -3726,14 +3682,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-20-44-860Z/AC110-natural-api29/result.json",
           "recordSha256": "50a0cf1cc425f670c715204a1c1d320d5921948a526e1fa1873c67ab52c8baa2"
-        },
-        {
-          "caseId": "AC110",
-          "rowId": "shared-priority-and-rejection",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-20-49-645Z/AC110-shared-priority-and-rejection-api29/result.json",
-          "recordSha256": "c73dd1375bc1bcc49eadfd32cafcc7796df154c2d1559a453be834a6f4c9da1a"
         }
       ]
     },
@@ -3744,46 +3692,41 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "事实",
-          "预期"
-        ],
-        [
-          "today",
-          "今天ordinary且active",
-          "当日修正允许"
-        ],
-        [
-          "backfill",
-          "当前stage昨天合法空日",
-          "新增backfill后READ_ONLY"
-        ],
-        [
-          "history",
-          "昨天ordinary",
-          "READ_ONLY"
-        ],
-        [
-          "paused",
-          "当前paused的历史空日",
-          "PAUSED"
-        ],
-        [
-          "archived",
-          "当前archived的历史空日",
-          "ARCHIVED"
-        ],
-        [
-          "oldstage",
-          "恢复后旧stage空日",
-          "OLD_STAGE"
-        ],
-        [
-          "future",
-          "目标明天",
-          "DATE_INELIGIBLE"
-        ]
+        {
+          "rowId": "today",
+          "事实": "今天ordinary且active",
+          "预期": "当日修正允许"
+        },
+        {
+          "rowId": "backfill",
+          "事实": "当前stage昨天合法空日",
+          "预期": "新增backfill后READ_ONLY"
+        },
+        {
+          "rowId": "history",
+          "事实": "昨天ordinary",
+          "预期": "READ_ONLY"
+        },
+        {
+          "rowId": "paused",
+          "事实": "当前paused的历史空日",
+          "预期": "PAUSED"
+        },
+        {
+          "rowId": "archived",
+          "事实": "当前archived的历史空日",
+          "预期": "ARCHIVED"
+        },
+        {
+          "rowId": "oldstage",
+          "事实": "恢复后旧stage空日",
+          "预期": "OLD_STAGE"
+        },
+        {
+          "rowId": "future",
+          "事实": "目标明天",
+          "预期": "DATE_INELIGIBLE"
+        }
       ],
       "passingInstances": [
         {
@@ -3844,14 +3787,6 @@
         },
         {
           "caseId": "AC111",
-          "rowId": "shared-immutable-and-nonselected",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T08-08-41-514Z/AC111-shared-immutable-and-nonselected-api36/result.json",
-          "recordSha256": "c6a8b8427b663272b9db9d38b33aebe7231796560af239db5301e882fe9572a9"
-        },
-        {
-          "caseId": "AC111",
           "rowId": "today",
           "configId": "M3",
           "status": "PASS",
@@ -3905,14 +3840,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-21-22-373Z/AC111-future-api29/result.json",
           "recordSha256": "70dc5ba921f4d7ad304bcb07a3812e6cf25650afdb23fea16076b531197008eb"
-        },
-        {
-          "caseId": "AC111",
-          "rowId": "shared-immutable-and-nonselected",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-21-26-392Z/AC111-shared-immutable-and-nonselected-api29/result.json",
-          "recordSha256": "75998d134ca25f29083d638f927f1114f9bf55686e5e65d0c0f9cec4f7f8ebb7"
         }
       ]
     },
@@ -3923,42 +3850,36 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "条件",
-          "结果",
-          "写入"
-        ],
-        [
-          "day",
-          "首次确认10/09保存10/10",
-          "DAY_CHANGED",
-          "无用户记录"
-        ],
-        [
-          "replay",
-          "同ID同摘要成功后重试",
-          "OK replayed=true",
-          "原记录和receipt各1"
-        ],
-        [
-          "revision",
-          "最新expectedPlanRevision、旧expectedRecordRevision",
-          "RECORD_CHANGED",
-          "原值不变"
-        ],
-        [
-          "duplicate",
-          "不同ID争同日，expectedPlanRevision匹配最新",
-          "RECORD_EXISTS",
-          "同日仅1条"
-        ],
-        [
-          "rollback",
-          "提交前注入IO错误",
-          "STORAGE_IO",
-          "业务/receipt/revision全部回滚"
-        ]
+        {
+          "rowId": "day",
+          "条件": "首次确认10/09保存10/10",
+          "结果": "DAY_CHANGED",
+          "写入": "无用户记录"
+        },
+        {
+          "rowId": "replay",
+          "条件": "同ID同摘要成功后重试",
+          "结果": "OK replayed=true",
+          "写入": "原记录和receipt各1"
+        },
+        {
+          "rowId": "revision",
+          "条件": "最新expectedPlanRevision、旧expectedRecordRevision",
+          "结果": "RECORD_CHANGED",
+          "写入": "原值不变"
+        },
+        {
+          "rowId": "duplicate",
+          "条件": "不同ID争同日，expectedPlanRevision匹配最新",
+          "结果": "RECORD_EXISTS",
+          "写入": "同日仅1条"
+        },
+        {
+          "rowId": "rollback",
+          "条件": "提交前注入IO错误",
+          "结果": "STORAGE_IO",
+          "写入": "业务/receipt/revision全部回滚"
+        }
       ],
       "passingInstances": [
         {
@@ -4050,36 +3971,30 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "今日结果",
-          "比例",
-          "跳过增量"
-        ],
-        [
-          "pending",
-          "空",
-          "6/8",
-          "0"
-        ],
-        [
-          "success",
-          "success",
-          "7/9",
-          "0"
-        ],
-        [
-          "failure",
-          "failure",
-          "6/9",
-          "0"
-        ],
-        [
-          "skip",
-          "skip",
-          "6/8",
-          "1"
-        ]
+        {
+          "rowId": "pending",
+          "今日结果": "空",
+          "比例": "6/8",
+          "跳过增量": "0"
+        },
+        {
+          "rowId": "success",
+          "今日结果": "success",
+          "比例": "7/9",
+          "跳过增量": "0"
+        },
+        {
+          "rowId": "failure",
+          "今日结果": "failure",
+          "比例": "6/9",
+          "跳过增量": "0"
+        },
+        {
+          "rowId": "skip",
+          "今日结果": "skip",
+          "比例": "6/8",
+          "跳过增量": "1"
+        }
       ],
       "passingInstances": [
         {
@@ -4116,14 +4031,6 @@
         },
         {
           "caseId": "AC113",
-          "rowId": "shared-unknown-zero-stages",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T08-09-17-114Z/AC113-shared-unknown-zero-stages-api36/result.json",
-          "recordSha256": "956dba83d0d70a6e98312bad35e9a374e879f8baba00cedd16ea2392bcdfb418"
-        },
-        {
-          "caseId": "AC113",
           "rowId": "pending",
           "configId": "M3",
           "status": "PASS",
@@ -4153,14 +4060,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-21-41-335Z/AC113-skip-api29/result.json",
           "recordSha256": "4fe45233e367688dbd1d307e497578b18a334cba8db9b228f2c971bd970f4122"
-        },
-        {
-          "caseId": "AC113",
-          "rowId": "shared-unknown-zero-stages",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-21-45-006Z/AC113-shared-unknown-zero-stages-api29/result.json",
-          "recordSha256": "2db9caffe4cf7a6e88417b5024ce26e4649e56786a9ab1f1202fa9583a6e46c8"
         }
       ]
     },
@@ -4171,36 +4070,31 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "事实",
-          "预期"
-        ],
-        [
-          "over",
-          "本周4成功日，未结束",
-          "progress4/3 bar1，历史率不变"
-        ],
-        [
-          "partial",
-          "已有连续2，本周三暂停",
-          "结束前2，结束后0，排除周率分母"
-        ],
-        [
-          "whole",
-          "达标A、暂停整周B、达标C",
-          "B结束0，C结束1，B排除周率"
-        ],
-        [
-          "natural",
-          "周一运行至周日end且3/3",
-          "完整周，率分子分母各+1"
-        ],
-        [
-          "manual",
-          "同上但周日17点归档",
-          "部分周，率分母不增，周末连续0"
-        ]
+        {
+          "rowId": "over",
+          "事实": "本周4成功日，未结束",
+          "预期": "progress4/3 bar1，历史率不变"
+        },
+        {
+          "rowId": "partial",
+          "事实": "已有连续2，本周三暂停",
+          "预期": "结束前2，结束后0，排除周率分母"
+        },
+        {
+          "rowId": "whole",
+          "事实": "达标A、暂停整周B、达标C",
+          "预期": "B结束0，C结束1，B排除周率"
+        },
+        {
+          "rowId": "natural",
+          "事实": "周一运行至周日end且3/3",
+          "预期": "完整周，率分子分母各+1"
+        },
+        {
+          "rowId": "manual",
+          "事实": "同上但周日17点归档",
+          "预期": "部分周，率分母不增，周末连续0"
+        }
       ],
       "passingInstances": [
         {
@@ -4292,36 +4186,31 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "操作",
-          "预期"
-        ],
-        [
-          "ontime",
-          "10/10登记当天完成",
-          "business10/10，按时完成，10/11归档"
-        ],
-        [
-          "late",
-          "10/11登记当天完成",
-          "business10/11，迟完成，10/12归档"
-        ],
-        [
-          "history",
-          "10/11补报10/09完成",
-          "business10/09，按时完成，立即归档"
-        ],
-        [
-          "fail",
-          "10/11登记失败",
-          "business10/11，failed，10/12归档"
-        ],
-        [
-          "cancel",
-          "10/11取消",
-          "business10/11，cancelled，10/12归档"
-        ]
+        {
+          "rowId": "ontime",
+          "操作": "10/10登记当天完成",
+          "预期": "business10/10，按时完成，10/11归档"
+        },
+        {
+          "rowId": "late",
+          "操作": "10/11登记当天完成",
+          "预期": "business10/11，迟完成，10/12归档"
+        },
+        {
+          "rowId": "history",
+          "操作": "10/11补报10/09完成",
+          "预期": "business10/09，按时完成，立即归档"
+        },
+        {
+          "rowId": "fail",
+          "操作": "10/11登记失败",
+          "预期": "business10/11，failed，10/12归档"
+        },
+        {
+          "rowId": "cancel",
+          "操作": "10/11取消",
+          "预期": "business10/11，cancelled，10/12归档"
+        }
       ],
       "passingInstances": [
         {
@@ -4366,14 +4255,6 @@
         },
         {
           "caseId": "AC115",
-          "rowId": "shared-ranges-and-corrections",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T08-12-31-467Z/AC115-shared-ranges-and-corrections-api36/result.json",
-          "recordSha256": "7159fbd700645f467c3963e083c6328b25559cd63cb21e65048a8267f6c080b5"
-        },
-        {
-          "caseId": "AC115",
           "rowId": "ontime",
           "configId": "M3",
           "status": "PASS",
@@ -4411,14 +4292,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-22-14-806Z/AC115-cancel-api29/result.json",
           "recordSha256": "df9ed8d4f77e9254a53d1a304916c74745bf5f4306bf4ef38acbc8f49b43e5c9"
-        },
-        {
-          "caseId": "AC115",
-          "rowId": "shared-ranges-and-corrections",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-22-20-390Z/AC115-shared-ranges-and-corrections-api29/result.json",
-          "recordSha256": "7ae2acf54b9cd08798ce2e15cb3f30b8469bc04810fb2eb07e7edd4ff466f60b"
         }
       ]
     },
@@ -4429,36 +4302,31 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": false,
       "exampleRows": [
-        [
-          "rowId",
-          "数据集合",
-          "预期"
-        ],
-        [
-          "mixed",
-          "日期上两成功、一失败、一跳过、一固定未记录",
-          "T5 C2，不完整2/5"
-        ],
-        [
-          "weekly0",
-          "仅weekly且该日无记录",
-          "T0 C0"
-        ],
-        [
-          "weeklyskip",
-          "weekly已有skip",
-          "T1 C0"
-        ],
-        [
-          "once",
-          "10/10截止，10/11补报10/09完成",
-          "10/09为1/1；10/10旧安排移除"
-        ],
-        [
-          "archive",
-          "10/09归档未终结once且due10/10",
-          "10/10无安排"
-        ]
+        {
+          "rowId": "mixed",
+          "数据集合": "日期上两成功、一失败、一跳过、一固定未记录",
+          "预期": "T5 C2，不完整2/5"
+        },
+        {
+          "rowId": "weekly0",
+          "数据集合": "仅weekly且该日无记录",
+          "预期": "T0 C0"
+        },
+        {
+          "rowId": "weeklyskip",
+          "数据集合": "weekly已有skip",
+          "预期": "T1 C0"
+        },
+        {
+          "rowId": "once",
+          "数据集合": "10/10截止，10/11补报10/09完成",
+          "预期": "10/09为1/1；10/10旧安排移除"
+        },
+        {
+          "rowId": "archive",
+          "数据集合": "10/09归档未终结once且due10/10",
+          "预期": "10/10无安排"
+        }
       ],
       "passingInstances": [
         {
@@ -4503,14 +4371,6 @@
         },
         {
           "caseId": "AC116",
-          "rowId": "shared-stable-pagination",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T08-13-47-082Z/AC116-shared-stable-pagination-api36/result.json",
-          "recordSha256": "86479e3a5197c01e176fc4511a1290957082f53011ca45b44921bc13af4b3836"
-        },
-        {
-          "caseId": "AC116",
           "rowId": "mixed",
           "configId": "M3",
           "status": "PASS",
@@ -4548,14 +4408,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T09-22-50-207Z/AC116-archive-api29/result.json",
           "recordSha256": "08cea0c82d45094d44bd4192fcb87912fa364bcec3d2b312e9e45848d2b4b1ab"
-        },
-        {
-          "caseId": "AC116",
-          "rowId": "shared-stable-pagination",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T09-22-54-301Z/AC116-shared-stable-pagination-api29/result.json",
-          "recordSha256": "84a39f4c2aacf8bce1df09463f09953b8fd3cc1028672a8286bdbd9e9c090e3a"
         }
       ]
     },
@@ -4612,22 +4464,6 @@
           "status": "PASS",
           "record": "resource/acceptance/runs/2026-10-11T03-36-03-042Z/AC119-default-api29-393dp-font1/result.json",
           "recordSha256": "2fbaceeff4f350dbc5f101d6aaef3eb02b0f81ffd4669efc286463d2b5c93d29"
-        },
-        {
-          "caseId": "AC119",
-          "rowId": "all-required-rows",
-          "configId": "M3",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-113Z/AC119-foundation-api29/result.json",
-          "recordSha256": "d7e03a34c59c794614ba2f874ae15c5e4888cb20f3988143ee4d898d322dbbfd"
-        },
-        {
-          "caseId": "AC119",
-          "rowId": "all-required-rows",
-          "configId": "M7",
-          "status": "PASS",
-          "record": "resource/acceptance/runs/2026-10-11T04-01-10-687Z/AC119-foundation-api36/result.json",
-          "recordSha256": "5c9fab6514e919336a4e45297b87638c0b861ce3b566023213a0c9cdd9ffc0a8"
         }
       ]
     },
@@ -4638,26 +4474,21 @@
       "parentStatus": "NOT_RUN",
       "matrixCore": true,
       "exampleRows": [
-        [
-          "rowId",
-          "类型",
-          "规则"
-        ],
-        [
-          "fixed",
-          "fixed",
-          "手动周二/四，开始10/09"
-        ],
-        [
-          "weekly",
-          "weekly",
-          "目标3，开始10/09"
-        ],
-        [
-          "one",
-          "one_time",
-          "截止10/10，仅do"
-        ]
+        {
+          "rowId": "fixed",
+          "类型": "fixed",
+          "规则": "手动周二/四，开始10/09"
+        },
+        {
+          "rowId": "weekly",
+          "类型": "weekly",
+          "规则": "目标3，开始10/09"
+        },
+        {
+          "rowId": "one",
+          "类型": "one_time",
+          "规则": "截止10/10，仅do"
+        }
       ],
       "passingInstances": [
         {

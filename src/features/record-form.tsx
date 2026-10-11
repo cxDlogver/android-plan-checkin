@@ -19,8 +19,8 @@ export default function RecordForm({planId,businessOn,recordId,preset}:{planId:s
   const change=(callback:()=>void)=>{if(busy)return;callback();setDirty(true);frozen.current=null;setError(null);setFields({});};
   async function save(){if(!plan||busy)return;setFields({});if(!result){setError('VALIDATION_FAILED');return;}
     if(!frozen.current){
-      if(!record&&on<snapshot.today&&!await confirm(plan.type==='one_time'?'确认历史完成补报':'确认补记',plan.type==='one_time'?`${on} 的完成结果保存后将立即归档，永久只读。`:`${on} 的补记保存后立即只读，不能修改或撤回。`))return;
-      if(!record&&plan.direction==='avoid'&&result==='success'&&!await confirm('确认截至当前的情况','你主动确认截至目前没有发生目标行为；当天如果发生，仍需修改为失败。'))return;
+      if(!record&&confirmedToday.current===snapshot.today&&on<snapshot.today&&(plan.type!=='one_time'||result==='completed')&&!await confirm(plan.type==='one_time'?'确认历史完成补报':'确认补记',plan.type==='one_time'?`${on} 的完成结果保存后将立即归档，永久只读。`:`${on} 的补记保存后立即只读，不能修改或撤回。`))return;
+      if(!record&&confirmedToday.current===snapshot.today&&plan.direction==='avoid'&&result==='success'&&!await confirm('确认截至当前的情况','你主动确认截至目前没有发生目标行为；当天如果发生，仍需修改为失败。'))return;
       const common={planId:plan.id,expectedPlanRevision:revisions.current.plan,note};
       const first={confirmedToday:confirmedToday.current,confirmedEntryKind:on===confirmedToday.current?'ordinary':'backfill'};
       frozen.current=app.envelope(plan.type==='one_time'?(record?'ModifyOneTimeResult':'SubmitOneTimeResult'):(record?'ModifyCycleRecord':'SubmitCycleRecord'),plan.type==='one_time'?{...common,resultId:record?.id||objectId.current,outcome:result,...(record?{expectedRecordRevision:revisions.current.record}:{...first,actualCompletedOn:result==='completed'?on:null})}:{...common,recordId:record?.id||objectId.current,result,...(record?{expectedRecordRevision:revisions.current.record}:{...first,businessOn:on})});

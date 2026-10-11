@@ -1,7 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { AppState, ActivityIndicator, View } from 'react-native';
+import { AppState, ActivityIndicator, Modal, View } from 'react-native';
 import * as Crypto from 'expo-crypto';
-import { now } from '@verification/runtime';
+import { now, attachReadInitialization } from '@verification/runtime';
 import { AppService, bootstrap } from '../application/service';
 import { CommandKind, CommandResult, Envelope, Snapshot } from '../domain/model';
 import { businessToday } from '../domain/date';
@@ -19,8 +19,9 @@ export function AppProvider({children}:{children:React.ReactNode}){
   useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;};},[]);
   useEffect(()=>{let canceled=false;setError(null);bootstrap().then(async next=>{const current=await next.snapshot();if(!canceled){setService(next);setSnapshot(current);}}).catch(failure=>{if(!canceled)setError(failure?.code||'INIT_FAILED');});return()=>{canceled=true;};},[attempt]);
   const refresh=useCallback(async(clearPins=false)=>{if(!service)return;if(clearPins)setPins({});queries.current.invalidate();const sequence=++request.current;try{const current=await service.snapshot();if(mounted.current&&sequence===request.current){setSnapshot(current);setError(null);}return current;}catch(failure){if(mounted.current)setError((failure as {code?:string})?.code||'STORAGE_IO');}},[service]);
+  useEffect(()=>{if(service)attachReadInitialization(async()=>{setSnapshot(null);await refresh();});},[service,refresh]);
   useEffect(()=>{if(!snapshot||!service)return;const listener=AppState.addEventListener('change',state=>{if(state==='active')void refresh();});const timer=setInterval(()=>{if(AppState.currentState==='active'&&businessToday(now(),snapshot.zone)!==snapshot.today)void refresh();},1000);return()=>{listener.remove();clearInterval(timer);};},[snapshot?.today,snapshot?.zone,service,refresh]);
   if(!snapshot||!service)return <View style={{flex:1,justifyContent:'center',padding:24,gap:20}}>{error?<><Body strong>{errorMessage(error)}</Body><Button title="重试初始化" testID="error.retry" onPress={()=>setAttempt(value=>value+1)}/></>:<><ActivityIndicator/><Body>正在加载本机数据…</Body></>}</View>;
-  const value:ContextValue={service,queries:queries.current,snapshot,error,refresh,pins,pin:(planId,section,index)=>setPins(old=>({...old,[planId]:{section,index}})),clearPins:()=>setPins({}),envelope:(kind,payload)=>({commandId:Crypto.randomUUID(),issuedAtMs:now(),kind,payload}),execute:async command=>{const result=await service.execute(command);await refresh();return result;}};
-  return <Context.Provider value={value}>{children}</Context.Provider>;
+  const value:ContextValue={service,queries:queries.current,snapshot,error,refresh,pins,pin:(planId,section,index)=>setPins(old=>({...old,[planId]:{section,index}})),clearPins:()=>setPins({}),envelope:(kind,payload)=>({commandId:Crypto.randomUUID(),issuedAtMs:now(),kind,payload}),execute:async command=>{if(error)return {ok:false,code:'STORAGE_IO'};const result=await service.execute(command);await refresh();return result;}};
+  return <Context.Provider value={value}>{children}<Modal visible={!!error} transparent onRequestClose={()=>{}}><View style={{flex:1,justifyContent:'center',padding:20,backgroundColor:'#0008'}}><View style={{padding:20,gap:16,backgroundColor:'#FAFBFC'}}><Body title accessibilityRole="alert">无法读取本机数据</Body><Body>原数据和当前输入已保留。重新读取成功后才能继续操作。</Body><Button title="重试读取" testID="error.readRetry" onPress={()=>void refresh()}/></View></View></Modal></Context.Provider>;
 }

@@ -1,0 +1,89 @@
+{
+  "caseId": "AC043",
+  "rowId": "io",
+  "configId": "M3",
+  "runId": "2026-10-11T10-35-03-350Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T10:35:03.350Z",
+  "endedAt": "2026-10-11T10:35:25.709Z",
+  "inputSha256": "fd94a32169d440f9f012fd89445d13e356b7cc7da325f1885c620a2bf6e13cea",
+  "previousRecord": null,
+  "scope": "AC043-io-M3",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "POST /session/3f9ccfd1-aa7d-4799-9bb7-dacb2caeea2f/element/00000000-0000-0091-ffff-ffff000019c0/value: Cannot set the element to '失败保留'. Did you interact with the correct element?",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/4-failure.png",
+      "sha256": "d58b6c5bf124aebd1bfb4a2de6a105291798d29993b7d00d15a7c303c5fff587"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/4-failure.xml",
+      "sha256": "cb886482aa3d83dd616b72e50142cce54050d033f8c9c14eb82cc5bb42c62b6a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/appium.log",
+      "sha256": "8a6b33803d78d70c7581bb6365f57431e322f2ee89197cb80ab4232899da5f84"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/failure-native-facts.json",
+      "sha256": "b97b4d3037e6fab607bb304b72b89e11bb0f8f936be08a428aa53713da86e2ee"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/fixture.json",
+      "sha256": "6851ed057d5332e807f35ed9545e12407498b5d03641759aee0e4bcab45b58a5"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/inputs.json",
+      "sha256": "7903e6a6f79bbe3f165a2f0667e70e2cc8b807951030322db2c8cd4140ae90c2"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/step-1-clock.json",
+      "sha256": "3e3400c56da9d0e8689a400aa8f573aa77bbe5548d465d4b1fa1f9ff56aa47de"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/step-2-clock.json",
+      "sha256": "6b0982debf38ecbf58b7db7442883fe0f9a7e1328ad28ea588fe2d2b9afbb1c4"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/step-3-given-create.json",
+      "sha256": "1ea44fe6bc3131ffe87b4ecfb64488018efec24f3d6a35ff1e1d34ffdc696c13"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-35-03-350Z/AC043-io-M3/step-4.json",
+      "sha256": "16ceb1261460071ef4033a9158a707d0c6ed2f78d91be0efec8c05004db49273"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

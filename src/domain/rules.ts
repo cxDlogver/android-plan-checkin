@@ -90,6 +90,7 @@ export function todaySections(snapshot:Snapshot){
   const ordered=[...snapshot.facts.plans].sort((a,b)=>a.created_at_ms-b.created_at_ms||a.id.localeCompare(b.id));
   const fixed:Plan[]=[],weekly:Plan[]=[],once:Plan[]=[],recorded:Plan[]=[];
   for(const plan of ordered){const record=plan.type==='one_time'?snapshot.facts.one_time_results.find(r=>r.plan_id===plan.id&&r.business_on===snapshot.today):snapshot.facts.cycle_records.find(r=>r.plan_id===plan.id&&r.business_on===snapshot.today);
+    if(plan.created_on>snapshot.today)continue;
     if(record){recorded.push(plan);continue;}if(status(snapshot.facts,plan.id,snapshot.asOfMs)!=='running')continue;
     if(plan.type==='one_time'){if(!snapshot.facts.one_time_results.some(r=>r.plan_id===plan.id))once.push(plan);}else if(permission(snapshot,plan,snapshot.today).allowed)(plan.type==='fixed'?fixed:weekly).push(plan);
   }

@@ -36,7 +36,7 @@ export class DatabaseExecutor {
   queue<T>(operation:(tx:Tx)=>Promise<T>):Promise<T>{
     const task=this.tail.then(async()=>{
       let active=true;const check=()=>{if(!active)throw new DomainError('STORAGE_IO');};
-      const tx:Tx={all:async<T>(sql:string,params:SQLiteBindValue[]=[])=>{check();beforeStorage(sql);return this.database.getAllAsync<T>(sql,params);},first:async<T>(sql:string,params:SQLiteBindValue[]=[])=>{check();beforeStorage(sql);return this.database.getFirstAsync<T>(sql,params);},run:async(sql,params=[])=>{check();beforeStorage(sql);return this.database.runAsync(sql,params);},exec:async sql=>{check();beforeStorage(sql);await this.database.execAsync(sql);}};
+      const tx:Tx={all:async<T>(sql:string,params:SQLiteBindValue[]=[])=>{check();const gate=beforeStorage(sql);if(gate)await gate;return this.database.getAllAsync<T>(sql,params);},first:async<T>(sql:string,params:SQLiteBindValue[]=[])=>{check();const gate=beforeStorage(sql);if(gate)await gate;return this.database.getFirstAsync<T>(sql,params);},run:async(sql,params=[])=>{check();const gate=beforeStorage(sql);if(gate)await gate;return this.database.runAsync(sql,params);},exec:async sql=>{check();const gate=beforeStorage(sql);if(gate)await gate;await this.database.execAsync(sql);}};
       try{return await operation(tx);}finally{active=false;}
     });
     this.tail=task.catch(()=>undefined);return task;

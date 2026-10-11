@@ -1,0 +1,1 @@
+const fs=require('node:fs'),catalog=JSON.parse(fs.readFileSync('resource/acceptance/追踪目录.json','utf8'));for(const id of process.argv.slice(2))console.log(JSON.stringify(catalog.scenarios.find(s=>s.id===id),null,2));

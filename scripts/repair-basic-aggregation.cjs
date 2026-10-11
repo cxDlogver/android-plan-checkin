@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/close-bdd-basic.cjs';let s=fs.readFileSync(file,'utf8');s=s.replace(',a=original.report.assertions;t=undefined;',',a=original.report.assertions;');fs.writeFileSync(file,s);

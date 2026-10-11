@@ -1,0 +1,43 @@
+{
+  "caseId": "AC114",
+  "rowId": "shared-partial-new-and-resumed",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T10-01-18-720Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T10:01:18.720Z",
+  "endedAt": "2026-10-11T10:01:19.859Z",
+  "inputSha256": "e868811c8c8cde8dc9bda323e876674218f66ac23d8cb2e4aef026c20c2c4e03",
+  "previousRecord": null,
+  "scope": "AC114-shared-partial-new-and-resumed-api29",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "JavaScript context changed during verification",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-18-720Z/AC114-shared-partial-new-and-resumed-api29/bridge-identity.json",
+      "sha256": "955ff8120f5df65b8072abbb1786d6646608b45b341b13bf576823231816fc4e"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-18-720Z/AC114-shared-partial-new-and-resumed-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-01-18-720Z/AC114-shared-partial-new-and-resumed-api29/inputs.json",
+      "sha256": "a97f20a6a7facd2fc27e5a83f7e12e7fa91e3f9579cdccb80ad71fff95c72066"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

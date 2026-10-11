@@ -1,0 +1,48 @@
+{
+  "caseId": "AC116",
+  "rowId": "shared-manual-due-and-list-order",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T10-00-22-178Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T10:00:22.178Z",
+  "endedAt": "2026-10-11T10:01:18.605Z",
+  "inputSha256": "a64b3c87ca5ea8c7ac05a60b7dc8aef6876ea480a256bbaa6571428e1fbd60c5",
+  "previousRecord": null,
+  "scope": "AC116-shared-manual-due-and-list-order-api29",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Verification response timed out",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-00-22-178Z/AC116-shared-manual-due-and-list-order-api29/bridge-identity.json",
+      "sha256": "5e966002e49c09bf8837a53387fd402a5f84888fb25a5a510b288cf141947ceb"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-00-22-178Z/AC116-shared-manual-due-and-list-order-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-00-22-178Z/AC116-shared-manual-due-and-list-order-api29/inputs.json",
+      "sha256": "9862eb6a3d2b3c785de16274d8d7702d3a9677b7699e485efd2f318167d66558"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-00-22-178Z/AC116-shared-manual-due-and-list-order-api29/step-1-clock.json",
+      "sha256": "3a58ae759b56b87692fabb5f9ca3e894d7eaf815f0c281518ac80610b52f9eff"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

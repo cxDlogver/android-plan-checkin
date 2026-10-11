@@ -82,6 +82,7 @@ export function applyCommand(input:Facts,envelope:Envelope,now:number,zone:strin
   }else{
     const plan=facts.plans.find(row=>row.id===p.planId);if(!plan)throw new DomainError('TARGET_REMOVED');
     const state=status(facts,plan.id,now);
+    if((envelope.kind==='SubmitCycleRecord'||envelope.kind==='SubmitOneTimeResult')&&p.confirmedToday!==today)throw new DomainError('DAY_CHANGED');
     if(plan.revision!==p.expectedPlanRevision)throw new DomainError('PLAN_CHANGED');
     switch(envelope.kind){
       case 'SubmitCycleRecord':{

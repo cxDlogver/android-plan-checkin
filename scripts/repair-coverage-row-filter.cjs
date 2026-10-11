@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/update-bdd-coverage.cjs';let s=fs.readFileSync(file,'utf8');s=s.replace("for(const rowId of rows){const id=", "for(const rowId of rows){if(!allowedRows.get(record.caseId)?.has(rowId))continue;const id=");fs.writeFileSync(file,s);

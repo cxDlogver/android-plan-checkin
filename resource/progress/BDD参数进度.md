@@ -1,46 +1,46 @@
 # BDD 参数与配置进度
 
-更新：2026-10-11T09:49:28.078Z。完整验收项 14/120；已留证且摘要有效的显式参数/配置实例 238。实例通过不等于整个验收项通过。
+更新：2026-10-11T10:44:27.568Z。完整验收项 16/120；已留证且摘要有效的显式参数/配置实例 248。实例通过不等于整个验收项通过。
 
 | 验收项 | 完整状态 | 显式通过实例 |
 | --- | --- | --- |
 | AC001 精确依赖与冻结安装可重现 | PASS | — |
 | AC002 包身份与系统备份排除可重复生成 | PASS | — |
 | AC003 SDK模板原生编译与长期签名 | PASS | — |
-| AC004 安卓SQLite连接参数与版本读回 | PASS | default/M7、default/M3、all-required-rows/M3、all-required-rows/M7 |
+| AC004 安卓SQLite连接参数与版本读回 | PASS | default/M7、default/M3 |
 | AC005 原生字体导航和金属小样可独立运行 | PASS | default/M7、default/M3 |
-| AC006 验收工具限定正确设备与隔离数据 | PASS | all-required-rows/M3、all-required-rows/M7 |
-| AC007 数据库约束拒绝重复或错误引用 | PASS | cycle_unique/M7、once_unique/M7、cross_plan_due/M7、missing_due/M7、actual_mismatch/M7、enum/M7、cycle_unique/M3、once_unique/M3、cross_plan_due/M3、missing_due/M3、actual_mismatch/M3、enum/M3、all-required-rows/M3、all-required-rows/M7 |
+| AC006 验收工具限定正确设备与隔离数据 | PASS | — |
+| AC007 数据库约束拒绝重复或错误引用 | PASS | cycle_unique/M7、once_unique/M7、cross_plan_due/M7、missing_due/M7、actual_mismatch/M7、enum/M7、cycle_unique/M3、once_unique/M3、cross_plan_due/M3、missing_due/M3、actual_mismatch/M3、enum/M3 |
 | AC008 全部待迁移失败时恢复升级前结构与事实 | PASS | sql_error/M7、process_before_commit/M7、sql_error/M3、process_before_commit/M3 |
-| AC009 高于代码支持的数据库版本被阻断 | PASS | default/M7、default/M3、all-required-rows/M3、all-required-rows/M7 |
-| AC010 单连接事务和查询快照不混入其他写入 | PASS | default/M7、default/M3、all-required-rows/M3、all-required-rows/M7 |
+| AC009 高于代码支持的数据库版本被阻断 | PASS | default/M7、default/M3 |
+| AC010 单连接事务和查询快照不混入其他写入 | PASS | default/M7、default/M3 |
 | AC011 日志与构建证据不泄露用户文本和签名材料 | NOT_RUN | — |
 | AC012 首次时区获取失败不猜测日期 | NOT_RUN | — |
 | AC013 换设备时区不移动计划今天与历史 | NOT_RUN | — |
 | AC014 公历加一天覆盖DST和月年边界 | PASS | spring/M7、fall/M7、leap/M7、year/M7、spring/M3、fall/M3、leap/M3、year/M3、spring/DOMAIN、fall/DOMAIN、leap/DOMAIN、year/DOMAIN |
 | AC015 前台午夜重算不强制跳选中日期 | NOT_RUN | — |
 | AC016 新建默认值和星期未选状态 | NOT_RUN | default/M7、default/M3 |
-| AC017 文本码点边界与单行名称 | NOT_RUN | blank_name/M7、trim_name/M7、80_name/M7、81_name/M7、newline_name/M7、1000_desc/M7、1001_desc/M7、empty_note/M7、2000_note/M7、2001_note/M7、blank_name/M3、trim_name/M3、80_name/M3、81_name/M3、newline_name/M3、1000_desc/M3、1001_desc/M3、empty_note/M3、2000_note/M3 |
-| AC018 切换类型保留共通字段并拒绝隐藏字段混入 | NOT_RUN | default/M7、default/M3 |
+| AC017 文本码点边界与单行名称 | NOT_RUN | blank_name/M7、trim_name/M7、80_name/M7、81_name/M7、newline_name/M7、1000_desc/M7、1001_desc/M7、empty_note/M7、2000_note/M7、2001_note/M7、blank_name/M3、trim_name/M3、80_name/M3、81_name/M3、newline_name/M3、1000_desc/M3、1001_desc/M3、empty_note/M3、2000_note/M3、2001_note/M3 |
+| AC018 切换类型保留共通字段并拒绝隐藏字段混入 | PASS | default/M7、default/M3 |
 | AC019 循环日期不得过去或倒置 | NOT_RUN | past/M7、today/M7、future/M7、reversed/M7、same/M7、invalid_date/M7、past/M3、today/M3、future/M3、reversed/M3、same/M3、invalid_date/M3 |
 | AC020 固定星期选择与每日摘要一致 | NOT_RUN | default/M7、default/M3 |
 | AC021 每周目标只接受1至7整数 | NOT_RUN | one/M7、seven/M7、zero/M7、eight/M7、decimal/M7、empty/M7、one/M3、seven/M3、zero/M3、eight/M3、decimal/M3、empty/M3 |
-| AC022 同名计划保持独立且创建成功导航详情 | NOT_RUN | default/M7 |
-| AC023 暂停归档和不可变字段拒绝编辑 | NOT_RUN | default/M7 |
-| AC024 点击结果仅预选，取消不生成记录 | NOT_RUN | — |
-| AC025 最终确认普通记录后本机持久保存 | NOT_RUN | — |
-| AC026 不要做计划明确行为未发生与发生 | NOT_RUN | — |
-| AC027 普通当日修正加载当前值并保留首次原值 | NOT_RUN | — |
-| AC028 无变化保存不制造修正或新revision | NOT_RUN | — |
-| AC029 历史与補记保存后的结果备注均只读 | NOT_RUN | — |
-| AC030 固定历史资格按目标星期判断 | NOT_RUN | — |
-| AC031 补记只限当前运行阶段合法空日 | NOT_RUN | — |
+| AC022 同名计划保持独立且创建成功导航详情 | PASS | default/M7、default/M3 |
+| AC023 暂停归档和不可变字段拒绝编辑 | NOT_RUN | — |
+| AC024 点击结果仅预选，取消不生成记录 | NOT_RUN | success/M3、failure/M3、skip/M3、completed/M3、cancelled/M3 |
+| AC025 最终确认普通记录后本机持久保存 | NOT_RUN | default/M3 |
+| AC026 不要做计划明确行为未发生与发生 | NOT_RUN | default/M3 |
+| AC027 普通当日修正加载当前值并保留首次原值 | NOT_RUN | default/M3 |
+| AC028 无变化保存不制造修正或新revision | NOT_RUN | default/M3 |
+| AC029 历史与補记保存后的结果备注均只读 | NOT_RUN | past_ordinary/M3、today_backfill/M3、archived_today/M3、past_once/M3 |
+| AC030 固定历史资格按目标星期判断 | NOT_RUN | valid_tue/M3、invalid_wed/M3、future_thu/M3 |
+| AC031 补记只限当前运行阶段合法空日 | NOT_RUN | new_stage/M3、old_stage/M3、pause_gap/M3、currently_paused/M3、archived/M3、before_start/M3 |
 | AC032 首次记录跨午夜拒绝旧保存再显式补记 | NOT_RUN | — |
 | AC033 跨日后状态不合法不提供补记确认 | NOT_RUN | — |
 | AC034 已有记录修改跨午夜直接只读 | NOT_RUN | — |
-| AC035 一次性完成按实际日期区分按时与迟完成 | NOT_RUN | — |
-| AC036 一次性完成日期范围和必填校验 | NOT_RUN | — |
-| AC037 一次性失败取消独立于循环跳过 | NOT_RUN | — |
+| AC035 一次性完成按实际日期区分按时与迟完成 | NOT_RUN | early/M3、boundary/M3、late/M3 |
+| AC036 一次性完成日期范围和必填校验 | NOT_RUN | before_created/M3、created/M3、future/M3、missing/M3 |
+| AC037 一次性失败取消独立于循环跳过 | NOT_RUN | failed/M3、cancelled/M3 |
 | AC038 一次性三结果同日可改但业务日期截止固定 | NOT_RUN | — |
 | AC039 一次性首次跨日不自动补报失败取消 | NOT_RUN | — |
 | AC040 重复同命令及跨日成功重试只返回一次事实 | NOT_RUN | — |
@@ -56,8 +56,8 @@
 | AC050 手动归档当天保留记录并取消空要求 | NOT_RUN | — |
 | AC051 自然结束包含末日并在次日归档 | NOT_RUN | — |
 | AC052 一次性普通终态与历史补报归档边界不同 | NOT_RUN | — |
-| AC053 长时间离线对账使用原边界且归档优先 | NOT_RUN | — |
-| AC054 拒绝旧提交不回滚独立合法对账 | NOT_RUN | — |
+| AC053 长时间离线对账使用原边界且归档优先 | NOT_RUN | default/M3 |
+| AC054 拒绝旧提交不回滚独立合法对账 | NOT_RUN | default/M3 |
 | AC055 开始前管理不产生负执行区间 | NOT_RUN | — |
 | AC056 归档后永久删除取消保留确认才清空 | NOT_RUN | — |
 | AC057 固定星期明天生效且不改旧资格 | NOT_RUN | — |
@@ -108,21 +108,21 @@
 | AC102 重试窗口边界与凭据限批清理 | NOT_RUN | default/M7、default/M3 |
 | AC103 一次性根删除延迟复合引用级联提交成功 | PASS | default/M7、default/M3 |
 | AC104 revision分配一致且取消版本不复用序号 | NOT_RUN | default/M7、default/M3 |
-| AC105 未选结果不能最终保存且提交中禁重复操作 | NOT_RUN | — |
+| AC105 未选结果不能最终保存且提交中禁重复操作 | NOT_RUN | default/M3 |
 | AC106 一次性回顾显示实际日期而非固定完成率 | NOT_RUN | — |
-| AC107 新建表单跨日重新校验且不自动挪日期 | NOT_RUN | default/M7 |
-| AC108 日期适配和初始化服务独立于页面验证 | NOT_RUN | valid/M7、null/M7、invalid/M7、shared-A3/M7、valid/M3、null/M3、invalid/M3、shared-A3/M3 |
-| AC109 创建编辑和待生效规则服务的精确出口 | NOT_RUN | mask0/M7、weekday/M7、weekly/M7、cancel/M7、name/M7、paused/M7、due/M7、shared-readonly-and-immutable/M7、mask0/M3、weekday/M3、weekly/M3、cancel/M3、name/M3、paused/M3、due/M3、shared-readonly-and-immutable/M3 |
-| AC110 生命周期对账可在无页面时验证 | NOT_RUN | pause/M7、resume/M7、cancel/M7、manual/M7、natural/M7、shared-priority-and-rejection/M7、pause/M3、resume/M3、cancel/M3、manual/M3、natural/M3、shared-priority-and-rejection/M3 |
-| AC111 记录权限和原值服务不依赖确认页 | NOT_RUN | today/M7、backfill/M7、history/M7、paused/M7、archived/M7、oldstage/M7、future/M7、shared-immutable-and-nonselected/M7、today/M3、backfill/M3、history/M3、paused/M3、archived/M3、oldstage/M3、future/M3、shared-immutable-and-nonselected/M3 |
+| AC107 新建表单跨日重新校验且不自动挪日期 | NOT_RUN | default/M7、default/M3 |
+| AC108 日期适配和初始化服务独立于页面验证 | NOT_RUN | valid/M7、null/M7、invalid/M7、valid/M3、null/M3、invalid/M3 |
+| AC109 创建编辑和待生效规则服务的精确出口 | NOT_RUN | mask0/M7、weekday/M7、weekly/M7、cancel/M7、name/M7、paused/M7、due/M7、mask0/M3、weekday/M3、weekly/M3、cancel/M3、name/M3、paused/M3、due/M3 |
+| AC110 生命周期对账可在无页面时验证 | NOT_RUN | pause/M7、resume/M7、cancel/M7、manual/M7、natural/M7、pause/M3、resume/M3、cancel/M3、manual/M3、natural/M3 |
+| AC111 记录权限和原值服务不依赖确认页 | NOT_RUN | today/M7、backfill/M7、history/M7、paused/M7、archived/M7、oldstage/M7、future/M7、today/M3、backfill/M3、history/M3、paused/M3、archived/M3、oldstage/M3、future/M3 |
 | AC112 命令事务、跨日和重放服务出口 | NOT_RUN | day/M7、replay/M7、revision/M7、duplicate/M7、rollback/M7、day/M3、replay/M3、revision/M3、duplicate/M3、rollback/M3 |
-| AC113 固定聚合和连续的数值出口 | NOT_RUN | pending/M7、success/M7、failure/M7、skip/M7、shared-unknown-zero-stages/M7、pending/M3、success/M3、failure/M3、skip/M3、shared-unknown-zero-stages/M3 |
+| AC113 固定聚合和连续的数值出口 | NOT_RUN | pending/M7、success/M7、failure/M7、skip/M7、pending/M3、success/M3、failure/M3、skip/M3 |
 | AC114 周聚合按完整自然周和真实终止边界计算 | NOT_RUN | over/M7、partial/M7、whole/M7、natural/M7、manual/M7、over/M3、partial/M3、whole/M3、natural/M3、manual/M3 |
-| AC115 一次性终态与冻结截止的服务出口 | NOT_RUN | ontime/M7、late/M7、history/M7、fail/M7、cancel/M7、shared-ranges-and-corrections/M7、ontime/M3、late/M3、history/M3、fail/M3、cancel/M3、shared-ranges-and-corrections/M3 |
-| AC116 查询DTO的日集合、排序与分页出口 | NOT_RUN | mixed/M7、weekly0/M7、weeklyskip/M7、once/M7、archive/M7、shared-stable-pagination/M7、mixed/M3、weekly0/M3、weeklyskip/M3、once/M3、archive/M3、shared-stable-pagination/M3 |
+| AC115 一次性终态与冻结截止的服务出口 | NOT_RUN | ontime/M7、late/M7、history/M7、fail/M7、cancel/M7、ontime/M3、late/M3、history/M3、fail/M3、cancel/M3 |
+| AC116 查询DTO的日集合、排序与分页出口 | NOT_RUN | mixed/M7、weekly0/M7、weeklyskip/M7、once/M7、archive/M7、mixed/M3、weekly0/M3、weeklyskip/M3、once/M3、archive/M3 |
 | AC117 原生配置生成先于APK编译可独立准入 | PASS | — |
 | AC118 金属组件原生展示先于完整页面准入 | NOT_RUN | — |
-| AC119 revision和CAS原语无业务服务即可验证 | PASS | default/M7、default/M3、all-required-rows/M3、all-required-rows/M7 |
+| AC119 revision和CAS原语无业务服务即可验证 | PASS | default/M7、default/M3 |
 | AC120 三类合法新建在八组合最终保存 | NOT_RUN | fixed/M7、weekly/M7、one/M7、fixed/M3、weekly/M3、one/M3 |
 
 所有报告和摘要见 [bdd-coverage.json](bdd-coverage.json)。共享断言、已复用的宿主/原生证据及原始失败报告继续保留；不重复执行已通过的业务动作。

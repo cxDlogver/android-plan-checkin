@@ -1,0 +1,108 @@
+{
+  "caseId": "AC116",
+  "rowId": "shared-manual-due-and-list-order",
+  "configId": "M3",
+  "recoveredFrom": "resource/acceptance/runs/2026-10-11T10-12-22-671Z/AC116-shared-manual-due-and-list-order-api29/result.json",
+  "runId": "2026-10-11T10-14-48-288Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T10:14:48.288Z",
+  "endedAt": "2026-10-11T10:14:48.367Z",
+  "inputSha256": "dbcd1b2df2c950517de5bc3e6b2506b126790a4404c3dca4487fa68c749caea3",
+  "previousRecord": null,
+  "scope": "AC116-shared-manual-due-and-list-order-api29-readback-recovery",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "AC116.A4.original-past-and-future-due-assertions",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC116.A6.plans-stable",
+      "expected": [
+        "00b3bfb6-5268-46af-bfe8-00f5366daa85",
+        "2f89fd25-d96a-4b6d-9b66-9422a25917d1",
+        "313f7653-0000-4000-8000-000000000001",
+        "313f7653-0000-4000-8000-000000000005",
+        "313f7653-0000-4000-8000-000000000009",
+        "313f7653-0000-4000-8000-00000000000c",
+        "5e74440d-bac4-4067-954c-ae4c10e2e2e0",
+        "bf8d0b9f-1083-48d0-b12a-8a04c58a9caa"
+      ],
+      "actual": [
+        "00b3bfb6-5268-46af-bfe8-00f5366daa85",
+        "2f89fd25-d96a-4b6d-9b66-9422a25917d1",
+        "313f7653-0000-4000-8000-000000000001",
+        "313f7653-0000-4000-8000-000000000005",
+        "313f7653-0000-4000-8000-000000000009",
+        "313f7653-0000-4000-8000-00000000000c",
+        "5e74440d-bac4-4067-954c-ae4c10e2e2e0",
+        "bf8d0b9f-1083-48d0-b12a-8a04c58a9caa"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC116.A6.today-fixed",
+      "expected": [
+        "00b3bfb6-5268-46af-bfe8-00f5366daa85",
+        "313f7653-0000-4000-8000-000000000001",
+        "313f7653-0000-4000-8000-00000000000c"
+      ],
+      "actual": [
+        "00b3bfb6-5268-46af-bfe8-00f5366daa85",
+        "313f7653-0000-4000-8000-000000000001",
+        "313f7653-0000-4000-8000-00000000000c"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC116.A6.today-weekly",
+      "expected": [
+        "313f7653-0000-4000-8000-000000000005",
+        "5e74440d-bac4-4067-954c-ae4c10e2e2e0"
+      ],
+      "actual": [
+        "313f7653-0000-4000-8000-000000000005",
+        "5e74440d-bac4-4067-954c-ae4c10e2e2e0"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC116.A6.today-once",
+      "expected": [
+        "2f89fd25-d96a-4b6d-9b66-9422a25917d1",
+        "313f7653-0000-4000-8000-000000000009",
+        "bf8d0b9f-1083-48d0-b12a-8a04c58a9caa"
+      ],
+      "actual": [
+        "2f89fd25-d96a-4b6d-9b66-9422a25917d1",
+        "313f7653-0000-4000-8000-000000000009",
+        "bf8d0b9f-1083-48d0-b12a-8a04c58a9caa"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-14-48-288Z/AC116-shared-manual-due-and-list-order-api29-readback-recovery/expected-actual-lists.json",
+      "sha256": "a8fe6df5f807824714a2694ed851a95d46abac522b4c34b1e82ea3aac4609a71"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-14-48-288Z/AC116-shared-manual-due-and-list-order-api29-readback-recovery/inputs.json",
+      "sha256": "5047570f28eb6bfd56d1dec55a69a8a8f8d3fad01499eccb64fd0e3a30d6a745"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T10-14-48-288Z/AC116-shared-manual-due-and-list-order-api29-readback-recovery/original-references.json",
+      "sha256": "b0dcca9ce9d8880df157447afb694e60e8b67a4a17e3ec89c89fbe6c8c9bea45"
+    }
+  ],
+  "limitations": [
+    "Original queries completed successfully. Only the expected list omitted untouched F01 Given plans; this report reuses their native readback without repeating any query or command."
+  ]
+}

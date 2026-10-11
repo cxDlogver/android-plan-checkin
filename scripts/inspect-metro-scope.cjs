@@ -1,0 +1,1 @@
+const config=require('../metro.config.cjs');console.log(JSON.stringify({projectRoot:config.projectRoot,watchFolders:config.watchFolders,nodeModulesPaths:config.resolver.nodeModulesPaths,blockList:config.resolver.blockList.map(r=>r.source),useWatchman:config.resolver.useWatchman},null,2));

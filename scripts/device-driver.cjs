@@ -20,7 +20,8 @@ class DeviceDriver{
   async id(testID){return this.element('xpath',`//*[@resource-id="${testID}"]`);}
   async click(testID){const id=await this.id(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
   async text(text){const id=await this.element('-android uiautomator',`new UiSelector().text(${JSON.stringify(text)})`);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
-  async input(testID,text){const id=await this.id(testID);await this.request(this.endpoint(`element/${id}/clear`),'POST',{});await this.request(this.endpoint(`element/${id}/value`),'POST',{text});}
+  async textVisible(text){for(const direction of ['down','up'])for(let attempt=0;attempt<10;attempt++){const source=await this.source();if([...source.matchAll(/\btext="([^"]*)"/g)].some(match=>decode(match[1])===text))return this.text(text);if(await this.scroll(direction)===false)break;}throw new Error(`Product text control unavailable: ${text}`);}
+  async input(testID,text){let id=await this.id(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});await this.request(this.endpoint(`element/${id}/clear`),'POST',{});id=await this.id(testID);await this.request(this.endpoint(`element/${id}/value`),'POST',{text});}
   async seek(testID){for(const direction of ['down','up'])for(let attempt=0;attempt<10;attempt++){const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);if(await this.scroll(direction)===false)break;}const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);throw new Error(`Product control unavailable: ${testID}`);}
   async clickVisible(testID){const id=await this.seek(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
   async hideKeyboard(){await this.request(this.endpoint('appium/device/hide_keyboard'),'POST',{});}
