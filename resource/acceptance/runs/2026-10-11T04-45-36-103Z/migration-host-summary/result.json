@@ -1,0 +1,49 @@
+{
+  "runId": "2026-10-11T04-45-36-103Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T04:45:36.103Z",
+  "endedAt": "2026-10-11T04:45:36.241Z",
+  "inputSha256": "92fcda26e0fcb9ed891189477ca41d748582838887504326bdd30b1a59097a9f",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T04-26-29-040Z/migration-host-summary/result.json",
+  "scope": "migration-host-summary",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "second-SQL-error-whole-chain-rollback",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "deferred-FK-whole-chain-rollback",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "success-version-last-one-commit",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/evidence-correction.json",
+      "sha256": "a55e7f80c75350cd20e392bc977c94ba8418c985aa09bfdf336ae4838a93df93"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/inputs.json",
+      "sha256": "e6016fed2a0933bac4951ed7dae3f4916e9f830aede1160780d64e02d478adf7"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/reused-evidence.json",
+      "sha256": "f89f812a33450ca62a1033ffefff774c0d72554da5f30f37481e3f9246f1af1c"
+    }
+  ],
+  "limitations": [
+    "Host SQLite only; native interruption/API reports are tracked separately. SQL-error/success evidence is reused; the misclassified FK row is replaced by its targeted corrected observation."
+  ]
+}

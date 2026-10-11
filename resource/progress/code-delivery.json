@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "recordedAt": "2026-10-11T04:43:24.199Z",
+  "recordedAt": "2026-10-11T04:46:05.459Z",
   "status": "CODE_COMPLETE",
   "remote": "https://github.com/cxDlogver/android-plan-checkin",
   "code": {
-    "sourceSnapshotSha256": "f4f698e4f5c8259fde1806e86fb582b6d4ce197a5565b9e9b40748b3d5612596",
+    "sourceSnapshotSha256": "bdb2b42c53e35cded75155ea5aded9926994a80363606085b00a4935ef6ad42b",
     "files": [
       {
         "path": "app.config.ts",
@@ -224,7 +224,7 @@
       },
       {
         "path": "scripts/finalize-delivery.cjs",
-        "sha256": "e1c7c2aedab4683d272f57f2ce96ba02b47134d9b3be4cfae1fe0e01ab3a7290"
+        "sha256": "a79d15aa5632cf6b07f3efffd0e40f49f9f3dcce2cbfd9fc7fdad87be1a14f02"
       },
       {
         "path": "scripts/fix-jsx-spaces.cjs",
@@ -336,7 +336,7 @@
       },
       {
         "path": "scripts/p1.cjs",
-        "sha256": "fb9a4fd557f1b47169e7245259b5bec8a849da5be2d32707f98f3a017fc315cf"
+        "sha256": "d7516b82d637ec81c97eea31020541d7c9b5f2afbc8a405d107ea41e86fac9e2"
       },
       {
         "path": "scripts/preserve-release.cjs",
@@ -416,7 +416,7 @@
       },
       {
         "path": "scripts/report-migrations.cjs",
-        "sha256": "c89fc10223a13cd8b1f73151ade39c6d78d88446a1eb348188c9c16c97adc298"
+        "sha256": "b64ef36a6da4c9898db382ae78917b120a3e2372d0dbf2efd738c0c4ac6f3f27"
       },
       {
         "path": "scripts/report-native-build.cjs",
@@ -632,7 +632,7 @@
       },
       {
         "path": "tests/integration/migrations.test.ts",
-        "sha256": "518c19000f8f429bd532ad49ac65a5eedad807d851ba6a67c7a44d174c33f1d6"
+        "sha256": "863972d8ad97c54e0ae0544273fb8400e0f0209d5f1b72c7b5ed605ea9bb2605"
       },
       {
         "path": "tests/integration/register.cjs",
@@ -677,8 +677,8 @@
     },
     "migrationRegression": {
       "status": "PASS",
-      "record": "resource/acceptance/runs/2026-10-11T04-26-29-040Z/migration-host-summary/result.json",
-      "scope": "Three new migration-chain cases; passing failure rows reused when repairing the one success-report assertion."
+      "record": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/result.json",
+      "scope": "Three scoped migration-chain cases; valid SQL-error/success observations reused; the initially misclassified FK row is replaced by its corrected targeted test."
     }
   },
   "checks": {
@@ -810,7 +810,7 @@
     },
     "migration-host-summary": {
       "status": "PASS",
-      "record": "resource/acceptance/runs/2026-10-11T04-26-29-040Z/migration-host-summary/result.json"
+      "record": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/result.json"
     },
     "AC008-migration-summary": {
       "status": "PASS",
@@ -5673,6 +5673,54 @@
     {
       "path": "resource/acceptance/runs/2026-10-11T04-43-07-379Z-ac003/AC003/default/windows-build/result.json",
       "sha256": "13addfd70e82859ecc0832d64bcd174cf4dd8c61db168b0d1385807a639c2783"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-29-113Z-04f26fbcc0/commands/integration-compile/commands.log",
+      "sha256": "17a70eb9349b989059c1a060824bd571f8171cca2bd13a79bed17cfcfb8b1c22"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-29-113Z-04f26fbcc0/commands/integration-compile/result.json",
+      "sha256": "473c127e993e7df478e879c7b6267a725faaa2fd306316961b3cc2708c9e632e"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-29-113Z-04f26fbcc0/commands/integration-compile/source-snapshot.json",
+      "sha256": "21d79463c90e32fc255f5a8c242f9cdbdd079502caf0d80fd08b49c71ffa42b6"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-33-156Z-8214d5a09e/commands/migration-fk-test/commands.log",
+      "sha256": "36b6dda4a41028936aa7194146b78858ec764b91c45492167b0c15c135ddb6e4"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-33-156Z-8214d5a09e/commands/migration-fk-test/result.json",
+      "sha256": "f9a1645e401dab17315908a06dac1193e52d70e5b2e0af1c8e8dad077ef8e8a8"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-33-156Z-8214d5a09e/commands/migration-fk-test/source-snapshot.json",
+      "sha256": "21d79463c90e32fc255f5a8c242f9cdbdd079502caf0d80fd08b49c71ffa42b6"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/assertions.json",
+      "sha256": "15e87cc4b149e823e3c0e6f70212191a10d97dfd13973e6751f0177ffcc6a91f"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/evidence-correction.json",
+      "sha256": "a55e7f80c75350cd20e392bc977c94ba8418c985aa09bfdf336ae4838a93df93"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/evidence-manifest.json",
+      "sha256": "c939cebd251d2f82374bb44276643c515d2027ccaa2515041dea5f0a1c4e1ea9"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/inputs.json",
+      "sha256": "e6016fed2a0933bac4951ed7dae3f4916e9f830aede1160780d64e02d478adf7"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/result.json",
+      "sha256": "b9d7564489e79240e53c6b03dc3704fcf94e4710af1b678de95f155854b134a6"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-45-36-103Z/migration-host-summary/reused-evidence.json",
+      "sha256": "f89f812a33450ca62a1033ffefff774c0d72554da5f30f37481e3f9246f1af1c"
     },
     {
       "path": "resource/progress/build-manifest.json",

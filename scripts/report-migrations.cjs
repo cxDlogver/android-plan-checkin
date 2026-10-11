@@ -2,14 +2,16 @@ const fs=require('node:fs'),assert=require('node:assert/strict'),{sha}=require('
 const state=progress.read();
 function read(key,required='PASS'){const command=state.commands[key];assert.equal(command?.status,required,key);const result=JSON.parse(fs.readFileSync(command.record,'utf8'));assert.ok(result.evidence.every(file=>sha(fs.readFileSync(file.path))===file.sha256));return {key,path:command.record,sha256:sha(fs.readFileSync(command.record)),result};}
 if(process.argv[2]==='host'){
-  const failure=read('migration-tests','FAIL'),success=read('migration-success-test');
+  const failure=read('migration-tests','FAIL'),success=read('migration-success-test'),foreignKey=read('migration-fk-test');
   const initialLog=fs.readFileSync(failure.result.evidence.find(file=>file.path.endsWith('/commands.log')).path,'utf8'),finalLog=fs.readFileSync(success.result.evidence.find(file=>file.path.endsWith('/commands.log')).path,'utf8');
-  const run=createRun('migration-host-summary',{records:[failure,success].map(({path,sha256})=>({path,sha256}))},['IP07']);if(!run)process.exit(0);
-  run.write('reused-evidence.json',[failure,success]);
+  const fkLog=fs.readFileSync(foreignKey.result.evidence.find(file=>file.path.endsWith('/commands.log')).path,'utf8');
+  const run=createRun('migration-host-summary',{records:[failure,success,foreignKey].map(({path,sha256})=>({path,sha256}))},['IP07']);if(!run)process.exit(0);
+  run.write('reused-evidence.json',[failure,success,foreignKey]);
   run.check('second-SQL-error-whole-chain-rollback',true,/✔ migration chain rolls back first-step DDL and every fact after second SQL error/.test(initialLog));
-  run.check('deferred-FK-whole-chain-rollback',true,/✔ migration chain rolls back first-step DDL and every fact after deferred foreign key failure/.test(initialLog));
+  run.check('deferred-FK-whole-chain-rollback',true,/✔ migration chain rolls back first-step DDL and every fact after deferred foreign key failure/.test(fkLog));
   run.check('success-version-last-one-commit',true,/✔ migration chain commits once after both validated steps and writes the version last/.test(finalLog));
-  run.finish(null,['Host SQLite only; native interruption/API reports are tracked separately. Initial two passing cases are reused; only the failed success-report type assertion was rerun.']);
+  run.write('evidence-correction.json',{originalMisclassifiedRow:failure.path,reason:'Original FK-labelled statement used a nonexistent column, so it proved SQL failure only. Corrected row creates an actual deferred FK violation and verifies foreign_key_check was reached before version publication.',reused:['original SQL-error row','corrected success row'],repeatedNativeActions:false});
+  run.finish(null,['Host SQLite only; native interruption/API reports are tracked separately. SQL-error/success evidence is reused; the misclassified FK row is replaced by its targeted corrected observation.']);
   progress.update(s=>{s.tasks.find(task=>task.id==='IP07').blockedReason=null;});process.exit(0);
 }
 const configurations=[];
