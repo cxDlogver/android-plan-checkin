@@ -1,0 +1,42 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "conclusion": "PASS for the stated navigation/configuration",
+  "records": [
+    {
+      "record": "resource/acceptance/runs/2026-10-11T18-48-55-141Z/AC093-three_button-M4/result.json",
+      "sha256": "e9ea8a999fa9c15c2b9fbc7b7899936eb22d9c3bedf8c3e2d8df87977a5ed64a"
+    }
+  ],
+  "reviewed": [
+    {
+      "role": "keyboard-open-save-reachable",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T18-48-55-141Z/AC093-three_button-M4/5-keyboard-open-save-reachable.png",
+      "sha256": "5cc2d0c30c66765eaa693d2fd7eb386684d36de000d4a60a842c6e3f2c04050a"
+    },
+    {
+      "role": "date-modal-over-current-form",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T18-48-55-141Z/AC093-three_button-M4/6-date-modal-over-current-form.png",
+      "sha256": "a3fa6ee67c18e33c8d4b87248521060d29ae52d94c7a951eddddcfd43c6a9082"
+    },
+    {
+      "role": "actual-system-bars-and-return",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T18-48-55-141Z/AC093-three_button-M4/7-actual-system-bars-and-return.png",
+      "sha256": "8aee0d0ede7496589b74be9785c9c4cdd4e9390a2bc722c9e0dc8d5c2d2b5dac"
+    }
+  ],
+  "observations": [
+    "The complete metallic Save control and its text are visible above the actual IME; the native hit rectangle is at least 48dp high.",
+    "The date modal fits inside the native screen and preserves the form on Back. The appropriate gesture pill or three navigation buttons remain visible.",
+    "Today content and bottom tabs sit above the system navigation area, with a continuous background.",
+    "The actual Back sequence and cancellation retain the entire unsaved note; confirmed discard returns to Today without database changes.",
+    "Successful keyboard/first-Back evidence from prior runs is explicitly reused; recovery executes only previously incomplete actions."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-UI",
+    "E-MATRIX"
+  ]
+}

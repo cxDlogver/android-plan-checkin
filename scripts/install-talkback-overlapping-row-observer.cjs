@@ -1,0 +1,6 @@
+const fs=require('node:fs'),file='scripts/bdd-ui-talkback.cjs';let source=fs.readFileSync(file,'utf8');
+const edits=[
+ ["b.top>p.top||b.top===p.top&&b.left>p.left","require('./visual-reading-order.cjs')(p,b)"],
+ ["if(!resumedResult){await t.nav('/records/new',{planId:fixed,businessOn:'2026-10-09'});await resultGroup([['success','完成'],['failure','未完成'],['skip','跳过']]);}","if(!resumedResult||resumedResult.group==='do'){await t.nav('/records/new',{planId:fixed,businessOn:'2026-10-09'});await resultGroup(resumedResult?[['failure','未完成'],['skip','跳过']]:[['success','完成'],['failure','未完成'],['skip','跳过']],!!resumedResult);}"],
+ ["await resultGroup(resumedResult?[['failure','发生了目标行为'],['skip','跳过']]:[['success','没有发生目标行为'],['failure','发生了目标行为'],['skip','跳过']],!!resumedResult);","await resultGroup(resumedResult?.group==='avoid'?[['failure','发生了目标行为'],['skip','跳过']]:[['success','没有发生目标行为'],['failure','发生了目标行为'],['skip','跳过']],resumedResult?.group==='avoid');"]
+];for(const [old,next]of edits){if(!source.includes(old))throw new Error('Expected one-shot source segment missing');source=source.replace(old,next);}fs.writeFileSync(file,source);console.log('Updated only the observer and bounded result-group continuation.');

@@ -1,0 +1,348 @@
+{
+  "contextId": "1791744786972-f87c448acdd9a",
+  "applicationId": "com.xiang.plancheckin.dev",
+  "api": 29,
+  "nativeVersion": "1.0.0",
+  "nativeBuild": "1",
+  "window": {
+    "width": 392.72727272727275,
+    "height": 850.9090909090909,
+    "scale": 2.75,
+    "fontScale": 2
+  },
+  "clock": 1791518400000,
+  "sqlite": {
+    "version": {
+      "version": "3.50.3",
+      "sourceId": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+    },
+    "path": [
+      {
+        "seq": 0,
+        "name": "main",
+        "file": "/data/data/com.xiang.plancheckin.dev/files/SQLite/plan-checkin.db"
+      }
+    ],
+    "journal": {
+      "journal_mode": "wal"
+    },
+    "synchronous": {
+      "synchronous": 2
+    },
+    "foreignKeys": {
+      "foreign_keys": 1
+    },
+    "userVersion": {
+      "user_version": 2
+    }
+  },
+  "fonts": [
+    {
+      "name": "NotoSC400",
+      "loaded": true
+    },
+    {
+      "name": "NotoSC600",
+      "loaded": true
+    },
+    {
+      "name": "NotoSC700",
+      "loaded": true
+    }
+  ],
+  "snapshot": {
+    "facts": {
+      "plans": [
+        {
+          "id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "type": "fixed",
+          "direction": "do",
+          "name": "语音成功计划",
+          "description": "",
+          "created_at_ms": 1790827200000,
+          "created_on": "2026-10-01",
+          "starts_on": "2026-10-01",
+          "revision": 2
+        },
+        {
+          "id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "type": "fixed",
+          "direction": "avoid",
+          "name": "语音失败计划",
+          "description": "",
+          "created_at_ms": 1790827200000,
+          "created_on": "2026-10-01",
+          "starts_on": "2026-10-01",
+          "revision": 2
+        },
+        {
+          "id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "type": "weekly",
+          "direction": "do",
+          "name": "语音跳过计划",
+          "description": "",
+          "created_at_ms": 1791172800000,
+          "created_on": "2026-10-05",
+          "starts_on": "2026-10-05",
+          "revision": 2
+        },
+        {
+          "id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "type": "one_time",
+          "direction": "do",
+          "name": "语音取消计划",
+          "description": "",
+          "created_at_ms": 1791345600000,
+          "created_on": "2026-10-07",
+          "starts_on": "2026-10-07",
+          "revision": 3
+        }
+      ],
+      "rule_versions": [
+        {
+          "id": "d34d747c-c45f-4c9f-8bad-ad8422b72eda",
+          "plan_id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "kind": "weekday_mask",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"weekdayMask\":127}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "d9cdd7d5-0f82-4851-bbea-137e0447759a",
+          "plan_id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "kind": "end_on",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "705edbaf-b991-4346-9b4f-3530dfc61793",
+          "plan_id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "kind": "weekday_mask",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"weekdayMask\":127}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "1e7dd350-eddf-4f47-9dbb-4aa2e412be78",
+          "plan_id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "kind": "end_on",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "46c6c77f-0598-44d9-8c27-4a4314bc2527",
+          "plan_id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "kind": "weekly_target",
+          "effective_on": "2026-10-05",
+          "revision": 1,
+          "value_json": "{\"weeklyTarget\":3}",
+          "created_at_ms": 1791172800000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "5e51f4f1-f840-4df4-a09a-2402c29834ff",
+          "plan_id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "kind": "end_on",
+          "effective_on": "2026-10-05",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1791172800000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "010ce440-5b78-4853-a565-c054253bd245",
+          "plan_id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "kind": "due_on",
+          "effective_on": "2026-10-07",
+          "revision": 1,
+          "value_json": "{\"dueOn\":\"2026-10-08\"}",
+          "created_at_ms": 1791345600000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "lifecycle_events": [
+        {
+          "id": "118f84d4-477d-4066-8118-c1e01d186389",
+          "plan_id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "kind": "archive",
+          "source_key": "one_time_terminal:d721c1fd-1de5-4941-8336-09b4c34141ad",
+          "effective_on": "2026-10-09",
+          "effective_at_ms": 1791475200000,
+          "reason": "one_time_terminal",
+          "requested_at_ms": 1791518400000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "cycle_records": [
+        {
+          "id": "d92e4307-1bbd-4b65-8a90-9ca78baeb910",
+          "plan_id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "business_on": "2026-10-08",
+          "result": "success",
+          "note": "历史成功",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        },
+        {
+          "id": "a89983cf-88cb-4ad4-ad66-a2abd8c39e03",
+          "plan_id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "business_on": "2026-10-08",
+          "result": "failure",
+          "note": "历史失败",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        },
+        {
+          "id": "3ba318ae-c409-42ad-967f-71a91e280968",
+          "plan_id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "business_on": "2026-10-08",
+          "result": "skip",
+          "note": "历史跳过",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "one_time_results": [
+        {
+          "id": "d721c1fd-1de5-4941-8336-09b4c34141ad",
+          "plan_id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "business_on": "2026-10-08",
+          "outcome": "cancelled",
+          "actual_completed_on": null,
+          "due_rule_version_id": "010ce440-5b78-4853-a565-c054253bd245",
+          "note": "历史取消",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "cycle_record_originals": [],
+      "one_time_result_originals": [],
+      "command_receipts": [
+        {
+          "command_id": "acd2f29c-57ad-4e7b-a043-5a9ef1b1d828",
+          "plan_id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "kind": "CreatePlan",
+          "payload_digest": "4357c1b909333211e1adeb92064c10477d041c49290c4d12526e1be223bf5e8e",
+          "result_code": "OK",
+          "object_id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "issued_at_ms": 1790827200000,
+          "committed_at_ms": 1790827200000,
+          "expires_at_ms": 1791432000000
+        },
+        {
+          "command_id": "21f6d8a9-70aa-4283-8eb4-824073b606db",
+          "plan_id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "kind": "CreatePlan",
+          "payload_digest": "a831dc592556cee278c90c4d4004738fcb72de71f847cb7673f55370ccf67832",
+          "result_code": "OK",
+          "object_id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "issued_at_ms": 1790827200000,
+          "committed_at_ms": 1790827200000,
+          "expires_at_ms": 1791432000000
+        },
+        {
+          "command_id": "c996aa8b-73d2-4684-ba5d-8825a4dfe17c",
+          "plan_id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "kind": "CreatePlan",
+          "payload_digest": "77b23f130204ff46e828d8649c95117f08efe1c15d53ec0f2b1f1b4ba41545ec",
+          "result_code": "OK",
+          "object_id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "issued_at_ms": 1791172800000,
+          "committed_at_ms": 1791172800000,
+          "expires_at_ms": 1791777600000
+        },
+        {
+          "command_id": "f3ca06b7-2f75-48eb-ab6a-53c4737c8eff",
+          "plan_id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "kind": "CreatePlan",
+          "payload_digest": "8270bee73540d0e535a70590cdf741d7a003c943f8fabec6b115d88c13384ea0",
+          "result_code": "OK",
+          "object_id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "issued_at_ms": 1791345600000,
+          "committed_at_ms": 1791345600000,
+          "expires_at_ms": 1791950400000
+        },
+        {
+          "command_id": "6d9c6ecc-d3cf-416c-ae49-e7a7ac2c17df",
+          "plan_id": "180eef0a-51e5-4b1b-a8bf-940a6cf755a2",
+          "kind": "SubmitCycleRecord",
+          "payload_digest": "dfd71d02633cb23dc9034cd54ee1b34f761f788d8329ed173ff818cf7503a20d",
+          "result_code": "OK",
+          "object_id": "d92e4307-1bbd-4b65-8a90-9ca78baeb910",
+          "issued_at_ms": 1791432000000,
+          "committed_at_ms": 1791432000000,
+          "expires_at_ms": 1792036800000
+        },
+        {
+          "command_id": "34cb1888-b266-47f2-8ce7-ef95103ee1fc",
+          "plan_id": "74a16dc7-a086-4cf0-9b64-4e61e27e1391",
+          "kind": "SubmitCycleRecord",
+          "payload_digest": "87e091c4e80145c54d160b5cf79187f43a1c582747065e0787a8516837d0e785",
+          "result_code": "OK",
+          "object_id": "a89983cf-88cb-4ad4-ad66-a2abd8c39e03",
+          "issued_at_ms": 1791432000000,
+          "committed_at_ms": 1791432000000,
+          "expires_at_ms": 1792036800000
+        },
+        {
+          "command_id": "b28b3905-b37e-4f76-9f9b-f7823baed54d",
+          "plan_id": "fd7cac25-969e-4a6d-a852-a2958a305d1c",
+          "kind": "SubmitCycleRecord",
+          "payload_digest": "9fefcb11fd90a92438f18246dcac0f8f4c82bbca4a9e34cbd632d32dd6cb9225",
+          "result_code": "OK",
+          "object_id": "3ba318ae-c409-42ad-967f-71a91e280968",
+          "issued_at_ms": 1791432000000,
+          "committed_at_ms": 1791432000000,
+          "expires_at_ms": 1792036800000
+        },
+        {
+          "command_id": "c6cea3e2-a4c5-42e8-9b74-2be74af3d9c2",
+          "plan_id": "b72e86a1-0f20-4417-a241-5bfff2973c4c",
+          "kind": "SubmitOneTimeResult",
+          "payload_digest": "720e2ec2521a0b78d382978832c181693af7d5c40ed1d32c3338e3b234e4a43c",
+          "result_code": "OK",
+          "object_id": "d721c1fd-1de5-4941-8336-09b4c34141ad",
+          "issued_at_ms": 1791432000000,
+          "committed_at_ms": 1791432000000,
+          "expires_at_ms": 1792036800000
+        }
+      ],
+      "app_meta": [
+        {
+          "key": "app_timezone",
+          "value": "Asia/Shanghai"
+        },
+        {
+          "key": "initialized_at_ms",
+          "value": "1791475200000"
+        },
+        {
+          "key": "data_revision",
+          "value": "9"
+        }
+      ]
+    },
+    "zone": "Asia/Shanghai",
+    "today": "2026-10-09",
+    "asOfMs": 1791518400000,
+    "dataRevision": 9
+  }
+}

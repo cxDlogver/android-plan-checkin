@@ -1,0 +1,43 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "configuration": {
+    "density": 440,
+    "scale": 2.75,
+    "widthPx": 1080,
+    "heightPx": 2340,
+    "widthDp": 392.72727272727275,
+    "fontScale": 2
+  },
+  "reviewed": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T18-51-10-037Z/AC092-default-M4/2-actual-calendar-viewport-0.png",
+      "sha256": "5d461e7ecd541bbe28e15e7fe9da0a621f37031729c29c8429ec975b24b9e83c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T18-51-10-037Z/AC092-default-M4/2-actual-calendar-viewport-2.png",
+      "sha256": "a5ef25492bb246b46b8266333743722cf05f27b97f9ad0134dc2d38643f185c1"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T18-51-10-037Z/AC092-default-M4/3-actual-calendar-viewport-1.png",
+      "sha256": "fca54c0373b6c3716ef85ae1a17883528f0ce2041103127737d92dd94617749d"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T18-51-10-037Z/AC092-default-M4/5-actual-fraction-and-filter-99-100.png",
+      "sha256": "bc32a5f8d51e8fd86080d221483928b807d6a7b0fb5fe1e6d270b179a90347fe"
+    }
+  ],
+  "reference": "resource/design/previews/c6Yye.png",
+  "conclusion": "PASS for this configuration",
+  "observations": [
+    "The inspected calendar viewports show the corrected seven native columns; the native coordinate proof checks all 42 dates against weekday positions.",
+    "The complete 0/1, 2/5 and 99/100 gold fractions are visible, without ellipsis or overlap. The selected date border preserves uniform row height.",
+    "Adjacent month dates use reduced contrast. The bottom navigation and content remain separated.",
+    "The largest filter modal displays 100/99/1 completely and its controls fit the screen. The two smaller modal totals are independently checked in the actual XML.",
+    "All actual date hit rectangles meet the 48dp width and height requirements."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-UI",
+    "E-MATRIX"
+  ]
+}

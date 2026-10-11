@@ -45,7 +45,7 @@ require('./native-bdd-more.cjs')({define,client,randomUUID});
 require('./native-bdd-extras.cjs')({define,client,randomUUID});
 require('./native-bdd-gaps.cjs')({define,client,randomUUID});
 async function main(){
-  await waitForMetro();device.identity();device.adb(['reverse','tcp:8081','tcp:8081']);device.adb(['reverse','tcp:8097','tcp:8097']);await device.open();device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await device.waitSource(s=>s.includes('今日')||s.includes('原生模块验证'),120000);device.deepLink('plancheckin-dev://native');await client.waitReady();
+  const opened=await require('./bdd-ui-session.cjs').open(api,device.directory);Object.assign(device,opened.device);client.contextId=opened.client.contextId;
   for(const [ac,rows] of Object.entries(cases)){if(selected.length&&!selected.includes(ac)&&!selected.some(s=>s.startsWith(`${ac}/`)))continue;
     for(const [row,fn]of Object.entries(rows)){
       if(selected.length&&!selected.includes(ac)&&!selected.includes(`${ac}/${row}`))continue;
