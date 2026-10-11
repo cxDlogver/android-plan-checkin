@@ -1,0 +1,111 @@
+{
+  "caseId": "AC103",
+  "rowId": "default",
+  "configId": "api36-393dp-font1",
+  "fr": [
+    "FR29",
+    "FR32"
+  ],
+  "at": [
+    "AT23",
+    "AT24"
+  ],
+  "runId": "2026-10-11T04-28-02-372Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T04:28:02.372Z",
+  "endedAt": "2026-10-11T04:28:05.599Z",
+  "inputSha256": "3889cccd98ae3af8c9d269fa81516edcf20576947d578353ef3d26e74f93d1a6",
+  "previousRecord": null,
+  "scope": "AC103-cascade-api36",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "complete-archived-once-before",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC103.A1",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC103.A2.commit",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC103.A2.related-counts",
+      "expected": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC103.A2.foreign-keys",
+      "expected": [],
+      "actual": [],
+      "status": "PASS"
+    },
+    {
+      "id": "AC103.A3.short-receipt-only",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC103.A3.global-zone",
+      "expected": {
+        "key": "app_timezone",
+        "value": "Asia/Shanghai"
+      },
+      "actual": {
+        "key": "app_timezone",
+        "value": "Asia/Shanghai"
+      },
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-28-02-372Z/AC103-cascade-api36/bridge-identity.json",
+      "sha256": "574605dbd98768455e7517f0ac7423a399d7739184568da8eebeea89e2365d64"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-28-02-372Z/AC103-cascade-api36/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-28-02-372Z/AC103-cascade-api36/inputs.json",
+      "sha256": "9f9029f7f2f0b44740d131cdbc3810530c4e09662774aac9e2b3436cbfb7c8af"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-28-02-372Z/AC103-cascade-api36/native-observation.json",
+      "sha256": "90f06d27f2792df90d5e429da4fd995cfb8d7bc0f975cf2f6feb55c69936c0d8"
+    }
+  ],
+  "limitations": [
+    "Primitive root SQL deletion with same-transaction content-free receipt; production permanent-delete command acceptance remains separate.",
+    "The probe restores the isolated fixture only after all actual commit/FK/fact observations are captured."
+  ]
+}

@@ -1,0 +1,38 @@
+2026-10-11T04:19:42.820Z
+D:\xiang\CX_application\1_Configuration_Files\Android-AI\node-v24.21.0-win-x64\node.exe --require ./tests/integration/register.cjs --test .artifacts/integration/tests/integration/migrations.test.js
+✔ migration chain rolls back first-step DDL and every fact after second SQL error (64.698ms)
+✔ migration chain rolls back first-step DDL and every fact after deferred foreign key failure (37.4488ms)
+✖ migration chain commits once after both validated steps and writes the version last (26.6008ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3308.0538
+
+✖ failing tests:
+
+test at .artifacts\integration\tests\integration\migrations.test.js:35:25
+✖ migration chain commits once after both validated steps and writes the version last (26.6008ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [Object: null prototype] {
+  - {
+      user_version: 3
+    }
+  
+      at TestContext.<anonymous> (F:\CX_notes\cx-learn-notes\android-plan-checkin\.artifacts\integration\tests\integration\migrations.test.js:41:22)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { user_version: 3 },
+    expected: { user_version: 3 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+2026-10-11T04:19:46.513Z exitCode=1

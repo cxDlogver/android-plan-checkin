@@ -1,0 +1,94 @@
+{
+  "apkSha256": "c5816bfafbfc44cb598a5bde1e9dc62939b011eae2e0229efd8f14c59e73dff7",
+  "buildRecord": "resource/acceptance/runs/2026-10-11T04-32-14-819Z/native-build/release/result.json",
+  "runId": "2026-10-11T04-41-38-562Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T04:41:38.562Z",
+  "endedAt": "2026-10-11T04:41:56.917Z",
+  "inputSha256": "178bedf02ba401c1b5e54202d08abcad04d434d393e76a42fe00b1fd119b37f2",
+  "previousRecord": null,
+  "scope": "release-startup-api36",
+  "implementationIds": [
+    "IP03",
+    "IP07",
+    "IP28"
+  ],
+  "assertions": [
+    {
+      "id": "no-Metro",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "guest-offline",
+      "expected": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "0"
+      },
+      "actual": {
+        "airplane_mode_on": "1",
+        "wifi_on": "0",
+        "mobile_data": "0"
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "embedded-Chinese-and-icons",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "initialized-without-error",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "unchanged-UI-sources",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/connectivity-before.json",
+      "sha256": "ef12244e27b6ea9312381781c74df9d4d4f44e633b882b80c19ee72da395b25c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/connectivity-offline.json",
+      "sha256": "a1e249d8659d9b13f565bd743ab354013e47c1051b8c08f5eced79d298c431a1"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/device.json",
+      "sha256": "2ed63571d165080ae22215ae3590e9bc7cca1dccb8a98e335a91a60752c2e350"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/inputs.json",
+      "sha256": "4d0e45703bd9a63971d2620c83c43af00b28fee62973ba6fb514b857b4bedc63"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/install.log",
+      "sha256": "c4aa470acafcf8576c15b0f0b5ae7e852d1ec5413372d0e6a9272e788e1306d3"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/reused-unchanged-UI.json",
+      "sha256": "6c2026a0874ae72823e1a26a5ad3d35fa89d2fea3fa199b2c2f07d8a9c8c17c3"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/startup-after-migration-change.png",
+      "sha256": "e537a978f92a099f3ffad9efcb544be3786e59236bd27aa15275b3b3a61c60a8"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-41-38-562Z/release-startup-api36/startup-after-migration-change.xml",
+      "sha256": "2091923b0763bb1779cd9bb018580d79ea2e0677feb5f4b1dfc3096dd4ae0ab6"
+    }
+  ],
+  "limitations": [
+    "Only final APK initialization after the migration implementation change is executed. Previously passing business and UI checks are reused.",
+    "Same versionCode=1 replacement is not version/schema upgrade acceptance."
+  ]
+}

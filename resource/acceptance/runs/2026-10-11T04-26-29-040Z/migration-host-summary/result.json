@@ -1,0 +1,45 @@
+{
+  "runId": "2026-10-11T04-26-29-040Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T04:26:29.040Z",
+  "endedAt": "2026-10-11T04:26:29.109Z",
+  "inputSha256": "5558b4e7261d64181ac1442cc9986265e2bc7c27192833a5d94fd1562f81d974",
+  "previousRecord": null,
+  "scope": "migration-host-summary",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "second-SQL-error-whole-chain-rollback",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "deferred-FK-whole-chain-rollback",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "success-version-last-one-commit",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-26-29-040Z/migration-host-summary/inputs.json",
+      "sha256": "244d8beacbe381a1389566892becb56dc8b100452e96369b4b60927ccdd12f3c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T04-26-29-040Z/migration-host-summary/reused-evidence.json",
+      "sha256": "e257f75fbd1637addb71c22eaa5b7239caf8aef3b2f8fc1bf1bafc94ca037c58"
+    }
+  ],
+  "limitations": [
+    "Host SQLite only; native interruption/API reports are tracked separately. Initial two passing cases are reused; only the failed success-report type assertion was rerun."
+  ]
+}

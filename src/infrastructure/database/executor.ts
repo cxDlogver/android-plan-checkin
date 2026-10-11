@@ -2,7 +2,7 @@ import { openDatabaseAsync, SQLiteDatabase, SQLiteBindValue } from 'expo-sqlite'
 import { getCalendars } from 'expo-localization';
 import { DomainError, Facts, emptyFacts, metaValue, setMeta } from '../../domain/model';
 import { validZone } from '../../domain/date';
-import { schemaV1 } from './schema';
+import { currentSchemaVersion, migrateDatabase } from './migrations';
 import { now, beforeStorage } from '@verification/runtime';
 
 export interface Tx {
@@ -24,8 +24,8 @@ export class DatabaseExecutor {
       if(mode?.journal_mode!=='wal'||sync?.synchronous!==2||fk?.foreign_keys!==1)throw new DomainError('INIT_FAILED');
       await executor.queue(async tx=>{
         const version=await tx.first<{user_version:number}>('PRAGMA user_version');
-        if((version?.user_version||0)>1)throw new DomainError('SCHEMA_TOO_NEW');
-        if(!version?.user_version)await executor.transaction(tx,async()=>{await tx.exec(schemaV1);const violations=await tx.all('PRAGMA foreign_key_check');if(violations.length)throw new DomainError('MIGRATION_FAILED');await tx.exec('PRAGMA user_version=1');});
+        if((version?.user_version||0)>currentSchemaVersion)throw new DomainError('SCHEMA_TOO_NEW');
+        await migrateDatabase(tx,version?.user_version||0);
         await executor.transaction(tx,async()=>{
           const zone=await tx.first<{value:string}>("SELECT value FROM app_meta WHERE key='app_timezone'");
           if(!zone){const initial=getCalendars()[0]?.timeZone;if(!initial||!validZone(initial))throw new DomainError('INIT_FAILED');await tx.run('INSERT INTO app_meta(key,value) VALUES (?,?),(?,?),(?,?)',['app_timezone',initial,'initialized_at_ms',String(now()),'data_revision','0']);}

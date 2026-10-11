@@ -1,0 +1,94 @@
+{
+  "caseId": "AC008",
+  "rowId": "process_before_commit",
+  "configId": "api36-393dp-font1",
+  "fr": [
+    "FR32"
+  ],
+  "at": [
+    "AT24"
+  ],
+  "runId": "2026-10-11T04-24-29-144Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T04:24:29.144Z",
+  "endedAt": "2026-10-11T04:24:31.859Z",
+  "inputSha256": "a0291d86435e96cd821b09f9d4204597107958901bdb482c9c54825f24d61ca3",
+  "previousRecord": null,
+  "scope": "AC008-process_before_commit-api36",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "both-pending-steps-executed",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "first-step-facts-were-changed",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "uncommitted-final-version",
+      "expected": 3,
+      "actual": 3,
+      "status": "PASS"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Command failed: D:\\xiang\\CX_application\\1_Configuration_Files\\Android-AI\\sdk\\platform-tools\\adb.exe -s emulator-5562 pull /data/user/0/com.xiang.plancheckin.dev/files/SQLite/plan-checkin.db .artifacts/probes/2026-10-11T04-24-29-144Z/migration-api36/plan-checkin.db\nadb: error: failed to stat remote object '/data/user/0/com.xiang.plancheckin.dev/files/SQLite/plan-checkin.db': Permission denied\r\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/bridge-identity.json",
+      "sha256": "06142634ada944bbd48457e88391b12a0121efd87d3942d2532b49dae2cf0155"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/inputs.json",
+      "sha256": "86dc37463f4d41383eaf89c1d6442f397b2473879711f322a39ec5cfd40b94af"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/native-migration-observation.json",
+      "sha256": "6af602eb191868a21ad6b9812ec1d36bda912a27dabf69fd27ec3224ed4e595f"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/package-stopped.log",
+      "sha256": "bb7b2e24d93a71121cce420d4964ddfa5fefd270a29a24982de024ea3313c9c5"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/process-before.log",
+      "sha256": "901f2c4983ba6a49048ef7273a65d4a667f3d10b022ecce22b9eaa2ace081d46"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/started.json",
+      "sha256": "e6b912e8c0e82c64ed548d6e594daa910db67efa84afb2a6c77feab6cf3fd084"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-24-29-144Z/AC008-process_before_commit-api36/stopped-private-files.log",
+      "sha256": "c396c560c00e9b602f4a238d2d507067aec4baebdd469ba568c03598a246fe1b"
+    }
+  ],
+  "limitations": [
+    "The production all-pending migration function is executed against actual private development SQLite. Versions 2/3 are controlled probe steps, not shipped schema versions.",
+    "Process interruption is an actual force-stop before COMMIT. The dead process cannot return an error code; raw stopped-file and native reopen observations establish rollback.",
+    "No database/WAL/SHM file is deleted or restored during this verification."
+  ]
+}

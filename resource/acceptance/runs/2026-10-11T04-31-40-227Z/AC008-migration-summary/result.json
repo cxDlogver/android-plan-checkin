@@ -1,0 +1,55 @@
+{
+  "caseId": "AC008",
+  "configId": "all-required-native-configs",
+  "runId": "2026-10-11T04-31-40-227Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T04:31:40.227Z",
+  "endedAt": "2026-10-11T04:31:40.306Z",
+  "inputSha256": "b9d81b2c35534829330d58d0ccc7e67fe04a6cced2349436f02f8dfc60ca85d6",
+  "previousRecord": null,
+  "scope": "AC008-migration-summary",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "AC008.sql_error.api29",
+      "expected": "PASS",
+      "actual": "PASS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC008.process_before_commit.api29",
+      "expected": "PASS",
+      "actual": "PASS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC008.sql_error.api36",
+      "expected": "PASS",
+      "actual": "PASS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC008.process_before_commit.api36",
+      "expected": "PASS",
+      "actual": "PASS",
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-31-40-227Z/AC008-migration-summary/configuration-reports.json",
+      "sha256": "a5d2b0e863fdf5ba15c425bf3f9dee88e8ee3290024a0d0eab04fac2fb4112ef"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T04-31-40-227Z/AC008-migration-summary/inputs.json",
+      "sha256": "526a017a1168e487e9426abd300d99670f9a7263e0923de20c4c3bc40ba5c5e9"
+    }
+  ],
+  "limitations": [
+    "Each API executes both original parameter rows. The process row uses an actual force-stop; the dead process cannot return a service error code, and raw/private/native reopen observations verify rollback."
+  ]
+}

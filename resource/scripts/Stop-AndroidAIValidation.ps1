@@ -8,6 +8,13 @@ if ($taskDevices | Where-Object { $_ -match "^$taskSerial\s" }) {
     if ("plancheckin_api$Api" -notin $taskAvdName) { throw '指定端口的设备不属于本项目，已停止。' }
     & adb.exe -s $taskSerial emu kill
     if ($LASTEXITCODE -ne 0) { throw '模拟器关闭失败。' }
+    $taskStopDeadline = (Get-Date).AddSeconds(30)
+    do {
+        $taskStillPresent = @(& adb.exe devices) | Where-Object { $_ -match "^$taskSerial\s" }
+        if (-not $taskStillPresent) { break }
+        Start-Sleep -Milliseconds 500
+    } while ((Get-Date) -lt $taskStopDeadline)
+    if ($taskStillPresent) { throw '停止请求已提交，但验收模拟器尚未从ADB退出。' }
 }
 if (-not $KeepAppium) {
     $taskListener = Get-NetTCPConnection -LocalPort 4723 -State Listen -ErrorAction SilentlyContinue | Select-Object -First 1

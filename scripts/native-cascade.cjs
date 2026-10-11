@@ -1,0 +1,17 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),{snapshot}=require('./p1.cjs'),{createRun}=require('./evidence-run.cjs'),{DeviceDriver}=require('./device-driver.cjs'),{VerificationClient,waitForMetro}=require('./verification-bridge.cjs');
+const api=process.argv[2]||'36',device=new DeviceDriver(api,'.cache/verification-bridge/cascade'),client=new VerificationClient(api);
+async function main(){
+  device.identity();await waitForMetro();device.adb(['reverse','tcp:8081','tcp:8081']);await device.open();device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await device.waitSource(source=>source.includes('今日')||source.includes('原生模块验证'),120000);device.deepLink('plancheckin-dev://native');await client.waitReady();
+  const run=createRun(`AC103-cascade-api${api}`,{api,source:snapshot(['src/verification/sql-cases-development.ts','src/infrastructure/database/schema.ts'])},['IP07'],{caseId:'AC103',rowId:'default',configId:`api${api}-393dp-font1`,fr:['FR29','FR32'],at:['AT23','AT24']});if(!run)return;device.directory=run.directory;let error=null;
+  try{
+    await client.call('clock',{instant:'2026-10-11T04:00:00Z'});await client.call('fixture',{name:'F01',zone:'Asia/Shanghai',confirm:'RESET_ISOLATED_DEV_DATABASE'});
+    run.write('device.json',device.identity());run.write('bridge-identity.json',await client.status());const response=await client.call('sqlCase',{name:'cascade'}),data=response.observation;run.write('native-observation.json',response);
+    run.check('complete-archived-once-before',true,data.before.one_time_results.some(row=>row.id===data.resultId)&&data.before.one_time_result_originals.some(row=>row.result_id===data.resultId)&&data.before.lifecycle_events.some(row=>row.plan_id===data.planId&&row.kind==='archive')&&data.before.command_receipts.some(row=>row.plan_id===data.planId));
+    run.check('AC103.A1',true,/ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED/.test(data.schema.find(row=>row.name==='one_time_results').sql)&&/UNIQUE \(plan_id, id\)/.test(data.schema.find(row=>row.name==='rule_versions').sql));
+    run.check('AC103.A2.commit',true,data.committed);run.check('AC103.A2.related-counts',[0,0,0,0,0],[data.after.plans.filter(row=>row.id===data.planId).length,...['rule_versions','lifecycle_events','one_time_results'].map(table=>data.after[table].filter(row=>row.plan_id===data.planId).length),data.after.one_time_result_originals.filter(row=>row.result_id===data.resultId).length]);run.check('AC103.A2.foreign-keys',[],data.foreignKeyCheck);
+    const receipts=data.after.command_receipts.filter(row=>data.receiptIds.includes(row.command_id));
+    run.check('AC103.A3.short-receipt-only',true,receipts.length===2&&receipts.every(row=>row.result_code==='TARGET_REMOVED'&&row.plan_id===null&&row.object_id===null&&row.payload_digest===null&&row.expires_at_ms-row.issued_at_ms===604800000));
+    run.check('AC103.A3.global-zone',data.before.app_meta.find(row=>row.key==='app_timezone'),data.after.app_meta.find(row=>row.key==='app_timezone'));
+  }catch(failure){error=failure;console.error(failure.message);}run.finish(error,['Primitive root SQL deletion with same-transaction content-free receipt; production permanent-delete command acceptance remains separate.','The probe restores the isolated fixture only after all actual commit/FK/fact observations are captured.']);
+}
+main().catch(error=>{console.error(error.message);process.exitCode=1;}).finally(async()=>{try{await client.call('clock',{instant:null});}catch{}try{await device.close();}catch{}});

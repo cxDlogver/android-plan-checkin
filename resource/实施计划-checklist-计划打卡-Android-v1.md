@@ -44,7 +44,7 @@ flowchart LR
 - [x] [IP04｜最小原生模块与视觉小样](#ip04) — P1，DONE
 - [x] [IP05｜测试驱动、隔离夹具与证据采集](#ip05) — P1，DONE
 - [ ] [IP06｜业务日期和固定时区适配器](#ip06) — P2，IN_PROGRESS
-- [ ] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，IN_PROGRESS
+- [x] [IP07｜9表Schema、引用与全链迁移](#ip07) — P2，DONE
 - [ ] [IP08｜唯一连接执行器、快照与revision](#ip08) — P2，IN_PROGRESS
 - [ ] [IP09｜字段规则版本与合法编辑](#ip09) — P2，IN_PROGRESS
 - [ ] [IP10｜生命周期、阶段与离线对账](#ip10) — P2，IN_PROGRESS
@@ -194,7 +194,7 @@ flowchart LR
 - [x] IP03.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
 - [x] IP03.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始2026-10-10T08:10:39.074Z；完成2026-10-11T04:15:00.590Z；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:10:39.074Z；完成2026-10-11T04:43:07.431Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip04"></a>
 
@@ -328,23 +328,23 @@ flowchart LR
 
 ### IP07｜9表Schema、引用与全链迁移
 
-阶段：P2；状态：IN_PROGRESS；前置：[IP04](#ip04)、[IP05](#ip05)
+阶段：P2；状态：DONE；前置：[IP04](#ip04)、[IP05](#ip05)
 
 需求关联：[FR11](设计需求文档-计划打卡-Android-v1.md#fr11)、[FR13](设计需求文档-计划打卡-Android-v1.md#fr13)、[FR16](设计需求文档-计划打卡-Android-v1.md#fr16)、[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
 实现 checklist：
 
-- [ ] IP07.W1 — 实现9表STRICT及索引、真实FK与唯一约束
-- [ ] IP07.W2 — due版本同计划延迟复合FK
-- [ ] IP07.W3 — 一次性actual/business关系
-- [ ] IP07.W4 — 全体待迁移一次事务，user_version末尾设置，foreign_key_check和不变量
-- [ ] IP07.W5 — 高schema阻断，失败保留库/WAL/SHM
+- [x] IP07.W1 — 实现9表STRICT及索引、真实FK与唯一约束
+- [x] IP07.W2 — due版本同计划延迟复合FK
+- [x] IP07.W3 — 一次性actual/business关系
+- [x] IP07.W4 — 全体待迁移一次事务，user_version末尾设置，foreign_key_check和不变量
+- [x] IP07.W5 — 高schema阻断，失败保留库/WAL/SHM
 
 产物 checklist：
 
-- [ ] IP07.D1 — v1迁移/类型化SQL访问
-- [ ] IP07.D2 — API29/36约束/级联/迁移失败报告
-- [ ] IP07.D3 — 无自动清库路径
+- [x] IP07.D1 — v1迁移/类型化SQL访问
+- [x] IP07.D2 — API29/36约束/级联/迁移失败报告
+- [x] IP07.D3 — 无自动清库路径
 
 验收关联（点击到具体场景；主责项与汇总消费项分开）：
 
@@ -363,10 +363,10 @@ flowchart LR
 
 </details>
 
-- [ ] IP07.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
-- [ ] IP07.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
+- [x] IP07.V1 — 每个退出场景的全部Examples与上表本项范围PASS，assertions/evidence完整；贡献关联在对应主责项验收，AC父项等待全范围齐全。
+- [x] IP07.V2 — 实现/产物/验收报告与同一源码及构建摘要关联；失败修复已回归，无必需NOT_RUN/BLOCKED。
 
-执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成未完成；[实时进度及证据](progress/开发进度.md)。
+执行记录：负责人Codex；开始2026-10-10T08:41:09.139Z；完成2026-10-11T04:32:06.013Z；[实时进度及证据](progress/开发进度.md)。
 
 <a id="ip08"></a>
 

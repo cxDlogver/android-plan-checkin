@@ -1,0 +1,314 @@
+[
+  {
+    "id": "both-pending-steps-executed",
+    "expected": true,
+    "actual": true,
+    "status": "PASS"
+  },
+  {
+    "id": "first-step-facts-were-changed",
+    "expected": true,
+    "actual": true,
+    "status": "PASS"
+  },
+  {
+    "id": "uncommitted-final-version",
+    "expected": 3,
+    "actual": 3,
+    "status": "PASS"
+  },
+  {
+    "id": "reopen-preserves-previous-facts",
+    "expected": "bd91ead8af98ac3dcaa9d506372093d7a21956d4e1a266b85289968b645bc4dd",
+    "actual": "bd91ead8af98ac3dcaa9d506372093d7a21956d4e1a266b85289968b645bc4dd",
+    "status": "PASS"
+  },
+  {
+    "id": "reopened-previous-version",
+    "expected": 1,
+    "actual": 1,
+    "status": "PASS"
+  },
+  {
+    "id": "new-native-process-context",
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  },
+  {
+    "id": "AC008.A1.version",
+    "expected": {
+      "user_version": 1
+    },
+    "actual": {
+      "user_version": 1
+    },
+    "status": "PASS"
+  },
+  {
+    "id": "AC008.A1.schema",
+    "expected": [
+      {
+        "name": "app_meta",
+        "sql": "CREATE TABLE app_meta (\n  key TEXT PRIMARY KEY NOT NULL,\n  value TEXT NOT NULL\n) STRICT"
+      },
+      {
+        "name": "command_receipts",
+        "sql": "CREATE TABLE command_receipts (\n  command_id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT REFERENCES plans(id) ON DELETE SET NULL,\n  kind TEXT NOT NULL CHECK (kind IN ('CreatePlan', 'SubmitCycleRecord', 'ModifyCycleRecord', 'SubmitOneTimeResult', 'ModifyOneTimeResult', 'EditPlan', 'RequestPause', 'RequestResume', 'CancelPendingState', 'ArchivePlan', 'PermanentlyDeletePlan')),\n  payload_digest TEXT,\n  result_code TEXT NOT NULL CHECK (result_code IN ('OK', 'TARGET_REMOVED')),\n  object_id TEXT,\n  issued_at_ms INTEGER NOT NULL CHECK (issued_at_ms >= 0),\n  committed_at_ms INTEGER NOT NULL CHECK (committed_at_ms >= 0),\n  expires_at_ms INTEGER NOT NULL CHECK (expires_at_ms = issued_at_ms + 604800000),\n  CHECK ((result_code = 'OK' AND payload_digest IS NOT NULL AND length(payload_digest) = 64)\n    OR (result_code = 'TARGET_REMOVED' AND plan_id IS NULL AND object_id IS NULL AND payload_digest IS NULL))\n) STRICT"
+      },
+      {
+        "name": "cycle_record_originals",
+        "sql": "CREATE TABLE cycle_record_originals (\n  record_id TEXT PRIMARY KEY NOT NULL REFERENCES cycle_records(id) ON DELETE CASCADE,\n  original_result TEXT NOT NULL CHECK (original_result IN ('success', 'failure', 'skip')),\n  original_note TEXT NOT NULL\n) STRICT"
+      },
+      {
+        "name": "cycle_records",
+        "sql": "CREATE TABLE cycle_records (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  business_on TEXT NOT NULL CHECK (business_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  result TEXT NOT NULL CHECK (result IN ('success', 'failure', 'skip')),\n  note TEXT NOT NULL DEFAULT '',\n  entry_kind TEXT NOT NULL CHECK (entry_kind IN ('ordinary', 'backfill')),\n  submitted_at_ms INTEGER NOT NULL CHECK (submitted_at_ms >= 0),\n  modified_at_ms INTEGER CHECK (modified_at_ms >= submitted_at_ms),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  UNIQUE (plan_id, business_on)\n) STRICT"
+      },
+      {
+        "name": "idx_cycle_calendar",
+        "sql": "CREATE INDEX idx_cycle_calendar ON cycle_records(business_on, plan_id)"
+      },
+      {
+        "name": "idx_lifecycle_resolve",
+        "sql": "CREATE INDEX idx_lifecycle_resolve ON lifecycle_events(plan_id, effective_at_ms, requested_at_ms, id)"
+      },
+      {
+        "name": "idx_once_calendar",
+        "sql": "CREATE INDEX idx_once_calendar ON one_time_results(business_on, plan_id)"
+      },
+      {
+        "name": "idx_plans_order",
+        "sql": "CREATE INDEX idx_plans_order ON plans(created_at_ms, id)"
+      },
+      {
+        "name": "idx_receipts_expiry",
+        "sql": "CREATE INDEX idx_receipts_expiry ON command_receipts(expires_at_ms)"
+      },
+      {
+        "name": "idx_receipts_plan",
+        "sql": "CREATE INDEX idx_receipts_plan ON command_receipts(plan_id)"
+      },
+      {
+        "name": "idx_rules_resolve",
+        "sql": "CREATE INDEX idx_rules_resolve ON rule_versions(plan_id, kind, effective_on, revision)"
+      },
+      {
+        "name": "lifecycle_events",
+        "sql": "CREATE TABLE lifecycle_events (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  kind TEXT NOT NULL CHECK (kind IN ('pause', 'resume', 'archive')),\n  source_key TEXT NOT NULL,\n  effective_on TEXT NOT NULL CHECK (effective_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  effective_at_ms INTEGER NOT NULL CHECK (effective_at_ms >= 0),\n  reason TEXT NOT NULL CHECK (reason IN ('user', 'cycle_end', 'one_time_terminal', 'historical_terminal')),\n  requested_at_ms INTEGER NOT NULL CHECK (requested_at_ms >= 0),\n  cancelled_at_ms INTEGER CHECK (cancelled_at_ms >= requested_at_ms),\n  UNIQUE (plan_id, source_key),\n  CHECK (kind = 'archive' OR reason = 'user')\n) STRICT"
+      },
+      {
+        "name": "one_time_result_originals",
+        "sql": "CREATE TABLE one_time_result_originals (\n  result_id TEXT PRIMARY KEY NOT NULL REFERENCES one_time_results(id) ON DELETE CASCADE,\n  original_outcome TEXT NOT NULL CHECK (original_outcome IN ('completed', 'failed', 'cancelled')),\n  original_note TEXT NOT NULL\n) STRICT"
+      },
+      {
+        "name": "one_time_results",
+        "sql": "CREATE TABLE one_time_results (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL UNIQUE REFERENCES plans(id) ON DELETE CASCADE,\n  business_on TEXT NOT NULL CHECK (business_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  outcome TEXT NOT NULL CHECK (outcome IN ('completed', 'failed', 'cancelled')),\n  actual_completed_on TEXT,\n  due_rule_version_id TEXT NOT NULL,\n  note TEXT NOT NULL DEFAULT '',\n  entry_kind TEXT NOT NULL CHECK (entry_kind IN ('ordinary', 'backfill')),\n  submitted_at_ms INTEGER NOT NULL CHECK (submitted_at_ms >= 0),\n  modified_at_ms INTEGER CHECK (modified_at_ms >= submitted_at_ms),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  FOREIGN KEY (plan_id, due_rule_version_id) REFERENCES rule_versions(plan_id, id)\n    ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED,\n  CHECK ((outcome = 'completed' AND actual_completed_on IS NOT NULL AND actual_completed_on = business_on)\n    OR (outcome <> 'completed' AND actual_completed_on IS NULL)),\n  CHECK (entry_kind <> 'backfill' OR outcome = 'completed')\n) STRICT"
+      },
+      {
+        "name": "plans",
+        "sql": "CREATE TABLE plans (\n  id TEXT PRIMARY KEY NOT NULL,\n  type TEXT NOT NULL CHECK (type IN ('fixed', 'weekly', 'one_time')),\n  direction TEXT NOT NULL CHECK (direction IN ('do', 'avoid')),\n  name TEXT NOT NULL,\n  description TEXT NOT NULL DEFAULT '',\n  created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0),\n  created_on TEXT NOT NULL CHECK (created_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  starts_on TEXT NOT NULL CHECK (starts_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  CHECK (starts_on >= created_on),\n  CHECK (type <> 'one_time' OR (direction = 'do' AND starts_on = created_on))\n) STRICT"
+      },
+      {
+        "name": "rule_versions",
+        "sql": "CREATE TABLE rule_versions (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  kind TEXT NOT NULL CHECK (kind IN ('weekday_mask', 'weekly_target', 'end_on', 'due_on')),\n  effective_on TEXT NOT NULL CHECK (effective_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  revision INTEGER NOT NULL CHECK (revision >= 1),\n  value_json TEXT NOT NULL CHECK (json_valid(value_json)),\n  created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0),\n  cancelled_at_ms INTEGER CHECK (cancelled_at_ms >= created_at_ms),\n  UNIQUE (plan_id, id),\n  UNIQUE (plan_id, kind, revision),\n  CHECK (json_type(value_json) = 'object'),\n  CHECK (CASE kind\n    WHEN 'weekday_mask' THEN coalesce(json_type(value_json, '$.weekdayMask') = 'integer' AND json_extract(value_json, '$.weekdayMask') BETWEEN 1 AND 127, 0)\n    WHEN 'weekly_target' THEN coalesce(json_type(value_json, '$.weeklyTarget') = 'integer' AND json_extract(value_json, '$.weeklyTarget') BETWEEN 1 AND 7, 0)\n    WHEN 'end_on' THEN coalesce(json_type(value_json, '$.endOn') = 'null' OR (json_type(value_json, '$.endOn') = 'text' AND json_extract(value_json, '$.endOn') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'), 0)\n    WHEN 'due_on' THEN coalesce(json_type(value_json, '$.dueOn') = 'text' AND json_extract(value_json, '$.dueOn') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]', 0)\n    ELSE 0 END)\n) STRICT"
+      },
+      {
+        "name": "sqlite_autoindex_app_meta_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_command_receipts_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_cycle_record_originals_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_cycle_records_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_cycle_records_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_lifecycle_events_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_lifecycle_events_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_one_time_result_originals_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_one_time_results_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_one_time_results_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_plans_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_rule_versions_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_rule_versions_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_rule_versions_3",
+        "sql": null
+      }
+    ],
+    "actual": [
+      {
+        "name": "app_meta",
+        "sql": "CREATE TABLE app_meta (\n  key TEXT PRIMARY KEY NOT NULL,\n  value TEXT NOT NULL\n) STRICT"
+      },
+      {
+        "name": "command_receipts",
+        "sql": "CREATE TABLE command_receipts (\n  command_id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT REFERENCES plans(id) ON DELETE SET NULL,\n  kind TEXT NOT NULL CHECK (kind IN ('CreatePlan', 'SubmitCycleRecord', 'ModifyCycleRecord', 'SubmitOneTimeResult', 'ModifyOneTimeResult', 'EditPlan', 'RequestPause', 'RequestResume', 'CancelPendingState', 'ArchivePlan', 'PermanentlyDeletePlan')),\n  payload_digest TEXT,\n  result_code TEXT NOT NULL CHECK (result_code IN ('OK', 'TARGET_REMOVED')),\n  object_id TEXT,\n  issued_at_ms INTEGER NOT NULL CHECK (issued_at_ms >= 0),\n  committed_at_ms INTEGER NOT NULL CHECK (committed_at_ms >= 0),\n  expires_at_ms INTEGER NOT NULL CHECK (expires_at_ms = issued_at_ms + 604800000),\n  CHECK ((result_code = 'OK' AND payload_digest IS NOT NULL AND length(payload_digest) = 64)\n    OR (result_code = 'TARGET_REMOVED' AND plan_id IS NULL AND object_id IS NULL AND payload_digest IS NULL))\n) STRICT"
+      },
+      {
+        "name": "cycle_record_originals",
+        "sql": "CREATE TABLE cycle_record_originals (\n  record_id TEXT PRIMARY KEY NOT NULL REFERENCES cycle_records(id) ON DELETE CASCADE,\n  original_result TEXT NOT NULL CHECK (original_result IN ('success', 'failure', 'skip')),\n  original_note TEXT NOT NULL\n) STRICT"
+      },
+      {
+        "name": "cycle_records",
+        "sql": "CREATE TABLE cycle_records (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  business_on TEXT NOT NULL CHECK (business_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  result TEXT NOT NULL CHECK (result IN ('success', 'failure', 'skip')),\n  note TEXT NOT NULL DEFAULT '',\n  entry_kind TEXT NOT NULL CHECK (entry_kind IN ('ordinary', 'backfill')),\n  submitted_at_ms INTEGER NOT NULL CHECK (submitted_at_ms >= 0),\n  modified_at_ms INTEGER CHECK (modified_at_ms >= submitted_at_ms),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  UNIQUE (plan_id, business_on)\n) STRICT"
+      },
+      {
+        "name": "idx_cycle_calendar",
+        "sql": "CREATE INDEX idx_cycle_calendar ON cycle_records(business_on, plan_id)"
+      },
+      {
+        "name": "idx_lifecycle_resolve",
+        "sql": "CREATE INDEX idx_lifecycle_resolve ON lifecycle_events(plan_id, effective_at_ms, requested_at_ms, id)"
+      },
+      {
+        "name": "idx_once_calendar",
+        "sql": "CREATE INDEX idx_once_calendar ON one_time_results(business_on, plan_id)"
+      },
+      {
+        "name": "idx_plans_order",
+        "sql": "CREATE INDEX idx_plans_order ON plans(created_at_ms, id)"
+      },
+      {
+        "name": "idx_receipts_expiry",
+        "sql": "CREATE INDEX idx_receipts_expiry ON command_receipts(expires_at_ms)"
+      },
+      {
+        "name": "idx_receipts_plan",
+        "sql": "CREATE INDEX idx_receipts_plan ON command_receipts(plan_id)"
+      },
+      {
+        "name": "idx_rules_resolve",
+        "sql": "CREATE INDEX idx_rules_resolve ON rule_versions(plan_id, kind, effective_on, revision)"
+      },
+      {
+        "name": "lifecycle_events",
+        "sql": "CREATE TABLE lifecycle_events (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  kind TEXT NOT NULL CHECK (kind IN ('pause', 'resume', 'archive')),\n  source_key TEXT NOT NULL,\n  effective_on TEXT NOT NULL CHECK (effective_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  effective_at_ms INTEGER NOT NULL CHECK (effective_at_ms >= 0),\n  reason TEXT NOT NULL CHECK (reason IN ('user', 'cycle_end', 'one_time_terminal', 'historical_terminal')),\n  requested_at_ms INTEGER NOT NULL CHECK (requested_at_ms >= 0),\n  cancelled_at_ms INTEGER CHECK (cancelled_at_ms >= requested_at_ms),\n  UNIQUE (plan_id, source_key),\n  CHECK (kind = 'archive' OR reason = 'user')\n) STRICT"
+      },
+      {
+        "name": "one_time_result_originals",
+        "sql": "CREATE TABLE one_time_result_originals (\n  result_id TEXT PRIMARY KEY NOT NULL REFERENCES one_time_results(id) ON DELETE CASCADE,\n  original_outcome TEXT NOT NULL CHECK (original_outcome IN ('completed', 'failed', 'cancelled')),\n  original_note TEXT NOT NULL\n) STRICT"
+      },
+      {
+        "name": "one_time_results",
+        "sql": "CREATE TABLE one_time_results (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL UNIQUE REFERENCES plans(id) ON DELETE CASCADE,\n  business_on TEXT NOT NULL CHECK (business_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  outcome TEXT NOT NULL CHECK (outcome IN ('completed', 'failed', 'cancelled')),\n  actual_completed_on TEXT,\n  due_rule_version_id TEXT NOT NULL,\n  note TEXT NOT NULL DEFAULT '',\n  entry_kind TEXT NOT NULL CHECK (entry_kind IN ('ordinary', 'backfill')),\n  submitted_at_ms INTEGER NOT NULL CHECK (submitted_at_ms >= 0),\n  modified_at_ms INTEGER CHECK (modified_at_ms >= submitted_at_ms),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  FOREIGN KEY (plan_id, due_rule_version_id) REFERENCES rule_versions(plan_id, id)\n    ON DELETE NO ACTION DEFERRABLE INITIALLY DEFERRED,\n  CHECK ((outcome = 'completed' AND actual_completed_on IS NOT NULL AND actual_completed_on = business_on)\n    OR (outcome <> 'completed' AND actual_completed_on IS NULL)),\n  CHECK (entry_kind <> 'backfill' OR outcome = 'completed')\n) STRICT"
+      },
+      {
+        "name": "plans",
+        "sql": "CREATE TABLE plans (\n  id TEXT PRIMARY KEY NOT NULL,\n  type TEXT NOT NULL CHECK (type IN ('fixed', 'weekly', 'one_time')),\n  direction TEXT NOT NULL CHECK (direction IN ('do', 'avoid')),\n  name TEXT NOT NULL,\n  description TEXT NOT NULL DEFAULT '',\n  created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0),\n  created_on TEXT NOT NULL CHECK (created_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  starts_on TEXT NOT NULL CHECK (starts_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),\n  CHECK (starts_on >= created_on),\n  CHECK (type <> 'one_time' OR (direction = 'do' AND starts_on = created_on))\n) STRICT"
+      },
+      {
+        "name": "rule_versions",
+        "sql": "CREATE TABLE rule_versions (\n  id TEXT PRIMARY KEY NOT NULL,\n  plan_id TEXT NOT NULL REFERENCES plans(id) ON DELETE CASCADE,\n  kind TEXT NOT NULL CHECK (kind IN ('weekday_mask', 'weekly_target', 'end_on', 'due_on')),\n  effective_on TEXT NOT NULL CHECK (effective_on GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'),\n  revision INTEGER NOT NULL CHECK (revision >= 1),\n  value_json TEXT NOT NULL CHECK (json_valid(value_json)),\n  created_at_ms INTEGER NOT NULL CHECK (created_at_ms >= 0),\n  cancelled_at_ms INTEGER CHECK (cancelled_at_ms >= created_at_ms),\n  UNIQUE (plan_id, id),\n  UNIQUE (plan_id, kind, revision),\n  CHECK (json_type(value_json) = 'object'),\n  CHECK (CASE kind\n    WHEN 'weekday_mask' THEN coalesce(json_type(value_json, '$.weekdayMask') = 'integer' AND json_extract(value_json, '$.weekdayMask') BETWEEN 1 AND 127, 0)\n    WHEN 'weekly_target' THEN coalesce(json_type(value_json, '$.weeklyTarget') = 'integer' AND json_extract(value_json, '$.weeklyTarget') BETWEEN 1 AND 7, 0)\n    WHEN 'end_on' THEN coalesce(json_type(value_json, '$.endOn') = 'null' OR (json_type(value_json, '$.endOn') = 'text' AND json_extract(value_json, '$.endOn') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]'), 0)\n    WHEN 'due_on' THEN coalesce(json_type(value_json, '$.dueOn') = 'text' AND json_extract(value_json, '$.dueOn') GLOB '[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]', 0)\n    ELSE 0 END)\n) STRICT"
+      },
+      {
+        "name": "sqlite_autoindex_app_meta_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_command_receipts_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_cycle_record_originals_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_cycle_records_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_cycle_records_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_lifecycle_events_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_lifecycle_events_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_one_time_result_originals_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_one_time_results_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_one_time_results_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_plans_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_rule_versions_1",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_rule_versions_2",
+        "sql": null
+      },
+      {
+        "name": "sqlite_autoindex_rule_versions_3",
+        "sql": null
+      }
+    ],
+    "status": "PASS"
+  },
+  {
+    "id": "AC008.A2.logical-facts",
+    "expected": "bd91ead8af98ac3dcaa9d506372093d7a21956d4e1a266b85289968b645bc4dd",
+    "actual": "bd91ead8af98ac3dcaa9d506372093d7a21956d4e1a266b85289968b645bc4dd",
+    "status": "PASS"
+  },
+  {
+    "id": "AC008.A2.foreign-keys",
+    "expected": [],
+    "actual": [],
+    "status": "PASS"
+  },
+  {
+    "id": "AC008.A3.no-destructive-recovery",
+    "expected": false,
+    "actual": false,
+    "status": "PASS"
+  }
+]

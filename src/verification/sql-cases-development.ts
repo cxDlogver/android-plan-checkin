@@ -4,7 +4,7 @@ import { canonical } from '../domain/commands';
 import { loadFacts, persist, Tx } from '../infrastructure/database/executor';
 import { verificationExecutor } from './runtime-development';
 
-export const sqlCaseNames=['cycle_unique','once_unique','cross_plan_due','missing_due','actual_mismatch','enum','serial_snapshot','cas'] as const;
+export const sqlCaseNames=['cycle_unique','once_unique','cross_plan_due','missing_due','actual_mismatch','enum','serial_snapshot','cas','cascade'] as const;
 type SqlCaseName=typeof sqlCaseNames[number];
 const id=()=>Crypto.randomUUID();
 const digest=(facts:Facts)=>Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256,canonical(facts));
@@ -117,5 +117,29 @@ async function cas(){
 }
 export async function runSqlCase(name:string){
   if(!sqlCaseNames.includes(name as SqlCaseName))throw new Error('UNSUPPORTED_SQL_CASE');
-  return name==='serial_snapshot'?serialSnapshot():name==='cas'?cas():constraints(name as SqlCaseName);
+  return name==='serial_snapshot'?serialSnapshot():name==='cas'?cas():name==='cascade'?cascade():constraints(name as SqlCaseName);
+}
+
+async function cascade(){
+  const executor=verificationExecutor();return executor.queue(async tx=>{
+    const original=await loadFacts(tx),plan=original.plans.find(plan=>plan.type==='one_time');if(!plan)throw new Error('F01_REQUIRED');
+    const due=original.rule_versions.find(rule=>rule.plan_id===plan.id&&rule.kind==='due_on');if(!due)throw new Error('DUE_RULE_REQUIRED');
+    const resultId=id(),receiptId=id(),deleteReceipt=id(),eventId=id(),instant=plan.created_at_ms,on=plan.created_on;
+    try{
+      await executor.transaction(tx,async()=>{
+        await tx.run('INSERT INTO one_time_results(id,plan_id,business_on,outcome,actual_completed_on,due_rule_version_id,note,entry_kind,submitted_at_ms,revision) VALUES(?,?,?,?,?,?,?,?,?,2)',[resultId,plan.id,on,'completed',on,due.id,'根删除当前备注','ordinary',instant]);
+        await tx.run('INSERT INTO one_time_result_originals(result_id,original_outcome,original_note) VALUES(?,?,?)',[resultId,'failed','根删除原始备注']);
+        await tx.run('INSERT INTO lifecycle_events(id,plan_id,kind,source_key,effective_on,effective_at_ms,reason,requested_at_ms) VALUES(?,?,?,?,?,?,?,?)',[eventId,plan.id,'archive',`user:${eventId}`,on,instant,'user',instant]);
+        await tx.run('INSERT INTO command_receipts(command_id,plan_id,kind,payload_digest,result_code,object_id,issued_at_ms,committed_at_ms,expires_at_ms) VALUES(?,?,?,?,?,?,?,?,?)',[receiptId,plan.id,'ModifyOneTimeResult','a'.repeat(64),'OK',resultId,instant,instant,instant+604800000]);
+      });
+      const before=await loadFacts(tx);
+      await executor.transaction(tx,async()=>{
+        await tx.run("UPDATE command_receipts SET plan_id=NULL,object_id=NULL,payload_digest=NULL,result_code='TARGET_REMOVED' WHERE plan_id=?",[plan.id]);
+        await tx.run('DELETE FROM plans WHERE id=?',[plan.id]);
+        await tx.run('DELETE FROM app_meta WHERE key=?',[`reconciled_at:${plan.id}`]);
+        await tx.run('INSERT INTO command_receipts(command_id,plan_id,kind,payload_digest,result_code,object_id,issued_at_ms,committed_at_ms,expires_at_ms) VALUES(?,NULL,?,NULL,?,NULL,?,?,?)',[deleteReceipt,'PermanentlyDeletePlan','TARGET_REMOVED',instant,instant,instant+604800000]);
+      });
+      return {before,after:await loadFacts(tx),planId:plan.id,resultId,receiptIds:[receiptId,deleteReceipt],committed:true,...await info(tx)};
+    }finally{await executor.transaction(tx,async()=>persist(tx,await loadFacts(tx),original));}
+  });
 }

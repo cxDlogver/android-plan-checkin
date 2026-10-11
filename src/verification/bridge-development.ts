@@ -12,6 +12,7 @@ import { buildFixture, fixtureNames, FixtureName } from './fixtures';
 import { injectFault, now, setClock, verificationExecutor } from './runtime-development';
 import { runSqlCase } from './sql-cases-development';
 import { connectionInfo, initializationProbe } from './initialization-development';
+import { migrationProbe, migrationStatus } from './migration-development';
 
 type Context = { service:AppService; refresh:(clearPins?:boolean)=>Promise<Snapshot|undefined> };
 type Request = { id:string; action:string; payload?:Record<string,unknown> };
@@ -69,7 +70,7 @@ async function dispatch({action,payload={}}:Request){
     case 'navigate': {
       if(typeof payload.route!=='string'||!/^\/(?:native|settings|\(tabs\)\/(?:today|plans|calendar)|plans\/new|plans\/[0-9a-f-]{36}(?:\/edit|\/calendar)?|records\/new|records\/[0-9a-f-]{36})$/.test(payload.route)) throw new Error('INVALID_TEST_ROUTE');
       const params=payload.params;
-      if(params!==undefined&&(typeof params!=='object'||params===null||Array.isArray(params)||Object.entries(params).some(([key,value])=>!['planId','recordId','date','outcome'].includes(key)||typeof value!=='string'))) throw new Error('INVALID_ROUTE_PARAMS');
+      if(params!==undefined&&(typeof params!=='object'||params===null||Array.isArray(params)||Object.entries(params).some(([key,value])=>!['planId','recordId','date','outcome','businessOn','result'].includes(key)||typeof value!=='string'))) throw new Error('INVALID_ROUTE_PARAMS');
       router.replace({pathname:payload.route,params:params as Record<string,string>|undefined} as Parameters<typeof router.replace>[0]);
       return {contextId,route:payload.route,clock:now()};
     }
@@ -83,6 +84,11 @@ async function dispatch({action,payload={}}:Request){
       return {contextId,observation:await runSqlCase(payload.name)};
     }
     case 'connectionInfo': return {contextId,observation:await connectionInfo()};
+    case 'migrationStatus': return {contextId,observation:migrationStatus()};
+    case 'migrationProbe': {
+      if(payload.confirm!=='MIGRATE_ISOLATED_DEV_DATABASE'||typeof payload.kind!=='string')throw new Error('MIGRATION_PROBE_CONFIRMATION_REQUIRED');
+      return {contextId,observation:await migrationProbe(payload.kind)};
+    }
     case 'initializationProbe': {
       if(payload.confirm!=='CLOSE_ISOLATED_DEV_CONNECTION'||typeof payload.kind!=='string')throw new Error('INITIALIZATION_PROBE_CONFIRMATION_REQUIRED');
       return {contextId,observation:await initializationProbe(payload.kind)};
@@ -96,7 +102,7 @@ function connect(){
   requireIsolated();
   socket=new WebSocket('ws://127.0.0.1:8097/plancheckin-verification');
   const current=socket;
-  current.onopen=()=>current.send(JSON.stringify({type:'hello',contextId,applicationId:Application.applicationId,api:Platform.Version,protocol:1,capabilities:['capture','clock','fixture','fault','navigate','command','sqlCase','connectionInfo','initializationProbe']}));
+  current.onopen=()=>current.send(JSON.stringify({type:'hello',contextId,applicationId:Application.applicationId,api:Platform.Version,protocol:1,capabilities:['capture','clock','fixture','fault','navigate','command','sqlCase','connectionInfo','initializationProbe','migrationProbe','migrationStatus']}));
   current.onmessage=event=>{
     pending=pending.then(async()=>{
       let request:Request|undefined;
