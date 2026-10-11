@@ -11,8 +11,8 @@ export async function connectionInfo(){
 export async function initializationProbe(kind:string){
   if(!['invalid_parameters','schema_too_new'].includes(kind))throw new Error('INVALID_INITIALIZATION_PROBE');
   const existing=verificationExecutor();
-  const before=await existing.queue(async tx=>({facts:await loadFacts(tx),schema:await tx.all("SELECT name,sql FROM sqlite_master WHERE type IN ('table','index') ORDER BY name"),userVersion:await tx.first('PRAGMA user_version')}));
-  if(kind==='schema_too_new')await existing.queue(tx=>tx.exec('PRAGMA user_version=2'));
+  const before=await existing.queue(async tx=>({facts:await loadFacts(tx),schema:await tx.all("SELECT name,sql FROM sqlite_master WHERE type IN ('table','index') ORDER BY name"),userVersion:await tx.first<{user_version:number}>('PRAGMA user_version')}));
+  if(kind==='schema_too_new')await existing.queue(tx=>tx.exec(`PRAGMA user_version=${Number(before.userVersion?.user_version)+1}`));
   await existing.close();
   const original=SQLiteDatabase.prototype.getFirstAsync;
   let injected=false,observedJournal:unknown=null,handedOut=false,code:string|null=null;

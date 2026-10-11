@@ -12,7 +12,7 @@ else if(action==='commit'){
   if(!email.stdout.trim())git(['config','user.email','97222936+cxDlogver@users.noreply.github.com']);
   if(git(['add','.']).status===0){
     if(require('node:fs').existsSync('resource/progress/code-delivery.json')){
-      const check=spawnSync(process.execPath,['scripts/verify-evidence.cjs','--index'],{env:gitEnv,encoding:'utf8',windowsHide:true});console.log(check.stdout||check.stderr);if(check.status!==0){process.exitCode=1;return;}
+      const check=spawnSync(process.execPath,['scripts/verify-evidence-stream.cjs','--index'],{env:gitEnv,encoding:'utf8',windowsHide:true});console.log(check.stdout||check.stderr);if(check.status!==0){process.exitCode=1;return;}
     }
     git(['-c','gc.auto=0','commit','-m',message]);
   }

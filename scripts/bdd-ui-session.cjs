@@ -7,7 +7,7 @@ async function navigate(client,device,route,params,mode='replace'){
   const foreground=await device.source();
   if(!foreground.includes(`package="${device.package}"`))device.adb(['shell','am','start','-W','-n',`${device.package}/.MainActivity`]);
   await client.call('navigate',{route,params,mode});
-  const ready=s=>route==='/native'?s.includes('原生模块验证'):route==='/(tabs)/today'?s.includes('resource-id="plan.create"'):route==='/(tabs)/calendar'||route.endsWith('/calendar')?s.includes('calendar.month.previous'):route==='/plans/new'||route.endsWith('/edit')?s.includes('resource-id="plan.name"'):route.startsWith('/records/')?s.includes('resource-id="record.note"')||s.includes('只读记录')||s.includes('目标已永久删除'):route==='/(tabs)/plans'?s.includes('全部计划')||s.includes('运行中'):route.startsWith('/plans/')?s.includes('计划详情'):route==='/settings'?s.includes('版本'):!s.includes('原生模块验证');
+  const ready=s=>route==='/native'?s.includes('原生模块验证'):route==='/(tabs)/today'?s.includes('resource-id="plan.create"'):route==='/(tabs)/calendar'||route.endsWith('/calendar')?s.includes('calendar.month.previous'):route==='/plans/new'?s.includes('新建计划'):route.endsWith('/edit')?s.includes('编辑计划')||s.includes('不能编辑基本信息'):route.startsWith('/records/')?s.includes('确认记录')||s.includes('历史补记')||s.includes('只读记录')||s.includes('目标已永久删除'):route==='/(tabs)/plans'?s.includes('全部计划')||s.includes('运行中'):route.startsWith('/plans/')?s.includes('计划详情'):route==='/settings'?s.includes('版本'):!s.includes('原生模块验证');
   const source=await device.waitSource(s=>s.includes('放弃未保存内容？')||ready(s),20000);
   if(source.includes('放弃未保存内容？'))await device.text('确认');
   await device.waitSource(ready,20000);
@@ -34,7 +34,7 @@ class UiCase {
     await this.clock(`${on}T12:00:00+08:00`);const recordId=randomUUID();await this.command('SubmitCycleRecord',{...await this.ref(planId),recordId,businessOn:on,result,note,confirmedToday:on,confirmedEntryKind:'ordinary'});return recordId;
   }
   async newPlan(type,name='BDD 新计划'){
-    await this.nav('/(tabs)/today');await this.click('plan.create');await this.device.waitSource(s=>s.includes('plan.name'));if(type!=='fixed')await this.type(type);await this.input('plan.name',name);if(type==='fixed')await this.click('plan.weekday.everyday');
+    await this.nav('/(tabs)/today');await this.click('plan.create');await this.device.waitSource(s=>s.includes('新建计划'));await this.device.seek('plan.name');if(type!=='fixed')await this.type(type);await this.input('plan.name',name);if(type==='fixed')await this.click('plan.weekday.everyday');
   }
   async textPresent(id,text){let visible=false;try{visible=(await this.device.seeText(text)).includes(text);}catch{}this.check(id,true,visible);}
   async property(id,name){await this.device.seek(id);const xml=await this.device.source();return name==='text'&&attr(xml,id,'showing-hint')==='true'?'':attr(xml,id,name);}
@@ -43,7 +43,7 @@ class UiCase {
   async unchanged(before,id){const after=await this.capture('after-facts');this.check(id,before.facts,after.facts);}
   async restart(){await this.device.close();this.client.contextId=null;await this.device.open();this.device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await this.device.waitSource(s=>s.includes('今日')||s.includes('原生模块验证'),120000);this.device.deepLink('plancheckin-dev://native');await this.client.waitReady();await this.clock(new Date(this.now).toISOString());}
 }
-async function open(api,directory){const device=new DeviceDriver(api,directory),client=new VerificationClient(api);try{device.identity();await waitForMetro();device.adb(['reverse','tcp:8081','tcp:8081']);await device.open();device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await device.waitSource(s=>s.includes('今日')||s.includes('原生模块验证'),120000);device.deepLink('plancheckin-dev://native');await client.waitReady();return {device,client};}catch(error){try{await device.close();}catch{}throw error;}}
+async function open(api,directory){const device=new DeviceDriver(api,directory),client=new VerificationClient(api);device.capabilities={'appium:autoLaunch':false};try{device.identity();await waitForMetro();device.adb(['reverse','tcp:8081','tcp:8081']);device.adb(['reverse','tcp:8097','tcp:8097']);device.adb(['shell','am','force-stop',device.package]);device.adb(['shell','am','broadcast','-a','android.intent.action.CLOSE_SYSTEM_DIALOGS']);await device.open();device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await device.waitSource(s=>s.includes('今日')||s.includes('原生模块验证'),120000);device.deepLink('plancheckin-dev://native');await client.waitReady();return {device,client};}catch(error){try{await device.close();}catch{}throw error;}}
 async function runCases(api,definitions,select=[],config){
   const {device,client}=await open(api,'.cache/bdd-ui');
   const identity=device.identity(),width=identity.density.includes('480')?360:393,font=Number(identity.fontScale),configId=config||`api${api}-${width}dp-font${font}`;

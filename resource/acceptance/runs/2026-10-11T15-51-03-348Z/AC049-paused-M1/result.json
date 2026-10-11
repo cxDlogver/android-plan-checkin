@@ -1,0 +1,242 @@
+{
+  "caseId": "AC049",
+  "rowId": "paused",
+  "configId": "M1",
+  "runId": "2026-10-11T15-51-03-348Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T15:51:03.348Z",
+  "endedAt": "2026-10-11T15:51:29.286Z",
+  "inputSha256": "b48c3c2d24d20995f1b2f82ab7639ee186dbb72d895c68904c56fff10303fcd9",
+  "previousRecord": null,
+  "scope": "AC049-paused-M1",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-6.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A4.archived",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A2.history",
+      "expected": [
+        {
+          "id": "e1870fd9-3a84-446a-a387-b938cd5f3abd",
+          "plan_id": "ca77dafb-551e-4391-93aa-0b03a79ae841",
+          "business_on": "2026-10-08",
+          "result": "success",
+          "note": "保留历史",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "actual": [
+        {
+          "id": "e1870fd9-3a84-446a-a387-b938cd5f3abd",
+          "plan_id": "ca77dafb-551e-4391-93aa-0b03a79ae841",
+          "business_on": "2026-10-08",
+          "result": "success",
+          "note": "保留历史",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791432000000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A2.rules",
+      "expected": [
+        {
+          "id": "de0bf44a-e29b-4381-a34f-6b7aa4671e34",
+          "plan_id": "ca77dafb-551e-4391-93aa-0b03a79ae841",
+          "kind": "weekday_mask",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"weekdayMask\":127}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "089c803c-ddd1-4317-82f1-8d09653f2720",
+          "plan_id": "ca77dafb-551e-4391-93aa-0b03a79ae841",
+          "kind": "end_on",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "actual": [
+        {
+          "id": "de0bf44a-e29b-4381-a34f-6b7aa4671e34",
+          "plan_id": "ca77dafb-551e-4391-93aa-0b03a79ae841",
+          "kind": "weekday_mask",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"weekdayMask\":127}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        },
+        {
+          "id": "089c803c-ddd1-4317-82f1-8d09653f2720",
+          "plan_id": "ca77dafb-551e-4391-93aa-0b03a79ae841",
+          "kind": "end_on",
+          "effective_on": "2026-10-01",
+          "revision": 1,
+          "value_json": "{\"endOn\":null}",
+          "created_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A2.archive-boundary",
+      "expected": 1791518400000,
+      "actual": 1791518400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A4.no-management",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC049.A3.read-only",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/8-management-confirmation.png",
+      "sha256": "372d59b439fe0b74a50f72021413224693866a46e7d3606e6f10965dca7dd101"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/8-management-confirmation.xml",
+      "sha256": "75096e7f562ae85d1317b3b73a547aa717659650f4b8915b36304a85e62a2b7c"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/9-final.png",
+      "sha256": "7a4b97c2685034cb182f149ccc54d551369258b0ed95947fea31eff60fbdfc74"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/9-final.xml",
+      "sha256": "b79ad8189fd47aa1f43338161fd90897cac1b121d81eebc0c9f88929b5fce801"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/after-facts.json",
+      "sha256": "a0be45a7558801ea27e282f2ab77160626c214a5f4cc1cf1731e516807567c31"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/appium.log",
+      "sha256": "4aa642b707d3c145738c3fe68b6dcfbea00ce612bb4b1e59d3612c1b597d38b6"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/before-facts.json",
+      "sha256": "225a2891c1759d925b841c98ed6d1eb7d0e71a27f42b72714c8dbd7704713192"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/device.json",
+      "sha256": "20dec874fa71120905b63b1c7bcfa59d58d17f97a5bb9e40b4cfa1378f4cfa41"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/final-native-facts.json",
+      "sha256": "a0be45a7558801ea27e282f2ab77160626c214a5f4cc1cf1731e516807567c31"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/fixture.json",
+      "sha256": "6633989d839490594d2a77d54dd6f0c0a04262557aa3eadbaa63c83ca55d8552"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/inputs.json",
+      "sha256": "893193050d7ba0863341bfeeb0069f5ac291eeffa2d6f8b6c0039b6f877f2b4d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-1-clock.json",
+      "sha256": "dcb93c3a82a3b7a3d35748c3c8342f2989bffd7e742904db97ea6308d6034d85"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-2-clock.json",
+      "sha256": "9c0efe8df330ea3c2235b7ee8cf3abbe9c7ff3dc164b006018711a9f45c723bb"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-3-given-create.json",
+      "sha256": "b08920dde3d595045ea7056ab0c36ac4717e9529c1c5440467375bf32260f712"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-4-clock.json",
+      "sha256": "49931f6c523f66a3bc2ef0f5e04d3e5733c31d3d5f927a67c02865f894886780"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-5-given-command.json",
+      "sha256": "aab5554bf5f9d5b7013aa8359bab4dbd53bb981fec30a2a273db9f97f4f23102"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-6-given-command.json",
+      "sha256": "71208be1f2aa006aeacca28ec271b2bf3d18e373e164156f232b8e66f87e25c3"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-7-clock.json",
+      "sha256": "dcb93c3a82a3b7a3d35748c3c8342f2989bffd7e742904db97ea6308d6034d85"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-8.json",
+      "sha256": "87b936bfd132a5d277719a5c695735c067eef667f841221a03656113f27fff06"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T15-51-03-348Z/AC049-paused-M1/step-9.json",
+      "sha256": "bd99bf0e3f896b37a22d1fc2d7b31d8381e3ed77d056faf8d397c85b868993cd"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

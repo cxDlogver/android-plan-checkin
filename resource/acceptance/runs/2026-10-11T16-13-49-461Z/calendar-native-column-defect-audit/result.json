@@ -1,0 +1,46 @@
+{
+  "phase": "MACHINE_OBSERVATIONS",
+  "runId": "2026-10-11T16-13-49-461Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T16:13:49.461Z",
+  "endedAt": "2026-10-11T16:13:49.545Z",
+  "inputSha256": "8cadb31c3df6643c1d8a2863c89971da5fbc2a7ad59a9c7851c6e2399585d8a6",
+  "previousRecord": null,
+  "scope": "calendar-native-column-defect-audit",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "actual-seven-columns-on-both-configurations",
+      "expected": [
+        7,
+        7
+      ],
+      "actual": [
+        6,
+        6
+      ],
+      "status": "FAIL"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "actual-seven-columns-on-both-configurations\n\n'FAIL' !== 'PASS'\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T16-13-49-461Z/calendar-native-column-defect-audit/actual-six-column-and-clipped-edge-defect.json",
+      "sha256": "057f5f1b8f0628e9e982905d2d4172138a40fbb02bd2dd851ba507316b204fe8"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T16-13-49-461Z/calendar-native-column-defect-audit/inputs.json",
+      "sha256": "e00f709c6c2c3f2cfb9f48be8a0349bfd12df29f8cf8817fa9164481de908a20"
+    }
+  ],
+  "limitations": [
+    "Supersedes the earlier mistaken M3 visual completion. Original immutable PASS and FAIL files remain as execution history, while their current command eligibility is invalidated."
+  ]
+}

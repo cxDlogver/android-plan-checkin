@@ -1,7 +1,7 @@
 const {runCases,attr}=require('./bdd-ui-session.cjs'),{randomUUID}=require('node:crypto');
 const defs={},define=(ac,row,fn)=>(defs[ac]??={})[row]=fn;
 const facts=s=>({plans:s.facts.plans,cycle:s.facts.cycle_records,once:s.facts.one_time_results,originals:s.facts.cycle_record_originals,onceOriginals:s.facts.one_time_result_originals,revision:s.dataRevision});
-async function open(t,p,on='2026-10-09',preset='success',id){await t.nav(id?'/records/[recordId]':'/records/new',{planId:p,...(id?{recordId:id}:{businessOn:on,result:preset})});await t.device.waitSource(s=>s.includes('record.note'));}
+async function open(t,p,on='2026-10-09',preset='success',id){await t.nav(id?'/records/[recordId]':'/records/new',{planId:p,...(id?{recordId:id}:{businessOn:on,result:preset})});await t.device.seek('record.note');}
 async function save(t,confirm){await t.click('record.save');if(confirm){await t.device.waitSource(s=>s.includes(confirm));await t.frame('explicit-confirmation');await t.device.text('确认');}await t.device.waitSource(s=>/text="(?:今日|日历|计划日历|计划详情)"/.test(s)||['请检查输入内容','业务日期已变化','尚未确认保存','这条记录只读','计划已归档','这一天不符合'].some(text=>s.includes(text)));}
 async function once(t,created='2026-10-08',today='2026-10-11'){const p=await t.create('one_time',created,{dueOn:'2026-10-10'});await t.clock(`${today}T12:00:00+08:00`);return p;}
 for(const [row,result,type]of [['success','success','fixed'],['failure','failure','fixed'],['skip','skip','fixed'],['completed','completed','one_time'],['cancelled','cancelled','one_time']])define('AC024',row,async t=>{

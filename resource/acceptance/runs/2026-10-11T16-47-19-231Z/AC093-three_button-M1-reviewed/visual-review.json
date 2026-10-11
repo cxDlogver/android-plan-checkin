@@ -1,0 +1,50 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "conclusion": "PASS for the stated navigation/configuration",
+  "records": [
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-43-28-840Z/AC093-three_button-M1/result.json",
+      "sha256": "fd948743098e636de9c284919a76629b07f28ae356ad8f9b18704625f4a4bf16"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-40-18-729Z/AC093-three_button-M1/result.json",
+      "sha256": "3a151b9d91564c22c13f1f4dce0685d23da02b484010b63cbd40ed27ccba5a9d"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-30-13-661Z/AC093-three_button-M1/result.json",
+      "sha256": "3060a01254d20c8396a18c08d8d34ff4b202e47a750198c922ec6954bede1433"
+    }
+  ],
+  "reviewed": [
+    {
+      "role": "date-modal-over-current-form",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-43-28-840Z/AC093-three_button-M1/3-date-modal-over-current-form.png",
+      "sha256": "255c4c39d5c82428507602ddd7f158cf4184c253f83cafb29941ef8bec8d7f0f"
+    },
+    {
+      "role": "actual-system-bars-and-return",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-43-28-840Z/AC093-three_button-M1/4-actual-system-bars-and-return.png",
+      "sha256": "c17886e842b102ba1ffa9469f8d7a32cc4427ac1b6b4b1dab5123da004f18f08"
+    },
+    {
+      "role": "keyboard-open-save-reachable",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-30-13-661Z/AC093-three_button-M1/3-keyboard-open-save-reachable.png",
+      "sha256": "48f9f908a7ee79b42909a92ca761faffe7e417c0c6d59246e045f191f83df8a9"
+    }
+  ],
+  "observations": [
+    "The complete metallic Save control and its text are visible above the actual IME; the native hit rectangle is at least 48dp high.",
+    "The date modal fits inside the native screen and preserves the form on Back. The appropriate gesture pill or three navigation buttons remain visible.",
+    "Today content and bottom tabs sit above the system navigation area, with a continuous background.",
+    "The actual Back sequence and cancellation retain the entire unsaved note; confirmed discard returns to Today without database changes.",
+    "Successful keyboard/first-Back evidence from prior runs is explicitly reused; recovery executes only previously incomplete actions."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-UI",
+    "E-MATRIX"
+  ]
+}

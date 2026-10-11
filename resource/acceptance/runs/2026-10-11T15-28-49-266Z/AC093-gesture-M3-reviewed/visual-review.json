@@ -1,0 +1,30 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "conclusion": "PASS for M3 gesture navigation",
+  "records": [
+    {
+      "record": "resource/acceptance/runs/2026-10-11T14-25-01-646Z/AC093-gesture-M3/result.json",
+      "sha256": "9f4eda7b1e18078d3b743eda1683bd9ee601f0cd2b4e8ec6c312b225d327f738"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T15-24-15-869Z/M3-gesture-display-supplement/result.json",
+      "sha256": "005e99fabb37fd3e4bef451e6b6940e1505631fb2944c43883fb190d8f2c1937"
+    }
+  ],
+  "reviewed": [
+    "Original date-modal and Today-return images",
+    "Supplement 2-actual-complete-save-over-keyboard.png"
+  ],
+  "observations": [
+    "The supplementary screenshot shows the entire metallic Save control and text, above the actual keyboard. Its measured native rectangle is at least 48dp high.",
+    "The native gesture pill and IME-dismiss arrow are visible. The exact native navigation mode is 2 and the enabled overlay is gestural.",
+    "The original date modal fits within system insets and Today tabs remain above the gesture area. The linked original Back sequence first closes keyboard/modal, then requests discard; cancelling keeps the full note and confirmation returns without saving.",
+    "The original clipped 11px button observation was insufficient for reachability. This report accepts only the new complete-button measurements for that assertion and retains the old observation as history.",
+    "The previously passed Back actions and unchanged native facts were reused; no Back sequence or business save was repeated."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-MATRIX",
+    "E-UI"
+  ]
+}

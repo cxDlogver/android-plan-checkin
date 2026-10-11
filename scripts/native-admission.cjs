@@ -10,14 +10,7 @@ if(!['visual-guard','schema'].includes(mode))throw new Error('Specify visual-gua
 const client=new VerificationClient(api),device=new DeviceDriver(api,'.cache/verification-bridge/admission');
 function bounds(source){const tag=source.match(/<[^>]*resource-id="native\.animation\.square"[^>]*>/)?.[0];const values=tag?.match(/bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/)?.slice(1).map(Number);if(!values)throw new Error('Native animation bounds unavailable');return values;}
 function logical(value){if(Array.isArray(value))return value.map(logical).sort((a,b)=>JSON.stringify(a).localeCompare(JSON.stringify(b)));if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).sort(([a],[b])=>a.localeCompare(b)).map(([key,value])=>[key,logical(value)]));return value;}
-async function launch(){
-  await waitForMetro();
-  device.identity();await device.open();
-  device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');
-  await device.waitSource(source=>source.includes('今日')||source.includes('原生模块验证'),120000);
-  device.deepLink('plancheckin-dev://native');await device.waitSource(source=>source.includes('原生模块验证'),90000);
-  await client.waitReady();
-}
+async function launch(){if(mode==='schema'){device.identity();device.adb(['root']);device.adb(['wait-for-device']);}const opened=await require('./bdd-ui-session.cjs').open(api,device.directory);Object.assign(device,opened.device);client.contextId=opened.client.contextId;}
 async function finish(run,operation,limitations=[]){let error=null;try{await operation();}catch(failure){error=failure;console.error(failure.message);try{if(device.sessionId)await device.save('failure');}catch{}}return run.finish(error,limitations);}
 async function main(){
   await launch();
@@ -77,17 +70,17 @@ async function main(){
     run.write('stopped-database-readback.json',observed);
     run.check(`${caseId}.facts-preserved`,sha(JSON.stringify(logical(data.before.facts))),sha(JSON.stringify(logical(observed.facts))));
     run.check(`${caseId}.schema-preserved`,data.before.schema,observed.schema);
-    run.check(`${caseId}.version-preserved`,{user_version:kind==='schema_too_new'?2:1},observed.userVersion);
+    run.check(`${caseId}.version-preserved`,{user_version:kind==='schema_too_new'?Number(data.before.userVersion.user_version)+1:Number(data.before.userVersion.user_version)},observed.userVersion);
     run.check(`${caseId}.foreign-keys`,[],observed.foreignKeyCheck);
     if(kind==='schema_too_new'){
       // Test cleanup restores only the deliberately raised version, after all immutable observations.
       const restoreFolder=`${folder}/restore`;fs.mkdirSync(restoreFolder,{recursive:true});
       for(const suffix of ['','-wal','-shm'])if(fs.existsSync(readbackFile+suffix))fs.copyFileSync(readbackFile+suffix,`${restoreFolder}/plan-checkin.db${suffix}`);
-      const restoreFile=`${restoreFolder}/plan-checkin.db`,restore=new DatabaseSync(restoreFile);try{restore.exec('PRAGMA user_version=1; PRAGMA wal_checkpoint(TRUNCATE);');}finally{restore.close();}
+      const restoreFile=`${restoreFolder}/plan-checkin.db`,restore=new DatabaseSync(restoreFile);try{restore.exec(`PRAGMA user_version=${Number(data.before.userVersion.user_version)}; PRAGMA wal_checkpoint(TRUNCATE);`);}finally{restore.close();}
       const staged='/data/local/tmp/plancheckin-restore-schema.db';device.adb(['push',restoreFile,staged]);device.adb(['shell','chmod','644',staged]);
       device.adb(['shell','run-as',device.package,'rm','-f','files/SQLite/plan-checkin.db-wal','files/SQLite/plan-checkin.db-shm']);
       device.adb(['shell','run-as',device.package,'cp',staged,'files/SQLite/plan-checkin.db']);device.adb(['shell','run-as',device.package,'chmod','600','files/SQLite/plan-checkin.db']);device.adb(['shell','rm','-f',staged]);
-      run.write('cleanup.json',{scope:'restore the deliberate test-only user_version change on stopped .dev app',user_version:1,factsChanged:false});
+      run.write('cleanup.json',{scope:'restore the deliberate test-only user_version change on stopped .dev app',user_version:Number(data.before.userVersion.user_version),factsChanged:false});
     }
   },[kind==='invalid_parameters'?'Development probe changes the real SQLite journal PRAGMA after initialization and reads it back; it does not simulate a physical storage failure.':'Actual initialization-service high-schema refusal; error page layout remains separate AC082.']);
 }

@@ -1,0 +1,38 @@
+{
+  "phase": "MACHINE_OBSERVATIONS",
+  "runId": "2026-10-11T16-25-33-928Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T16:25:33.928Z",
+  "endedAt": "2026-10-11T16:25:34.628Z",
+  "inputSha256": "3ccf3a20e5ad7e70fffe2dadaedf453b2fe294b5c1eef10b5f7c87316fc8e190",
+  "previousRecord": null,
+  "scope": "startup-notification-drawer-recovery",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "GET /session/1e552702-c5e1-40b9-be6a-3852727e7927/source: Could not proxy command to the remote server. Original error: socket hang up",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T16-25-33-928Z/startup-notification-drawer-recovery/actual-close-system-dialogs.log",
+      "sha256": "5acbc6d12e00fe3e66bbae9106f20b60d45b4a34d9be81b1bfe71ac13d83647c"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T16-25-33-928Z/startup-notification-drawer-recovery/before-native-window.xml",
+      "sha256": "7d20cd7af51f3d27e90dba491935535060119e25bf9b7742e3b0be2393529697"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T16-25-33-928Z/startup-notification-drawer-recovery/inputs.json",
+      "sha256": "c0370616a04450ce68c77dbc39a2c49ea30ef9fc5c736664c61a483e9353ea0f"
+    }
+  ],
+  "limitations": [
+    "Closes only covering system dialogs on the identity-guarded project AVD while startup is pending. Does not close the live project Appium session or repeat a business command."
+  ]
+}

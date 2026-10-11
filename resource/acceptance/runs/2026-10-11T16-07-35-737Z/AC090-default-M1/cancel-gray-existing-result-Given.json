@@ -1,0 +1,104 @@
+{
+  "plans": [
+    {
+      "id": "d0fbc0ba-8536-457c-aa54-d0e79026c380",
+      "type": "fixed",
+      "direction": "do",
+      "name": "金属材质确认计划",
+      "description": "",
+      "created_at_ms": 1791518400000,
+      "created_on": "2026-10-09",
+      "starts_on": "2026-10-09",
+      "revision": 1
+    },
+    {
+      "id": "5088024e-3602-4797-b177-c4c54200172f",
+      "type": "one_time",
+      "direction": "do",
+      "name": "取消结果材质",
+      "description": "",
+      "created_at_ms": 1791518400000,
+      "created_on": "2026-10-09",
+      "starts_on": "2026-10-09",
+      "revision": 2
+    }
+  ],
+  "rule_versions": [
+    {
+      "id": "0848d61a-b326-41f8-aedf-7282cc596d98",
+      "plan_id": "d0fbc0ba-8536-457c-aa54-d0e79026c380",
+      "kind": "weekday_mask",
+      "effective_on": "2026-10-09",
+      "revision": 1,
+      "value_json": "{\"weekdayMask\":127}",
+      "created_at_ms": 1791518400000,
+      "cancelled_at_ms": null
+    },
+    {
+      "id": "b9d6085f-9dff-4463-b3a6-3d4bab3b2d32",
+      "plan_id": "d0fbc0ba-8536-457c-aa54-d0e79026c380",
+      "kind": "end_on",
+      "effective_on": "2026-10-09",
+      "revision": 1,
+      "value_json": "{\"endOn\":null}",
+      "created_at_ms": 1791518400000,
+      "cancelled_at_ms": null
+    },
+    {
+      "id": "747425e5-793a-48b7-94e5-bbfd20c0cbd1",
+      "plan_id": "5088024e-3602-4797-b177-c4c54200172f",
+      "kind": "due_on",
+      "effective_on": "2026-10-09",
+      "revision": 1,
+      "value_json": "{\"dueOn\":\"2026-10-09\"}",
+      "created_at_ms": 1791518400000,
+      "cancelled_at_ms": null
+    }
+  ],
+  "lifecycle_events": [],
+  "cycle_records": [],
+  "one_time_results": [
+    {
+      "id": "de3954c0-6f37-4e6f-972e-5c2674230f38",
+      "plan_id": "5088024e-3602-4797-b177-c4c54200172f",
+      "business_on": "2026-10-09",
+      "outcome": "cancelled",
+      "actual_completed_on": null,
+      "due_rule_version_id": "747425e5-793a-48b7-94e5-bbfd20c0cbd1",
+      "note": "取消以灰色符号和文字表达",
+      "entry_kind": "ordinary",
+      "submitted_at_ms": 1791518400000,
+      "modified_at_ms": null,
+      "revision": 1
+    }
+  ],
+  "cycle_record_originals": [],
+  "one_time_result_originals": [],
+  "command_receipts": [
+    {
+      "command_id": "838e5144-1824-47f1-a9fc-a95089c9ad54",
+      "plan_id": "d0fbc0ba-8536-457c-aa54-d0e79026c380",
+      "kind": "CreatePlan",
+      "payload_digest": "7ac180248aefacd2733670fbdaa5d4bcdd703c9586fc35c050e049177d413a1c",
+      "result_code": "OK",
+      "object_id": "d0fbc0ba-8536-457c-aa54-d0e79026c380",
+      "issued_at_ms": 1791518400000,
+      "committed_at_ms": 1791518400000,
+      "expires_at_ms": 1792123200000
+    }
+  ],
+  "app_meta": [
+    {
+      "key": "app_timezone",
+      "value": "Asia/Shanghai"
+    },
+    {
+      "key": "initialized_at_ms",
+      "value": "1791475200000"
+    },
+    {
+      "key": "data_revision",
+      "value": "1"
+    }
+  ]
+}

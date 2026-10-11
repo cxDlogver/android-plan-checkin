@@ -1,0 +1,5 @@
+const fs=require('node:fs'),file='scripts/native-admission.cjs';let s=fs.readFileSync(file,'utf8');
+const start=s.indexOf('async function launch(){'),end=s.indexOf('async function finish',start);if(start<0||end<0)throw new Error('Expected native launch scope');s=s.slice(0,start)+"async function launch(){const opened=await require('./bdd-ui-session.cjs').open(api,device.directory);Object.assign(device,opened.device);client.contextId=opened.client.contextId;}\n"+s.slice(end);
+s=s.replace("kind==='schema_too_new'?2:1","kind==='schema_too_new'?Number(data.before.userVersion.user_version)+1:Number(data.before.userVersion.user_version)");
+s=s.replace("restore.exec('PRAGMA user_version=1; PRAGMA wal_checkpoint(TRUNCATE);');","restore.exec(`PRAGMA user_version=${Number(data.before.userVersion.user_version)}; PRAGMA wal_checkpoint(TRUNCATE);`);");
+s=s.replace("user_version:1,factsChanged:false","user_version:Number(data.before.userVersion.user_version),factsChanged:false");fs.writeFileSync(file,s);

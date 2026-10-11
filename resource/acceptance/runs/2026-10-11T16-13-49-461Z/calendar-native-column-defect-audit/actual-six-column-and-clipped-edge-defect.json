@@ -1,0 +1,175 @@
+{
+  "observations": [
+    {
+      "key": "AC092-default-M3",
+      "record": "resource/acceptance/runs/2026-10-11T14-23-03-084Z/AC092-default-M3/result.json",
+      "sha256": "70e3ff5cb0a88924e8af937eecd97cf51f05230149c96c6cf771f85f1daaca74",
+      "device": {
+        "density": 440,
+        "scale": 2.75,
+        "widthPx": 1080,
+        "heightPx": 2340,
+        "widthDp": 392.72727272727275,
+        "fontScale": 1
+      },
+      "firstRenderedRow": [
+        {
+          "id": "calendar.date.2026-09-28",
+          "bounds": {
+            "left": 64,
+            "top": 975,
+            "right": 197,
+            "bottom": 1203,
+            "width": 133,
+            "height": 228
+          }
+        },
+        {
+          "id": "calendar.date.2026-09-29",
+          "bounds": {
+            "left": 201,
+            "top": 975,
+            "right": 333,
+            "bottom": 1203,
+            "width": 132,
+            "height": 228
+          }
+        },
+        {
+          "id": "calendar.date.2026-09-30",
+          "bounds": {
+            "left": 339,
+            "top": 975,
+            "right": 471,
+            "bottom": 1203,
+            "width": 132,
+            "height": 228
+          }
+        },
+        {
+          "id": "calendar.date.2026-10-01",
+          "bounds": {
+            "left": 477,
+            "top": 975,
+            "right": 609,
+            "bottom": 1203,
+            "width": 132,
+            "height": 228
+          }
+        },
+        {
+          "id": "calendar.date.2026-10-02",
+          "bounds": {
+            "left": 615,
+            "top": 975,
+            "right": 748,
+            "bottom": 1203,
+            "width": 133,
+            "height": 228
+          }
+        },
+        {
+          "id": "calendar.date.2026-10-03",
+          "bounds": {
+            "left": 752,
+            "top": 975,
+            "right": 884,
+            "bottom": 1203,
+            "width": 132,
+            "height": 228
+          }
+        }
+      ],
+      "actualColumns": 6
+    },
+    {
+      "key": "AC092-default-M1",
+      "record": "resource/acceptance/runs/2026-10-11T16-04-27-251Z/AC092-default-M1/result.json",
+      "sha256": "0819a957c095b2a6d257649bd49548cb9b8cc2976a7a8305681e3880f0a146e5",
+      "device": {
+        "density": 480,
+        "scale": 3,
+        "widthPx": 1080,
+        "heightPx": 2340,
+        "widthDp": 360,
+        "fontScale": 1
+      },
+      "firstRenderedRow": [
+        {
+          "id": "calendar.date.2026-09-28",
+          "bounds": {
+            "left": 60,
+            "top": 1061,
+            "right": 165,
+            "bottom": 1307,
+            "width": 105,
+            "height": 246
+          }
+        },
+        {
+          "id": "calendar.date.2026-09-29",
+          "bounds": {
+            "left": 171,
+            "top": 1061,
+            "right": 315,
+            "bottom": 1307,
+            "width": 144,
+            "height": 246
+          }
+        },
+        {
+          "id": "calendar.date.2026-09-30",
+          "bounds": {
+            "left": 321,
+            "top": 1061,
+            "right": 465,
+            "bottom": 1307,
+            "width": 144,
+            "height": 246
+          }
+        },
+        {
+          "id": "calendar.date.2026-10-01",
+          "bounds": {
+            "left": 471,
+            "top": 1061,
+            "right": 615,
+            "bottom": 1307,
+            "width": 144,
+            "height": 246
+          }
+        },
+        {
+          "id": "calendar.date.2026-10-02",
+          "bounds": {
+            "left": 621,
+            "top": 1061,
+            "right": 765,
+            "bottom": 1307,
+            "width": 144,
+            "height": 246
+          }
+        },
+        {
+          "id": "calendar.date.2026-10-03",
+          "bounds": {
+            "left": 771,
+            "top": 1061,
+            "right": 915,
+            "bottom": 1307,
+            "width": 144,
+            "height": 246
+          }
+        }
+      ],
+      "actualColumns": 6
+    }
+  ],
+  "rootCause": "Cell width omitted the Metal border from wrapping geometry. Negative calendar margin also extended beyond the narrow FlatList viewport, clipping the first date column. The old machine assertion counted 42 dates but did not verify actual weekday columns.",
+  "affectedAssertions": [
+    "AC092.A2",
+    "AC092.A4",
+    "AC091.A3"
+  ],
+  "correction": "Use actual list insets, account for border/padding/gaps, and verify native seven-column positions and weekday order. Keep successful business When records."
+}

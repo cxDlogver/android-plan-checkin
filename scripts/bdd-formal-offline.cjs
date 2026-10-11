@@ -1,0 +1,41 @@
+const fs=require('node:fs'),path=require('node:path'),{createRun}=require('./evidence-run.cjs'),{FormalDevice,candidate}=require('./formal-device.cjs'),{sha}=require('./p1.cjs'),progress=require('./progress.cjs');
+async function main(){
+ const api=process.argv[2]||'29',build=candidate(),key=`AC095-default-${api==='29'?'M3':'M7'}`,old=progress.read().commands[key];
+ const prior=old?.record&&fs.existsSync(old.record)?JSON.parse(fs.readFileSync(old.record,'utf8')):null,previousInputs=prior&&JSON.parse(fs.readFileSync(path.join(path.dirname(old.record),'inputs.json'),'utf8'));
+ const recovering=prior?.status==='FAIL'&&previousInputs?.build.apk.sha256===build.apk.sha256;
+ const run=createRun(key,{api,build,harnessSha256:sha(fs.readFileSync(__filename))},['IP28'],{caseId:'AC095',rowId:'default',configId:api==='29'?'M3':'M7',apkSha256:build.apk.sha256});if(!run)return;
+ const d=new FormalDevice(api,run.directory);let error,connection,logStart=0;const logPath=path.join(require('./task-env.cjs').toolRoot,'logs/appium-4723.log');
+ const checkpoint=value=>run.write('checkpoint.json',value);
+ try{
+  await d.configure();run.write('device.json',d.identity());let metro=false;try{await fetch('http://127.0.0.1:8081/status',{signal:AbortSignal.timeout(1500)});metro=true;}catch{}run.check('AC095.A1.Metro-closed',false,metro);
+  connection=d.connectivity();run.write('connectivity-before.json',connection);run.check('AC095.A1.actual-offline',{airplane_mode_on:'1',wifi_on:'0',mobile_data:'0'},d.offline());
+  if(!recovering){const packages=d.adb(['shell','pm','list','packages',d.package]);if(packages.split(/\r?\n/).includes(`package:${d.package}`))run.write('clean-disposable-formal-package.log',d.adb(['uninstall',d.package]));run.write('clean-install.log',d.adb(['install',build.apk.path]));checkpoint({cleanInstall:true,apkSha256:build.apk.sha256});}
+  else run.write('resume-original-When.json',{record:old.record,scope:'Continue the same installed formal APK and recover already committed plan/record facts. No successful create/save is repeated.'});
+  run.write('installed-package.log',d.adb(['shell','dumpsys','package',d.package]));run.write('release-identity.json',{...build,build:JSON.parse(fs.readFileSync(build.buildRecord,'utf8')),audit:JSON.parse(fs.readFileSync(build.auditRecord,'utf8')),embeddedResources:JSON.parse(fs.readFileSync(build.bundleRecord,'utf8'))});
+  if(fs.existsSync(logPath))logStart=fs.statSync(logPath).size;
+  await d.open();d.launch();const first=await d.waitSource(s=>s.includes('plan.create'));await d.save('first-independent-offline-today');run.check('AC095.A1.embedded-operable-UI',true,first.includes('今日')&&first.includes('tab.plans')&&first.includes('tab.calendar')&&!/Unable to load script|Loading from Metro|development servers/i.test(first));
+  await d.text('设置');await d.waitSource(s=>s.includes('本机设置'));const settings=await d.save('formal-native-version-and-fixed-zone');run.check('AC095.A2.native-version-code2',true,settings.includes('1.0.0（2）'));run.check('AC095.A2.fixed-zone',true,settings.includes('Asia/Shanghai'));await d.back();
+  const previousIdentityFile=recovering&&path.join(path.dirname(old.record),'original-When-identity.json'),previousIdentity=previousIdentityFile&&fs.existsSync(previousIdentityFile)?JSON.parse(fs.readFileSync(previousIdentityFile,'utf8')):null;
+  const day=previousIdentity?.day||d.day(),names=previousIdentity?.names||{fixed:`离线固定 ${day}`,weekly:`离线每周 ${day}`,one_time:`离线一次 ${day}`};
+  run.write('original-When-identity.json',{day,names,notes:{fixed:'离线固定备注\n第二行',weekly:'离线每周备注',one_time:'离线一次取消说明'}});
+  let retained=recovering?d.captureStopped('recovered-original-committed'):null;if(retained){d.launch();await d.waitSource(s=>s.includes('plan.create'));}
+  for(const type of ['fixed','weekly','one_time']){
+   if(retained?.facts.plans.some(p=>p.name===names[type]&&p.type===type)){run.write(`reuse-${type}-created-fact.json`,{source:old.record,plan:retained.facts.plans.find(p=>p.name===names[type]&&p.type===type)});continue;}
+   await d.clickVisible('tab.today');await d.click('plan.create');await d.waitSource(s=>s.includes('plan.name'));if(type!=='fixed'){await d.click(`plan.type.${type}`);await d.waitSource(s=>s.includes('切换计划类型'));await d.text('确认');}
+   await d.inputField('plan.name',names[type]);await d.inputField('plan.description','正式包离线闭环');if(type==='fixed')await d.clickVisible('plan.weekday.everyday');await d.revealButton('plan.save');await d.save(`before-create-${type}`);await d.click('plan.save');await d.waitSource(s=>s.includes('计划详情')&&s.includes(names[type]));await d.save(`created-${type}`);await d.back();checkpoint({cleanInstall:true,createdThrough:type,day,names});
+  }
+  const created=d.captureStopped('after-three-plan-creation');run.check('AC095.A3.exact-three-types',['fixed','one_time','weekly'],created.facts.plans.map(p=>p.type).sort());run.check('AC095.A3.unique-plan-IDs',3,new Set(created.facts.plans.map(p=>p.id)).size);
+  d.launch();await d.waitSource(s=>s.includes('plan.create'));
+  for(const [type,result,note]of [['fixed','success','离线固定备注\n第二行'],['weekly','failure','离线每周备注'],['one_time','cancelled','离线一次取消说明']]){
+   const plan=created.facts.plans.find(p=>p.type===type);if(created.facts.cycle_records.some(r=>r.plan_id===plan.id)||created.facts.one_time_results.some(r=>r.plan_id===plan.id)){run.write(`reuse-${type}-saved-fact.json`,{source:old.record,planId:plan.id});continue;}
+   await d.clickVisible('tab.today');await d.clickVisible(type==='fixed'?`today.result.${plan.id}.${result}`:`record.new.${plan.id}`);await d.waitSource(s=>s.includes('确认记录'));if(type!=='fixed')await d.click(`record.result.${result}`);await d.inputField('record.note',note);await d.revealButton('record.save');await d.save(`before-save-${type}`);await d.click('record.save');await d.waitSource(s=>s.includes('plan.create')&&!s.includes('record.note'));await d.save(`saved-${type}`);checkpoint({created:true,savedThrough:type,day,names});
+  }
+  const before=d.captureStopped('before-final-restart');run.check('AC095.A3.two-cycle-and-one-once',[2,1],[before.facts.cycle_records.length,before.facts.one_time_results.length]);
+  const expected=created.facts.plans.map(p=>({planId:p.id,result:p.type==='fixed'?'success':p.type==='weekly'?'failure':'cancelled',note:p.type==='fixed'?'离线固定备注\n第二行':p.type==='weekly'?'离线每周备注':'离线一次取消说明',businessOn:day})).sort((a,b)=>a.planId.localeCompare(b.planId));
+  const saved=[...before.facts.cycle_records,...before.facts.one_time_results].map(r=>({planId:r.plan_id,result:r.result||r.outcome,note:r.note,businessOn:r.business_on})).sort((a,b)=>a.planId.localeCompare(b.planId));run.check('AC095.A3.actual-legal-results-notes-dates',expected,saved);checkpoint({allWritesCommitted:true,day,names,recordIds:[...before.facts.cycle_records,...before.facts.one_time_results].map(r=>r.id)});
+  d.launch();await d.waitSource(s=>s.includes('plan.create'));await d.save('actual-process-restart-today');await d.click('tab.plans');await d.waitSource(s=>s.includes('plan.detail.'));await d.save('actual-process-restart-plans');const after=d.captureStopped('after-final-restart');run.check('AC095.A3.same-IDs-dates-results-notes',before.facts,after.facts);run.check('AC095.A3.schema-two-with-valid-FKs',[2,[]],[after.version,after.foreignKeys]);
+  run.write('release-evidence-links.json',{profiles:['E-RELEASE','E-UI','E-DATA'],release:build,actualPrivateDatabase:after.remote,firstInstallRecord:recovering?old.record:`${run.directory}/clean-install.log`,noDevelopmentBridge:true});
+ }catch(e){error=e;console.error(e.stack);try{if(d.sessionId)await d.save('failure');}catch{}}
+ finally{try{await d.close();}catch(e){error??=e;}if(connection)try{run.write('connectivity-restored.json',d.restoreConnectivity(connection));}catch(e){error??=e;}if(fs.existsSync(logPath)){const bytes=fs.readFileSync(logPath);run.write('appium.log',bytes.subarray(logStart).toString('utf8'));}run.finish(error,['Only the final signed independent APK runs in this scenario. Device root reads the stopped disposable AVD database for exact factual evidence; no runtime test controls or test Clock are used.']);}
+}
+main().catch(e=>{console.error(e.stack);process.exitCode=1;});

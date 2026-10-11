@@ -1,0 +1,46 @@
+{
+  "phase": "MACHINE_OBSERVATIONS",
+  "runId": "2026-10-11T15-31-59-540Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T15:31:59.540Z",
+  "endedAt": "2026-10-11T15:32:01.487Z",
+  "inputSha256": "19928d9754cb76ba741beb0164a7f9eea0690b0757bc8f7615871f888ea251da",
+  "previousRecord": null,
+  "scope": "M1-startup-runtime-failure",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Development runtime not ready: EventEmitter undefined, followed by a JNI error during destruction of the failed React context.",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-11T15-31-59-540Z/M1-startup-runtime-failure/actual-device.json",
+      "sha256": "20dec874fa71120905b63b1c7bcfa59d58d17f97a5bb9e40b4cfa1378f4cfa41"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T15-31-59-540Z/M1-startup-runtime-failure/actual-native-runtime.log",
+      "sha256": "96d0c3e3e256d71626483bf444cfb6effb5c2c7068357f093dc8644dcc191194"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T15-31-59-540Z/M1-startup-runtime-failure/actual-runtime-failure.png",
+      "sha256": "4dade057ae0ef5d85c9e573ac3cf3dd93045ce5a5ecff4527e8f71f7ed428e0f"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T15-31-59-540Z/M1-startup-runtime-failure/actual-runtime-failure.xml",
+      "sha256": "7788989e55885499f203ada4c17e8fb881d03b3fda911ccef2917aa665c56b21"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-11T15-31-59-540Z/M1-startup-runtime-failure/inputs.json",
+      "sha256": "c7b74f81a348b450b2fcb4a9e389e635d59b5bf6486d53d4ab67c721174354f6"
+    }
+  ],
+  "limitations": [
+    "Startup failure only. No completed core behavior was repeated or invalidated."
+  ]
+}

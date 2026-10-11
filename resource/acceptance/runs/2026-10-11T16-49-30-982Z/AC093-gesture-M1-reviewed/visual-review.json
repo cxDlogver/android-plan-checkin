@@ -1,0 +1,54 @@
+{
+  "reviewer": "Codex agent image inspection",
+  "conclusion": "PASS for the stated navigation/configuration",
+  "records": [
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-47-25-148Z/AC093-gesture-M1/result.json",
+      "sha256": "499000c683b761884cc22d75b913d81d87188dab94bb99d01fbef4325ade1f84"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-42-34-678Z/AC093-gesture-M1/result.json",
+      "sha256": "30c3b483c820414c3296395d87200ccdd85e1c8f91a60079e056a192976cdfec"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-39-33-379Z/AC093-gesture-M1/result.json",
+      "sha256": "0f648d851cb2186eb7de5cc43a41ad1acf5e6b4e2d61683ae435beb53a075caa"
+    },
+    {
+      "record": "resource/acceptance/runs/2026-10-11T16-29-12-488Z/AC093-gesture-M1/result.json",
+      "sha256": "b9caf0ebb354f6fa722dceab99a0fd808b6b9c1d0a0cc735d5301e0427d0adec"
+    }
+  ],
+  "reviewed": [
+    {
+      "role": "date-modal-over-current-form",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-47-25-148Z/AC093-gesture-M1/3-date-modal-over-current-form.png",
+      "sha256": "2d3b0ae679daa67e9d37804b1a280b151bf9ebaa98483f5d2cf3a69a5467bf93"
+    },
+    {
+      "role": "actual-system-bars-and-return",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-47-25-148Z/AC093-gesture-M1/4-actual-system-bars-and-return.png",
+      "sha256": "52a83dd0b4769db30ef7c9f0e5728e9d9c23543362ccd698a3231e66a76f96ff"
+    },
+    {
+      "role": "keyboard-open-save-reachable",
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-29-12-488Z/AC093-gesture-M1/3-keyboard-open-save-reachable.png",
+      "sha256": "c360dcfcdd519a4c135b82e97670ce4549e55aeb746e508ce88b7fa065dfd7c7"
+    }
+  ],
+  "observations": [
+    "The complete metallic Save control and its text are visible above the actual IME; the native hit rectangle is at least 48dp high.",
+    "The date modal fits inside the native screen and preserves the form on Back. The appropriate gesture pill or three navigation buttons remain visible.",
+    "Today content and bottom tabs sit above the system navigation area, with a continuous background.",
+    "The actual Back sequence and cancellation retain the entire unsaved note; confirmed discard returns to Today without database changes.",
+    "Successful keyboard/first-Back evidence from prior runs is explicitly reused; recovery executes only previously incomplete actions."
+  ],
+  "evidenceProfiles": [
+    "E-VISUAL",
+    "E-UI",
+    "E-MATRIX"
+  ]
+}

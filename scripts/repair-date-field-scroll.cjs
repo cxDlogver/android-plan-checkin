@@ -1,0 +1,5 @@
+const fs=require('node:fs');
+const driver='scripts/device-driver.cjs';let s=fs.readFileSync(driver,'utf8');
+const start=s.indexOf('  async seek(testID)'),end=s.indexOf('  async clickVisible',start);if(start<0||end<0)throw new Error('Expected seek scope');const method=s.slice(start,end).replace('seek(testID)','seek(testID,outerGutter=false)').replace('this.scroll(direction)','this.scroll(direction,.8,outerGutter)');s=s.slice(0,start)+method+s.slice(end);fs.writeFileSync(driver,s);
+const display='scripts/bdd-ui-display.cjs';s=fs.readFileSync(display,'utf8').replace("t.device.seek('record.actualCompletedOn')","t.device.seek('record.actualCompletedOn',true)");fs.writeFileSync(display,s);
+const reuse='scripts/reuse-display-back-prefix.cjs';s=fs.readFileSync(reuse,'utf8').replace("if(required.every(id=>r.assertions.some(a=>a.id===id&&a.status==='PASS')))","if(fs.existsSync(path.join(dir,'before-keyboard-facts.json'))&&required.every(id=>r.assertions.some(a=>a.id===id&&a.status==='PASS')))");fs.writeFileSync(reuse,s);

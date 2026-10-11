@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/native-admission.cjs';let s=fs.readFileSync(file,'utf8');s=s.replace("async function launch(){const opened=","async function launch(){if(mode==='schema'){device.identity();device.adb(['root']);device.adb(['wait-for-device']);}const opened=");fs.writeFileSync(file,s);

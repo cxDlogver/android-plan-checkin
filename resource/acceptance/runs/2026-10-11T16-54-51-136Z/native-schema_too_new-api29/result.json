@@ -1,0 +1,70 @@
+{
+  "caseId": "AC009",
+  "rowId": "default",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T16-54-51-136Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T16:54:51.136Z",
+  "endedAt": "2026-10-11T16:54:55.136Z",
+  "inputSha256": "537975fff90254711b33c311dcecb865719f73866cc7fad76d5c25193085e408",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T03-49-24-433Z/native-schema_too_new-api29/result.json",
+  "scope": "native-schema_too_new-api29",
+  "implementationIds": [
+    "IP07"
+  ],
+  "assertions": [
+    {
+      "id": "AC009.blocked-code",
+      "expected": "SCHEMA_TOO_NEW",
+      "actual": "SCHEMA_TOO_NEW",
+      "status": "PASS"
+    },
+    {
+      "id": "AC009.no-writable-handle",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Command failed: D:\\xiang\\CX_application\\1_Configuration_Files\\Android-AI\\sdk\\platform-tools\\adb.exe -s emulator-5560 pull /data/user/0/com.xiang.plancheckin.dev/files/SQLite/plan-checkin.db .artifacts/probes/2026-10-11T16-54-51-136Z/schema_too_new-api29/plan-checkin.db\nadb: error: failed to stat remote object '/data/user/0/com.xiang.plancheckin.dev/files/SQLite/plan-checkin.db': Permission denied\r\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T16-54-51-136Z/native-schema_too_new-api29/device.json",
+      "sha256": "a386c696575944f7fdc620b94851a115e0920250f29b1a025019fc28b157683b"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-54-51-136Z/native-schema_too_new-api29/failure.png",
+      "sha256": "fe0d2064fb8018cb45160c13e5366837be94f63f789901a98bdfa6aa947a6446"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T16-54-51-136Z/native-schema_too_new-api29/failure.xml",
+      "sha256": "de96ce645f5538b2b413121130451e06f13335c60cff9e5a76967be9aa705287"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T16-54-51-136Z/native-schema_too_new-api29/inputs.json",
+      "sha256": "d8015ad5d197bc094b38a284f14f808255232915cf7febdb0fcbab3b3a478e1f"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T16-54-51-136Z/native-schema_too_new-api29/native-initialization.json",
+      "sha256": "63ed6af5d84c972150d5fc8202f62043fa65fa76056f143a9a300619c1dedf4d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T16-54-51-136Z/native-schema_too_new-api29/private-files-after.log",
+      "sha256": "1ccaed4c15300f79405464434d6954b05a65f37a6ff7426a75446da40ebbe7f2"
+    }
+  ],
+  "limitations": [
+    "Actual initialization-service high-schema refusal; error page layout remains separate AC082."
+  ]
+}

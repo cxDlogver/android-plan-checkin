@@ -66,7 +66,7 @@ flowchart LR
 - [ ] [IP26｜全功能BDD执行与缺陷回归](#ip26) — P4，IN_PROGRESS
 - [ ] [IP27｜八组合、视觉和无障碍验收](#ip27) — P4，IN_PROGRESS
 - [ ] [IP28｜独立release与性能预算](#ip28) — P4，IN_PROGRESS
-- [ ] [IP29｜覆盖升级、备份关闭与故障验收](#ip29) — P4，NOT_STARTED
+- [ ] [IP29｜覆盖升级、备份关闭与故障验收](#ip29) — P4，IN_PROGRESS
 - [ ] [IP30｜发布证据归档与完整交付](#ip30) — P4，NOT_STARTED
 
 ## 逐项实施与退出 checklist
@@ -1433,7 +1433,7 @@ flowchart LR
 
 ### IP29｜覆盖升级、备份关闭与故障验收
 
-阶段：P4；状态：NOT_STARTED；前置：[IP07](#ip07)、[IP12](#ip12)、[IP26](#ip26)
+阶段：P4；状态：IN_PROGRESS；前置：[IP07](#ip07)、[IP12](#ip12)、[IP26](#ip26)
 
 需求关联：[FR29](设计需求文档-计划打卡-Android-v1.md#fr29)、[FR30](设计需求文档-计划打卡-Android-v1.md#fr30)、[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
