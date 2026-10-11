@@ -1,9 +1,11 @@
 const fs=require('node:fs'),{randomUUID}=require('node:crypto'),{createRun}=require('./evidence-run.cjs'),{snapshot,sha}=require('./p1.cjs'),{DeviceDriver,decode}=require('./device-driver.cjs'),{VerificationClient,waitForMetro}=require('./verification-bridge.cjs');
 const node=function(){return require('./task-env.cjs').node;};
-const sourceFiles=['app','src/features','src/ui','src/state','src/domain','src/application','src/infrastructure/database'];
+const sourceFiles=['app','src/features','src/ui','src/state','src/domain','src/application','src/infrastructure/database','src/verification'];
 function tag(xml,id){return xml.match(new RegExp('<[^>]*resource-id="'+id.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'"[^>]*>'))?.[0];}
 function attr(xml,id,name){const value=tag(xml,id)?.match(new RegExp(name+'="([^"]*)"'))?.[1];return value===undefined?undefined:decode(value);}
 async function navigate(client,device,route,params,mode='replace'){
+  const foreground=await device.source();
+  if(!foreground.includes(`package="${device.package}"`))device.adb(['shell','am','start','-W','-n',`${device.package}/.MainActivity`]);
   await client.call('navigate',{route,params,mode});
   const source=await device.waitSource(s=>s.includes('放弃未保存内容？')||(route==='/native'?s.includes('原生模块验证'):!s.includes('原生模块验证')),15000);
   if(source.includes('放弃未保存内容？'))await device.text('确认');
@@ -15,7 +17,7 @@ class UiCase {
   async frame(name){const source=await this.device.save(`${++this.step}-${name}`);this.run.write(`step-${this.step}.json`,{name,at:new Date().toISOString()});return source;}
   async click(id){await this.device.clickVisible(id);await new Promise(resolve=>setTimeout(resolve,350));}
   async input(id,text){await this.device.seek(id);await this.device.input(id,text);try{await this.device.hideKeyboard();}catch{}await new Promise(resolve=>setTimeout(resolve,350));}
-  async nav(route,params){const target=route.replace('[planId]',params?.planId||'').replace('[recordId]',params?.recordId||'');await navigate(this.client,this.device,'/native');if(target.startsWith('/records/')){await navigate(this.client,this.device,'/(tabs)/today');await navigate(this.client,this.device,target,params,'push');}else if(/\/plans\/[^/]+\/edit$/.test(target)){await navigate(this.client,this.device,target.replace(/\/edit$/,''),params);await navigate(this.client,this.device,target,params,'push');}else await navigate(this.client,this.device,target,params);}
+  async nav(route,params){const target=route.replace('[planId]',params?.planId||'').replace('[recordId]',params?.recordId||'');await navigate(this.client,this.device,'/native');if(target.startsWith('/records/')||target==='/plans/new'){await navigate(this.client,this.device,'/(tabs)/today');await navigate(this.client,this.device,target,params,'push');}else if(/\/plans\/[^/]+\/edit$/.test(target)){await navigate(this.client,this.device,target.replace(/\/edit$/,''),params);await navigate(this.client,this.device,target,params,'push');}else await navigate(this.client,this.device,target,params);}
   async clock(instant){this.now=Date.parse(instant);this.run.write(`step-${++this.step}-clock.json`,await this.client.call('clock',{instant}));await new Promise(resolve=>setTimeout(resolve,400));}
   async capture(name){const data=await this.client.call('capture');this.run.write(`${name}.json`,data);return data.snapshot;}
   async type(type){await this.click(`plan.type.${type}`);await this.device.waitSource(source=>source.includes('切换计划类型'));await this.device.text('确认');await this.device.waitSource(source=>attr(source,`plan.type.${type}`,'selected')==='true'&&!source.includes('切换计划类型'));}
@@ -49,7 +51,7 @@ async function runCases(api,definitions,select=[],config){
       for(const [row,fn]of Object.entries(rows)){if(select.length&&!select.includes(ac)&&!select.includes(ac+'/'+row))continue;
         await device.request(device.endpoint('timeouts'));await client.waitReady(5000);
         const build=require('./progress.cjs').read().commands['native-debug'];
-        const run=createRun(`${ac}-${row}-${configId}`,{api,configId,apk:build.artifacts.filter(f=>f.path.endsWith('.apk')),lockfileSha256:sha(fs.readFileSync('pnpm-lock.yaml')),source:snapshot(sourceFiles),verificationHarness:{caseFunction:fn.toString(),shared:snapshot(['scripts/bdd-ui-session.cjs','scripts/device-driver.cjs'])}},['IP26'],{caseId:ac,rowId:row,configId});if(!run)continue;
+        const run=createRun(`${ac}-${row}-${configId}`,{api,configId,apk:build.artifacts.filter(f=>f.path.endsWith('.apk')),lockfileSha256:sha(fs.readFileSync('pnpm-lock.yaml')),source:snapshot(sourceFiles),verificationHarness:{caseFunction:fn.toString(),shared:snapshot(['scripts/bdd-ui-session.cjs','scripts/device-driver.cjs'])}},['IP26'],{caseId:ac,rowId:row,configId,...(fn.verificationPhase?{phase:fn.verificationPhase}:{})});if(!run)continue;
         device.directory=run.directory;const t=new UiCase(run,device,client);let error=null;
         const logPath=require('node:path').join(require('./task-env.cjs').toolRoot,'logs/appium-4723.log'),logStart=fs.existsSync(logPath)?fs.statSync(logPath).size:0;
         try{run.write('device.json',device.identity());await client.call('fault',{point:null});await t.clock('2026-10-09T12:00:00+08:00');run.write('fixture.json',await client.call('fixture',{name:'F01',zone:'Asia/Shanghai',confirm:'RESET_ISOLATED_DEV_DATABASE'}));await fn(t);await t.capture('final-native-facts');await t.frame('final');}

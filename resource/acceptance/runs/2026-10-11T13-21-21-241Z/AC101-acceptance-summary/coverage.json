@@ -1,0 +1,777 @@
+{
+  "scope": {
+    "A1": "Both API native readback contains one_time/do/createdOn and only due_on rule; independent boundary rejection facts retained.",
+    "A2": "Both future UI rows find the task under Today deadline items.",
+    "A3": "Both API past and empty rows preserve input and all plan/rule/receipt facts; independent domain rejection covers both values."
+  },
+  "rows": [
+    "today",
+    "future",
+    "past",
+    "empty"
+  ],
+  "dateCoreReuse": {
+    "expectedOldFileSha256": "5660e516f46b7d8fc45a025f278f8cc5f15d183697737a106b7a1b74643cf91c",
+    "gitCommit": "93110d6",
+    "gitFileSha256": "5660e516f46b7d8fc45a025f278f8cc5f15d183697737a106b7a1b74643cf91c",
+    "oldCoreSha256": "01f870a127284394beea10b571f9c5233f6a61d1d1c680246da848ae91324eae",
+    "currentCoreSha256": "01f870a127284394beea10b571f9c5233f6a61d1d1c680246da848ae91324eae",
+    "excludedChange": "Only the display formatting function and following instant label are excluded. Date parsing, IANA validity, businessToday, calendar day arithmetic, weekday, strict next Monday, range and month-grid functions are included."
+  },
+  "configurations": [
+    "DOMAIN",
+    "M3",
+    "M7"
+  ],
+  "dependencies": [
+    {
+      "key": "AC101-today-M3",
+      "report": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/result.json",
+      "sha256": "bc5d467d9b5e3bfe3f861e08ea97a9741c3e4a1a1675ef005172b7e9b6f87a04",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/2-before-save.png",
+          "sha256": "6fd7b80d63c15b438e4e9d47658840149bc0cb8f32a83f700d5137a44e7a0457"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/2-before-save.xml",
+          "sha256": "e49f0f052b4af0b368ede0c102cb8f3feaeb2cd9fb0e9afd60c47f0768fa6d65"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/3-today-once-visible.png",
+          "sha256": "52d86bf0a705a3476d6f7084ae8fad236087f3670b81f34e4c3896b63a97e074"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/3-today-once-visible.xml",
+          "sha256": "d816585e597de40ebc6a8759fbb5561cfd13085948f2d64a94a8a08e11d6b607"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/4-final.png",
+          "sha256": "99a255fe16c1aa6cc3226f93a9b40ce12698f84b560a413cd2bbd21744f1a7f2"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/4-final.xml",
+          "sha256": "d816585e597de40ebc6a8759fbb5561cfd13085948f2d64a94a8a08e11d6b607"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/after-facts.json",
+          "sha256": "9f82e87dc6c7f0fd9bc40de5115dfe92e93988921163eb32f37258163a55a498"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/appium.log",
+          "sha256": "eb1ec5bc28841db2199618044952143b3386ffba7b7f4ebc9e0c37c153e1d9bf"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/before-save-facts.json",
+          "sha256": "a6eb8b14c66c29e2965f56780c56d06ba766a0c81b40aa05cb1ba5a765de417c"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/device.json",
+          "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/final-native-facts.json",
+          "sha256": "9f82e87dc6c7f0fd9bc40de5115dfe92e93988921163eb32f37258163a55a498"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/fixture.json",
+          "sha256": "aea64c1bf477d49dc963ff72ab35130f125c129999f237f931b9620c07c5e43c"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/inputs.json",
+          "sha256": "313be78468c7e7f7f594e78775bc6f051172a171345a0235c191a249f41997d4"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/step-1-clock.json",
+          "sha256": "9704342c858f6b7b335f801574a7ea8d1ede10a2357aeb48ef73331e4bdb4345"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/step-2.json",
+          "sha256": "6e07a7446a6d1331a2c9fa14967f29e7a0292a4be70055b53f94cc90d3ce17da"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/step-3.json",
+          "sha256": "db62b5d35fac546179fdee60479b281c9372854b0ab4c76ec91bd1d34f3cfbcd"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-37-51-546Z/AC101-today-M3/step-4.json",
+          "sha256": "d715655a1d646817e2256f6648f4a47d4e1d74ac5e8b4836502447dbdad1fac3"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-today-M7",
+      "report": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/result.json",
+      "sha256": "7a315f8cf94ca664f194ef951040e870f97a02bff3c424ce1f3b12a10b250d3f",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/2-before-save.png",
+          "sha256": "a9264e6493338f45d85bb62c64de226686641fdebc21e27091868a349dcaede3"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/2-before-save.xml",
+          "sha256": "98211d6ed1d96f27ff9195d89928c7b839afa52cba92d56c35b80408923832bf"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/3-today-once-visible.png",
+          "sha256": "8dd26a411c05bc93b028e4b1e7127d984a92036b6db252ba36e7ed4f66fb0b35"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/3-today-once-visible.xml",
+          "sha256": "9340f2c69689f6c92ea3f9279a1caff7af818c46038f56f12d4342e6e9955f49"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/4-final.png",
+          "sha256": "8dd26a411c05bc93b028e4b1e7127d984a92036b6db252ba36e7ed4f66fb0b35"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/4-final.xml",
+          "sha256": "9340f2c69689f6c92ea3f9279a1caff7af818c46038f56f12d4342e6e9955f49"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/after-facts.json",
+          "sha256": "390cd09afdc6433cd771a405bfc24a0e90790d42c5e10bfeb0fe5d28e380bca8"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/before-save-facts.json",
+          "sha256": "ae35574c9dad1cbad91bf61195b8008b5f5050153fe914c39059a44786c7a50c"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/device.json",
+          "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/final-native-facts.json",
+          "sha256": "390cd09afdc6433cd771a405bfc24a0e90790d42c5e10bfeb0fe5d28e380bca8"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/fixture.json",
+          "sha256": "d374bd88ce7910952ffcad9e50cb55beb9d85f69a0d1be63c18f3cbe95d8de9d"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/inputs.json",
+          "sha256": "390481c9a0ea597ff434790cd44e193cb2a434e57843e2083c82f8c63d2d4e40"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/step-1-clock.json",
+          "sha256": "64c7a24e882730f47fe8e9c289626a067fd033c13b220e83fbe33867702ed056"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/step-2.json",
+          "sha256": "b3ad6105ca79e9206cdf8ac1b3074f0579a7c0496b2962231ddfb1c19c91967b"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/step-3.json",
+          "sha256": "39e2976e6443620aa1cf449684486a8de8c0feac8b88d0fb25ef8f6f68e56d70"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T08-59-43-197Z/AC101-today-M7/step-4.json",
+          "sha256": "58d08057967492289da5158786d6402a70f690c351a0f9bb6f31b187203f9406"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-future-M3",
+      "report": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/result.json",
+      "sha256": "2751897fa0ae5c1612d24d9909ef9f30622027992170c8d1032ee30a36feb4af",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/2-before-save.png",
+          "sha256": "8984d19433516287d757febe8d29df972a02efc28b26ba155ab43ac00720b8e3"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/2-before-save.xml",
+          "sha256": "9aab94a3d8755a7cbcef902dac23b78dd51c7cb9d4eeb0e032c38b789689a665"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/3-today-once-visible.png",
+          "sha256": "1d98c73cd3be0d9a142a62cea791f8e4ddca4f81c14b6afc426deb42d3d99be8"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/3-today-once-visible.xml",
+          "sha256": "67bc7e572c85611356483f44cae21790fa3d05d24202bc5068ee7b2f05d40d9e"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/4-final.png",
+          "sha256": "747530b37641737ca56107d184efbecbb48a8fed7805df1e06c404ec58b0bf73"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/4-final.xml",
+          "sha256": "67bc7e572c85611356483f44cae21790fa3d05d24202bc5068ee7b2f05d40d9e"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/after-facts.json",
+          "sha256": "8dc37cd2430be0740c1e4295c7a369ef5cb23dcbd17744216333a581ef475dd0"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/appium.log",
+          "sha256": "702ae6bad007d84153a6cd8f0cb855191cd5e0e1f3755163f0f5a23db4a84a5d"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/before-save-facts.json",
+          "sha256": "140eaea7e72366552d065e9904c8bc541ffe09f15fda5745399c2cb606a4bad7"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/device.json",
+          "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/final-native-facts.json",
+          "sha256": "8dc37cd2430be0740c1e4295c7a369ef5cb23dcbd17744216333a581ef475dd0"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/fixture.json",
+          "sha256": "1fe91e0f3ec3130bdee85f1cf14998384374f8be62ecffcf4317bf3096532d14"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/inputs.json",
+          "sha256": "313be78468c7e7f7f594e78775bc6f051172a171345a0235c191a249f41997d4"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/step-1-clock.json",
+          "sha256": "9704342c858f6b7b335f801574a7ea8d1ede10a2357aeb48ef73331e4bdb4345"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/step-2.json",
+          "sha256": "39a26f057ca17e94f93927f5f4a77bf5809dfe8c1175cedf8301816872a7d0dc"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/step-3.json",
+          "sha256": "2f2d05edf25eb2cee9f2aca1d6ead8c34bbdff596e319bd607aec2a6e80efafc"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-38-40-489Z/AC101-future-M3/step-4.json",
+          "sha256": "5ae5f62daca7c1ba5c98055c1d85b0f6810697aa3c12fd444396f25364746fdf"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-future-M7",
+      "report": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/result.json",
+      "sha256": "343772b40eb50184117975697333e14fe16843c7e0dc5acbf7eb1a57294eed76",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/2-before-save.png",
+          "sha256": "f68a1cc381d4ccb3c47d950b9c000b767720d0a2a1812d095b0d0a8bc3c45b70"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/2-before-save.xml",
+          "sha256": "78a9913ff6ca15494b6ae5de4cf6c40aca8e8b52c21344d0b2af6846a813921e"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/3-today-once-visible.png",
+          "sha256": "04498eaaa98a412c5eb23ee87a21ce690b949e2cc1d6b0fa8456012512787969"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/3-today-once-visible.xml",
+          "sha256": "4ed7fcbdc4c412cd6910c8e39e32640f4cb1be8cc3dbfa57c1d5fac04281a1e3"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/4-final.png",
+          "sha256": "04498eaaa98a412c5eb23ee87a21ce690b949e2cc1d6b0fa8456012512787969"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/4-final.xml",
+          "sha256": "4ed7fcbdc4c412cd6910c8e39e32640f4cb1be8cc3dbfa57c1d5fac04281a1e3"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/after-facts.json",
+          "sha256": "9c58bd641312d9120ce27ec4f48beeb391fd89a894ca51541a325354a0ef2cdf"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/before-save-facts.json",
+          "sha256": "45d788196d1ae97eb3cb1e5b4708ebc2d57cf1b247aa6b5d2708c319c4d49c29"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/device.json",
+          "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/final-native-facts.json",
+          "sha256": "9c58bd641312d9120ce27ec4f48beeb391fd89a894ca51541a325354a0ef2cdf"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/fixture.json",
+          "sha256": "eddf53788954213a6ac37694295198b9c0e45a81767f2ff74043623d7b556caa"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/inputs.json",
+          "sha256": "390481c9a0ea597ff434790cd44e193cb2a434e57843e2083c82f8c63d2d4e40"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/step-1-clock.json",
+          "sha256": "64c7a24e882730f47fe8e9c289626a067fd033c13b220e83fbe33867702ed056"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/step-2.json",
+          "sha256": "c3733243399c979e23f5d11b09da0b8274cc2472971ab21f8d309feebb0adb0d"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/step-3.json",
+          "sha256": "367a244f8153c34d521b2e3450f4e2c78fcdf76bbb80db8239cc5724b891dbed"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-00-22-992Z/AC101-future-M7/step-4.json",
+          "sha256": "d1d11b7457054c0f8daa2b9515b1fb362fa21682beb80d8a9706ac986b16e40f"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-past-M3",
+      "report": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/result.json",
+      "sha256": "a2bb07f21acddc0a7ffd0185e9575958c95e4ef5f87528946df6a4bca2c4102c",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/2-before-save.png",
+          "sha256": "a80d7f7218b12bf5b782fa15a74e17ab3a360909f91acb7bd879b4169f3439e7"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/2-before-save.xml",
+          "sha256": "1065dd2cf5ab293e7fd7dd243cb3143612acbfbcbd673dd25315b97cb41624f4"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/3-final.png",
+          "sha256": "57be9173f1d500d4500d2fac5f937c1fcf8207af609e05d510dabce61f4d0aee"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/3-final.xml",
+          "sha256": "c13b6b2bd4bf92b90bddb182bd8007bf420096b5b9b5b638f0b653824fa471c1"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/after-facts.json",
+          "sha256": "e618fea94a5dd9467c33425d98f755936f66cd51ac580c1588b1a2629631cbd1"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/appium.log",
+          "sha256": "6cd57bb2c40e1b71ef31fe22ff93a8eef6c4511004a81b016f56deb13533b69b"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/before-save-facts.json",
+          "sha256": "e618fea94a5dd9467c33425d98f755936f66cd51ac580c1588b1a2629631cbd1"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/device.json",
+          "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/final-native-facts.json",
+          "sha256": "e618fea94a5dd9467c33425d98f755936f66cd51ac580c1588b1a2629631cbd1"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/fixture.json",
+          "sha256": "d08eb671b2105716166c354a04c9cb1fbea34d943bcdd93760316140fad65b37"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/inputs.json",
+          "sha256": "313be78468c7e7f7f594e78775bc6f051172a171345a0235c191a249f41997d4"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/step-1-clock.json",
+          "sha256": "9704342c858f6b7b335f801574a7ea8d1ede10a2357aeb48ef73331e4bdb4345"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/step-2.json",
+          "sha256": "983231ef0b08d64ef0d1521b8cb8ccc397059af0ff342f85fe672ed57a6f8fcc"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-39-31-221Z/AC101-past-M3/step-3.json",
+          "sha256": "0ad8efc4c1164b53faa6a198b0d7f021a75eefb222af5bfa9b646e58b0151c9f"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-past-M7",
+      "report": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/result.json",
+      "sha256": "2d5a6d3e44eb0f82cfc237f5e65c7271b62c2ab874b3de77f50c26f033d811e5",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/2-before-save.png",
+          "sha256": "c9f98f36d66d699e42c17f5a98bb1025cdfa5a839d13dedc43d9f53ffa5e923c"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/2-before-save.xml",
+          "sha256": "f27b270329b7bf7e736d0cee074e222af4fbac427f3363b959756e950bf9553e"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/3-final.png",
+          "sha256": "5f2adb420824f56c4cae54a1ff645d22098c694ff3826290f066e1506b8fb118"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/3-final.xml",
+          "sha256": "8073cf57a9ab4c6f453726be5bd5ba4b14a708ec93f4254d5200864602d2f12f"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/after-facts.json",
+          "sha256": "5e9ad6b565072d5f9e47f36fe2ca694bfea2044c508b84289bdb79ea22f94552"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/before-save-facts.json",
+          "sha256": "5e9ad6b565072d5f9e47f36fe2ca694bfea2044c508b84289bdb79ea22f94552"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/device.json",
+          "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/final-native-facts.json",
+          "sha256": "5e9ad6b565072d5f9e47f36fe2ca694bfea2044c508b84289bdb79ea22f94552"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/fixture.json",
+          "sha256": "c1016adf97911be64cca0ad8309a5a3ba24e14646d3c3cb49c5318935fec7450"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/inputs.json",
+          "sha256": "390481c9a0ea597ff434790cd44e193cb2a434e57843e2083c82f8c63d2d4e40"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/step-1-clock.json",
+          "sha256": "64c7a24e882730f47fe8e9c289626a067fd033c13b220e83fbe33867702ed056"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/step-2.json",
+          "sha256": "4a050211d58c6f652e795c4c8e8e8799ef4b6f919d4809e921acc5ab39a76c91"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-05-264Z/AC101-past-M7/step-3.json",
+          "sha256": "2ccefa06b51228682a5893629f01ddcaa76b84ef3365a4bfdf80f196572abfd6"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-empty-M3",
+      "report": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/result.json",
+      "sha256": "187134285e67f77307522b01808e3838e5251d96f532b449040f30b54367ee6a",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/2-before-save.png",
+          "sha256": "33c4b50255e9b3474acc96720529a6d0b906e7399719030990cb65e93a70ae95"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/2-before-save.xml",
+          "sha256": "1edf29217fcd987b4fa7f736eb567abbf1194cd0015008b686b50e98c34c88bd"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/3-final.png",
+          "sha256": "edf13b80d8e9e0ce3e8a462954eebe6bb719563a54cf8ccae2a3e1db11af5768"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/3-final.xml",
+          "sha256": "c0c33699f9f661ebcd1af1ad7ccaf5d9d5c214dfc3d2a3a3b76422728b1779fe"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/after-facts.json",
+          "sha256": "6fce383762f28f250b26b7e605fa0b56b43070a79e57ddee106308a8a0d6e62a"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/appium.log",
+          "sha256": "767ce08e60e38815d08c2f96b7fc4daaa3fc6c1d9093709a343b4d7b9362f377"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/before-save-facts.json",
+          "sha256": "6fce383762f28f250b26b7e605fa0b56b43070a79e57ddee106308a8a0d6e62a"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/device.json",
+          "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/final-native-facts.json",
+          "sha256": "6fce383762f28f250b26b7e605fa0b56b43070a79e57ddee106308a8a0d6e62a"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/fixture.json",
+          "sha256": "d6c2a0d57981cb2b8460eee4a0eb251531cabfea508cc5850b79576eff670b74"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/inputs.json",
+          "sha256": "313be78468c7e7f7f594e78775bc6f051172a171345a0235c191a249f41997d4"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/step-1-clock.json",
+          "sha256": "9704342c858f6b7b335f801574a7ea8d1ede10a2357aeb48ef73331e4bdb4345"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/step-2.json",
+          "sha256": "5c69b6caba788c386a2bd1928299df223cc48e629a123644a9d826d0636e3700"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-40-08-003Z/AC101-empty-M3/step-3.json",
+          "sha256": "8285d3101c563dcddef9ea024bc0beb4be47f4877b9e8e5863a9b630a5b1e6c0"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "AC101-empty-M7",
+      "report": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/result.json",
+      "sha256": "2d92e78437ae966e28c29f85fec2bda1c7797fea4be8e4b47541dde9fa5da026",
+      "evidence": [
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/2-before-save.png",
+          "sha256": "10b93434a25e5018f8bd958ca35c6fc5a03be78201c0ee8f62e6ab5b297962b6"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/2-before-save.xml",
+          "sha256": "ad3447d981cc1f498d3175368409e9e81d18410f904af2dcac3e4d5730bc2bdb"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/3-final.png",
+          "sha256": "4bad93e32278f65f5313bd9b5687e1249d8ed2e70393000c345ebf77a471e5d9"
+        },
+        {
+          "profile": "E-UI",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/3-final.xml",
+          "sha256": "65171cc0b6defb5abb0e04ca772e540e420efb6132716f8f2cbd42dd40759dd9"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/after-facts.json",
+          "sha256": "ef6fc753268081a423fcadffbef2ca63adea464b3e571b4fbb9d2e942a75a7b7"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/before-save-facts.json",
+          "sha256": "ef6fc753268081a423fcadffbef2ca63adea464b3e571b4fbb9d2e942a75a7b7"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/device.json",
+          "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/final-native-facts.json",
+          "sha256": "ef6fc753268081a423fcadffbef2ca63adea464b3e571b4fbb9d2e942a75a7b7"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/fixture.json",
+          "sha256": "788be67496dd6ba017fa2a18a039e1baaef5cfc2d6d4154ade93524ccf092152"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/inputs.json",
+          "sha256": "390481c9a0ea597ff434790cd44e193cb2a434e57843e2083c82f8c63d2d4e40"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/step-1-clock.json",
+          "sha256": "64c7a24e882730f47fe8e9c289626a067fd033c13b220e83fbe33867702ed056"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/step-2.json",
+          "sha256": "6a992b54ecd40bf058dd313ae84e56fa2b08119a79327afbdd7636c653105af0"
+        },
+        {
+          "profile": "E-NATIVE",
+          "path": "resource/acceptance/runs/2026-10-11T09-01-35-290Z/AC101-empty-M7/step-3.json",
+          "sha256": "744ee3fe843ed58cf4867ac034c24488c772666463e5170306d50f52b4621246"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    },
+    {
+      "key": "validation-acceptance-tests",
+      "report": "resource/acceptance/runs/2026-10-11T08-04-05-978Z-70899317e6/commands/validation-acceptance-tests/result.json",
+      "sha256": "0722a003c5f44b31f90e96dd308fbfdcb0445a78fac07e42f7a667747678361e",
+      "evidence": [
+        {
+          "profile": "E-BUILD",
+          "path": "resource/acceptance/runs/2026-10-11T08-04-05-978Z-70899317e6/commands/validation-acceptance-tests/commands.log",
+          "sha256": "beacc3a7ff2d9cf1790f369ceae2a05743bf2eb4bdf7a99128cd7c36bcf87c7f"
+        },
+        {
+          "profile": "E-BUILD",
+          "path": "resource/acceptance/runs/2026-10-11T08-04-05-978Z-70899317e6/commands/validation-acceptance-tests/source-snapshot.json",
+          "sha256": "d43c15648340eeb58f60972b7770faef22f01de70cf96d279b98197fe32a2df4"
+        }
+      ],
+      "reuseScope": {
+        "key": "validation-acceptance-tests",
+        "commit": "e48c6e5",
+        "originalSourceSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "expectedOriginalSourceSha256": "379b4a6db21519d39b36af53fce500013967e550bf9b0ef677d58cc722ffa93e",
+        "normalizationOriginalSha256": "0d163a1266b89551940817c34e2497a514a5a0e25bd105cb2e961ae898fb6484",
+        "normalizationCurrentSha256": "0d163a1266b89551940817c34e2497a514a5a0e25bd105cb2e961ae898fb6484",
+        "numericFieldsOriginal": [
+          {
+            "token": "weekdayMask:z.number().int().min(1).max(127).optional()",
+            "present": true
+          },
+          {
+            "token": "weeklyTarget:z.number().int().min(1).max(7).optional()",
+            "present": true
+          }
+        ],
+        "numericFieldsCurrent": [
+          {
+            "token": "weekdayMask:z.number().int().min(1).max(127).optional()",
+            "present": true
+          },
+          {
+            "token": "weeklyTarget:z.number().int().min(1).max(7).optional()",
+            "present": true
+          }
+        ],
+        "dateScope": {
+          "expectedOldFileSha256": "5660e516f46b7d8fc45a025f278f8cc5f15d183697737a106b7a1b74643cf91c",
+          "gitCommit": "93110d6",
+          "gitFileSha256": "5660e516f46b7d8fc45a025f278f8cc5f15d183697737a106b7a1b74643cf91c",
+          "oldCoreSha256": "01f870a127284394beea10b571f9c5233f6a61d1d1c680246da848ae91324eae",
+          "currentCoreSha256": "01f870a127284394beea10b571f9c5233f6a61d1d1c680246da848ae91324eae",
+          "excludedChange": "Only the display formatting function and following instant label are excluded. Date parsing, IANA validity, businessToday, calendar day arithmetic, weekday, strict next Monday, range and month-grid functions are included."
+        },
+        "excluded": "Later applyCommand DAY_CHANGED priority and Today rollback guard do not run in normalization tests. Legacy name single-line refinement is excluded from mask/date boundary reuse; no old name acceptance is claimed.",
+        "completeNormalizationPrefixOriginalSha256": "86619376f632d2c71af2495e782d57b2719a4f79ef2787083bd3f4d8a42d43a6",
+        "completeNormalizationPrefixCurrentSha256": "86619376f632d2c71af2495e782d57b2719a4f79ef2787083bd3f4d8a42d43a6"
+      }
+    },
+    {
+      "key": "domain-gap-acceptance-tests",
+      "report": "resource/acceptance/runs/2026-10-11T11-07-00-490Z-b6553cae37/commands/domain-gap-acceptance-tests/result.json",
+      "sha256": "9734d815e0e3e65c822029ae6fb49102d950850ad563cb5e8e683afac23f1454",
+      "evidence": [
+        {
+          "profile": "E-DOMAIN",
+          "path": "resource/acceptance/runs/2026-10-11T11-07-00-490Z-b6553cae37/commands/domain-gap-acceptance-tests/domain-gaps-observations.json",
+          "sha256": "26daf9aea4f3eb74cc73cb4f29b8754524373231e30b3e3df6b09305872a0525"
+        },
+        {
+          "profile": "E-DOMAIN",
+          "path": "resource/acceptance/runs/2026-10-11T11-07-00-490Z-b6553cae37/commands/domain-gap-acceptance-tests/commands.log",
+          "sha256": "a33e39b05b82a61b4324c236ebe3872d5a1411add434f99e27ae5ec1643bdfbd"
+        },
+        {
+          "profile": "E-DOMAIN",
+          "path": "resource/acceptance/runs/2026-10-11T11-07-00-490Z-b6553cae37/commands/domain-gap-acceptance-tests/source-snapshot.json",
+          "sha256": "0ae3bc528f0e74c12227274faecc81ad053c727969e06a61cd8f8ac2a0cfa477"
+        }
+      ],
+      "reuseScope": "Relevant full domain and test source unchanged"
+    }
+  ],
+  "evidenceProfiles": [
+    "E-UI",
+    "E-DATA",
+    "E-DOMAIN"
+  ],
+  "sourceReuse": "Unchanged domain gap source and recovered original normalization/date code scopes justify reuse of the relevant boundary assertions. Only evidence aggregation; no business command or test repeated."
+}

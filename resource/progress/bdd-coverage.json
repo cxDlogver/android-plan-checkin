@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-10-11T12:02:05.483Z",
+  "updatedAt": "2026-10-11T13:25:48.993Z",
   "status": "IN_PROGRESS",
   "scope": "Explicit parameter/configuration executions. Shared assertion companions and raw log companions are retained separately; they do not count as completed Examples. Parent PASS requires its full A/E scope and all required configurations.",
-  "parentPassCount": 16,
+  "parentPassCount": 20,
   "totalCases": 120,
-  "explicitPassingInstances": 288,
+  "explicitPassingInstances": 359,
   "invalidReports": 0,
   "cases": [
     {
@@ -411,7 +411,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC013",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-14-00-188Z/AC013-default-M3/result.json",
+          "recordSha256": "fa3b9e589bcae3a8d5d8137d59e6bebd9ea5282a7af58db67189c1d2517e6235"
+        }
+      ]
     },
     {
       "caseId": "AC014",
@@ -559,7 +568,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC015",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-21-04-137Z/AC015-default-M3/result.json",
+          "recordSha256": "9306a89a16a95041556768f5f7b59dcd9a2928d9d2c8a9ad9c68ed833a36d528"
+        }
+      ]
     },
     {
       "caseId": "AC016",
@@ -857,7 +875,7 @@
       "caseId": "AC019",
       "title": "循环日期不得过去或倒置",
       "owner": "IP19",
-      "parentStatus": "NOT_RUN",
+      "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
         {
@@ -1000,7 +1018,7 @@
       "caseId": "AC020",
       "title": "固定星期选择与每日摘要一致",
       "owner": "IP19",
-      "parentStatus": "NOT_RUN",
+      "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
         {
@@ -1030,7 +1048,7 @@
       "caseId": "AC021",
       "title": "每周目标只接受1至7整数",
       "owner": "IP19",
-      "parentStatus": "NOT_RUN",
+      "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
         {
@@ -1221,7 +1239,64 @@
           "修改": "截止日期"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC023",
+          "rowId": "terminal_due",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-47-44-376Z/AC023-terminal_due-M3/result.json",
+          "recordSha256": "248f33e5205ff74b8016643c86c40b43e9c7d20293d47e5d2b968901a5e076d3"
+        },
+        {
+          "caseId": "AC023",
+          "rowId": "immutable",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-25-30-623Z/AC023-immutable-M3-derived/result.json",
+          "recordSha256": "ddfebf23a6dc5e33ea783ce6c5ce99ee0fce35d607db6ef7d6bd365178abd101"
+        },
+        {
+          "caseId": "AC023",
+          "rowId": "paused",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-25-30-841Z/AC023-paused-M3-derived/result.json",
+          "recordSha256": "e2eb0a10ba82dccbf3245604c010eeb76c0090a8c73e7806bac4374b18ab1b0f"
+        },
+        {
+          "caseId": "AC023",
+          "rowId": "archived",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-25-31-050Z/AC023-archived-M3-derived/result.json",
+          "recordSha256": "cbc36f9aeda4c280ff82dac094c5e106f87f244231715f5c401ad2ec4e054257"
+        },
+        {
+          "caseId": "AC023",
+          "rowId": "immutable",
+          "configId": "M7",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-25-31-274Z/AC023-immutable-M7-derived/result.json",
+          "recordSha256": "aca3e1ad11521ce5b5f05177f5847fbbc90ee9b2e79018aa63fc9cb222c6dbc2"
+        },
+        {
+          "caseId": "AC023",
+          "rowId": "paused",
+          "configId": "M7",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-25-31-458Z/AC023-paused-M7-derived/result.json",
+          "recordSha256": "91d87f96c3a7fcd484fa51549893f534b2b2f9162baa7b9d25ab2f0e2e93fe97"
+        },
+        {
+          "caseId": "AC023",
+          "rowId": "archived",
+          "configId": "M7",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-25-31-640Z/AC023-archived-M7-derived/result.json",
+          "recordSha256": "698a4409c1d54655008b11046ede74f3e0fa0f94e3880ebe2e53c17e87620bc5"
+        }
+      ]
     },
     {
       "caseId": "AC024",
@@ -2696,7 +2771,48 @@
           "百分比": "67%"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC062",
+          "rowId": "pending",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-22-04-357Z/AC062-pending-M3/result.json",
+          "recordSha256": "e4f36f449c22525e9f32c28c5f6168a3bc6950fddfac51dcf11c8708b5849b08"
+        },
+        {
+          "caseId": "AC062",
+          "rowId": "success",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-22-15-105Z/AC062-success-M3/result.json",
+          "recordSha256": "afa3fb3fd3a8d3d3cd373d010491e0e54c9bc9b3bba7da42c3d9788d28b35915"
+        },
+        {
+          "caseId": "AC062",
+          "rowId": "failure",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-22-29-699Z/AC062-failure-M3/result.json",
+          "recordSha256": "db6a610ca7d8e66eef9dc49da317fcd92a2ddbe1ddc7e6c013b476fdb908c05f"
+        },
+        {
+          "caseId": "AC062",
+          "rowId": "skip",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-22-44-951Z/AC062-skip-M3/result.json",
+          "recordSha256": "eb9465ef2410a4355b22079ab17ecd4ce954ac0f2a19aeac1494fef830489991"
+        },
+        {
+          "caseId": "AC062",
+          "rowId": "modify",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-22-59-741Z/AC062-modify-M3/result.json",
+          "recordSha256": "261d82483cff4548bea80f11196712646e2191367572ba3a3eeb5d2a18886f0c"
+        }
+      ]
     },
     {
       "caseId": "AC063",
@@ -2709,7 +2825,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC063",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-23-21-463Z/AC063-default-M3/result.json",
+          "recordSha256": "ee589d463a21d0fc4e73f3d7e61658bdfd55f1d93c8544dfe0134ca7d828cb2d"
+        }
+      ]
     },
     {
       "caseId": "AC064",
@@ -2744,7 +2869,48 @@
           "截至": "尚未开始而非倒置日期"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC064",
+          "rowId": "running",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-23-48-151Z/AC064-running-M3/result.json",
+          "recordSha256": "62473ee7a25938ccd187229f9c52ab4a911fe6ca89d09ed5927bc839864c448b"
+        },
+        {
+          "caseId": "AC064",
+          "rowId": "paused",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-23-58-679Z/AC064-paused-M3/result.json",
+          "recordSha256": "d2ac7a6fb60f5d7f4dd5e325456dd82c06e83bc06ae34101fd97481e15edf8fa"
+        },
+        {
+          "caseId": "AC064",
+          "rowId": "manual",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-24-09-788Z/AC064-manual-M3/result.json",
+          "recordSha256": "9b52c57ba7f80189595c9c9aead6f757a7011ebf0f6ddcbaf9ad3d26478fd3b8"
+        },
+        {
+          "caseId": "AC064",
+          "rowId": "natural",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-24-21-416Z/AC064-natural-M3/result.json",
+          "recordSha256": "d9e89935a3d8ac5e05dc732012c3b8b28f8f8721fb2012b10659fb91a88544f4"
+        },
+        {
+          "caseId": "AC064",
+          "rowId": "future",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-24-31-849Z/AC064-future-M3/result.json",
+          "recordSha256": "f7741cf7d5c23a3665e8df92ef4c6d590f4c2e24a0c991ad50b5b1ee43a25bca"
+        }
+      ]
     },
     {
       "caseId": "AC065",
@@ -2789,7 +2955,64 @@
           "连续": "不因间隔减少"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC065",
+          "rowId": "pending",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-24-41-666Z/AC065-pending-M3/result.json",
+          "recordSha256": "acbccecf0cb6354d07df9a9e7d74b1a9112fac180a7526f419bdebe952140bc7"
+        },
+        {
+          "caseId": "AC065",
+          "rowId": "success",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-24-54-040Z/AC065-success-M3/result.json",
+          "recordSha256": "2113867bb278fca42ce95776643119b387fd39060d6195c1e8e0192884e2cbe0"
+        },
+        {
+          "caseId": "AC065",
+          "rowId": "failure",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-25-11-171Z/AC065-failure-M3/result.json",
+          "recordSha256": "94ec736e65969f9955517ce818cf658062913a4d26d6af3ebd189d2f448cb0a9"
+        },
+        {
+          "caseId": "AC065",
+          "rowId": "skip",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-25-29-245Z/AC065-skip-M3/result.json",
+          "recordSha256": "ad6a723f167d1862a267b7d1dbd303196f0843208318fd39ff103152e76fe48f"
+        },
+        {
+          "caseId": "AC065",
+          "rowId": "midnight",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-25-45-831Z/AC065-midnight-M3/result.json",
+          "recordSha256": "7fb43d227944ded583f8df66208c514d12d91fd49dbec6ed6b20f0cf49477190"
+        },
+        {
+          "caseId": "AC065",
+          "rowId": "pause",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-25-58-843Z/AC065-pause-M3/result.json",
+          "recordSha256": "24d7455ccf0a3f049ee5c4b928cf823fe573343bcc32601ecc16fa2ac36ca874"
+        },
+        {
+          "caseId": "AC065",
+          "rowId": "gap",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-26-12-885Z/AC065-gap-M3/result.json",
+          "recordSha256": "49ade2ef0fffafc48214b15b3b621e432470730f8fe12554aea7d80502b7f582"
+        }
+      ]
     },
     {
       "caseId": "AC066",
@@ -2802,7 +3025,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC066",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-26-25-243Z/AC066-default-M3/result.json",
+          "recordSha256": "ee088dd3152dd0ad4f98e2aaecf827df04045e6085fc5782c16fb84dd405856d"
+        }
+      ]
     },
     {
       "caseId": "AC067",
@@ -2815,7 +3047,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC067",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-26-45-488Z/AC067-default-M3/result.json",
+          "recordSha256": "85369124097c668aaf65828fbb8e0f996429be35b21366094529a71ea88459ac"
+        }
+      ]
     },
     {
       "caseId": "AC068",
@@ -2865,7 +3106,48 @@
           "后续连续": "0"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC068",
+          "rowId": "starts",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-27-42-383Z/AC068-starts-M3/result.json",
+          "recordSha256": "43de2b818824a9cd1c5494e78b73662b0f82e435e7b2f488c6ee88b561e058d5"
+        },
+        {
+          "caseId": "AC068",
+          "rowId": "pause",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-28-16-123Z/AC068-pause-M3/result.json",
+          "recordSha256": "22c884eaa23784a1ee45112afaa7cc6ff74d1ec9045755389840e759e65d6b8b"
+        },
+        {
+          "caseId": "AC068",
+          "rowId": "resume",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-29-10-742Z/AC068-resume-M3/result.json",
+          "recordSha256": "3912ff3d3cd9cf6ef0bb3462e0d07a60a3fb4b73050ae29c204e04787eb07e5b"
+        },
+        {
+          "caseId": "AC068",
+          "rowId": "ends",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-29-55-199Z/AC068-ends-M3/result.json",
+          "recordSha256": "0d89bee963c19ba2f529b49c472f9c1f55b52039b370ffd570f72ff38007f79a"
+        },
+        {
+          "caseId": "AC068",
+          "rowId": "archive",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-30-23-333Z/AC068-archive-M3/result.json",
+          "recordSha256": "582b0c9303938fbf2c562e86e8e7a3f5557fcf3f14294bc0786e2dbfcc778cbd"
+        }
+      ]
     },
     {
       "caseId": "AC069",
@@ -2878,7 +3160,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC069",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-31-05-530Z/AC069-default-M3/result.json",
+          "recordSha256": "382b9c79158703eca66c14fcea560c1ed1af7bd358be6899a8d33aac4088c601"
+        }
+      ]
     },
     {
       "caseId": "AC070",
@@ -2898,7 +3189,24 @@
           "完整性": "full达标"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC070",
+          "rowId": "manual",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-31-47-882Z/AC070-manual-M3/result.json",
+          "recordSha256": "50c06927dcb73729b42e7144c9a0d383edd00d0068968700b8e2067b6160bbc3"
+        },
+        {
+          "caseId": "AC070",
+          "rowId": "natural",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-32-10-384Z/AC070-natural-M3/result.json",
+          "recordSha256": "b71d889139b3cb0c5f6526b007a41e551d7549017db8dd922861f9a6c659681a"
+        }
+      ]
     },
     {
       "caseId": "AC071",
@@ -2938,7 +3246,48 @@
           "标记": "完整黄色99/100"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC071",
+          "rowId": "all",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-06-38-046Z/AC071-all-M3/result.json",
+          "recordSha256": "186987de142b4793275486beb5720155a16c9f2f19078cd2fdb2965a3af92dac"
+        },
+        {
+          "caseId": "AC071",
+          "rowId": "partial",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-18-17-186Z/AC071-partial-M3/result.json",
+          "recordSha256": "0150c887fbe8dc4c7b5f21ef69d6902013ba2726395d5f69b9318e209df8fd94"
+        },
+        {
+          "caseId": "AC071",
+          "rowId": "none_done",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-18-36-434Z/AC071-none_done-M3/result.json",
+          "recordSha256": "b3c7c604001372a09abd29562dd2820abf7aa3fe76da8e98fdd4e5f8ece5e8f0"
+        },
+        {
+          "caseId": "AC071",
+          "rowId": "empty",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-18-52-019Z/AC071-empty-M3/result.json",
+          "recordSha256": "676828bbeccd7bc7f3a4d979b57957060df6c8b2b493432f0a4a794b9b18499b"
+        },
+        {
+          "caseId": "AC071",
+          "rowId": "large",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-19-06-524Z/AC071-large-M3/result.json",
+          "recordSha256": "6ade960f8d135927cc7033ec17ec2fa6525bc14178b6a53051674f9f706fd86b"
+        }
+      ]
     },
     {
       "caseId": "AC072",
@@ -2951,7 +3300,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC072",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-08-18-902Z/AC072-default-M3/result.json",
+          "recordSha256": "bb01ab95a306ae2f9913b2feb44c76f1877a6d7116bdaf3e3cdc6d5ca20fbbcd"
+        }
+      ]
     },
     {
       "caseId": "AC073",
@@ -2964,7 +3322,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC073",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-20-12-704Z/AC073-default-M3/result.json",
+          "recordSha256": "cb06f549fbabdd702ca08c5e2ed0a04bfcef11171f2e1577e7aedab697bf5f40"
+        }
+      ]
     },
     {
       "caseId": "AC074",
@@ -2986,7 +3353,32 @@
           "结果": "skip"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC074",
+          "rowId": "success",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-09-01-379Z/AC074-success-M3/result.json",
+          "recordSha256": "e1072273ca619ad998136fcdb625eed814fcdcf0226c2bc35947505de85431cb"
+        },
+        {
+          "caseId": "AC074",
+          "rowId": "failure",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-09-42-023Z/AC074-failure-M3/result.json",
+          "recordSha256": "337c0aeecb5a776d2f63ce764aaaf93209847f1cf3b0ec15594158dbf9341847"
+        },
+        {
+          "caseId": "AC074",
+          "rowId": "skip",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-10-18-488Z/AC074-skip-M3/result.json",
+          "recordSha256": "34645d922f4aff3d03a57d570ad079f116f8190aca4cc35dd26b0d35981e5c16"
+        }
+      ]
     },
     {
       "caseId": "AC075",
@@ -2999,7 +3391,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC075",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-14-21-309Z/AC075-default-M3/result.json",
+          "recordSha256": "55a3aeb4d0453154ba8cc7487fba408efa0e3c7d34769bac76d53a4ed7f85840"
+        }
+      ]
     },
     {
       "caseId": "AC076",
@@ -3024,7 +3425,32 @@
           "预期": "取消10/10未来安排"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC076",
+          "rowId": "past",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-10-55-499Z/AC076-past-M3/result.json",
+          "recordSha256": "1315166da61faac351861a540844d4a1431871614e47ff3b0b63b0106939ffb3"
+        },
+        {
+          "caseId": "AC076",
+          "rowId": "today",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-11-16-876Z/AC076-today-M3/result.json",
+          "recordSha256": "214e7b36c354116730f728541afb4617eb9dad85253bc17622d1c05a6de8650e"
+        },
+        {
+          "caseId": "AC076",
+          "rowId": "future",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-11-32-713Z/AC076-future-M3/result.json",
+          "recordSha256": "026543a89e166401ce10a3b08d1cffa8a5708d6fda9ac9d6bb4c243530db9f6c"
+        }
+      ]
     },
     {
       "caseId": "AC077",
@@ -3037,7 +3463,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC077",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-11-48-481Z/AC077-default-M3/result.json",
+          "recordSha256": "f87348f148e78d26891a03009982344882f8e3f0c5e542a5536367298c5ca286"
+        }
+      ]
     },
     {
       "caseId": "AC078",
@@ -3050,7 +3485,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC078",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-12-07-941Z/AC078-default-M3/result.json",
+          "recordSha256": "b063d7e2bdcfc23a3e01590a98b9a54986cb27e72c9ed9f0b410a91c82fd4844"
+        }
+      ]
     },
     {
       "caseId": "AC079",
@@ -3063,7 +3507,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC079",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-15-30-514Z/AC079-default-M3/result.json",
+          "recordSha256": "2613c8b49e95b9334fa0ecec52bdbad916acfc607fe5c2e5ad6c95ef1e980903"
+        }
+      ]
     },
     {
       "caseId": "AC080",
@@ -3076,7 +3529,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC080",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-12-36-785Z/AC080-default-M3/result.json",
+          "recordSha256": "fd5437c0ae7dc9099603bf79a4963ae99ec88ef1dfc705ac9873dbcd7be46fcb"
+        }
+      ]
     },
     {
       "caseId": "AC081",
@@ -3089,7 +3551,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC081",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-13-06-450Z/AC081-default-M3/result.json",
+          "recordSha256": "303376db1baf6c3f40660b132bfc1f0e2b013677bf9da69a31df2bd3fd164fd2"
+        }
+      ]
     },
     {
       "caseId": "AC082",
@@ -3114,7 +3585,32 @@
           "预期": "无法读取本机数据及重试"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC082",
+          "rowId": "empty",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-33-41-070Z/AC082-empty-M3/result.json",
+          "recordSha256": "9fe87f8fa883f658e4e6ccdd4ec398a0a11380e499237ab5f2f291df72b59e76"
+        },
+        {
+          "caseId": "AC082",
+          "rowId": "error",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-34-04-790Z/AC082-error-M3/result.json",
+          "recordSha256": "6c92f22347c6a76075304bc334a359c6c839e47f4aeb5a187bca795e29f0328d"
+        },
+        {
+          "caseId": "AC082",
+          "rowId": "loading",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-34-17-142Z/AC082-loading-M3/result.json",
+          "recordSha256": "e3f7b4a75ca21cab6cbef0d12ba6392156652895c41b7bdf26363d1e75523366"
+        }
+      ]
     },
     {
       "caseId": "AC083",
@@ -3127,7 +3623,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC083",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-34-27-946Z/AC083-default-M3/result.json",
+          "recordSha256": "a846a4785ebcfa26c2aa7e43280ba719ef8a43c9ae5857eb87600e272e29f92f"
+        }
+      ]
     },
     {
       "caseId": "AC084",
@@ -3140,7 +3645,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC084",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-35-03-230Z/AC084-default-M3/result.json",
+          "recordSha256": "363779bfaf9b434d6fef58521960d8450659cdacd4e8950efdfaf89dce7e1329"
+        }
+      ]
     },
     {
       "caseId": "AC085",
@@ -3153,7 +3667,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC085",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-51-42-627Z/AC085-default-M3/result.json",
+          "recordSha256": "20e0f0c4035a47133d2a99231127b376038f18d00ce9c3819654f9b0385a87d7"
+        }
+      ]
     },
     {
       "caseId": "AC086",
@@ -3166,7 +3689,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC086",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T13-22-06-729Z/AC086-default-M3/result.json",
+          "recordSha256": "42acbca8aad7e3f7021186a7ae6dfd6f969c11dbd983b8c48afd703863b26581"
+        }
+      ]
     },
     {
       "caseId": "AC087",
@@ -3179,7 +3711,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC087",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-50-28-566Z/AC087-default-M3/result.json",
+          "recordSha256": "4897b078e28e33e43684ac33bcba25ac5547617152edb0e071c7734226b78806"
+        }
+      ]
     },
     {
       "caseId": "AC088",
@@ -3209,7 +3750,40 @@
           "预期": "直接返回"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC088",
+          "rowId": "keyboard",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-48-50-520Z/AC088-keyboard-M3/result.json",
+          "recordSha256": "e10b51f1bbec0e21104d36036a0036cc36d5408978537f840079fe2b116325c1"
+        },
+        {
+          "caseId": "AC088",
+          "rowId": "modal",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-49-11-766Z/AC088-modal-M3/result.json",
+          "recordSha256": "4c4cb7a1eed2e150b220dd1eafb3b34ad1dc8b83412a40f04b92b22e27e70825"
+        },
+        {
+          "caseId": "AC088",
+          "rowId": "dirty",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-49-47-787Z/AC088-dirty-M3/result.json",
+          "recordSha256": "6f62de32bfbdb3d1270a1a94166a9b28cb00f200f08d109cb1ebe9e16d042b98"
+        },
+        {
+          "caseId": "AC088",
+          "rowId": "clean",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-50-14-454Z/AC088-clean-M3/result.json",
+          "recordSha256": "708c5132c9039e5afac1a6fa5a0a75e53fd752a5e2fb88468ca4d14bb3909dbe"
+        }
+      ]
     },
     {
       "caseId": "AC089",
@@ -3229,7 +3803,24 @@
           "版本展示": "版本不可用"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC089",
+          "rowId": "valid",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-36-08-233Z/AC089-valid-M3/result.json",
+          "recordSha256": "a5b0bc94746c6dd74190905506749e7a9a984dd8ae863e9cce86edeb78ff1166"
+        },
+        {
+          "caseId": "AC089",
+          "rowId": "null",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-36-15-179Z/AC089-null-M3/result.json",
+          "recordSha256": "b5688ab980e129b35e1d2b4bf50dcd7c946b3c864fa7e6a3700edf9b08d7f410"
+        }
+      ]
     },
     {
       "caseId": "AC090",
@@ -3428,7 +4019,7 @@
       "caseId": "AC101",
       "title": "一次性创建截止必填且没有循环字段",
       "owner": "IP19",
-      "parentStatus": "NOT_RUN",
+      "parentStatus": "PASS",
       "matrixCore": false,
       "exampleRows": [
         {
@@ -3642,7 +4233,16 @@
           "rowId": "default"
         }
       ],
-      "passingInstances": []
+      "passingInstances": [
+        {
+          "caseId": "AC106",
+          "rowId": "default",
+          "configId": "M3",
+          "status": "PASS",
+          "record": "resource/acceptance/runs/2026-10-11T12-56-49-633Z/AC106-default-M3/result.json",
+          "recordSha256": "37fc1947a1af7dd8faa64dc82c0c63369133a7febca63362d712cc3a697e8e0d"
+        }
+      ]
     },
     {
       "caseId": "AC107",

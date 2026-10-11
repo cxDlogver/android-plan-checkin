@@ -1,0 +1,183 @@
+{
+  "contextId": "1791722014997-574f891e142bb4",
+  "applicationId": "com.xiang.plancheckin.dev",
+  "api": 29,
+  "nativeVersion": "1.0.0",
+  "nativeBuild": "1",
+  "window": {
+    "width": 392.72727272727275,
+    "height": 850.9090909090909,
+    "scale": 2.75,
+    "fontScale": 1
+  },
+  "clock": 1791518400000,
+  "sqlite": {
+    "version": {
+      "version": "3.50.3",
+      "sourceId": "2025-07-17 13:25:10 3ce993b8657d6d9deda380a93cdd6404a8c8ba1b185b2bc423703e41ae5f2543"
+    },
+    "path": [
+      {
+        "seq": 0,
+        "name": "main",
+        "file": "/data/data/com.xiang.plancheckin.dev/files/SQLite/plan-checkin.db"
+      }
+    ],
+    "journal": {
+      "journal_mode": "wal"
+    },
+    "synchronous": {
+      "synchronous": 2
+    },
+    "foreignKeys": {
+      "foreign_keys": 1
+    },
+    "userVersion": {
+      "user_version": 1
+    }
+  },
+  "fonts": [
+    {
+      "name": "NotoSC400",
+      "loaded": true
+    },
+    {
+      "name": "NotoSC600",
+      "loaded": true
+    },
+    {
+      "name": "NotoSC700",
+      "loaded": true
+    }
+  ],
+  "snapshot": {
+    "facts": {
+      "plans": [
+        {
+          "id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "type": "one_time",
+          "direction": "do",
+          "name": "BDD 页面夹具",
+          "description": "",
+          "created_at_ms": 1791345600000,
+          "created_on": "2026-10-07",
+          "starts_on": "2026-10-07",
+          "revision": 4
+        }
+      ],
+      "rule_versions": [
+        {
+          "id": "b6952f92-9de6-4849-b5b9-3157b49b8f5d",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "kind": "due_on",
+          "effective_on": "2026-10-07",
+          "revision": 1,
+          "value_json": "{\"dueOn\":\"2026-10-08\"}",
+          "created_at_ms": 1791345600000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "lifecycle_events": [
+        {
+          "id": "a6c39c52-c698-4b53-b6e7-ae8533662fdb",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "kind": "archive",
+          "source_key": "user:a6c39c52-c698-4b53-b6e7-ae8533662fdb",
+          "effective_on": "2026-10-09",
+          "effective_at_ms": 1791518400000,
+          "reason": "user",
+          "requested_at_ms": 1791518400000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "cycle_records": [],
+      "one_time_results": [
+        {
+          "id": "94baefbf-58e5-480e-9115-596ef25f60fc",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "business_on": "2026-10-09",
+          "outcome": "completed",
+          "actual_completed_on": "2026-10-09",
+          "due_rule_version_id": "b6952f92-9de6-4849-b5b9-3157b49b8f5d",
+          "note": "已修正迟完成",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791518400000,
+          "modified_at_ms": 1791518400000,
+          "revision": 2
+        }
+      ],
+      "cycle_record_originals": [],
+      "one_time_result_originals": [
+        {
+          "result_id": "94baefbf-58e5-480e-9115-596ef25f60fc",
+          "original_outcome": "failed",
+          "original_note": "结果 completed"
+        }
+      ],
+      "command_receipts": [
+        {
+          "command_id": "d5d1d43b-bee1-49a6-9d30-486139cfa8ef",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "kind": "CreatePlan",
+          "payload_digest": "17a77b20e6a89bde3fbf39ef06b5417517b37815d425f5431b0e312b30bf06fd",
+          "result_code": "OK",
+          "object_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "issued_at_ms": 1791345600000,
+          "committed_at_ms": 1791345600000,
+          "expires_at_ms": 1791950400000
+        },
+        {
+          "command_id": "6c9b7562-7af4-4743-9d00-ca3035498264",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "kind": "SubmitOneTimeResult",
+          "payload_digest": "0996c745535821ec89ea3d2be69cdcabfcc74de79c128d93750e31da05c6a162",
+          "result_code": "OK",
+          "object_id": "94baefbf-58e5-480e-9115-596ef25f60fc",
+          "issued_at_ms": 1791518400000,
+          "committed_at_ms": 1791518400000,
+          "expires_at_ms": 1792123200000
+        },
+        {
+          "command_id": "6271dffd-1004-4b66-92c0-6e4645b1f3c6",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "kind": "ModifyOneTimeResult",
+          "payload_digest": "821a6f56a0afe85676a348f58692889d3b8ddd1112763908f41be9dbf6ef6fe4",
+          "result_code": "OK",
+          "object_id": "94baefbf-58e5-480e-9115-596ef25f60fc",
+          "issued_at_ms": 1791518400000,
+          "committed_at_ms": 1791518400000,
+          "expires_at_ms": 1792123200000
+        },
+        {
+          "command_id": "6154bc50-3f84-4fbc-abda-331bdbf67053",
+          "plan_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "kind": "ArchivePlan",
+          "payload_digest": "300b343d8281de91061f446d56301e23162e4a6ecc81d21ff6d7421e39b5944b",
+          "result_code": "OK",
+          "object_id": "5036d023-ae74-4146-8a12-0cf029334be7",
+          "issued_at_ms": 1791518400000,
+          "committed_at_ms": 1791518400000,
+          "expires_at_ms": 1792123200000
+        }
+      ],
+      "app_meta": [
+        {
+          "key": "app_timezone",
+          "value": "Asia/Shanghai"
+        },
+        {
+          "key": "initialized_at_ms",
+          "value": "1791475200000"
+        },
+        {
+          "key": "data_revision",
+          "value": "4"
+        }
+      ]
+    },
+    "zone": "Asia/Shanghai",
+    "today": "2026-10-09",
+    "asOfMs": 1791518400000,
+    "dataRevision": 4
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "record": "resource/acceptance/runs/2026-10-11T13-16-30-331Z/AC086-default-M3/result.json",
+  "sha256": "d9b9d9cc81b27ff3c4fc5ebd94c972101d7a3bba6b7d22d8f069d5086d9c23ca",
+  "reusedAssertions": [
+    {
+      "id": "AC086.A2.old-Saturday-eligible",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC086.A4.visible-fixed-unknown",
+      "expected": [
+        0,
+        1
+      ],
+      "actual": [
+        0,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC086.A3.mounted-page-reset",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC086.A3.new-top",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC086.A3.stale-cursor-restarts",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC086.A3.new-first-date",
+      "expected": "2026-09-26",
+      "actual": "2026-09-26",
+      "status": "PASS"
+    }
+  ],
+  "reason": "Successful actual backfill, mounted detail reset and stale cursor restart are retained. The prior raw frame shows newly appended Aug 07 after Load More; a VirtualizedList transient canScrollMore=false stopped the observation early. Full native stable pagination below completes the no-loss observation without submitting or scrolling through already validated history again."
+}

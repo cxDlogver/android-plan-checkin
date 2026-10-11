@@ -1,0 +1,51 @@
+{
+  "caseId": "AC023",
+  "rowId": "archived",
+  "configId": "M7",
+  "phase": "DERIVED_ROW",
+  "runId": "2026-10-11T13-25-31-640Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T13:25:31.640Z",
+  "endedAt": "2026-10-11T13:25:31.732Z",
+  "inputSha256": "64f86de7fb2b2c53c8dadd81cbda08a2b9624b0deca16c30daf161aa2d36082b",
+  "previousRecord": null,
+  "scope": "AC023-archived-M7-derived",
+  "implementationIds": [
+    "IP19"
+  ],
+  "assertions": [
+    {
+      "id": "AC023.A3.archived.original-UI-reused",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC023.A3.no-save.original-UI-reused",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC023.A1.independent-bypass-rejected",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T13-25-31-640Z/AC023-archived-M7-derived/inputs.json",
+      "sha256": "d72e540ae1f0ef15cb2cc4228193e34389d4100c1828d12facc8978f3d90ea9c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T13-25-31-640Z/AC023-archived-M7-derived/parameters-and-original-observations.json",
+      "sha256": "b4f352e129beced76c16bdc653603575fd8dfd74c1944f52825938c7e05be74a"
+    }
+  ],
+  "limitations": [
+    "Parameter reports split from original successful composite UI and independent domain rejection evidence; completed actions were not re-executed."
+  ]
+}

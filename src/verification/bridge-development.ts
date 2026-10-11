@@ -47,6 +47,7 @@ async function dispatch({action,payload={}}:Request){
         if(!parsed.isValid) throw new Error('INVALID_TEST_INSTANT');
         setClock(parsed.toMillis());
       }
+      queries.invalidate();
       const snapshot=await context.refresh(true);
       if(!snapshot) throw new Error('REFRESH_FAILED');
       return {contextId,clock:now(),today:snapshot.today,asOfMs:snapshot.asOfMs,zone:snapshot.zone};
@@ -62,6 +63,7 @@ async function dispatch({action,payload={}}:Request){
         setMeta(facts,'data_revision',String(Number(before.app_meta.find(row=>row.key==='data_revision')?.value||0)+1));
         await persist(tx,before,facts);
       }));
+      queries.invalidate();
       const snapshot=await context.refresh(true);
       if(!snapshot) throw new Error('REFRESH_FAILED');
       return {contextId,name,zone,today:snapshot.today,counts:Object.fromEntries(Object.entries(snapshot.facts).map(([table,rows])=>[table,rows.length])),dataRevision:snapshot.dataRevision};
@@ -75,6 +77,7 @@ async function dispatch({action,payload={}}:Request){
       if(!zone||!validZone(zone))throw new Error('INVALID_FACTS_ZONE');
       injectFault(null);const executor=verificationExecutor();
       await executor.queue(tx=>executor.transaction(tx,async()=>persist(tx,await loadFacts(tx),facts)));
+      queries.invalidate();
       const snapshot=await context.refresh(true);if(!snapshot)throw new Error('REFRESH_FAILED');
       return {contextId,today:snapshot.today,zone:snapshot.zone,counts:Object.fromEntries(Object.entries(snapshot.facts).map(([table,rows])=>[table,rows.length])),dataRevision:snapshot.dataRevision};
     }

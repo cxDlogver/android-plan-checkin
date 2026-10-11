@@ -20,7 +20,7 @@ function createRun(name,inputs,implementationIds=[],metadata={}){
     finish(error=null,limitations=[]){
       if(error)assertions.push({id:'execution',expected:'successful scoped verification',actual:error.message,status:'FAIL'});
       const status=error||assertions.some(item=>item.status==='FAIL')?'FAIL':'PASS';
-      const evidence=fs.readdirSync(directory).filter(file=>!['result.json','assertions.json','evidence-manifest.json'].includes(file)).map(file=>({...(metadata.caseId?{profile:file.endsWith('.png')||file.endsWith('.xml')||file==='appium.log'?'E-UI':/facts|query|given.*command|receipt|capture/i.test(file)?'E-DATA':'E-NATIVE'}:{}),path:`${directory}/${file}`,sha256:sha(fs.readFileSync(`${directory}/${file}`))}));
+      const evidence=fs.readdirSync(directory).filter(file=>!['result.json','assertions.json','evidence-manifest.json'].includes(file)).map(file=>({...(metadata.caseId?{profile:metadata.caseId==='AC094'&&(/\.wav$|speech|TalkBack|focus|accessibility|TTS|traversal/i.test(file))?'E-A11Y':file.endsWith('.png')||file.endsWith('.xml')||file.includes('appium.log')?'E-UI':/facts|query|given.*command|receipt|capture/i.test(file)?'E-DATA':'E-NATIVE'}:{}),path:`${directory}/${file}`,sha256:sha(fs.readFileSync(`${directory}/${file}`))}));
       const result={...metadata,runId,status,startedAt,endedAt:new Date().toISOString(),inputSha256,previousRecord:previous?.record||null,scope:name,implementationIds,assertions,evidence,limitations};
       write('assertions.json',assertions);write('result.json',result);
       write('evidence-manifest.json',[...evidence,...['assertions.json','result.json'].map(file=>({path:`${directory}/${file}`,sha256:sha(fs.readFileSync(`${directory}/${file}`))}))]);

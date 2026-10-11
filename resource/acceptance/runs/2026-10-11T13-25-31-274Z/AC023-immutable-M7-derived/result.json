@@ -1,0 +1,51 @@
+{
+  "caseId": "AC023",
+  "rowId": "immutable",
+  "configId": "M7",
+  "phase": "DERIVED_ROW",
+  "runId": "2026-10-11T13-25-31-274Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T13:25:31.274Z",
+  "endedAt": "2026-10-11T13:25:31.372Z",
+  "inputSha256": "ddf74020b758baed3cf2cb1c7ec0916126fdee684eec538b6eb9a483773b3d7a",
+  "previousRecord": null,
+  "scope": "AC023-immutable-M7-derived",
+  "implementationIds": [
+    "IP19"
+  ],
+  "assertions": [
+    {
+      "id": "AC023.A1.immutable-explanation.original-UI-reused",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC023.A1.no-immutable-controls.original-UI-reused",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC023.A1.independent-bypass-rejected",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T13-25-31-274Z/AC023-immutable-M7-derived/inputs.json",
+      "sha256": "7e90bc9d023c42d84a3c7f5d1b1f6da10bc36095a6ab306eb2043807115dc15e"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T13-25-31-274Z/AC023-immutable-M7-derived/parameters-and-original-observations.json",
+      "sha256": "81ec2f510fab770d687f9303aa55a55333e7254e110c07944b6dae39b5145b4d"
+    }
+  ],
+  "limitations": [
+    "Parameter reports split from original successful composite UI and independent domain rejection evidence; completed actions were not re-executed."
+  ]
+}
