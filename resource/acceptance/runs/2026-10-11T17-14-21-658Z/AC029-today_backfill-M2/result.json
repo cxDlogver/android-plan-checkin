@@ -1,0 +1,315 @@
+{
+  "caseId": "AC029",
+  "rowId": "today_backfill",
+  "configId": "M2",
+  "runId": "2026-10-11T17-14-21-658Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T17:14:21.658Z",
+  "endedAt": "2026-10-11T17:14:38.243Z",
+  "inputSha256": "787c44b8d3361665ee0bfff69d1ee8f963b111423aef4baf6338040f888c6978",
+  "previousRecord": null,
+  "scope": "AC029-today_backfill-M2",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC029.A1.no-save",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC029.A1.no-options",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC029.A1.note-disabled",
+      "expected": "false",
+      "actual": "false",
+      "status": "PASS"
+    },
+    {
+      "id": "step-7.command-result",
+      "expected": "READ_ONLY",
+      "actual": "READ_ONLY",
+      "status": "PASS"
+    },
+    {
+      "id": "AC029.A2.unchanged",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "09adc835-6191-47f1-8e63-46eb69e2eb43",
+            "type": "fixed",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 2
+          }
+        ],
+        "cycle": [
+          {
+            "id": "1e34e6ed-5c35-4d84-853b-a51755b94873",
+            "plan_id": "09adc835-6191-47f1-8e63-46eb69e2eb43",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "补记",
+            "entry_kind": "backfill",
+            "submitted_at_ms": 1791518400000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "once": [],
+        "originals": [],
+        "onceOriginals": [],
+        "revision": 26
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "09adc835-6191-47f1-8e63-46eb69e2eb43",
+            "type": "fixed",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1790827200000,
+            "created_on": "2026-10-01",
+            "starts_on": "2026-10-01",
+            "revision": 2
+          }
+        ],
+        "cycle": [
+          {
+            "id": "1e34e6ed-5c35-4d84-853b-a51755b94873",
+            "plan_id": "09adc835-6191-47f1-8e63-46eb69e2eb43",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "补记",
+            "entry_kind": "backfill",
+            "submitted_at_ms": 1791518400000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "once": [],
+        "originals": [],
+        "onceOriginals": [],
+        "revision": 26
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC029.A3.no-delete",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/6-readonly.png",
+      "sha256": "2309c18ba0d52758453b7930664aa433c9eb705c8c21c75c7a55722456f94497"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/6-readonly.xml",
+      "sha256": "dc8fce31637b470f9b39e7014f3083a29c9d40e26ec2cdbacaf75d2446a0db5a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/8-final.png",
+      "sha256": "2309c18ba0d52758453b7930664aa433c9eb705c8c21c75c7a55722456f94497"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/8-final.xml",
+      "sha256": "dc8fce31637b470f9b39e7014f3083a29c9d40e26ec2cdbacaf75d2446a0db5a"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/after-facts.json",
+      "sha256": "d48a5c924381c7c0d0a67d1938402a085fecc30c2cd5169b247c80429ff40b48"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/appium.log",
+      "sha256": "6a678ed325c521d217eaba2ca381ad3356c876e06a95255ff7a355e424363c0b"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/before-facts.json",
+      "sha256": "d48a5c924381c7c0d0a67d1938402a085fecc30c2cd5169b247c80429ff40b48"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/device.json",
+      "sha256": "bb44674d3a9cde1437c1f49851c68619abcadf8ce0fe896f0051d21055ce0dff"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/final-native-facts.json",
+      "sha256": "d48a5c924381c7c0d0a67d1938402a085fecc30c2cd5169b247c80429ff40b48"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/fixture.json",
+      "sha256": "6dfca477c68fe12f2f2c9ef2220bb6b27c861c5abdd35fd3df131af4fbbddfa1"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/inputs.json",
+      "sha256": "d19155a65743a435033294c4b4940c1be3b4b48c67c30f09ac99dcc561630e50"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-1-clock.json",
+      "sha256": "8c716d65ba6fa96a82b16c40560ff51650e9927d780d0d9a1eeba3d92b83b2d1"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-2-clock.json",
+      "sha256": "df20fc5ca0f85f290daae9f20d9bd1c871c772b9eeb040247c7ff61d36767a29"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-3-given-create.json",
+      "sha256": "94bbd67c3b05a0918509c54be7a6404b36bb973e79dcf12e86f50ba33bd3d03b"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-4-clock.json",
+      "sha256": "8c716d65ba6fa96a82b16c40560ff51650e9927d780d0d9a1eeba3d92b83b2d1"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-5-given-command.json",
+      "sha256": "22094da02cbcae3127c54713ed21852b1431a939fb42c2f2492532892b3bbd65"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-6.json",
+      "sha256": "b7ff1820235c8143950c5d6ed107b74065164bcbda712b2dc73fe6059e824523"
+    },
+    {
+      "profile": "E-DATA",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-7-given-command.json",
+      "sha256": "1ccd4b9b58923e5bf1eb3fb607dd3ae095bebb6395217202c0e3102f61bad62e"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T17-14-21-658Z/AC029-today_backfill-M2/step-8.json",
+      "sha256": "9ec726eb8a74b0269947836db5f7d89ff2a3e854edb5373a02a2b5eb18a7d363"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

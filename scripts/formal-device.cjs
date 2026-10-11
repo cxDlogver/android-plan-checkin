@@ -1,9 +1,19 @@
 const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process'),{DatabaseSync}=require('node:sqlite');
 const {DeviceDriver}=require('./device-driver.cjs'),{env,toolRoot}=require('./task-env.cjs'),{sha}=require('./p1.cjs'),progress=require('./progress.cjs');
 const packageName='com.xiang.plancheckin',tables=['app_meta','plans','rule_versions','lifecycle_events','cycle_records','one_time_results','cycle_record_originals','one_time_result_originals','command_receipts'];
-function candidate(){const s=progress.read(),b=s.commands['native-release'];assert.equal(b.status,'PASS');const apk=b.artifacts.find(a=>a.path.endsWith('.apk'));assert.equal(sha(fs.readFileSync(apk.path)),apk.sha256);return {apk,buildRecord:b.record,bundleRecord:s.commands['apk-bundle-audit'].record,auditRecord:s.commands['apk-audit-release'].record};}
+function candidate(){
+ const s=progress.read(),b=s.commands['native-release'];assert.equal(b?.status,'PASS');const apk=b.artifacts.find(a=>a.path.endsWith('.apk'));assert.equal(sha(fs.readFileSync(apk.path)),apk.sha256);
+ for(const key of ['apk-bundle-audit','apk-audit-release']){
+  const command=s.commands[key];assert.equal(command?.status,'PASS',key);const report=JSON.parse(fs.readFileSync(command.record,'utf8'));
+  assert.equal(report.status,'PASS');assert.equal(report.apk.sha256,apk.sha256,'Formal acceptance requires audits of this exact candidate APK.');
+  assert.ok(report.assertions.every(a=>a.status==='PASS'));for(const e of report.evidence)assert.equal(sha(fs.readFileSync(e.path)),e.sha256);
+  if(key==='apk-bundle-audit')for(const source of report.projectSources)assert.equal(sha(fs.readFileSync(source.path)),source.sha256,'Rebuild required after product source changes: '+source.path);
+ }
+ return {apk,buildRecord:b.record,bundleRecord:s.commands['apk-bundle-audit'].record,auditRecord:s.commands['apk-audit-release'].record};
+}
 class FormalDevice extends DeviceDriver {
- constructor(api,directory){super(api,directory);this.package=packageName;this.capabilities={'appium:autoLaunch':false};}
+ constructor(api,directory){super(api,directory);this.package=packageName;this.capabilities={'appium:autoLaunch':false};this.logPath=path.join(toolRoot,'logs/appium-4723.log');this.logStart=fs.existsSync(this.logPath)?fs.statSync(this.logPath).size:0;}
+ async close(){try{await super.close();}finally{if(fs.existsSync(this.logPath))fs.writeFileSync(path.join(this.directory,'appium.log'),fs.readFileSync(this.logPath).subarray(this.logStart));}}
  execBytes(args){return execFileSync(path.join(toolRoot,'sdk/platform-tools/adb.exe'),['-s',this.serial,...args],{env,timeout:180000,windowsHide:true,maxBuffer:64*1024*1024});}
  stop(){return this.adb(['shell','am','force-stop',this.package]);}
  launch(){return this.adb(['shell','am','start','-W','-n',`${this.package}/.MainActivity`]);}

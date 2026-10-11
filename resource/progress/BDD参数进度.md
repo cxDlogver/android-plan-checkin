@@ -1,6 +1,6 @@
 # BDD 参数与配置进度
 
-更新：2026-10-11T17:00:12.585Z。完整验收项 20/120；已留证且摘要有效的显式参数/配置实例 406。实例通过不等于整个验收项通过。
+更新：2026-10-11T18:02:38.182Z。完整验收项 20/120；已留证且摘要有效的显式参数/配置实例 442。实例通过不等于整个验收项通过。
 
 | 验收项 | 完整状态 | 显式通过实例 |
 | --- | --- | --- |
@@ -19,7 +19,7 @@
 | AC013 换设备时区不移动计划今天与历史 | NOT_RUN | default/M3 |
 | AC014 公历加一天覆盖DST和月年边界 | PASS | spring/M7、fall/M7、leap/M7、year/M7、spring/M3、fall/M3、leap/M3、year/M3、spring/DOMAIN、fall/DOMAIN、leap/DOMAIN、year/DOMAIN |
 | AC015 前台午夜重算不强制跳选中日期 | NOT_RUN | default/M3 |
-| AC016 新建默认值和星期未选状态 | NOT_RUN | default/M7、default/M3、default/M1 |
+| AC016 新建默认值和星期未选状态 | NOT_RUN | default/M7、default/M3、default/M1、default/M2 |
 | AC017 文本码点边界与单行名称 | NOT_RUN | blank_name/M7、trim_name/M7、80_name/M7、81_name/M7、newline_name/M7、1000_desc/M7、1001_desc/M7、empty_note/M7、2000_note/M7、2001_note/M7、blank_name/M3、trim_name/M3、80_name/M3、81_name/M3、newline_name/M3、1000_desc/M3、1001_desc/M3、empty_note/M3、2000_note/M3、2001_note/M3 |
 | AC018 切换类型保留共通字段并拒绝隐藏字段混入 | PASS | default/M7、default/M3 |
 | AC019 循环日期不得过去或倒置 | PASS | past/M7、today/M7、future/M7、reversed/M7、same/M7、invalid_date/M7、past/M3、today/M3、future/M3、reversed/M3、same/M3、invalid_date/M3 |
@@ -27,19 +27,19 @@
 | AC021 每周目标只接受1至7整数 | PASS | one/M7、seven/M7、zero/M7、eight/M7、decimal/M7、empty/M7、one/M3、seven/M3、zero/M3、eight/M3、decimal/M3、empty/M3 |
 | AC022 同名计划保持独立且创建成功导航详情 | PASS | default/M7、default/M3 |
 | AC023 暂停归档和不可变字段拒绝编辑 | NOT_RUN | terminal_due/M3、immutable/M3、paused/M3、archived/M3、immutable/M7、paused/M7、archived/M7 |
-| AC024 点击结果仅预选，取消不生成记录 | NOT_RUN | success/M3、failure/M3、skip/M3、completed/M3、cancelled/M3、success/M1、failure/M1、skip/M1、completed/M1、cancelled/M1 |
-| AC025 最终确认普通记录后本机持久保存 | NOT_RUN | default/M3、default/M1 |
+| AC024 点击结果仅预选，取消不生成记录 | NOT_RUN | success/M3、failure/M3、skip/M3、completed/M3、cancelled/M3、success/M1、failure/M1、skip/M1、completed/M1、cancelled/M1、success/M2、failure/M2、skip/M2、completed/M2、cancelled/M2 |
+| AC025 最终确认普通记录后本机持久保存 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC026 不要做计划明确行为未发生与发生 | NOT_RUN | default/M3 |
 | AC027 普通当日修正加载当前值并保留首次原值 | NOT_RUN | default/M3 |
 | AC028 无变化保存不制造修正或新revision | NOT_RUN | default/M3 |
-| AC029 历史与補记保存后的结果备注均只读 | NOT_RUN | past_ordinary/M3、today_backfill/M3、archived_today/M3、past_once/M3、past_ordinary/M1、today_backfill/M1、archived_today/M1、past_once/M1 |
+| AC029 历史与補记保存后的结果备注均只读 | NOT_RUN | past_ordinary/M3、today_backfill/M3、archived_today/M3、past_once/M3、past_ordinary/M1、today_backfill/M1、archived_today/M1、past_once/M1、past_ordinary/M2、today_backfill/M2、archived_today/M2、past_once/M2 |
 | AC030 固定历史资格按目标星期判断 | NOT_RUN | valid_tue/M3、invalid_wed/M3、future_thu/M3 |
 | AC031 补记只限当前运行阶段合法空日 | NOT_RUN | new_stage/M3、old_stage/M3、pause_gap/M3、currently_paused/M3、archived/M3、before_start/M3 |
 | AC032 首次记录跨午夜拒绝旧保存再显式补记 | NOT_RUN | default/M3 |
 | AC033 跨日后状态不合法不提供补记确认 | NOT_RUN | pause/M3、archive/M3、oldstage/M3 |
 | AC034 已有记录修改跨午夜直接只读 | NOT_RUN | default/M3 |
 | AC035 一次性完成按实际日期区分按时与迟完成 | NOT_RUN | early/M3、boundary/M3、late/M3 |
-| AC036 一次性完成日期范围和必填校验 | NOT_RUN | before_created/M3、created/M3、future/M3、missing/M3、before_created/M1、created/M1、future/M1、missing/M1 |
+| AC036 一次性完成日期范围和必填校验 | NOT_RUN | before_created/M3、created/M3、future/M3、missing/M3、before_created/M1、created/M1、future/M1、missing/M1、before_created/M2、created/M2、future/M2、missing/M2 |
 | AC037 一次性失败取消独立于循环跳过 | NOT_RUN | failed/M3、cancelled/M3 |
 | AC038 一次性三结果同日可改但业务日期截止固定 | NOT_RUN | default/M3 |
 | AC039 一次性首次跨日不自动补报失败取消 | NOT_RUN | completed/M3、failed/M3、cancelled/M3 |
@@ -48,18 +48,18 @@
 | AC042 命令ID复用、过期和删除重放被拒绝 | NOT_RUN | reused/M7、expired/M7、expired_cleaned/M7、removed/M7、clock/M7、reused/M3、expired/M3、expired_cleaned/M3、removed/M3、clock/M3 |
 | AC043 写失败或空间不足保留输入并完整回滚 | NOT_RUN | io/M3、full/M3、busy/M3、archive_fail/M3 |
 | AC044 commit前后进程中断恢复事实而非草稿 | NOT_RUN | before_commit/M3、after_commit/M3 |
-| AC045 暂停明天生效且今天仍可记录 | NOT_RUN | default/M3、default/M1 |
-| AC046 恢复明天开启新阶段但不补旧日期 | NOT_RUN | default/M3、default/M1 |
+| AC045 暂停明天生效且今天仍可记录 | NOT_RUN | default/M3、default/M1、default/M2 |
+| AC046 恢复明天开启新阶段但不补旧日期 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC047 生效前取消申请不改变执行阶段 | NOT_RUN | pause/M3、resume/M3 |
 | AC048 跨日已生效申请不可取消且旧日期确认不能漂移 | NOT_RUN | default/M3 |
-| AC049 运行暂停删除均立即归档而保留全部历史 | NOT_RUN | running/M3、paused/M3、running/M1、paused/M1 |
+| AC049 运行暂停删除均立即归档而保留全部历史 | NOT_RUN | running/M3、paused/M3、running/M1、paused/M1、running/M2、paused/M2 |
 | AC050 手动归档当天保留记录并取消空要求 | NOT_RUN | recorded/M3、unrecorded/M3 |
 | AC051 自然结束包含末日并在次日归档 | NOT_RUN | empty/M3、recorded/M3 |
 | AC052 一次性普通终态与历史补报归档边界不同 | NOT_RUN | ordinary_complete/M3、ordinary_failed/M3、backfill/M3 |
 | AC053 长时间离线对账使用原边界且归档优先 | NOT_RUN | default/M3 |
 | AC054 拒绝旧提交不回滚独立合法对账 | NOT_RUN | default/M3 |
 | AC055 开始前管理不产生负执行区间 | NOT_RUN | default/M3 |
-| AC056 归档后永久删除取消保留确认才清空 | NOT_RUN | default/M3、default/M1 |
+| AC056 归档后永久删除取消保留确认才清空 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC057 固定星期明天生效且不改旧资格 | NOT_RUN | default/M3 |
 | AC058 周目标严格下周一生效并以最后值为准 | NOT_RUN | friday/M3、monday/M3 |
 | AC059 pending优先显示且回current取消该字段 | NOT_RUN | default/M3 |
@@ -69,26 +69,26 @@
 | AC063 过去未知、补记和零分母有明确公式 | NOT_RUN | default/M3 |
 | AC064 显示统计起止与分母集合分别处理 | NOT_RUN | running/M3、paused/M3、manual/M3、natural/M3、future/M3 |
 | AC065 固定连续按应执行次数并按事件中断 | NOT_RUN | pending/M3、success/M3、failure/M3、skip/M3、midnight/M3、pause/M3、gap/M3 |
-| AC066 周目标超过目标仍显示实际天数且日唯一 | NOT_RUN | default/M3、default/M1 |
+| AC066 周目标超过目标仍显示实际天数且日唯一 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC067 历史周率只纳入已结束完整周 | NOT_RUN | default/M3 |
 | AC068 部分周排除率分母且周结束才中断 | NOT_RUN | starts/M3、pause/M3、resume/M3、ends/M3、archive/M3 |
 | AC069 整周暂停不计率但结束时打断连续 | NOT_RUN | default/M3 |
 | AC070 周日自然结束与即时归档完整周不同 | NOT_RUN | manual/M3、natural/M3 |
-| AC071 非今日每格仅一个汇总下标 | NOT_RUN | all/M3、partial/M3、none_done/M3、empty/M3、large/M3、all/M1、partial/M1、none_done/M1、empty/M1、large/M1 |
-| AC072 今天浅色填充与选中边框独立 | NOT_RUN | default/M3、default/M1 |
+| AC071 非今日每格仅一个汇总下标 | NOT_RUN | all/M3、partial/M3、none_done/M3、empty/M3、large/M3、all/M1、partial/M1、none_done/M1、empty/M1、large/M1、all/M2、partial/M2、none_done/M2、empty/M2、large/M2 |
+| AC072 今天浅色填充与选中边框独立 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC073 日历分母与固定历史分母不能混用 | NOT_RUN | default/M3 |
 | AC074 周目标只把已有记录加入每日集合 | NOT_RUN | success/M3、failure/M3、skip/M3 |
 | AC075 一次性终态替代截止安排且按业务日归属 | NOT_RUN | default/M3 |
 | AC076 手动归档一次性只保留过去截止项 | NOT_RUN | past/M3、today/M3、future/M3 |
 | AC077 未来固定截止安排只读0/T | NOT_RUN | default/M3 |
-| AC078 筛选只改变明细不改变全局总数 | NOT_RUN | default/M3、default/M1 |
+| AC078 筛选只改变明细不改变全局总数 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC079 切日重置筛选，记录返回恢复并重算数量 | NOT_RUN | default/M3 |
 | AC080 筛选关闭空结果与独立周补记区准确 | NOT_RUN | default/M3 |
 | AC081 月份跨格和回今天使用真实完整日期 | NOT_RUN | default/M3 |
-| AC082 初始化加载和读库错误不伪装空态 | NOT_RUN | empty/M3、error/M3、loading/M3、empty/M1、error/M1、loading/M1 |
-| AC083 今日四分区包含全部未终结一次性 | NOT_RUN | default/M3、default/M1 |
+| AC082 初始化加载和读库错误不伪装空态 | NOT_RUN | empty/M3、error/M3、loading/M3、empty/M1、error/M1、loading/M1、empty/M2、error/M2、loading/M2 |
+| AC083 今日四分区包含全部未终结一次性 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC084 保存成功就地反馈下次刷新才归已记录 | NOT_RUN | default/M3 |
-| AC085 计划列表筛选状态与稳定排序可找到全部历史 | NOT_RUN | default/M3、default/M1 |
+| AC085 计划列表筛选状态与稳定排序可找到全部历史 | NOT_RUN | default/M3、default/M1、default/M2 |
 | AC086 历史按当时规则倒序分页不漏项 | NOT_RUN | default/M3 |
 | AC087 目标删除或读失败不能从旧缓存继续写 | NOT_RUN | default/M3 |
 | AC088 草稿退出与Back优先级 | NOT_RUN | keyboard/M3、modal/M3、dirty/M3、clean/M3 |
@@ -123,6 +123,6 @@
 | AC117 原生配置生成先于APK编译可独立准入 | PASS | — |
 | AC118 金属组件原生展示先于完整页面准入 | NOT_RUN | — |
 | AC119 revision和CAS原语无业务服务即可验证 | PASS | default/M7、default/M3 |
-| AC120 三类合法新建在八组合最终保存 | NOT_RUN | fixed/M7、weekly/M7、one/M7、fixed/M3、weekly/M3、one/M3、fixed/M1、weekly/M1、one/M1 |
+| AC120 三类合法新建在八组合最终保存 | NOT_RUN | fixed/M7、weekly/M7、one/M7、fixed/M3、weekly/M3、one/M3、fixed/M1、weekly/M1、one/M1、fixed/M2、weekly/M2、one/M2 |
 
 所有报告和摘要见 [bdd-coverage.json](bdd-coverage.json)。共享断言、已复用的宿主/原生证据及原始失败报告继续保留；不重复执行已通过的业务动作。

@@ -1,6 +1,6 @@
 const {runCases}=require('./bdd-ui-session.cjs'),{randomUUID}=require('node:crypto');
 const definitions={},define=(ac,row,fn)=>(definitions[ac]??={})[row]=fn;
-async function detail(t,p){await t.nav('/plans/[planId]',{planId:p});await t.device.waitSource(s=>s.includes('全部历史回顾'));}
+async function detail(t,p){await t.nav('/plans/[planId]',{planId:p});await t.device.seeText('全部历史回顾');}
 async function dto(t,p){const result=await t.client.call('query',{kind:'detail',planId:p});t.run.write(`detail-readback-${++t.step}.json`,result);return result.view.statistics;}
 async function show(t,p,fraction,streak,unit='天'){await detail(t,p);await t.textPresent('statistics.UI.fraction',fraction);if(streak!==undefined)await t.textPresent('statistics.UI.current-streak',`当前连续 ${streak} ${unit}`);await t.frame('visible-statistics');return dto(t,p);}
 async function saveRecord(t,p,on,result,id){await t.nav(id?'/records/[recordId]':'/records/new',{planId:p,...(id?{recordId:id}:{businessOn:on,result})});if(id)await t.click(`record.result.${result}`);await t.click('record.save');if(on<'2026-10-09'&&!id){await t.device.waitSource(s=>s.includes('确认补记'));await t.device.text('确认');}await t.device.waitSource(s=>/text="(?:今日|日历|计划日历|计划详情)"/.test(s));}

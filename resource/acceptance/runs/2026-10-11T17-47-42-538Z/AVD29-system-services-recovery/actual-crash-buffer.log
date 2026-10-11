@@ -1,0 +1,567 @@
+10-11 17:16:51.707  2120  2154 F libc    : Fatal signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x30 in tid 2154 (Binder:2120_3), pid 2120 (ndroid.systemui)
+10-11 17:16:52.312  2648  2648 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 17:16:52.312  2648  2648 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 17:16:52.312  2648  2648 F DEBUG   : Revision: '0'
+10-11 17:16:52.312  2648  2648 F DEBUG   : ABI: 'x86_64'
+10-11 17:16:52.313  2648  2648 F DEBUG   : Timestamp: 2026-10-11 17:16:52+0800
+10-11 17:16:52.313  2648  2648 F DEBUG   : pid: 2120, tid: 2154, name: Binder:2120_3  >>> com.android.systemui <<<
+10-11 17:16:52.313  2648  2648 F DEBUG   : uid: 10102
+10-11 17:16:52.313  2648  2648 F DEBUG   : signal 11 (SIGSEGV), code 1 (SEGV_MAPERR), fault addr 0x30
+10-11 17:16:52.313  2648  2648 F DEBUG   : Cause: null pointer dereference
+10-11 17:16:52.313  2648  2648 F DEBUG   :     rax 0000000000000000  rbx 0000000000000000  rcx 0000000000000000  rdx 00000000fffffffd
+10-11 17:16:52.313  2648  2648 F DEBUG   :     r8  0000000000000000  r9  7000000000000000  r10 000079691900ab01  r11 0000000000000000
+10-11 17:16:52.313  2648  2648 F DEBUG   :     r12 0000000000001000  r13 000079696eb77f40  r14 000079696ea025f8  r15 000079696eb77f40
+10-11 17:16:52.313  2648  2648 F DEBUG   :     rdi 000079696ea02660  rsi 000079696eb77f40
+10-11 17:16:52.313  2648  2648 F DEBUG   :     rbp 000079696358cc08  rsp 000079691900aac0  rip 00007969f2ab9635
+10-11 17:16:52.765  2648  2648 F DEBUG   : 
+10-11 17:16:52.765  2648  2648 F DEBUG   : backtrace:
+10-11 17:16:52.765  2648  2648 F DEBUG   :       #00 pc 000000000006f635  /apex/com.android.runtime/lib64/bionic/libc.so (je_extent_heap_remove+725) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.765  2648  2648 F DEBUG   :       #01 pc 000000000007126d  /apex/com.android.runtime/lib64/bionic/libc.so (extents_remove_locked+221) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.765  2648  2648 F DEBUG   :       #02 pc 000000000006ff3b  /apex/com.android.runtime/lib64/bionic/libc.so (extent_recycle+523) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #03 pc 000000000006fd28  /apex/com.android.runtime/lib64/bionic/libc.so (je_extents_alloc+56) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #04 pc 0000000000059c3c  /apex/com.android.runtime/lib64/bionic/libc.so (arena_bin_malloc_hard+316) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #05 pc 00000000000598b3  /apex/com.android.runtime/lib64/bionic/libc.so (je_arena_tcache_fill_small+323) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #06 pc 0000000000086f01  /apex/com.android.runtime/lib64/bionic/libc.so (je_tcache_alloc_small_hard+17) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #07 pc 000000000004dfb5  /apex/com.android.runtime/lib64/bionic/libc.so (je_malloc+1189) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #08 pc 000000000004a37a  /apex/com.android.runtime/lib64/bionic/libc.so (malloc+26) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.766  2648  2648 F DEBUG   :       #09 pc 0000000000069501  /system/lib64/libbinder.so (android::Parcel::continueWrite(unsigned long)+529) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.767  2648  2648 F DEBUG   :       #10 pc 0000000000069bb8  /system/lib64/libbinder.so (android::Parcel::appendFrom(android::Parcel const*, unsigned long, unsigned long)+344) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.767  2648  2648 F DEBUG   :       #11 pc 000000000014c6cb  /system/lib64/libandroid_runtime.so (android::android_os_Parcel_appendFrom(_JNIEnv*, _jclass*, long, long, int, int)+43) (BuildId: 42de2a6ec7d307e7401625e2a3f3eb95)
+10-11 17:16:52.767  2648  2648 F DEBUG   :       #12 pc 00000000002b2bd9  /system/framework/x86_64/boot-framework.oat (art_jni_trampoline+249) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.768  2648  2648 F DEBUG   :       #13 pc 0000000000757897  /system/framework/x86_64/boot-framework.oat (android.os.BaseBundle.readFromParcelInner+567) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.768  2648  2648 F DEBUG   :       #14 pc 0000000000773c3b  /system/framework/x86_64/boot-framework.oat (android.os.Parcel.readBundle+107) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.769  2648  2648 F DEBUG   :       #15 pc 0000000000528dc3  /system/framework/x86_64/boot-framework.oat (android.app.Notification.readFromParcelImpl+2035) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.770  2648  2648 F DEBUG   :       #16 pc 0000000000527724  /system/framework/x86_64/boot-framework.oat (android.app.Notification.<init>+228) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.770  2648  2648 F DEBUG   :       #17 pc 000000000089963a  /system/framework/x86_64/boot-framework.oat (android.service.notification.StatusBarNotification.<init>+330) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.770  2648  2648 F DEBUG   :       #18 pc 00000000008994c9  /system/framework/x86_64/boot-framework.oat (android.service.notification.StatusBarNotification$1.createFromParcel+73) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.771  2648  2648 F DEBUG   :       #19 pc 00000000002f5473  /system/framework/x86_64/boot-framework.oat (android.bluetooth.BluetoothActivityEnergyInfo$1.createFromParcel [DEDUPED]+51) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.771  2648  2648 F DEBUG   :       #20 pc 000000000094642d  /system/framework/x86_64/boot-framework.oat (android.service.notification.IStatusBarNotificationHolder$Stub$Proxy.get+573) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.771  2648  2648 F DEBUG   :       #21 pc 000000000095a359  /system/framework/x86_64/boot-framework.oat (android.service.notification.NotificationListenerService$NotificationListenerWrapper.onNotificationPosted+89) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.771  2648  2648 F DEBUG   :       #22 pc 0000000000945e1a  /system/framework/x86_64/boot-framework.oat (android.service.notification.INotificationListener$Stub.onTransact+3530) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.771  2648  2648 F DEBUG   :       #23 pc 000000000086e647  /system/framework/x86_64/boot-framework.oat (android.os.Binder.execTransactInternal+647) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.772  2648  2648 F DEBUG   :       #24 pc 000000000086e272  /system/framework/x86_64/boot-framework.oat (android.os.Binder.execTransact+274) (BuildId: 5eaa9d45dc39a95cbad08e4e7da137e8a1467e94)
+10-11 17:16:52.772  2648  2648 F DEBUG   :       #25 pc 0000000000169354  /apex/com.android.runtime/lib64/libart.so (art_quick_invoke_stub+756) (BuildId: 07c1a2774578f1e2358fb54658aa19df)
+10-11 17:16:52.772  2648  2648 F DEBUG   :       #26 pc 0000000000179c50  /apex/com.android.runtime/lib64/libart.so (art::ArtMethod::Invoke(art::Thread*, unsigned int*, unsigned int, art::JValue*, char const*)+288) (BuildId: 07c1a2774578f1e2358fb54658aa19df)
+10-11 17:16:52.772  2648  2648 F DEBUG   :       #27 pc 0000000000549d29  /apex/com.android.runtime/lib64/libart.so (art::(anonymous namespace)::InvokeWithArgArray(art::ScopedObjectAccessAlreadyRunnable const&, art::ArtMethod*, art::(anonymous namespace)::ArgArray*, art::JValue*, char const*)+89) (BuildId: 07c1a2774578f1e2358fb54658aa19df)
+10-11 17:16:52.772  2648  2648 F DEBUG   :       #28 pc 000000000054b355  /apex/com.android.runtime/lib64/libart.so (art::InvokeVirtualOrInterfaceWithVarArgs(art::ScopedObjectAccessAlreadyRunnable const&, _jobject*, _jmethodID*, __va_list_tag*)+437) (BuildId: 07c1a2774578f1e2358fb54658aa19df)
+10-11 17:16:52.772  2648  2648 F DEBUG   :       #29 pc 0000000000403d75  /apex/com.android.runtime/lib64/libart.so (art::JNI::CallBooleanMethodV(_JNIEnv*, _jobject*, _jmethodID*, __va_list_tag*)+821) (BuildId: 07c1a2774578f1e2358fb54658aa19df)
+10-11 17:16:52.773  2648  2648 F DEBUG   :       #30 pc 00000000000e95e9  /system/lib64/libandroid_runtime.so (_JNIEnv::CallBooleanMethod(_jobject*, _jmethodID*, ...)+153) (BuildId: 42de2a6ec7d307e7401625e2a3f3eb95)
+10-11 17:16:52.773  2648  2648 F DEBUG   :       #31 pc 000000000015ca9e  /system/lib64/libandroid_runtime.so (JavaBBinder::onTransact(unsigned int, android::Parcel const&, android::Parcel*, unsigned int)+142) (BuildId: 42de2a6ec7d307e7401625e2a3f3eb95)
+10-11 17:16:52.773  2648  2648 F DEBUG   :       #32 pc 00000000000534fe  /system/lib64/libbinder.so (android::BBinder::transact(unsigned int, android::Parcel const&, android::Parcel*, unsigned int)+94) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.773  2648  2648 F DEBUG   :       #33 pc 00000000000602b2  /system/lib64/libbinder.so (android::IPCThreadState::executeCommand(int)+1106) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #34 pc 000000000005fdad  /system/lib64/libbinder.so (android::IPCThreadState::getAndExecuteCommand()+157) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #35 pc 00000000000605ad  /system/lib64/libbinder.so (android::IPCThreadState::joinThreadPool(bool)+45) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #36 pc 00000000000885e7  /system/lib64/libbinder.so (android::PoolThread::threadLoop()+23) (BuildId: c6b31fa34999ca820b38d96e2d2fc992)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #37 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #38 pc 00000000000da1c3  /system/lib64/libandroid_runtime.so (android::AndroidRuntime::javaThreadShell(void*)+131) (BuildId: 42de2a6ec7d307e7401625e2a3f3eb95)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #39 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 17:16:52.774  2648  2648 F DEBUG   :       #40 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:10:44.575  2362  2749 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2749 (RenderThread), pid 2362 (droid.launcher3)
+10-11 19:10:44.666 14517 14517 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 19:10:44.666 14517 14517 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 19:10:44.666 14517 14517 F DEBUG   : Revision: '0'
+10-11 19:10:44.666 14517 14517 F DEBUG   : ABI: 'x86_64'
+10-11 19:10:44.666 14517 14517 F DEBUG   : Timestamp: 2026-10-11 19:10:44+0800
+10-11 19:10:44.666 14517 14517 F DEBUG   : pid: 2362, tid: 2749, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 19:10:44.666 14517 14517 F DEBUG   : uid: 10100
+10-11 19:10:44.666 14517 14517 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 19:10:44.666 14517 14517 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 19:10:44.667 14517 14517 F DEBUG   :     rax 0000000000000000  rbx 000000000000093a  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 19:10:44.667 14517 14517 F DEBUG   :     r8  000079691810cb80  r9  0000000000000000  r10 00007969179fb470  r11 0000000000000246
+10-11 19:10:44.667 14517 14517 F DEBUG   :     r12 000079691810cb80  r13 00007969179fba7f  r14 00007969179fb4f8  r15 0000000000000abd
+10-11 19:10:44.667 14517 14517 F DEBUG   :     rdi 000000000000093a  rsi 0000000000000abd
+10-11 19:10:44.667 14517 14517 F DEBUG   :     rbp 0000000000000001  rsp 00007969179fb468  rip 00007969f2ade3f8
+10-11 19:10:44.710 14517 14517 F DEBUG   : 
+10-11 19:10:44.710 14517 14517 F DEBUG   : backtrace:
+10-11 19:10:44.710 14517 14517 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:10:44.710 14517 14517 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:10:44.710 14517 14517 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 19:10:44.710 14517 14517 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:10:44.710 14517 14517 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:10:44.711 14517 14517 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:10:44.711 14517 14517 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:10:44.711 14517 14517 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:10:44.711 14517 14517 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 19:10:44.711 14517 14517 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:10:44.711 14517 14517 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:15:08.363 14541 14568 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 14568 (RenderThread), pid 14541 (droid.launcher3)
+10-11 19:15:08.411 15743 15743 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 19:15:08.411 15743 15743 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 19:15:08.411 15743 15743 F DEBUG   : Revision: '0'
+10-11 19:15:08.411 15743 15743 F DEBUG   : ABI: 'x86_64'
+10-11 19:15:08.411 15743 15743 F DEBUG   : Timestamp: 2026-10-11 19:15:08+0800
+10-11 19:15:08.412 15743 15743 F DEBUG   : pid: 14541, tid: 14568, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 19:15:08.412 15743 15743 F DEBUG   : uid: 10100
+10-11 19:15:08.412 15743 15743 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 19:15:08.412 15743 15743 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 19:15:08.412 15743 15743 F DEBUG   :     rax 0000000000000000  rbx 00000000000038cd  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 19:15:08.412 15743 15743 F DEBUG   :     r8  0000796963ae9e00  r9  0000000000000000  r10 00007969181ac470  r11 0000000000000246
+10-11 19:15:08.412 15743 15743 F DEBUG   :     r12 0000796963ae9e00  r13 00007969181aca7f  r14 00007969181ac4f8  r15 00000000000038e8
+10-11 19:15:08.412 15743 15743 F DEBUG   :     rdi 00000000000038cd  rsi 00000000000038e8
+10-11 19:15:08.412 15743 15743 F DEBUG   :     rbp 0000000000000001  rsp 00007969181ac468  rip 00007969f2ade3f8
+10-11 19:15:08.433 15743 15743 F DEBUG   : 
+10-11 19:15:08.433 15743 15743 F DEBUG   : backtrace:
+10-11 19:15:08.434 15743 15743 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:15:08.434 15743 15743 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:15:08.435 15743 15743 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:26:01.375 15771 15794 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 15794 (RenderThread), pid 15771 (droid.launcher3)
+10-11 19:26:01.419 16727 16727 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 19:26:01.420 16727 16727 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 19:26:01.420 16727 16727 F DEBUG   : Revision: '0'
+10-11 19:26:01.420 16727 16727 F DEBUG   : ABI: 'x86_64'
+10-11 19:26:01.421 16727 16727 F DEBUG   : Timestamp: 2026-10-11 19:26:01+0800
+10-11 19:26:01.421 16727 16727 F DEBUG   : pid: 15771, tid: 15794, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 19:26:01.421 16727 16727 F DEBUG   : uid: 10100
+10-11 19:26:01.421 16727 16727 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 19:26:01.421 16727 16727 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 19:26:01.421 16727 16727 F DEBUG   :     rax 0000000000000000  rbx 0000000000003d9b  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 19:26:01.421 16727 16727 F DEBUG   :     r8  000079691840a7c0  r9  0000000000000000  r10 0000796917dfb470  r11 0000000000000246
+10-11 19:26:01.421 16727 16727 F DEBUG   :     r12 000079691840a7c0  r13 0000796917dfba7f  r14 0000796917dfb4f8  r15 0000000000003db2
+10-11 19:26:01.421 16727 16727 F DEBUG   :     rdi 0000000000003d9b  rsi 0000000000003db2
+10-11 19:26:01.421 16727 16727 F DEBUG   :     rbp 0000000000000001  rsp 0000796917dfb468  rip 00007969f2ade3f8
+10-11 19:26:01.454 16727 16727 F DEBUG   : 
+10-11 19:26:01.454 16727 16727 F DEBUG   : backtrace:
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:26:01.454 16727 16727 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:26:01.455 16727 16727 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 19:26:01.455 16727 16727 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:26:01.455 16727 16727 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:57:37.218 16754 16777 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 16777 (RenderThread), pid 16754 (droid.launcher3)
+10-11 19:57:37.270 19278 19278 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 19:57:37.270 19278 19278 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 19:57:37.270 19278 19278 F DEBUG   : Revision: '0'
+10-11 19:57:37.270 19278 19278 F DEBUG   : ABI: 'x86_64'
+10-11 19:57:37.270 19278 19278 F DEBUG   : Timestamp: 2026-10-11 19:57:37+0800
+10-11 19:57:37.271 19278 19278 F DEBUG   : pid: 16754, tid: 16777, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 19:57:37.271 19278 19278 F DEBUG   : uid: 10100
+10-11 19:57:37.271 19278 19278 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 19:57:37.271 19278 19278 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 19:57:37.271 19278 19278 F DEBUG   :     rax 0000000000000000  rbx 0000000000004172  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 19:57:37.271 19278 19278 F DEBUG   :     r8  000079691842a7c0  r9  0000000000000000  r10 0000796917dfb470  r11 0000000000000246
+10-11 19:57:37.271 19278 19278 F DEBUG   :     r12 000079691842a7c0  r13 0000796917dfba7f  r14 0000796917dfb4f8  r15 0000000000004189
+10-11 19:57:37.271 19278 19278 F DEBUG   :     rdi 0000000000004172  rsi 0000000000004189
+10-11 19:57:37.271 19278 19278 F DEBUG   :     rbp 0000000000000001  rsp 0000796917dfb468  rip 00007969f2ade3f8
+10-11 19:57:37.289 19278 19278 F DEBUG   : 
+10-11 19:57:37.289 19278 19278 F DEBUG   : backtrace:
+10-11 19:57:37.289 19278 19278 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:57:37.289 19278 19278 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 19:57:37.290 19278 19278 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 20:59:53.774 19304 19328 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 19328 (RenderThread), pid 19304 (droid.launcher3)
+10-11 20:59:53.815 28056 28056 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 20:59:53.815 28056 28056 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 20:59:53.815 28056 28056 F DEBUG   : Revision: '0'
+10-11 20:59:53.815 28056 28056 F DEBUG   : ABI: 'x86_64'
+10-11 20:59:53.816 28056 28056 F DEBUG   : Timestamp: 2026-10-11 20:59:53+0800
+10-11 20:59:53.816 28056 28056 F DEBUG   : pid: 19304, tid: 19328, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 20:59:53.816 28056 28056 F DEBUG   : uid: 10100
+10-11 20:59:53.816 28056 28056 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 20:59:53.816 28056 28056 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 20:59:53.816 28056 28056 F DEBUG   :     rax 0000000000000000  rbx 0000000000004b68  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 20:59:53.816 28056 28056 F DEBUG   :     r8  0000796963a89e00  r9  0000000000000000  r10 00007969181b1470  r11 0000000000000246
+10-11 20:59:53.816 28056 28056 F DEBUG   :     r12 0000796963a89e00  r13 00007969181b1a7f  r14 00007969181b14f8  r15 0000000000004b80
+10-11 20:59:53.816 28056 28056 F DEBUG   :     rdi 0000000000004b68  rsi 0000000000004b80
+10-11 20:59:53.816 28056 28056 F DEBUG   :     rbp 0000000000000001  rsp 00007969181b1468  rip 00007969f2ade3f8
+10-11 20:59:53.842 28056 28056 F DEBUG   : 
+10-11 20:59:53.842 28056 28056 F DEBUG   : backtrace:
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 20:59:53.842 28056 28056 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: FATAL EXCEPTION: main
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: Process: com.android.talkback, PID: 30175
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: java.lang.NoSuchMethodError: No static method toUnmodifiableSet()Ljava/util/stream/Collector; in class Ljava/util/stream/Collectors; or its super classes (declaration of 'java.util.stream.Collectors' appears in /apex/com.android.runtime/javalib/core-oj.jar)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at com.google.android.accessibility.talkback.braille.TalkBackForBrailleImeImpl.<clinit>(TalkBackForBrailleImeImpl.java:71)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at com.google.android.accessibility.talkback.TalkBackService.initializeInfrastructure(TalkBackService.java:2328)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at com.google.android.accessibility.talkback.TalkBackService.onServiceConnected(TalkBackService.java:1559)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService.dispatchServiceConnected(AccessibilityService.java:501)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService.access$100(AccessibilityService.java:220)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService$2.onServiceConnected(AccessibilityService.java:1625)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService$IAccessibilityServiceClientWrapper.executeMessage(AccessibilityService.java:1852)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:214)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:7356)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+10-11 21:42:37.175 30175 30175 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: FATAL EXCEPTION: main
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: Process: com.android.talkback, PID: 30267
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: java.lang.NoSuchMethodError: No static method toUnmodifiableSet()Ljava/util/stream/Collector; in class Ljava/util/stream/Collectors; or its super classes (declaration of 'java.util.stream.Collectors' appears in /apex/com.android.runtime/javalib/core-oj.jar)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at com.google.android.accessibility.talkback.braille.TalkBackForBrailleImeImpl.<clinit>(TalkBackForBrailleImeImpl.java:71)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at com.google.android.accessibility.talkback.TalkBackService.initializeInfrastructure(TalkBackService.java:2328)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at com.google.android.accessibility.talkback.TalkBackService.onServiceConnected(TalkBackService.java:1559)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService.dispatchServiceConnected(AccessibilityService.java:501)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService.access$100(AccessibilityService.java:220)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService$2.onServiceConnected(AccessibilityService.java:1625)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.accessibilityservice.AccessibilityService$IAccessibilityServiceClientWrapper.executeMessage(AccessibilityService.java:1852)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:107)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:214)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:7356)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:492)
+10-11 21:42:39.708 30267 30267 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:930)
+10-11 22:15:20.915 28065 28088 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 28088 (RenderThread), pid 28065 (droid.launcher3)
+10-11 22:15:21.025   847   847 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 22:15:21.025   847   847 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 22:15:21.025   847   847 F DEBUG   : Revision: '0'
+10-11 22:15:21.025   847   847 F DEBUG   : ABI: 'x86_64'
+10-11 22:15:21.025   847   847 F DEBUG   : Timestamp: 2026-10-11 22:15:21+0800
+10-11 22:15:21.025   847   847 F DEBUG   : pid: 28065, tid: 28088, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 22:15:21.026   847   847 F DEBUG   : uid: 10100
+10-11 22:15:21.026   847   847 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 22:15:21.026   847   847 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 22:15:21.026   847   847 F DEBUG   :     rax 0000000000000000  rbx 0000000000006da1  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 22:15:21.026   847   847 F DEBUG   :     r8  000079691841f280  r9  0000000000000000  r10 0000796917dfb470  r11 0000000000000246
+10-11 22:15:21.026   847   847 F DEBUG   :     r12 000079691841f280  r13 0000796917dfba7f  r14 0000796917dfb4f8  r15 0000000000006db8
+10-11 22:15:21.026   847   847 F DEBUG   :     rdi 0000000000006da1  rsi 0000000000006db8
+10-11 22:15:21.026   847   847 F DEBUG   :     rbp 0000000000000001  rsp 0000796917dfb468  rip 00007969f2ade3f8
+10-11 22:15:21.081   847   847 F DEBUG   : 
+10-11 22:15:21.081   847   847 F DEBUG   : backtrace:
+10-11 22:15:21.081   847   847 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:15:21.081   847   847 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:15:21.081   847   847 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 22:15:21.081   847   847 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:15:21.081   847   847 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:15:21.081   847   847 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:15:21.081   847   847 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:15:21.081   847   847 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:15:21.081   847   847 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 22:15:21.081   847   847 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:15:21.081   847   847 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:20:33.797   871   890 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 890 (RenderThread), pid 871 (droid.launcher3)
+10-11 22:20:33.848  2413  2413 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 22:20:33.848  2413  2413 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 22:20:33.848  2413  2413 F DEBUG   : Revision: '0'
+10-11 22:20:33.848  2413  2413 F DEBUG   : ABI: 'x86_64'
+10-11 22:20:33.848  2413  2413 F DEBUG   : Timestamp: 2026-10-11 22:20:33+0800
+10-11 22:20:33.848  2413  2413 F DEBUG   : pid: 871, tid: 890, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 22:20:33.848  2413  2413 F DEBUG   : uid: 10100
+10-11 22:20:33.848  2413  2413 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 22:20:33.848  2413  2413 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 22:20:33.848  2413  2413 F DEBUG   :     rax 0000000000000000  rbx 0000000000000367  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 22:20:33.848  2413  2413 F DEBUG   :     r8  0000796963acce00  r9  0000000000000000  r10 00007969184a8470  r11 0000000000000246
+10-11 22:20:33.848  2413  2413 F DEBUG   :     r12 0000796963acce00  r13 00007969184a8a7f  r14 00007969184a84f8  r15 000000000000037a
+10-11 22:20:33.848  2413  2413 F DEBUG   :     rdi 0000000000000367  rsi 000000000000037a
+10-11 22:20:33.848  2413  2413 F DEBUG   :     rbp 0000000000000001  rsp 00007969184a8468  rip 00007969f2ade3f8
+10-11 22:20:33.874  2413  2413 F DEBUG   : 
+10-11 22:20:33.874  2413  2413 F DEBUG   : backtrace:
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:20:33.874  2413  2413 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 22:20:33.875  2413  2413 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:20:33.875  2413  2413 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:26:22.258  2461  2511 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 2511 (RenderThread), pid 2461 (droid.launcher3)
+10-11 22:26:22.329  3344  3344 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 22:26:22.329  3344  3344 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 22:26:22.329  3344  3344 F DEBUG   : Revision: '0'
+10-11 22:26:22.329  3344  3344 F DEBUG   : ABI: 'x86_64'
+10-11 22:26:22.329  3344  3344 F DEBUG   : Timestamp: 2026-10-11 22:26:22+0800
+10-11 22:26:22.329  3344  3344 F DEBUG   : pid: 2461, tid: 2511, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 22:26:22.329  3344  3344 F DEBUG   : uid: 10100
+10-11 22:26:22.330  3344  3344 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 22:26:22.331  3344  3344 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 22:26:22.331  3344  3344 F DEBUG   :     rax 0000000000000000  rbx 000000000000099d  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 22:26:22.331  3344  3344 F DEBUG   :     r8  00007969183fc7c0  r9  0000000000000000  r10 0000796917dfb470  r11 0000000000000246
+10-11 22:26:22.331  3344  3344 F DEBUG   :     r12 00007969183fc7c0  r13 0000796917dfba7f  r14 0000796917dfb4f8  r15 00000000000009cf
+10-11 22:26:22.331  3344  3344 F DEBUG   :     rdi 000000000000099d  rsi 00000000000009cf
+10-11 22:26:22.331  3344  3344 F DEBUG   :     rbp 0000000000000001  rsp 0000796917dfb468  rip 00007969f2ade3f8
+10-11 22:26:22.358  3344  3344 F DEBUG   : 
+10-11 22:26:22.358  3344  3344 F DEBUG   : backtrace:
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 22:26:22.358  3344  3344 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: FATAL EXCEPTION: pool-1-thread-1
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: Process: com.xiang.plancheckin.dev, PID: 10239
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: java.lang.UnsatisfiedLinkError: No implementation found for void expo.modules.kotlin.jni.fabric.NativeStatePropsGetter.clearAllContentOriginsImpl() (tried Java_expo_modules_kotlin_jni_fabric_NativeStatePropsGetter_clearAllContentOriginsImpl and Java_expo_modules_kotlin_jni_fabric_NativeStatePropsGetter_clearAllContentOriginsImpl__)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.jni.fabric.NativeStatePropsGetter.clearAllContentOriginsImpl(Native Method)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.jni.fabric.NativeStatePropsGetter.clearAllContentOrigins(NativeStatePropsGetter.kt:41)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.ui.ExpoUIModule$definition$lambda$178$$inlined$OnDestroy$1.invoke(ModuleDefinitionBuilder.kt:124)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.ui.ExpoUIModule$definition$lambda$178$$inlined$OnDestroy$1.invoke(ModuleDefinitionBuilder.kt:123)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.events.BasicEventListener.call(EventListener.kt:13)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.ModuleHolder.post(ModuleHolder.kt:111)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.ModuleRegistry.post(ModuleRegistry.kt:101)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.AppContext.onDestroy$expo_modules_core_debug(AppContext.kt:286)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.kotlin.KotlinInteropModuleRegistry.onDestroy(KotlinInteropModuleRegistry.kt:87)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at expo.modules.adapters.react.NativeModulesProxy.invalidate(NativeModulesProxy.java:122)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.internal.turbomodule.core.TurboModuleManager.invalidate(TurboModuleManager.kt:307)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.ReactInstance.destroy(ReactInstance.kt:428)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateDestroyTask$lambda$65(ReactHostImpl.kt:1573)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$NtzqI6yzTZ4h3Sx9ce0kBgZPvwo(Unknown Source:0)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda29.then(D8$$SyntheticClass:0)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+10-11 23:26:45.741 10239 10296 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:919)
+10-11 23:36:23.921  3371  3395 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 3395 (RenderThread), pid 3371 (droid.launcher3)
+10-11 23:36:23.986 11413 11413 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 23:36:23.986 11413 11413 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 23:36:23.986 11413 11413 F DEBUG   : Revision: '0'
+10-11 23:36:23.986 11413 11413 F DEBUG   : ABI: 'x86_64'
+10-11 23:36:23.986 11413 11413 F DEBUG   : Timestamp: 2026-10-11 23:36:23+0800
+10-11 23:36:23.987 11413 11413 F DEBUG   : pid: 3371, tid: 3395, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 23:36:23.987 11413 11413 F DEBUG   : uid: 10100
+10-11 23:36:23.987 11413 11413 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 23:36:23.987 11413 11413 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 23:36:23.987 11413 11413 F DEBUG   :     rax 0000000000000000  rbx 0000000000000d2b  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 23:36:23.987 11413 11413 F DEBUG   :     r8  0000796963a8aa40  r9  0000000000000000  r10 00007969181a7470  r11 0000000000000246
+10-11 23:36:23.987 11413 11413 F DEBUG   :     r12 0000796963a8aa40  r13 00007969181a7a7f  r14 00007969181a74f8  r15 0000000000000d43
+10-11 23:36:23.987 11413 11413 F DEBUG   :     rdi 0000000000000d2b  rsi 0000000000000d43
+10-11 23:36:23.987 11413 11413 F DEBUG   :     rbp 0000000000000001  rsp 00007969181a7468  rip 00007969f2ade3f8
+10-11 23:36:24.008 11413 11413 F DEBUG   : 
+10-11 23:36:24.008 11413 11413 F DEBUG   : backtrace:
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:36:24.009 11413 11413 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:40:05.214 11425 11454 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 11454 (RenderThread), pid 11425 (droid.launcher3)
+10-11 23:40:05.283 12364 12364 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 23:40:05.283 12364 12364 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 23:40:05.283 12364 12364 F DEBUG   : Revision: '0'
+10-11 23:40:05.283 12364 12364 F DEBUG   : ABI: 'x86_64'
+10-11 23:40:05.283 12364 12364 F DEBUG   : Timestamp: 2026-10-11 23:40:05+0800
+10-11 23:40:05.283 12364 12364 F DEBUG   : pid: 11425, tid: 11454, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 23:40:05.283 12364 12364 F DEBUG   : uid: 10100
+10-11 23:40:05.283 12364 12364 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 23:40:05.283 12364 12364 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 23:40:05.283 12364 12364 F DEBUG   :     rax 0000000000000000  rbx 0000000000002ca1  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 23:40:05.283 12364 12364 F DEBUG   :     r8  0000796963ab8e00  r9  0000000000000000  r10 00007969181b3470  r11 0000000000000246
+10-11 23:40:05.283 12364 12364 F DEBUG   :     r12 0000796963ab8e00  r13 00007969181b3a7f  r14 00007969181b34f8  r15 0000000000002cbe
+10-11 23:40:05.283 12364 12364 F DEBUG   :     rdi 0000000000002ca1  rsi 0000000000002cbe
+10-11 23:40:05.283 12364 12364 F DEBUG   :     rbp 0000000000000001  rsp 00007969181b3468  rip 00007969f2ade3f8
+10-11 23:40:05.301 12364 12364 F DEBUG   : 
+10-11 23:40:05.301 12364 12364 F DEBUG   : backtrace:
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:40:05.301 12364 12364 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:46:32.819 12380 12409 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 12409 (RenderThread), pid 12380 (droid.launcher3)
+10-11 23:46:32.881 13348 13348 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-11 23:46:32.881 13348 13348 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-11 23:46:32.881 13348 13348 F DEBUG   : Revision: '0'
+10-11 23:46:32.881 13348 13348 F DEBUG   : ABI: 'x86_64'
+10-11 23:46:32.881 13348 13348 F DEBUG   : Timestamp: 2026-10-11 23:46:32+0800
+10-11 23:46:32.881 13348 13348 F DEBUG   : pid: 12380, tid: 12409, name: RenderThread  >>> com.android.launcher3 <<<
+10-11 23:46:32.882 13348 13348 F DEBUG   : uid: 10100
+10-11 23:46:32.882 13348 13348 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-11 23:46:32.882 13348 13348 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-11 23:46:32.882 13348 13348 F DEBUG   :     rax 0000000000000000  rbx 000000000000305c  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-11 23:46:32.882 13348 13348 F DEBUG   :     r8  0000796963a8a180  r9  0000000000000000  r10 00007969181ac470  r11 0000000000000246
+10-11 23:46:32.882 13348 13348 F DEBUG   :     r12 0000796963a8a180  r13 00007969181aca7f  r14 00007969181ac4f8  r15 0000000000003079
+10-11 23:46:32.882 13348 13348 F DEBUG   :     rdi 000000000000305c  rsi 0000000000003079
+10-11 23:46:32.882 13348 13348 F DEBUG   :     rbp 0000000000000001  rsp 00007969181ac468  rip 00007969f2ade3f8
+10-11 23:46:32.902 13348 13348 F DEBUG   : 
+10-11 23:46:32.902 13348 13348 F DEBUG   : backtrace:
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-11 23:46:32.902 13348 13348 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:05:34.625 13357 13381 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 13381 (RenderThread), pid 13357 (droid.launcher3)
+10-12 00:05:34.722 17160 17160 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-12 00:05:34.722 17160 17160 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-12 00:05:34.722 17160 17160 F DEBUG   : Revision: '0'
+10-12 00:05:34.722 17160 17160 F DEBUG   : ABI: 'x86_64'
+10-12 00:05:34.722 17160 17160 F DEBUG   : Timestamp: 2026-10-12 00:05:34+0800
+10-12 00:05:34.722 17160 17160 F DEBUG   : pid: 13357, tid: 13381, name: RenderThread  >>> com.android.launcher3 <<<
+10-12 00:05:34.722 17160 17160 F DEBUG   : uid: 10100
+10-12 00:05:34.722 17160 17160 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-12 00:05:34.723 17160 17160 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-12 00:05:34.723 17160 17160 F DEBUG   :     rax 0000000000000000  rbx 000000000000342d  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-12 00:05:34.723 17160 17160 F DEBUG   :     r8  0000796963a8a180  r9  0000000000000000  r10 00007969181ae470  r11 0000000000000246
+10-12 00:05:34.723 17160 17160 F DEBUG   :     r12 0000796963a8a180  r13 00007969181aea7f  r14 00007969181ae4f8  r15 0000000000003445
+10-12 00:05:34.723 17160 17160 F DEBUG   :     rdi 000000000000342d  rsi 0000000000003445
+10-12 00:05:34.723 17160 17160 F DEBUG   :     rbp 0000000000000001  rsp 00007969181ae468  rip 00007969f2ade3f8
+10-12 00:05:34.740 17160 17160 F DEBUG   : 
+10-12 00:05:34.740 17160 17160 F DEBUG   : backtrace:
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:05:34.740 17160 17160 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:25:35.744 17171 17194 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 17194 (RenderThread), pid 17171 (droid.launcher3)
+10-12 00:25:35.787 19585 19585 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-12 00:25:35.787 19585 19585 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-12 00:25:35.787 19585 19585 F DEBUG   : Revision: '0'
+10-12 00:25:35.787 19585 19585 F DEBUG   : ABI: 'x86_64'
+10-12 00:25:35.787 19585 19585 F DEBUG   : Timestamp: 2026-10-12 00:25:35+0800
+10-12 00:25:35.787 19585 19585 F DEBUG   : pid: 17171, tid: 17194, name: RenderThread  >>> com.android.launcher3 <<<
+10-12 00:25:35.787 19585 19585 F DEBUG   : uid: 10100
+10-12 00:25:35.787 19585 19585 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-12 00:25:35.787 19585 19585 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-12 00:25:35.787 19585 19585 F DEBUG   :     rax 0000000000000000  rbx 0000000000004313  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-12 00:25:35.787 19585 19585 F DEBUG   :     r8  0000796918415b40  r9  0000000000000000  r10 0000796917dfb470  r11 0000000000000246
+10-12 00:25:35.787 19585 19585 F DEBUG   :     r12 0000796918415b40  r13 0000796917dfba7f  r14 0000796917dfb4f8  r15 000000000000432a
+10-12 00:25:35.787 19585 19585 F DEBUG   :     rdi 0000000000004313  rsi 000000000000432a
+10-12 00:25:35.787 19585 19585 F DEBUG   :     rbp 0000000000000001  rsp 0000796917dfb468  rip 00007969f2ade3f8
+10-12 00:25:35.806 19585 19585 F DEBUG   : 
+10-12 00:25:35.806 19585 19585 F DEBUG   : backtrace:
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:25:35.806 19585 19585 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:48:24.879 19595 19618 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 19618 (RenderThread), pid 19595 (droid.launcher3)
+10-12 00:48:24.929 24425 24425 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-12 00:48:24.929 24425 24425 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-12 00:48:24.929 24425 24425 F DEBUG   : Revision: '0'
+10-12 00:48:24.929 24425 24425 F DEBUG   : ABI: 'x86_64'
+10-12 00:48:24.930 24425 24425 F DEBUG   : Timestamp: 2026-10-12 00:48:24+0800
+10-12 00:48:24.930 24425 24425 F DEBUG   : pid: 19595, tid: 19618, name: RenderThread  >>> com.android.launcher3 <<<
+10-12 00:48:24.930 24425 24425 F DEBUG   : uid: 10100
+10-12 00:48:24.930 24425 24425 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-12 00:48:24.930 24425 24425 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-12 00:48:24.930 24425 24425 F DEBUG   :     rax 0000000000000000  rbx 0000000000004c8b  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-12 00:48:24.930 24425 24425 F DEBUG   :     r8  0000796918408440  r9  0000000000000000  r10 0000796917dfb470  r11 0000000000000246
+10-12 00:48:24.930 24425 24425 F DEBUG   :     r12 0000796918408440  r13 0000796917dfba7f  r14 0000796917dfb4f8  r15 0000000000004ca2
+10-12 00:48:24.930 24425 24425 F DEBUG   :     rdi 0000000000004c8b  rsi 0000000000004ca2
+10-12 00:48:24.930 24425 24425 F DEBUG   :     rbp 0000000000000001  rsp 0000796917dfb468  rip 00007969f2ade3f8
+10-12 00:48:24.947 24425 24425 F DEBUG   : 
+10-12 00:48:24.947 24425 24425 F DEBUG   : backtrace:
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:48:24.947 24425 24425 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:52:36.514 24434 24458 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 24458 (RenderThread), pid 24434 (droid.launcher3)
+10-12 00:52:36.545 25289 25289 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-12 00:52:36.545 25289 25289 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-12 00:52:36.545 25289 25289 F DEBUG   : Revision: '0'
+10-12 00:52:36.545 25289 25289 F DEBUG   : ABI: 'x86_64'
+10-12 00:52:36.545 25289 25289 F DEBUG   : Timestamp: 2026-10-12 00:52:36+0800
+10-12 00:52:36.545 25289 25289 F DEBUG   : pid: 24434, tid: 24458, name: RenderThread  >>> com.android.launcher3 <<<
+10-12 00:52:36.545 25289 25289 F DEBUG   : uid: 10100
+10-12 00:52:36.545 25289 25289 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-12 00:52:36.545 25289 25289 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-12 00:52:36.545 25289 25289 F DEBUG   :     rax 0000000000000000  rbx 0000000000005f72  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-12 00:52:36.545 25289 25289 F DEBUG   :     r8  0000796963a99180  r9  0000000000000000  r10 00007969181ae470  r11 0000000000000246
+10-12 00:52:36.545 25289 25289 F DEBUG   :     r12 0000796963a99180  r13 00007969181aea7f  r14 00007969181ae4f8  r15 0000000000005f8a
+10-12 00:52:36.545 25289 25289 F DEBUG   :     rdi 0000000000005f72  rsi 0000000000005f8a
+10-12 00:52:36.545 25289 25289 F DEBUG   :     rbp 0000000000000001  rsp 00007969181ae468  rip 00007969f2ade3f8
+10-12 00:52:36.564 25289 25289 F DEBUG   : 
+10-12 00:52:36.564 25289 25289 F DEBUG   : backtrace:
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 00:52:36.564 25289 25289 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 01:39:25.930 25298 25322 F libc    : Fatal signal 6 (SIGABRT), code -1 (SI_QUEUE) in tid 25322 (RenderThread), pid 25298 (droid.launcher3)
+10-12 01:39:26.063 32516 32516 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-12 01:39:26.063 32516 32516 F DEBUG   : Build fingerprint: 'Android/sdk_phone_x86_64/generic_x86_64:10/QSR1.210820.001/7663313:userdebug/test-keys'
+10-12 01:39:26.063 32516 32516 F DEBUG   : Revision: '0'
+10-12 01:39:26.063 32516 32516 F DEBUG   : ABI: 'x86_64'
+10-12 01:39:26.063 32516 32516 F DEBUG   : Timestamp: 2026-10-12 01:39:26+0800
+10-12 01:39:26.063 32516 32516 F DEBUG   : pid: 25298, tid: 25322, name: RenderThread  >>> com.android.launcher3 <<<
+10-12 01:39:26.063 32516 32516 F DEBUG   : uid: 10100
+10-12 01:39:26.063 32516 32516 F DEBUG   : signal 6 (SIGABRT), code -1 (SI_QUEUE), fault addr --------
+10-12 01:39:26.063 32516 32516 F DEBUG   : Abort message: 'GL errors! frameworks/base/libs/hwui/pipeline/skia/SkiaOpenGLPipeline.cpp:126'
+10-12 01:39:26.063 32516 32516 F DEBUG   :     rax 0000000000000000  rbx 00000000000062d2  rcx 00007969f2ade3f8  rdx 0000000000000006
+10-12 01:39:26.063 32516 32516 F DEBUG   :     r8  0000796963adfee0  r9  0000000000000000  r10 00007969181ae470  r11 0000000000000246
+10-12 01:39:26.063 32516 32516 F DEBUG   :     r12 0000796963adfee0  r13 00007969181aea7f  r14 00007969181ae4f8  r15 00000000000062ea
+10-12 01:39:26.063 32516 32516 F DEBUG   :     rdi 00000000000062d2  rsi 00000000000062ea
+10-12 01:39:26.063 32516 32516 F DEBUG   :     rbp 0000000000000001  rsp 00007969181ae468  rip 00007969f2ade3f8
+10-12 01:39:26.083 32516 32516 F DEBUG   : 
+10-12 01:39:26.083 32516 32516 F DEBUG   : backtrace:
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #00 pc 00000000000943f8  /apex/com.android.runtime/lib64/bionic/libc.so (syscall+24) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #01 pc 0000000000097146  /apex/com.android.runtime/lib64/bionic/libc.so (abort+182) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #02 pc 0000000000008790  /system/lib64/liblog.so (__android_log_assert+384) (BuildId: abf7dd965db188dfd23cf87c0d4cf7b7)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #03 pc 00000000002afe43  /system/lib64/libhwui.so (android::uirenderer::skiapipeline::SkiaOpenGLPipeline::swapBuffers(android::uirenderer::renderthread::Frame const&, bool, SkRect const&, android::uirenderer::FrameInfo*, bool*)+147) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #04 pc 00000000002c5a74  /system/lib64/libhwui.so (android::uirenderer::renderthread::CanvasContext::draw()+356) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #05 pc 00000000002c4b9e  /system/lib64/libhwui.so (_ZNSt3__110__function6__funcIZN7android10uirenderer12renderthread13DrawFrameTask11postAndWaitEvE3$_0NS_9allocatorIS6_EEFvvEEclEv$c303f2d2360db58ed70a2d0ac7ed911b+270) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #06 pc 00000000002d6e7b  /system/lib64/libhwui.so (android::uirenderer::WorkQueue::process()+203) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #07 pc 00000000002d6bdf  /system/lib64/libhwui.so (android::uirenderer::renderthread::RenderThread::threadLoop()+111) (BuildId: a9ac15fe439abbd4ad14dc767231cbf6)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #08 pc 0000000000014339  /system/lib64/libutils.so (android::Thread::_threadLoop(void*)+329) (BuildId: 20c01acb58e07a2d146da9c81d857370)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #09 pc 0000000000100fce  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+30) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 01:39:26.083 32516 32516 F DEBUG   :       #10 pc 0000000000098fe7  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+55) (BuildId: b5c6019a3b4ea61b5e9a2f56319b584e)
+10-12 01:45:04.541  2291  2291 E AndroidRuntime: FATAL EXCEPTION: main
+10-12 01:45:04.541  2291  2291 E AndroidRuntime: Process: com.android.phone, PID: 2291
+10-12 01:45:04.541  2291  2291 E AndroidRuntime: DeadSystemException: The system died; earlier logs will point to the root cause

@@ -1,0 +1,4 @@
+const fs=require('node:fs'),path=require('node:path'),{nodes}=require('./ui-tree-observation.cjs');
+const key=process.argv[2],record=require('./progress.cjs').read().commands[key]?.record;if(!record)throw new Error('Closed report required');
+const folder=path.dirname(record),file=fs.readdirSync(folder).filter(f=>/failure\.xml$/.test(f)).at(-1);if(!file)throw new Error('Failure XML absent');
+const all=nodes(fs.readFileSync(path.join(folder,file),'utf8'));console.log(JSON.stringify({key,file,scrollables:all.filter(n=>n.attributes.scrollable==='true').map(n=>n.attributes),controls:all.filter(n=>n.attributes['resource-id']&&n.attributes.clickable==='true').map(n=>({id:n.attributes['resource-id'],bounds:n.attributes.bounds,text:n.attributes.text,description:n.attributes['content-desc']})).slice(-30)},null,2));
