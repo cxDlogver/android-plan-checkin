@@ -1,6 +1,6 @@
 # BDD 参数与配置进度
 
-更新：2026-10-11T18:02:38.182Z。完整验收项 20/120；已留证且摘要有效的显式参数/配置实例 442。实例通过不等于整个验收项通过。
+更新：2026-10-11T18:26:28.305Z。完整验收项 20/120；已留证且摘要有效的显式参数/配置实例 450。实例通过不等于整个验收项通过。
 
 | 验收项 | 完整状态 | 显式通过实例 |
 | --- | --- | --- |
@@ -19,7 +19,7 @@
 | AC013 换设备时区不移动计划今天与历史 | NOT_RUN | default/M3 |
 | AC014 公历加一天覆盖DST和月年边界 | PASS | spring/M7、fall/M7、leap/M7、year/M7、spring/M3、fall/M3、leap/M3、year/M3、spring/DOMAIN、fall/DOMAIN、leap/DOMAIN、year/DOMAIN |
 | AC015 前台午夜重算不强制跳选中日期 | NOT_RUN | default/M3 |
-| AC016 新建默认值和星期未选状态 | NOT_RUN | default/M7、default/M3、default/M1、default/M2 |
+| AC016 新建默认值和星期未选状态 | NOT_RUN | default/M7、default/M3、default/M1、default/M2、default/M4 |
 | AC017 文本码点边界与单行名称 | NOT_RUN | blank_name/M7、trim_name/M7、80_name/M7、81_name/M7、newline_name/M7、1000_desc/M7、1001_desc/M7、empty_note/M7、2000_note/M7、2001_note/M7、blank_name/M3、trim_name/M3、80_name/M3、81_name/M3、newline_name/M3、1000_desc/M3、1001_desc/M3、empty_note/M3、2000_note/M3、2001_note/M3 |
 | AC018 切换类型保留共通字段并拒绝隐藏字段混入 | PASS | default/M7、default/M3 |
 | AC019 循环日期不得过去或倒置 | PASS | past/M7、today/M7、future/M7、reversed/M7、same/M7、invalid_date/M7、past/M3、today/M3、future/M3、reversed/M3、same/M3、invalid_date/M3 |
@@ -93,11 +93,11 @@
 | AC087 目标删除或读失败不能从旧缓存继续写 | NOT_RUN | default/M3 |
 | AC088 草稿退出与Back优先级 | NOT_RUN | keyboard/M3、modal/M3、dirty/M3、clean/M3 |
 | AC089 本机设置显示真实版本和无备份边界 | NOT_RUN | valid/M3、null/M3 |
-| AC090 金属材质字体边距与结果语义 | NOT_RUN | default/M3、default/M1 |
-| AC091 8组合读回与核心操作逐配置验收 | NOT_RUN | M3/M3、M1/M1 |
-| AC092 六行日历和大数字号不截断 | NOT_RUN | default/M3、default/M1 |
-| AC093 键盘系统栏与两种导航Back可用 | NOT_RUN | three_button/M3、gesture/M3、three_button/M1、gesture/M1 |
-| AC094 TalkBack朗读完整日期结果权限及筛选数量 | NOT_RUN | default/M3 |
+| AC090 金属材质字体边距与结果语义 | NOT_RUN | default/M3、default/M1、default/M2 |
+| AC091 8组合读回与核心操作逐配置验收 | NOT_RUN | M3/M3、M1/M1、M2/M2 |
+| AC092 六行日历和大数字号不截断 | NOT_RUN | default/M3、default/M1、default/M2 |
+| AC093 键盘系统栏与两种导航Back可用 | NOT_RUN | three_button/M3、gesture/M3、three_button/M1、gesture/M1、gesture/M2、three_button/M2 |
+| AC094 TalkBack朗读完整日期结果权限及筛选数量 | NOT_RUN | default/M3、default/M2、default/M1 |
 | AC095 独立APK关Metro离线首次使用与重启 | NOT_RUN | — |
 | AC096 性能数据和正式包计时满足P95预算 | NOT_RUN | — |
 | AC097 覆盖升级保留历史时区和待生效申请 | NOT_RUN | — |

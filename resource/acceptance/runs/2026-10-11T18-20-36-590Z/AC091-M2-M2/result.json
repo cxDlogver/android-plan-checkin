@@ -1,0 +1,68 @@
+{
+  "caseId": "AC091",
+  "rowId": "M2",
+  "configId": "M2",
+  "phase": "MATRIX_AGGREGATION",
+  "runId": "2026-10-11T18-20-36-590Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T18:20:36.590Z",
+  "endedAt": "2026-10-11T18:20:36.692Z",
+  "inputSha256": "c919db0d1316e1d552b638ac4ac3c4ec75e34e56312822ca566776246cb5b798",
+  "previousRecord": null,
+  "scope": "AC091-M2-M2",
+  "implementationIds": [
+    "IP27"
+  ],
+  "assertions": [
+    {
+      "id": "AC091.A1.every-actual-device-matches",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC091.A2.every-core-case-individually-evidenced",
+      "expected": 17,
+      "actual": 17,
+      "status": "PASS"
+    },
+    {
+      "id": "AC091.A2.all-36-core-parameter-instances",
+      "expected": 36,
+      "actual": 36,
+      "status": "PASS"
+    },
+    {
+      "id": "AC091.A3.material-calendar-and-both-nav-reviews",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC091.A4.no-missing-or-failed-core-report",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T18-20-36-590Z/AC091-M2-M2/accepted-actual-visual-reviews.json",
+      "sha256": "dfd9fbeda803247a74a85d4b779b0eb688035c3ad951c6dc5a0e974023d8b38f"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T18-20-36-590Z/AC091-M2-M2/actual-matrix-row-and-core-reports.json",
+      "sha256": "ce17176af14a484fa87dc55a76e3b83bfe9b61d1c7dbca62809ad2a531caef5c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T18-20-36-590Z/AC091-M2-M2/inputs.json",
+      "sha256": "6889616951da8a4b4698aeb35f3e0a4c2bb805fd83c26056e9a91b69e9949723"
+    }
+  ],
+  "limitations": [
+    "Only this matrix row is closed. Required other configurations, actual TalkBack acceptance and formal release specializations remain independent. Core command/date/permission observations are reused where unchanged; the current rendering and full Save reachability are proven by the separately accepted visual reports."
+  ]
+}

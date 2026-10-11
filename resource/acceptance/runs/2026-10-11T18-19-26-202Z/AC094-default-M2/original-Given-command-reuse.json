@@ -1,0 +1,58 @@
+{
+  "record": "resource/acceptance/runs/2026-10-11T18-13-01-599Z/AC094-default-M2/result.json",
+  "sha256": "af9983c09a0931e23393ac9b84d8cb1859ca51fe63c596a3fd09c95b497b05ba",
+  "creates": [
+    {
+      "file": "step-10-given-create.json",
+      "payload": {
+        "planId": "30b38ec0-1b3c-44b4-b73b-a06890fc1421",
+        "name": "语音取消计划",
+        "description": "",
+        "type": "one_time",
+        "direction": "do",
+        "dueOn": "2026-10-08"
+      }
+    },
+    {
+      "file": "step-4-given-create.json",
+      "payload": {
+        "planId": "a2e6cdd6-69a0-4849-9a6b-4bc64bf0b835",
+        "name": "语音成功计划",
+        "description": "",
+        "type": "fixed",
+        "direction": "do",
+        "startsOn": "2026-10-01",
+        "endOn": null,
+        "weekdayMask": 127
+      }
+    },
+    {
+      "file": "step-6-given-create.json",
+      "payload": {
+        "planId": "fcf65ce9-d704-4642-a2fb-46232498f6f1",
+        "name": "语音失败计划",
+        "description": "",
+        "type": "fixed",
+        "direction": "avoid",
+        "startsOn": "2026-10-01",
+        "endOn": null,
+        "weekdayMask": 127
+      }
+    },
+    {
+      "file": "step-8-given-create.json",
+      "payload": {
+        "planId": "06b39e7f-4884-4c73-b8e8-8a48298f2774",
+        "name": "语音跳过计划",
+        "description": "",
+        "type": "weekly",
+        "direction": "do",
+        "startsOn": "2026-10-05",
+        "endOn": null,
+        "weeklyTarget": 3
+      }
+    }
+  ],
+  "restorationSource": "resource\\acceptance\\runs\\2026-10-11T18-13-01-599Z\\AC094-default-M2\\failure-native-facts.json",
+  "reason": "Reuse the original four plan IDs and committed records, restoring their captured isolated fixture when another case replaced it. No create or submit command is repeated."
+}
