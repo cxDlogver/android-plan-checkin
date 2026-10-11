@@ -1,0 +1,43 @@
+{
+  "caseId": "AC116",
+  "rowId": "shared-stable-pagination",
+  "configId": "api36-393dp-font1",
+  "runId": "2026-10-11T08-10-30-948Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T08:10:30.948Z",
+  "endedAt": "2026-10-11T08:10:32.149Z",
+  "inputSha256": "e047c6f4f077272d02d02a6e792dbb257d130384cb8ca459c9905bda141b2117",
+  "previousRecord": null,
+  "scope": "AC116-shared-stable-pagination-api36",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Development application is disconnected",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-10-30-948Z/AC116-shared-stable-pagination-api36/bridge-identity.json",
+      "sha256": "fdfa3bbe697b525685af5b75203076646b61a213f062ff7883312446f0df5756"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-10-30-948Z/AC116-shared-stable-pagination-api36/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-10-30-948Z/AC116-shared-stable-pagination-api36/inputs.json",
+      "sha256": "a0e8be8cd1a5f04d6059499b2a406a9f9cad8fb25e94339cda71b885452ab19f"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

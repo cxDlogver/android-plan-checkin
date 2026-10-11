@@ -1,7 +1,7 @@
 import { openDatabaseAsync, SQLiteDatabase, SQLiteBindValue } from 'expo-sqlite';
 import { getCalendars } from 'expo-localization';
 import { DomainError, Facts, emptyFacts, metaValue, setMeta } from '../../domain/model';
-import { validZone } from '../../domain/date';
+import { initializeTimezone } from './timezone';
 import { currentSchemaVersion, migrateDatabase } from './migrations';
 import { now, beforeStorage } from '@verification/runtime';
 
@@ -27,9 +27,7 @@ export class DatabaseExecutor {
         if((version?.user_version||0)>currentSchemaVersion)throw new DomainError('SCHEMA_TOO_NEW');
         await migrateDatabase(tx,version?.user_version||0);
         await executor.transaction(tx,async()=>{
-          const zone=await tx.first<{value:string}>("SELECT value FROM app_meta WHERE key='app_timezone'");
-          if(!zone){const initial=getCalendars()[0]?.timeZone;if(!initial||!validZone(initial))throw new DomainError('INIT_FAILED');await tx.run('INSERT INTO app_meta(key,value) VALUES (?,?),(?,?),(?,?)',['app_timezone',initial,'initialized_at_ms',String(now()),'data_revision','0']);}
-          else if(!validZone(zone.value))throw new DomainError('INIT_FAILED');
+          await initializeTimezone(tx,()=>getCalendars()[0]?.timeZone,now());
         });
       });
       return executor;

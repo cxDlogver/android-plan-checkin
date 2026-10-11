@@ -1,0 +1,74 @@
+{
+  "caseId": "AC014",
+  "rowId": "spring",
+  "configId": "DOMAIN",
+  "derivedFrom": "resource/acceptance/runs/2026-10-11T07-47-19-758Z-e17eeaa36b/commands/date-acceptance-tests/result.json",
+  "runId": "2026-10-11T09-29-27-306Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T09:29:27.306Z",
+  "endedAt": "2026-10-11T09:29:27.387Z",
+  "inputSha256": "772446e5f61437709c1ab81bfd4a142a37ae5882e5893c3001a9637d0ce75aac",
+  "previousRecord": null,
+  "scope": "AC014-spring-DOMAIN-derived",
+  "implementationIds": [
+    "IP06"
+  ],
+  "assertions": [
+    {
+      "id": "AC014.A1-A2.original-node-assertions",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A1.original-invalid-day-assertion",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A3.strict-Sunday-original-assertion",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A3.strict-Monday-original-assertion",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A3.date-source-unchanged",
+      "expected": "5660e516f46b7d8fc45a025f278f8cc5f15d183697737a106b7a1b74643cf91c",
+      "actual": "5ec617803e1567fd2c6952b828b3327e8fa6c1d2302587d45490b694d732fbdf",
+      "status": "FAIL"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "AC014.A3.date-source-unchanged\n\n'FAIL' !== 'PASS'\n",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-29-27-306Z/AC014-spring-DOMAIN-derived/execution-reference.json",
+      "sha256": "0aeb836f8e1d346e7f9bb029e7b15afe29e4adc3460bb799f54b9dae70c21da9"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-29-27-306Z/AC014-spring-DOMAIN-derived/inputs.json",
+      "sha256": "f3d1b41793f5c62aed66faafdef14ea6eb67e4e9e976b32d2ce0315a0617696c"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-29-27-306Z/AC014-spring-DOMAIN-derived/parameters.json",
+      "sha256": "b17eccca0e5ffca8fc3796334beea2df7e5e0dfce2d07d458cefdf8c81957a5d"
+    }
+  ],
+  "limitations": [
+    "Parameter-specific report derived from preserved successful observations. No date operation or domain test was re-executed."
+  ]
+}

@@ -1,0 +1,63 @@
+const fs=require('node:fs'),{randomUUID}=require('node:crypto'),{snapshot,sha}=require('./p1.cjs'),{createRun}=require('./evidence-run.cjs'),{DeviceDriver}=require('./device-driver.cjs'),{VerificationClient,waitForMetro}=require('./verification-bridge.cjs');
+const api=process.argv[2]||'36',selected=process.argv.slice(3),client=new VerificationClient(api),device=new DeviceDriver(api,'.cache/verification-bridge/business');
+const source=snapshot(['src/domain','src/application','src/infrastructure/database','src/verification/runtime-development.ts','src/verification/bridge-development.ts']);
+const cases={};
+function define(ac,row,fn){(cases[ac]??={})[row]=fn;}
+class Case {
+  constructor(run){this.run=run;this.sequence=0;this.ms=Date.parse('2026-10-09T12:00:00+08:00');}
+  check(id,expected,actual){this.run.check(id,expected,actual);}
+  async at(on,hour=12){this.ms=Date.parse(`${on}T${String(hour).padStart(2,'0')}:00:00+08:00`);this.run.write(`step-${++this.sequence}-clock.json`,await client.call('clock',{instant:new Date(this.ms).toISOString()}));}
+  async snap(name){const observation=await client.call('capture');if(name)this.run.write(`${name}.json`,observation);return observation.snapshot;}
+  async query(kind,payload={}){const response=await client.call('query',{kind,...payload});this.run.write(`step-${++this.sequence}-query-${kind}.json`,response);return response.view;}
+  envelope(kind,payload){return {commandId:randomUUID(),issuedAtMs:this.ms,kind,payload};}
+  async send(envelope,expected='OK'){const response=await client.call('command',{envelope,refresh:false});this.run.write(`step-${++this.sequence}-${envelope.kind}.json`,{envelope,response});if(expected!==null)this.check(`step-${this.sequence}.result`,expected,response.result.code);return response.result;}
+  async command(kind,payload,expected='OK'){return this.send(this.envelope(kind,payload),expected);}
+  async ref(planId){const s=await this.snap();return {planId,expectedPlanRevision:s.facts.plans.find(p=>p.id===planId).revision};}
+  async create(type='fixed',on='2026-10-01',options={}){await this.at(on);const planId=randomUUID();await this.command('CreatePlan',{planId,name:'隔离 BDD 计划',description:'规则验收',type,direction:'do',...(type==='one_time'?{dueOn:'2026-10-10'}:{startsOn:on,endOn:null,...(type==='fixed'?{weekdayMask:127}:{weeklyTarget:3})}),...options});return planId;}
+  async record(planId,on,result='success',note=''){await this.at(on);const recordId=randomUUID();await this.command('SubmitCycleRecord',{...await this.ref(planId),recordId,businessOn:on,result,note,confirmedToday:on,confirmedEntryKind:'ordinary'});return recordId;}
+  async edit(planId,changes){const ruleConfirmations=[];if(changes.weekdayMask!==undefined)ruleConfirmations.push({field:'weekday_mask',confirmedEffectiveOn:'2026-10-10'});if(changes.weeklyTarget!==undefined)ruleConfirmations.push({field:'weekly_target',confirmedEffectiveOn:'2026-10-12'});return this.command('EditPlan',{...await this.ref(planId),changes,ruleConfirmations});}
+  async given(){this.before=await this.snap('given-facts');return this.before;}
+  async unchanged(id){this.check(id,this.before.facts,(await this.snap('after-facts')).facts);}
+}
+define('AC109','mask0',async t=>{await t.given();await t.command('CreatePlan',{planId:randomUUID(),name:'无星期',description:'',type:'fixed',direction:'do',startsOn:'2026-10-09',endOn:null,weekdayMask:0},'VALIDATION_FAILED');await t.unchanged('AC109.A1.no-created-facts');});
+define('AC109','weekday',async t=>{const p=await t.create('fixed','2026-10-01',{weekdayMask:10}),r=await t.record(p,'2026-10-08');await t.at('2026-10-09');const before=await t.given();await t.edit(p,{weekdayMask:17});const after=await t.snap('after-facts'),rules=after.facts.rule_versions.filter(r=>r.plan_id===p&&r.kind==='weekday_mask');t.check('AC109.A2',[['2026-10-01',10],['2026-10-10',17]],rules.map(r=>[r.effective_on,JSON.parse(r.value_json).weekdayMask]));t.check('AC109.historical-record',before.facts.cycle_records.find(x=>x.id===r),after.facts.cycle_records.find(x=>x.id===r));});
+define('AC109','weekly',async t=>{const p=await t.create('weekly');await t.at('2026-10-09');await t.given();await t.edit(p,{weeklyTarget:5});await t.edit(p,{weeklyTarget:4});const s=await t.snap('after-facts'),rules=s.facts.rule_versions.filter(r=>r.plan_id===p&&r.kind==='weekly_target');t.check('AC109.A2.pending-effective','2026-10-12',rules[2].effective_on);t.check('AC109.A3',[3,5,4],rules.map(r=>JSON.parse(r.value_json).weeklyTarget));t.check('AC109.A3.cancelled',true,rules[1].cancelled_at_ms!==null&&rules[2].cancelled_at_ms===null);t.check('AC104.A2.no-reused-revision',[1,2,3],rules.map(r=>r.revision));});
+define('AC109','cancel',async t=>{const p=await t.create('weekly');await t.at('2026-10-09');await t.edit(p,{weeklyTarget:5});await t.given();await t.edit(p,{weeklyTarget:3});const s=await t.snap('after-facts'),rules=s.facts.rule_versions.filter(r=>r.plan_id===p&&r.kind==='weekly_target');t.check('AC109.A3.only-pending-cancelled',true,rules.length===2&&rules[0].cancelled_at_ms===null&&rules[1].cancelled_at_ms!==null);t.check('AC109.A3.current',3,JSON.parse(rules[0].value_json).weeklyTarget);});
+define('AC109','name',async t=>{const p=await t.create('weekly');await t.at('2026-10-09');await t.edit(p,{weeklyTarget:5});const before=await t.given();await t.edit(p,{name:'立即新名称'});const s=await t.snap('after-facts');t.check('AC109.A5.name','立即新名称',s.facts.plans.find(r=>r.id===p).name);t.check('AC109.A3.pending-retained',before.facts.rule_versions,s.facts.rule_versions);const revision=s.facts.plans.find(r=>r.id===p).revision;await t.edit(p,{name:'立即新名称'});const same=await t.snap('no-op-facts');t.check('AC109.A5.no-op',[revision,s.dataRevision],[same.facts.plans.find(r=>r.id===p).revision,same.dataRevision]);});
+define('AC109','paused',async t=>{const p=await t.create();await t.at('2026-10-08');await t.command('RequestPause',{...await t.ref(p),eventId:randomUUID(),confirmedEffectiveOn:'2026-10-09'});await t.at('2026-10-09');await t.given();await t.command('EditPlan',{...await t.ref(p),changes:{name:'不应写入'},ruleConfirmations:[]},'PAUSED');await t.unchanged('AC109.A4.paused-unchanged');});
+define('AC109','due',async t=>{const p=await t.create('one_time','2026-10-07',{dueOn:'2026-10-08'});await t.at('2026-10-09');await t.given();await t.edit(p,{dueOn:'2026-10-15'});const s=await t.snap('after-facts'),rules=s.facts.rule_versions.filter(r=>r.plan_id===p);t.check('AC109.A2.immediate-due','2026-10-09',rules[1].effective_on);t.check('AC109.A3.old-due-retained',['2026-10-08','2026-10-15'],rules.map(r=>JSON.parse(r.value_json).dueOn));t.check('AC109.A5.calendar-moved',[0,1],[(await t.query('calendar',{planId:p,on:'2026-10-08'})).items.length,(await t.query('calendar',{planId:p,on:'2026-10-15'})).items.length]);});
+define('AC112','day',async t=>{const p=await t.create();await t.at('2026-10-09');const env=t.envelope('SubmitCycleRecord',{...await t.ref(p),recordId:randomUUID(),businessOn:'2026-10-09',result:'success',note:'保持原输入',confirmedToday:'2026-10-09',confirmedEntryKind:'ordinary'});await t.at('2026-10-10');await t.given();await t.send(env,'DAY_CHANGED');await t.unchanged('AC112.A1.no-backfill-or-moving');});
+define('AC112','replay',async t=>{const p=await t.create();await t.at('2026-10-09');await t.given();const env=t.envelope('SubmitCycleRecord',{...await t.ref(p),recordId:randomUUID(),businessOn:'2026-10-09',result:'success',note:'首次',confirmedToday:'2026-10-09',confirmedEntryKind:'ordinary'});const first=await t.send(env),committed=await t.snap('first-commit-facts');await t.at('2026-10-10');const second=await t.send(env);t.check('AC112.A2',[true,first.objectId],[second.replayed,second.objectId]);const s=await t.snap('after-facts');t.check('AC112.A2.one-record-and-receipt',[1,1],[s.facts.cycle_records.filter(r=>r.plan_id===p).length,s.facts.command_receipts.filter(r=>r.command_id===env.commandId).length]);t.check('AC112.A2.revision-unchanged',[committed.dataRevision,committed.facts.plans.find(r=>r.id===p).revision],[s.dataRevision,s.facts.plans.find(r=>r.id===p).revision]);});
+define('AC112','revision',async t=>{const p=await t.create(),r=await t.record(p,'2026-10-09','success','原始');await t.command('ModifyCycleRecord',{...await t.ref(p),recordId:r,expectedRecordRevision:1,result:'failure',note:'第一次修改'});await t.given();await t.command('ModifyCycleRecord',{...await t.ref(p),recordId:r,expectedRecordRevision:1,result:'skip',note:'不应覆盖'},'RECORD_CHANGED');await t.unchanged('AC112.A3.CAS-unchanged');});
+define('AC112','duplicate',async t=>{const p=await t.create();await t.record(p,'2026-10-09');await t.given();await t.command('SubmitCycleRecord',{...await t.ref(p),recordId:randomUUID(),businessOn:'2026-10-09',result:'failure',note:'',confirmedToday:'2026-10-09',confirmedEntryKind:'ordinary'},'RECORD_EXISTS');await t.unchanged('AC112.A3.one-original-no-receipt');});
+define('AC112','rollback',async t=>{const p=await t.create();await t.at('2026-10-09');await t.given();const env=t.envelope('SubmitCycleRecord',{...await t.ref(p),recordId:randomUUID(),businessOn:'2026-10-09',result:'success',note:'完整回滚',confirmedToday:'2026-10-09',confirmedEntryKind:'ordinary'});await client.call('fault',{point:'before_commit_io'});await t.send(env,'STORAGE_IO');await t.unchanged('AC112.A4.full-business-and-receipt-rollback');});
+for(const row of ['reused','expired','expired_cleaned','removed','clock'])define('AC042',row,async t=>{
+  const p=await t.create();await t.at('2026-10-09');const env=t.envelope('SubmitCycleRecord',{...await t.ref(p),recordId:randomUUID(),businessOn:'2026-10-09',result:'success',note:'原始',confirmedToday:'2026-10-09',confirmedEntryKind:'ordinary'});await t.send(env);
+  let error;
+  if(row==='reused'){env.payload.note='不同摘要';error='COMMAND_ID_REUSED';}
+  if(row==='expired'||row==='expired_cleaned'){await t.at('2026-10-16');if(row==='expired_cleaned')await client.call('cleanReceipts');error='COMMAND_EXPIRED';}
+  if(row==='removed'){await t.command('ArchivePlan',{...await t.ref(p),eventId:randomUUID()});await t.command('PermanentlyDeletePlan',await t.ref(p));error='TARGET_REMOVED';}
+  if(row==='clock'){env.commandId=randomUUID();env.issuedAtMs=t.ms+1;error='CLOCK_CHANGED';}
+  await t.given();await t.send(env,error);await t.unchanged(`AC042/${row}.no-user-change`);
+  if(row==='removed'){const s=await t.snap();t.check('AC042.A3.content-free-tombstone',true,s.facts.command_receipts.filter(r=>r.command_id===env.commandId).every(r=>r.result_code==='TARGET_REMOVED'&&r.plan_id===null&&r.object_id===null&&r.payload_digest===null));}
+});
+require('./native-bdd-more.cjs')({define,client,randomUUID});
+require('./native-bdd-extras.cjs')({define,client,randomUUID});
+require('./native-bdd-gaps.cjs')({define,client,randomUUID});
+async function main(){
+  await waitForMetro();device.identity();device.adb(['reverse','tcp:8081','tcp:8081']);await device.open();device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await device.waitSource(s=>s.includes('今日')||s.includes('原生模块验证'),120000);device.deepLink('plancheckin-dev://native');await client.waitReady();
+  for(const [ac,rows] of Object.entries(cases)){if(selected.length&&!selected.includes(ac)&&!selected.some(s=>s.startsWith(`${ac}/`)))continue;
+    for(const [row,fn]of Object.entries(rows)){
+      if(selected.length&&!selected.includes(ac)&&!selected.includes(`${ac}/${row}`))continue;
+      await device.request(device.endpoint('timeouts'));await client.waitReady(5000);
+      const run=createRun(`${ac}-${row}-api${api}`,{api,ac,row,source},[ac==='AC109'?'IP09':'IP08'],{caseId:ac,rowId:row,configId:`api${api}-393dp-font1`});if(!run)continue;
+      const t=new Case(run);let error=null;try{
+        run.write('device.json',device.identity());run.write('bridge-identity.json',await client.status());
+        await client.call('fault',{point:null});await t.at('2026-10-09');run.write('fixture.json',await client.call('fixture',{name:'F01',zone:'Asia/Shanghai',confirm:'RESET_ISOLATED_DEV_DATABASE'}));
+        await fn(t);await t.snap('final-native-facts');
+      }catch(failure){error=failure;console.error(`${ac}/${row}: ${failure.message}`);try{await t.snap('failure-native-facts');}catch{}}
+      run.finish(error,['Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately.']);
+    }
+  }
+}
+main().catch(error=>{console.error(error.stack);process.exitCode=1;}).finally(async()=>{try{await client.call('fault',{point:null});await client.call('clock',{instant:null});}catch{}try{await device.close();}catch{}});

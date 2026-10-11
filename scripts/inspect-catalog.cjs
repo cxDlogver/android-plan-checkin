@@ -1,0 +1,1 @@
+const catalog=require('../resource/acceptance/追踪目录.json');console.log(Object.keys(catalog));for(const key of Object.keys(catalog))if(Array.isArray(catalog[key])){const item=catalog[key].find(x=>x.id===(process.argv[2]||'AC016'));if(item)console.log(key,JSON.stringify(item,null,2));}

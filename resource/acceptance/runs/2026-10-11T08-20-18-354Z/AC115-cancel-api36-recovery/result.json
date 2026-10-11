@@ -1,0 +1,164 @@
+{
+  "caseId": "AC115",
+  "rowId": "cancel",
+  "configId": "api36-393dp-font1",
+  "runId": "2026-10-11T08-20-18-354Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T08:20:18.354Z",
+  "endedAt": "2026-10-11T08:20:58.275Z",
+  "inputSha256": "89391e4a33d668075375015e7efeb97253a980eaf182162fb48b1f6d57b9a7ac",
+  "previousRecord": null,
+  "scope": "AC115-cancel-api36-recovery",
+  "implementationIds": [
+    "IP15"
+  ],
+  "assertions": [
+    {
+      "id": "step-3.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.A5.overdue-not-terminal",
+      "expected": 0,
+      "actual": 0,
+      "status": "PASS"
+    },
+    {
+      "id": "step-5.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.A2.business-date",
+      "expected": "2026-10-11",
+      "actual": "2026-10-11",
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.A2.actual",
+      "expected": null,
+      "actual": null,
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.frozen-due",
+      "expected": "2026-10-10",
+      "actual": "2026-10-10",
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.A4.before-boundary",
+      "expected": "running",
+      "actual": "running",
+      "status": "PASS"
+    },
+    {
+      "id": "step-7.result",
+      "expected": "READ_ONLY",
+      "actual": "READ_ONLY",
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.A4.archived",
+      "expected": "archived",
+      "actual": "archived",
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.A4.original-instant",
+      "expected": 1791734400000,
+      "actual": 1791734400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.classification.on-time",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.calendar-result-replaces-due",
+      "expected": [
+        1,
+        "cancelled"
+      ],
+      "actual": [
+        1,
+        "cancelled"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC115.only-original-result",
+      "expected": [
+        {
+          "id": "e6bdfdf3-fc50-4e11-bcf9-41459f434420",
+          "plan_id": "cc4086dd-606d-498b-9a53-dffdf9cbfff6",
+          "business_on": "2026-10-11",
+          "outcome": "cancelled",
+          "actual_completed_on": null,
+          "due_rule_version_id": "42d275ec-3acf-43c6-bc47-9603f41c9c04",
+          "note": "终态",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791691200000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "actual": [
+        {
+          "id": "e6bdfdf3-fc50-4e11-bcf9-41459f434420",
+          "plan_id": "cc4086dd-606d-498b-9a53-dffdf9cbfff6",
+          "business_on": "2026-10-11",
+          "outcome": "cancelled",
+          "actual_completed_on": null,
+          "due_rule_version_id": "42d275ec-3acf-43c6-bc47-9603f41c9c04",
+          "note": "终态",
+          "entry_kind": "ordinary",
+          "submitted_at_ms": 1791691200000,
+          "modified_at_ms": null,
+          "revision": 1
+        }
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-20-18-354Z/AC115-cancel-api36-recovery/clock-boundary.json",
+      "sha256": "710d482894d7cb884b5c3c778079f10cf5966e499c0e34a6292eecada269b6d8"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-20-18-354Z/AC115-cancel-api36-recovery/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-20-18-354Z/AC115-cancel-api36-recovery/inputs.json",
+      "sha256": "5c92da5c0c49810b41b06b8c8440afb859e40542bb4c841a8c4096b2a2a47823"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-20-18-354Z/AC115-cancel-api36-recovery/missing-boundary-observations.json",
+      "sha256": "5c35785a3bb8c326bcd63f8cfa8d30d5a9b2bcb0da31af6ea47b53a3c72dd738"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-20-18-354Z/AC115-cancel-api36-recovery/restored-committed-given.json",
+      "sha256": "d39a59a20af3b76f6af1bfedbf305db7f244b48168d713ce758e42d8c33c76a0"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-20-18-354Z/AC115-cancel-api36-recovery/reused-evidence.json",
+      "sha256": "d1dda675636bd903b5bd8eaf08ce60d06678aa9e98d047546bc3185d9c095797"
+    }
+  ],
+  "limitations": [
+    "The first submission, refusal and all earlier assertions are reused. Only the missing boundary queries are executed on the immutable, previously committed facts; no result command is resubmitted."
+  ]
+}

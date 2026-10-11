@@ -1,0 +1,1 @@
+const fs=require('node:fs'),{decode}=require('./device-driver.cjs');console.log([...fs.readFileSync(process.argv[2],'utf8').matchAll(/(?:text|content-desc)="([^"]+)"/g)].map(m=>decode(m[1]).slice(0,200)).join('\n'));

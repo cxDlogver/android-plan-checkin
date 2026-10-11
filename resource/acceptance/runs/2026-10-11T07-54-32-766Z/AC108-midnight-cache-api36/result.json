@@ -1,0 +1,65 @@
+{
+  "caseId": "AC108",
+  "rowId": "shared-A3",
+  "configId": "api36-393dp-font1",
+  "runId": "2026-10-11T07-54-32-766Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T07:54:32.766Z",
+  "endedAt": "2026-10-11T07:54:41.635Z",
+  "inputSha256": "73fb8c11bd0ecf85af08827f400499cd618463356ffdf19c8ed1ed92c588e0a0",
+  "previousRecord": null,
+  "scope": "AC108-midnight-cache-api36",
+  "implementationIds": [
+    "IP06"
+  ],
+  "assertions": [
+    {
+      "id": "AC108.A3.stable-cache-hit",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC108.A3.midnight-cache-invalidated",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC108.A3.today",
+      "expected": [
+        "2026-10-09",
+        "2026-10-10"
+      ],
+      "actual": [
+        "2026-10-09",
+        "2026-10-10"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC108.A3.zone",
+      "expected": "Asia/Shanghai",
+      "actual": "Asia/Shanghai",
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T07-54-32-766Z/AC108-midnight-cache-api36/cache-and-clock.json",
+      "sha256": "39e32979269a5917c06c4794e98d0ab9ea6744c430630eb3899dbbed07dd26b8"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T07-54-32-766Z/AC108-midnight-cache-api36/device.json",
+      "sha256": "e28fac27a35785c66e88a5461fc2ff25e1732b677eb3411ecc5fe4a841f26f4d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T07-54-32-766Z/AC108-midnight-cache-api36/inputs.json",
+      "sha256": "a77427f17ecb5a02856c522048f517370e110a745fd9dd2c4a1668544bdcaa12"
+    }
+  ],
+  "limitations": []
+}

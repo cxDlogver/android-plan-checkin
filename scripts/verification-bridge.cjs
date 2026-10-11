@@ -3,13 +3,15 @@ const http=require('node:http');
 const {randomUUID}=require('node:crypto');
 const WebSocketServer=require('ws').Server;
 const {DeviceDriver}=require('./device-driver.cjs');
-const actions=new Set(['capture','clock','fixture','fault','navigate','command','sqlCase','connectionInfo','initializationProbe','migrationProbe','migrationStatus']);
+const actions=new Set(['capture','clock','fixture','factsFixture','fault','navigate','command','sqlCase','connectionInfo','initializationProbe','migrationProbe','migrationStatus','dateProbe','timezoneProbe','calendarProbe','query','cleanReceipts']);
 class VerificationClient {
   constructor(api){this.api=Number(api);this.contextId=null;}
   async status(){const response=await fetch('http://127.0.0.1:8098/status',{signal:AbortSignal.timeout(3000)});if(!response.ok)throw new Error(`Bridge status ${response.status}`);return response.json();}
   async call(action,payload={}){
     if(!actions.has(action))throw new Error('Unsupported verification action');
-    const response=await fetch('http://127.0.0.1:8098/request',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action,payload,api:this.api,contextId:this.contextId}),signal:AbortSignal.timeout(60000)});
+    let response;
+    try{response=await fetch('http://127.0.0.1:8098/request',{method:'POST',headers:{'content-type':'application/json','connection':'close'},body:JSON.stringify({action,payload,api:this.api,contextId:this.contextId}),signal:AbortSignal.timeout(60000)});}
+    catch(error){throw new Error(`${error.message}; ${error.cause?.code||''} ${error.cause?.message||''}`);}
     const message=await response.json();if(!response.ok||!message.ok)throw new Error(message.error||`Bridge request ${response.status}`);
     if(this.contextId&&message.result.contextId!==this.contextId)throw new Error('JavaScript context changed during verification');
     this.contextId=message.result.contextId;return message.result;
@@ -43,7 +45,10 @@ async function serve(api){
         }
         if(connected!==socket)return;
         const request=pending.get(message.id);if(!request)return;
-        pending.delete(message.id);clearTimeout(request.timer);sendJson(request.response,message.ok?200:422,message);
+        pending.delete(message.id);clearTimeout(request.timer);
+        const directory='.cache/verification-bridge/responses';fs.mkdirSync(directory,{recursive:true});
+        fs.writeFileSync(`${directory}/${message.id}.json`,JSON.stringify({completedAt:new Date().toISOString(),request:request.message,response:message},null,2)+'\n');
+        sendJson(request.response,message.ok?200:422,message);
       }catch{socket.close(1008,'Invalid bridge message');}
     });
     socket.on('close',()=>{
@@ -63,7 +68,7 @@ async function serve(api){
       if(message.contextId&&message.contextId!==hello.contextId)return sendJson(response,409,{ok:false,error:'JavaScript context changed during verification'});
       const id=randomUUID();
       const timer=setTimeout(()=>{pending.delete(id);sendJson(response,504,{ok:false,error:'Verification response timed out'});},55000);
-      pending.set(id,{response,timer});connected.send(JSON.stringify({id,action:message.action,payload:message.payload}));
+      pending.set(id,{response,timer,message});connected.send(JSON.stringify({id,action:message.action,payload:message.payload}));
     }catch(error){sendJson(response,400,{ok:false,error:error.message});}
   });
   server.listen(8098,'127.0.0.1',()=>console.log(`API${api} verification bridge: WS 127.0.0.1:8097, HTTP 127.0.0.1:8098`));

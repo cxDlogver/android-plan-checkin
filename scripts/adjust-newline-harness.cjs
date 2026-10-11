@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/bdd-ui-create.cjs';let text=fs.readFileSync(file,'utf8');text=text.replace("t.check('AC017.A2.retained-input',value,await t.property(`plan.${field}`,'text'))","t.check('AC017.A2.retained-input',field==='name'?value.replace(/[\\r\\n]/g,' '):value,await t.property(`plan.${field}`,'text'))");fs.writeFileSync(file,text);

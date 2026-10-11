@@ -1,0 +1,117 @@
+{
+  "caseId": "AC109",
+  "rowId": "cancel",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T09-19-17-559Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T09:19:17.559Z",
+  "endedAt": "2026-10-11T09:19:21.963Z",
+  "inputSha256": "c8fcb941cb9ee5d25520d1cc27dc82117dd401d4ceb045054a66361da7430d1a",
+  "previousRecord": null,
+  "scope": "AC109-cancel-api29",
+  "implementationIds": [
+    "IP09"
+  ],
+  "assertions": [
+    {
+      "id": "step-3.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-5.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "step-6.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC109.A3.only-pending-cancelled",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC109.A3.current",
+      "expected": 3,
+      "actual": 3,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/after-facts.json",
+      "sha256": "79b977315f69bed0acd915097917c32d30a82f167850a513c5aaccdd9d0ab419"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/bridge-identity.json",
+      "sha256": "0bc564ff88f64a2bdc386c8004cdc528ed261d4dae1a44aba846b06bb23f5408"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/device.json",
+      "sha256": "c5717f389b3fac008d550fd16969177b6852b56c1a498659dcce2d0506f69a13"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/final-native-facts.json",
+      "sha256": "79b977315f69bed0acd915097917c32d30a82f167850a513c5aaccdd9d0ab419"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/fixture.json",
+      "sha256": "11f5513e6b35b4912262776269c1d5ff99ae0fa89d4c14f131902fd8b0d3fc47"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/given-facts.json",
+      "sha256": "a94fc03b87c2d655ceeccfd3e5020a2399d2c5b395143686ae7f63180793d881"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/inputs.json",
+      "sha256": "7c26d9afa4da22608b4ee893d39fec0ffa983363ce76a16a9398ff7bf8490f6f"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/step-1-clock.json",
+      "sha256": "8f56b90e7bc68a72f09389ee3305bdcd482cf6b2b9633f6fb9d063dfdf3349f0"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/step-2-clock.json",
+      "sha256": "2e142ed6b27feabdf2cf626e759a6a79df9422f4255bb2be47d27296cfd53f6d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/step-3-CreatePlan.json",
+      "sha256": "76b16a8f7701aed88e325a1a0e9f8cb9540d23ec29e546b68eb0e7f568fe1fee"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/step-4-clock.json",
+      "sha256": "8f56b90e7bc68a72f09389ee3305bdcd482cf6b2b9633f6fb9d063dfdf3349f0"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/step-5-EditPlan.json",
+      "sha256": "fb48a5fdb56ac508d0297ceaba6a17ce1389e07edbe4752f41454bcd65861f68"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-19-17-559Z/AC109-cancel-api29/step-6-EditPlan.json",
+      "sha256": "8f8cf7559443081231fb4d6985866a123b4502d221f2faa4daf5ac2a9a29e697"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

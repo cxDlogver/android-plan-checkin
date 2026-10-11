@@ -1,0 +1,1 @@
+const fs=require('node:fs'),text=fs.readFileSync('resource/acceptance/执行与证据规则.md','utf8');for(const id of process.argv.slice(2)){const start=text.indexOf(`<a id="ev-${id}"></a>`),next=text.indexOf('\n<a id=',start+1);if(start>=0)console.log(text.slice(start,next<0?undefined:next));}

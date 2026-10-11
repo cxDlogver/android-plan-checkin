@@ -1,0 +1,1 @@
+const fs=require('node:fs'),state=require('./progress.cjs').read();for(const key of process.argv.slice(2)){const command=state.commands[key];console.log(key,command);if(command?.record){const record=JSON.parse(fs.readFileSync(command.record,'utf8'));console.log(Object.fromEntries(Object.entries(record).filter(([k])=>!['evidence','assertions','source','inputs'].includes(k))));}}

@@ -1,0 +1,79 @@
+{
+  "caseId": "AC014",
+  "rowId": "fall",
+  "configId": "M7",
+  "derivedFrom": "resource/acceptance/runs/2026-10-11T07-51-26-242Z/AC014-date-api36/result.json",
+  "runId": "2026-10-11T09-31-18-629Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T09:31:18.629Z",
+  "endedAt": "2026-10-11T09:31:18.679Z",
+  "inputSha256": "72945079dccbf6ff58cecd5f6dd1f67be7274c971edafbbead211cf305732da0",
+  "previousRecord": null,
+  "scope": "AC014-fall-M7-derived",
+  "implementationIds": [
+    "IP06"
+  ],
+  "assertions": [
+    {
+      "id": "AC014.A1.round-trip",
+      "expected": "2026-11-01",
+      "actual": "2026-11-01",
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A1.invalid",
+      "expected": "VALIDATION_FAILED",
+      "actual": "VALIDATION_FAILED",
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A2.successor",
+      "expected": "2026-11-02",
+      "actual": "2026-11-02",
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A2.midnight-hours",
+      "expected": 25,
+      "actual": 25,
+      "status": "PASS"
+    },
+    {
+      "id": "AC014.A3.strict-next-Monday",
+      "expected": [
+        "2026-10-19",
+        "2026-10-12"
+      ],
+      "actual": [
+        "2026-10-19",
+        "2026-10-12"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-31-18-629Z/AC014-fall-M7-derived/execution-reference.json",
+      "sha256": "c1e601cc72b7ff25bdcdcd8dd409e0844446fa8396dbd5c5b4778ca15037d541"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-31-18-629Z/AC014-fall-M7-derived/inputs.json",
+      "sha256": "8226e653bb4cfca0270c0e6f2811217c14cf32088cbfe936615834f7d09af9c4"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-31-18-629Z/AC014-fall-M7-derived/native-row.json",
+      "sha256": "b59a152b140b30b977370d00307e665be70282ea63276e7c33125943b27b8e6a"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-31-18-629Z/AC014-fall-M7-derived/parameters.json",
+      "sha256": "0ec4e8caa6b5924e41ddaca2b3432e4300c5544a9ca9d0947e8734ce5175e265"
+    }
+  ],
+  "limitations": [
+    "Parameter-specific report derived from preserved successful observations. No date operation or domain test was re-executed."
+  ]
+}

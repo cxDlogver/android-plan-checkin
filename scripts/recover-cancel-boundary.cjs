@@ -1,0 +1,18 @@
+const fs=require('node:fs'),assert=require('node:assert/strict'),{sha,snapshot}=require('./p1.cjs'),{createRun}=require('./evidence-run.cjs'),progress=require('./progress.cjs'),{DeviceDriver}=require('./device-driver.cjs'),{VerificationClient,waitForMetro}=require('./verification-bridge.cjs');
+const api=process.argv[2]||'36',key=`AC115-cancel-api${api}`,old=progress.read().commands[key],prior=JSON.parse(fs.readFileSync(old.record,'utf8')),directory=old.record.replace(/\/result.json$/,''),facts=JSON.parse(fs.readFileSync(`${directory}/terminal-facts.json`,'utf8')).snapshot.facts;
+assert.equal(prior.status,'FAIL');assert.ok(prior.assertions.filter(a=>a.id!=='execution').every(a=>a.status==='PASS'));assert.ok(prior.evidence.every(f=>sha(fs.readFileSync(f.path))===f.sha256));
+const originalInputs=JSON.parse(fs.readFileSync(`${directory}/inputs.json`,'utf8')),production=originalInputs.source.filter(f=>!f.path.startsWith('src/verification/'));
+assert.deepEqual(snapshot(production.map(f=>f.path)),production,'Production service/rule inputs must match the preserved committed observation');
+const run=createRun(`${key}-recovery`,{prior:old.record,priorSha256:sha(fs.readFileSync(old.record)),factsSha256:sha(JSON.stringify(facts)),production},['IP15'],{caseId:'AC115',rowId:'cancel',configId:`api${api}-393dp-font1`});if(!run)process.exit(0);
+const device=new DeviceDriver(api,run.directory),client=new VerificationClient(api);
+async function main(){
+  await waitForMetro();device.identity();device.adb(['reverse','tcp:8081','tcp:8081']);await device.open();device.deepLink('plancheckin-dev://expo-development-client/?url=http%3A%2F%2F127.0.0.1%3A8081');await device.waitSource(s=>s.includes('今日')||s.includes('原生模块验证'),120000);device.deepLink('plancheckin-dev://native');await client.waitReady();
+  run.write('device.json',device.identity());run.write('reused-evidence.json',{report:old.record,reportSha256:sha(fs.readFileSync(old.record)),evidence:prior.evidence});
+  for(const a of prior.assertions.filter(a=>a.id!=='execution'))run.check(a.id,a.expected,a.actual);
+  await client.call('clock',{instant:'2026-10-11T04:00:00Z'});run.write('restored-committed-given.json',await client.call('factsFixture',{facts,confirm:'RESET_ISOLATED_DEV_FACTS'}));
+  run.write('clock-boundary.json',await client.call('clock',{instant:'2026-10-11T16:00:00Z'}));
+  const result=facts.one_time_results[0],detail=await client.call('query',{kind:'detail',planId:result.plan_id}),classification=await client.call('query',{kind:'classification',planId:result.plan_id,recordId:result.id}),calendar=await client.call('query',{kind:'calendar',planId:result.plan_id,on:result.business_on}),after=await client.call('capture');
+  run.write('missing-boundary-observations.json',{detail,classification,calendar,after});
+  run.check('AC115.A4.archived','archived',detail.view.status);run.check('AC115.A4.original-instant',Date.parse('2026-10-11T16:00:00Z'),detail.view.archive.effective_at_ms);run.check('AC115.classification.on-time',false,classification.view.onTime);run.check('AC115.calendar-result-replaces-due',[1,'cancelled'],[calendar.view.items.length,calendar.view.items[0].record.outcome]);run.check('AC115.only-original-result',[result],after.snapshot.facts.one_time_results);
+}
+let error=null;main().catch(e=>{error=e;console.error(e.message);}).finally(async()=>{try{await client.call('clock',{instant:null});await device.close();}catch{}const result=run.finish(error,['The first submission, refusal and all earlier assertions are reused. Only the missing boundary queries are executed on the immutable, previously committed facts; no result command is resubmitted.']);if(result.status==='PASS')progress.update(s=>{s.commands[key]=s.commands[`${key}-recovery`];});});

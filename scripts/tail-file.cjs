@@ -1,0 +1,1 @@
+const fs=require('node:fs');const file=process.argv[2],count=Number(process.argv[3]||4000);const stat=fs.statSync(file),start=Math.max(0,stat.size-count),fd=fs.openSync(file,'r'),data=Buffer.alloc(stat.size-start);fs.readSync(fd,data,0,data.length,start);fs.closeSync(fd);console.log(data.toString('utf8'));

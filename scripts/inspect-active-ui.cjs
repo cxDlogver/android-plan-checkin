@@ -1,0 +1,1 @@
+const fs=require('node:fs');(async()=>{const id=process.argv[2];const source=(await(await fetch(`http://127.0.0.1:4723/session/${id}/source`)).json()).value;fs.writeFileSync('.cache/active-ui.xml',source);console.log(id,Array.from(source.matchAll(/(?:text|content-desc)="([^"]+)"/g),m=>m[1]).slice(0,80));})().catch(e=>{console.error(e);process.exitCode=1;});

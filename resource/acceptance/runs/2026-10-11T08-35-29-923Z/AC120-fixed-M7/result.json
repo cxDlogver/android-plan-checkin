@@ -1,0 +1,83 @@
+{
+  "caseId": "AC120",
+  "rowId": "fixed",
+  "configId": "M7",
+  "runId": "2026-10-11T08-35-29-923Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T08:35:29.923Z",
+  "endedAt": "2026-10-11T08:36:35.422Z",
+  "inputSha256": "c6625ee7ebc083fbe1688b991fb21aa88e312e1f7335600bfb6d8d5b5d877a88",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T08-30-28-320Z/AC120-fixed-M7/result.json",
+  "scope": "AC120-fixed-M7",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Expected product UI did not appear; inspect unexpected.xml/png.",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/2-failure.png",
+      "sha256": "f04e16937c3089f228607d522bf7e32f67f412f7456b7f23912f0911efe8bea8"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/2-failure.xml",
+      "sha256": "c2cadab4da9b64863a8b25651b71302ba1b55c9ecfc6722cab6ac0d8035bfa27"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/before-facts.json",
+      "sha256": "1141de453dfc99c172ed8e21d43b6361fc01b2e964b23e393cb911c2b018bbcd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/failure-native-facts.json",
+      "sha256": "1141de453dfc99c172ed8e21d43b6361fc01b2e964b23e393cb911c2b018bbcd"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/fixture.json",
+      "sha256": "9a30898e20fd775dbf19d5a30db6fc9e1089b3f7f95e785cae0a8106af2ece44"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/inputs.json",
+      "sha256": "390481c9a0ea597ff434790cd44e193cb2a434e57843e2083c82f8c63d2d4e40"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/step-1-clock.json",
+      "sha256": "7ccf5a3a042072d9c46416ae5e8ad2ca15e1ea7da453762e16e4aa07028ab484"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/step-2.json",
+      "sha256": "dbd5f770925fa210255f8f50aa8ca7e2338e0ea2edfd39298c5a28f3018fc416"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/unexpected.png",
+      "sha256": "f04e16937c3089f228607d522bf7e32f67f412f7456b7f23912f0911efe8bea8"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-35-29-923Z/AC120-fixed-M7/unexpected.xml",
+      "sha256": "c2cadab4da9b64863a8b25651b71302ba1b55c9ecfc6722cab6ac0d8035bfa27"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

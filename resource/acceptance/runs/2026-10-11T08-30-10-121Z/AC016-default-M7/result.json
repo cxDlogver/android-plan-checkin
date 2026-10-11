@@ -1,0 +1,108 @@
+{
+  "caseId": "AC016",
+  "rowId": "default",
+  "configId": "M7",
+  "runId": "2026-10-11T08-30-10-121Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T08:30:10.121Z",
+  "endedAt": "2026-10-11T08:30:27.220Z",
+  "inputSha256": "95a35bd006e866aa514460b0ab6f4cd6d69f13068388ef6e500bc848dd96eac8",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T08-27-20-839Z/AC016-default-M7/result.json",
+  "scope": "AC016-default-M7",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "AC016.A1.fields",
+      "expected": [
+        "",
+        "2026-10-09",
+        ""
+      ],
+      "actual": [
+        "",
+        "2026-10-09",
+        ""
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC016.A2.disabled",
+      "expected": "false",
+      "actual": "false",
+      "status": "PASS"
+    },
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Product control unavailable: plan.weekday.1",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/2-fixed-default.png",
+      "sha256": "5f607175264297024bcdc1cf735039ecb1d593315cbc0ba2a1d698ca9bb4734a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/2-fixed-default.xml",
+      "sha256": "c1fd223f2dc0b26dc0a5c31bacb83d2d288b8335b8e03e9c8d2d55bf761e3c2a"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/3-failure.png",
+      "sha256": "232b333cd061f91220bd609a3881f7ad233bc0ed98d13e39a8b05b6a18bf26b5"
+    },
+    {
+      "profile": "E-UI",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/3-failure.xml",
+      "sha256": "2f3a5e3688a16ed6e170904b087437da4207098ad561eb6770427e65ff06d573"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/before-facts.json",
+      "sha256": "4d166f6e0d03f6f5e59e54d28692c2975b038445ab34d58a0c0950de67389bfc"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/failure-native-facts.json",
+      "sha256": "4d166f6e0d03f6f5e59e54d28692c2975b038445ab34d58a0c0950de67389bfc"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/fixture.json",
+      "sha256": "5889913f1d09259496c5f2198f33994c7df8975e6cfaf8ba0be34d569c7b564d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/inputs.json",
+      "sha256": "ffc1220c9861a717e9a231ee9c834ba4a750e2eba9c469ebe57f0837bf56d73d"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/step-1-clock.json",
+      "sha256": "e5a33212ac8b612777c526064dbfd23125183f87e31d5e9d682c722ef1f01582"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/step-2.json",
+      "sha256": "8935ab21617a37ba469e540c7afeecbd8f7c5a8b873c3ab73f15116c90bf42ef"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-30-10-121Z/AC016-default-M7/step-3.json",
+      "sha256": "8fc22e43a2751c6865e727947fbf7a7f6b72fd83b3d09b52117943f3942b107d"
+    }
+  ],
+  "limitations": [
+    "UI When steps use actual Appium/native product controls. Bridge commands and fixture restoration are recorded only for Given preparation, scoped service rejection companions, clocks, faults and readback."
+  ]
+}

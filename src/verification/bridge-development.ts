@@ -1,11 +1,11 @@
-import { Platform } from 'react-native';
+import { Dimensions, Platform } from 'react-native';
 import * as Application from 'expo-application';
 import * as Font from 'expo-font';
 import { router } from 'expo-router';
 import { DateTime } from 'luxon';
 import type { AppService } from '../application/service';
 import type { Envelope, Snapshot } from '../domain/model';
-import { setMeta } from '../domain/model';
+import { emptyFacts, Facts, setMeta } from '../domain/model';
 import { businessToday, validZone } from '../domain/date';
 import { loadFacts, persist } from '../infrastructure/database/executor';
 import { buildFixture, fixtureNames, FixtureName } from './fixtures';
@@ -13,6 +13,9 @@ import { injectFault, now, setClock, verificationExecutor } from './runtime-deve
 import { runSqlCase } from './sql-cases-development';
 import { connectionInfo, initializationProbe } from './initialization-development';
 import { migrationProbe, migrationStatus } from './migration-development';
+import { calendarProbe, dateProbe, timezoneProbe } from './date-development';
+import { Projections } from '../application/projections';
+import { intervals, isOnTime, permission } from '../domain/rules';
 
 type Context = { service:AppService; refresh:(clearPins?:boolean)=>Promise<Snapshot|undefined> };
 type Request = { id:string; action:string; payload?:Record<string,unknown> };
@@ -22,6 +25,7 @@ let context:Context|undefined;
 let socket:WebSocket|undefined;
 let reconnect:ReturnType<typeof setTimeout>|undefined;
 let pending:Promise<unknown> = Promise.resolve();
+const queries=new Projections();
 
 function requireIsolated(){
   if(!__DEV__||Application.applicationId!==applicationId) throw new Error('ISOLATED_DEVELOPMENT_ONLY');
@@ -32,7 +36,7 @@ async function dispatch({action,payload={}}:Request){
   switch(action){
     case 'capture': {
       const snapshot=await context.service.snapshot();
-      return {contextId,applicationId:Application.applicationId,api:Platform.Version,clock:now(),sqlite:await context.service.diagnostics(),fonts:['NotoSC400','NotoSC600','NotoSC700'].map(name=>({name,loaded:Font.isLoaded(name)})),snapshot};
+      return {contextId,applicationId:Application.applicationId,api:Platform.Version,nativeVersion:Application.nativeApplicationVersion,nativeBuild:Application.nativeBuildVersion,window:Dimensions.get('window'),clock:now(),sqlite:await context.service.diagnostics(),fonts:['NotoSC400','NotoSC600','NotoSC700'].map(name=>({name,loaded:Font.isLoaded(name)})),snapshot};
     }
     case 'clock': {
       const value=payload.instant;
@@ -62,28 +66,73 @@ async function dispatch({action,payload={}}:Request){
       if(!snapshot) throw new Error('REFRESH_FAILED');
       return {contextId,name,zone,today:snapshot.today,counts:Object.fromEntries(Object.entries(snapshot.facts).map(([table,rows])=>[table,rows.length])),dataRevision:snapshot.dataRevision};
     }
+    case 'factsFixture': {
+      if(payload.confirm!=='RESET_ISOLATED_DEV_FACTS'||typeof payload.facts!=='object'||payload.facts===null)throw new Error('FACTS_FIXTURE_CONFIRMATION_REQUIRED');
+      const facts=payload.facts as Facts;
+      const tables=Object.keys(emptyFacts()).sort();
+      if(JSON.stringify(Object.keys(facts).sort())!==JSON.stringify(tables)||tables.some(table=>!Array.isArray(facts[table as keyof Facts])))throw new Error('INVALID_FACTS_FIXTURE');
+      const zone=facts.app_meta.find(row=>row.key==='app_timezone')?.value;
+      if(!zone||!validZone(zone))throw new Error('INVALID_FACTS_ZONE');
+      injectFault(null);const executor=verificationExecutor();
+      await executor.queue(tx=>executor.transaction(tx,async()=>persist(tx,await loadFacts(tx),facts)));
+      const snapshot=await context.refresh(true);if(!snapshot)throw new Error('REFRESH_FAILED');
+      return {contextId,today:snapshot.today,zone:snapshot.zone,counts:Object.fromEntries(Object.entries(snapshot.facts).map(([table,rows])=>[table,rows.length])),dataRevision:snapshot.dataRevision};
+    }
     case 'fault': {
-      if(![null,'before_commit','after_commit'].includes(payload.point as null|string)) throw new Error('INVALID_FAULT_POINT');
-      injectFault(payload.point as null|'before_commit'|'after_commit');
+      if(![null,'before_commit','before_commit_io','after_commit'].includes(payload.point as null|string)) throw new Error('INVALID_FAULT_POINT');
+      injectFault(payload.point as null|'before_commit'|'before_commit_io'|'after_commit');
       return {contextId,point:payload.point};
     }
     case 'navigate': {
       if(typeof payload.route!=='string'||!/^\/(?:native|settings|\(tabs\)\/(?:today|plans|calendar)|plans\/new|plans\/[0-9a-f-]{36}(?:\/edit|\/calendar)?|records\/new|records\/[0-9a-f-]{36})$/.test(payload.route)) throw new Error('INVALID_TEST_ROUTE');
       const params=payload.params;
       if(params!==undefined&&(typeof params!=='object'||params===null||Array.isArray(params)||Object.entries(params).some(([key,value])=>!['planId','recordId','date','outcome','businessOn','result'].includes(key)||typeof value!=='string'))) throw new Error('INVALID_ROUTE_PARAMS');
-      router.replace({pathname:payload.route,params:params as Record<string,string>|undefined} as Parameters<typeof router.replace>[0]);
+      if(payload.mode!==undefined&&!['push','replace'].includes(payload.mode as string))throw new Error('INVALID_NAVIGATION_MODE');
+      const destination={pathname:payload.route,params:params as Record<string,string>|undefined} as Parameters<typeof router.replace>[0];
+      if(payload.mode==='push')router.push(destination);else router.replace(destination);
       return {contextId,route:payload.route,clock:now()};
     }
     case 'command': {
       const result=await context.service.execute(payload.envelope as Envelope);
-      await context.refresh();
+      if(payload.refresh!==false)await context.refresh();
       return {contextId,result};
     }
+    case 'query': {
+      const snapshot=await context.service.snapshot();
+      const planId=typeof payload.planId==='string'?payload.planId:undefined;
+      const on=typeof payload.on==='string'?payload.on:snapshot.today;
+      switch(payload.kind){
+        case 'today': return {contextId,view:queries.today(snapshot)};
+        case 'calendar': return {contextId,view:queries.calendar(snapshot,typeof payload.month==='string'?payload.month:on.slice(0,7),on,planId)};
+        case 'detail': if(!planId)throw new Error('PLAN_REQUIRED');return {contextId,view:queries.detail(snapshot,planId)};
+        case 'history': if(!planId)throw new Error('PLAN_REQUIRED');return {contextId,view:queries.history(snapshot,planId,payload.cursor as Parameters<Projections['history']>[2],Number(payload.size)||50)};
+        case 'classification': {
+          const record=snapshot.facts.one_time_results.find(r=>r.plan_id===planId&&r.id===payload.recordId);
+          const rule=snapshot.facts.rule_versions.find(r=>r.id===record?.due_rule_version_id);
+          if(!record||!rule)throw new Error('RECORD_REQUIRED');
+          return {contextId,view:{onTime:isOnTime(record,rule),outcome:record.outcome,businessOn:record.business_on,rule}};
+        }
+        case 'plans': if(!['running','paused','archived'].includes(payload.filter as string))throw new Error('INVALID_QUERY_FILTER');return {contextId,view:queries.plans(snapshot,payload.filter as Parameters<Projections['plans']>[1],payload.cursor as Parameters<Projections['plans']>[2],Number(payload.size)||50)};
+        case 'permission': {
+          const plan=snapshot.facts.plans.find(p=>p.id===planId);if(!plan)throw new Error('PLAN_REQUIRED');
+          const record=snapshot.facts.cycle_records.find(r=>r.id===payload.recordId&&r.plan_id===planId)||snapshot.facts.one_time_results.find(r=>r.id===payload.recordId&&r.plan_id===planId);
+          return {contextId,view:{today:snapshot.today,zone:snapshot.zone,dataRevision:snapshot.dataRevision,permission:permission(snapshot,plan,on,record),intervals:intervals(snapshot.facts,plan,snapshot.zone)}};
+        }
+        default: throw new Error('INVALID_QUERY_KIND');
+      }
+    }
+    case 'cleanReceipts': await context.service.cleanReceipts();return {contextId,cleaned:true};
     case 'sqlCase': {
       if(typeof payload.name!=='string')throw new Error('INVALID_SQL_CASE');
       return {contextId,observation:await runSqlCase(payload.name)};
     }
     case 'connectionInfo': return {contextId,observation:await connectionInfo()};
+    case 'dateProbe': return {contextId,observation:dateProbe()};
+    case 'calendarProbe': return {contextId,observation:calendarProbe(await context.service.snapshot())};
+    case 'timezoneProbe': {
+      if(payload.confirm!=='INITIALIZE_ISOLATED_DEV_TIMEZONE'||!['Asia/Shanghai','Invalid/Zone',null].includes(payload.candidate as string|null)||typeof payload.empty!=='boolean')throw new Error('TIMEZONE_PROBE_CONFIRMATION_REQUIRED');
+      return {contextId,observation:await timezoneProbe(payload.candidate as string|null,payload.empty)};
+    }
     case 'migrationStatus': return {contextId,observation:migrationStatus()};
     case 'migrationProbe': {
       if(payload.confirm!=='MIGRATE_ISOLATED_DEV_DATABASE'||typeof payload.kind!=='string')throw new Error('MIGRATION_PROBE_CONFIRMATION_REQUIRED');
@@ -102,7 +151,7 @@ function connect(){
   requireIsolated();
   socket=new WebSocket('ws://127.0.0.1:8097/plancheckin-verification');
   const current=socket;
-  current.onopen=()=>current.send(JSON.stringify({type:'hello',contextId,applicationId:Application.applicationId,api:Platform.Version,protocol:1,capabilities:['capture','clock','fixture','fault','navigate','command','sqlCase','connectionInfo','initializationProbe','migrationProbe','migrationStatus']}));
+  current.onopen=()=>current.send(JSON.stringify({type:'hello',contextId,applicationId:Application.applicationId,api:Platform.Version,protocol:1,capabilities:['capture','clock','fixture','fault','navigate','command','sqlCase','connectionInfo','initializationProbe','migrationProbe','migrationStatus','dateProbe','timezoneProbe','calendarProbe']}));
   current.onmessage=event=>{
     pending=pending.then(async()=>{
       let request:Request|undefined;

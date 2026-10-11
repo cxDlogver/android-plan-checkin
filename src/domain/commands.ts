@@ -8,14 +8,15 @@ const text=(maximum:number,required=false)=>z.string().refine(value=>[...value].
 const planRef={planId:id,expectedPlanRevision:positive};
 const confirmation={confirmedToday:day,confirmedEntryKind:z.enum(['ordinary','backfill'])};
 const note=text(2000);
-const create=z.object({planId:id,name:text(80,true),description:text(1000),type:z.enum(['fixed','weekly','one_time']),direction:z.enum(['do','avoid']),startsOn:day.optional(),weekdayMask:z.number().int().min(1).max(127).optional(),weeklyTarget:z.number().int().min(1).max(7).optional(),endOn:day.nullable().optional(),dueOn:day.optional()}).strict();
+const name=text(80,true).refine(value=>!/[\r\n\u2028\u2029]/.test(value),'名称只能为单行');
+const create=z.object({planId:id,name,description:text(1000),type:z.enum(['fixed','weekly','one_time']),direction:z.enum(['do','avoid']),startsOn:day.optional(),weekdayMask:z.number().int().min(1).max(127).optional(),weeklyTarget:z.number().int().min(1).max(7).optional(),endOn:day.nullable().optional(),dueOn:day.optional()}).strict();
 const payloads={
   CreatePlan:create,
   SubmitCycleRecord:z.object({...planRef,...confirmation,recordId:id,businessOn:day,result:z.enum(['success','failure','skip']),note}).strict(),
   ModifyCycleRecord:z.object({...planRef,recordId:id,expectedRecordRevision:positive,result:z.enum(['success','failure','skip']),note}).strict(),
   SubmitOneTimeResult:z.object({...planRef,...confirmation,resultId:id,outcome:z.enum(['completed','failed','cancelled']),actualCompletedOn:day.nullable(),note}).strict(),
   ModifyOneTimeResult:z.object({...planRef,resultId:id,expectedRecordRevision:positive,outcome:z.enum(['completed','failed','cancelled']),note}).strict(),
-  EditPlan:z.object({...planRef,changes:z.object({name:text(80,true).optional(),description:text(1000).optional(),weekdayMask:z.number().int().min(1).max(127).optional(),weeklyTarget:z.number().int().min(1).max(7).optional(),endOn:day.nullable().optional(),dueOn:day.optional()}).strict(),ruleConfirmations:z.array(z.object({field:z.enum(['weekday_mask','weekly_target']),confirmedEffectiveOn:day}).strict())}).strict(),
+  EditPlan:z.object({...planRef,changes:z.object({name:name.optional(),description:text(1000).optional(),weekdayMask:z.number().int().min(1).max(127).optional(),weeklyTarget:z.number().int().min(1).max(7).optional(),endOn:day.nullable().optional(),dueOn:day.optional()}).strict(),ruleConfirmations:z.array(z.object({field:z.enum(['weekday_mask','weekly_target']),confirmedEffectiveOn:day}).strict())}).strict(),
   RequestPause:z.object({...planRef,eventId:id,confirmedEffectiveOn:day}).strict(),
   RequestResume:z.object({...planRef,eventId:id,confirmedEffectiveOn:day}).strict(),
   CancelPendingState:z.object({...planRef,eventId:id}).strict(),

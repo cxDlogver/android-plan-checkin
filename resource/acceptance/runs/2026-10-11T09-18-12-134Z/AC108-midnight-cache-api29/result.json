@@ -1,0 +1,65 @@
+{
+  "caseId": "AC108",
+  "rowId": "shared-A3",
+  "configId": "api29-393dp-font1",
+  "runId": "2026-10-11T09-18-12-134Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T09:18:12.134Z",
+  "endedAt": "2026-10-11T09:18:15.830Z",
+  "inputSha256": "597859090d0daa93757a3a450fdc05d592952e95d0cdb7c886ae1a5390ee5599",
+  "previousRecord": null,
+  "scope": "AC108-midnight-cache-api29",
+  "implementationIds": [
+    "IP06"
+  ],
+  "assertions": [
+    {
+      "id": "AC108.A3.stable-cache-hit",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC108.A3.midnight-cache-invalidated",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC108.A3.today",
+      "expected": [
+        "2026-10-09",
+        "2026-10-10"
+      ],
+      "actual": [
+        "2026-10-09",
+        "2026-10-10"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC108.A3.zone",
+      "expected": "Asia/Shanghai",
+      "actual": "Asia/Shanghai",
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-18-12-134Z/AC108-midnight-cache-api29/cache-and-clock.json",
+      "sha256": "f4699b965995d8e9fa36b5223ebe313d8fcb89d8c484dbde00ced59eed872cfc"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-18-12-134Z/AC108-midnight-cache-api29/device.json",
+      "sha256": "b9dc149a8cc21e801fa8fc6b84f8f246c3953db186c634dd14def35355aa3051"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T09-18-12-134Z/AC108-midnight-cache-api29/inputs.json",
+      "sha256": "36c05f4ed31e299de8feaa41074f2fa988d5082932b73d592333ee60fd488c7f"
+    }
+  ],
+  "limitations": []
+}

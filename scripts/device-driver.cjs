@@ -21,12 +21,19 @@ class DeviceDriver{
   async click(testID){const id=await this.id(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
   async text(text){const id=await this.element('-android uiautomator',`new UiSelector().text(${JSON.stringify(text)})`);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
   async input(testID,text){const id=await this.id(testID);await this.request(this.endpoint(`element/${id}/clear`),'POST',{});await this.request(this.endpoint(`element/${id}/value`),'POST',{text});}
-  async seek(testID){for(let attempt=0;attempt<10;attempt++){const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);await this.scroll();}throw new Error(`Product control unavailable: ${testID}`);}
+  async seek(testID){for(const direction of ['down','up'])for(let attempt=0;attempt<10;attempt++){const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);if(await this.scroll(direction)===false)break;}const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);throw new Error(`Product control unavailable: ${testID}`);}
   async clickVisible(testID){const id=await this.seek(testID);await this.request(this.endpoint(`element/${id}/click`),'POST',{});}
   async hideKeyboard(){await this.request(this.endpoint('appium/device/hide_keyboard'),'POST',{});}
   async back(){await this.request(this.endpoint('appium/device/press_keycode'),'POST',{keycode:4});}
   async waitSource(predicate,timeout=60000){const deadline=Date.now()+timeout;let source;do{source=await this.source();if(predicate(source))return source;await new Promise(resolve=>setTimeout(resolve,750));}while(Date.now()<deadline);await this.save('unexpected');throw new Error('Expected product UI did not appear; inspect unexpected.xml/png.');}
-  async scroll(direction='down',percent=.8){await this.request(this.endpoint('execute/sync'),'POST',{script:'mobile: scrollGesture',args:[{left:20,top:180,width:1000,height:1750,direction,percent}]});}
+  async scroll(direction='down',percent=.8){
+    for(let attempt=0;attempt<3;attempt++){
+      const elements=await this.request(this.endpoint('elements'),'POST',{using:'xpath',value:'//*[@scrollable="true" and not(self::android.widget.EditText)]'});
+      const origin=elements[0]?.[elementKey];
+      try{return await this.request(this.endpoint('execute/sync'),'POST',{script:'mobile: scrollGesture',args:[origin?{elementId:origin,direction,percent}:{left:20,top:180,width:1000,height:1750,direction,percent}]});}
+      catch(error){if(attempt===2||!(/Cached elements|stale element/i.test(error.message)))throw error;await this.source();}
+    }
+  }
   async report(){for(let attempt=0;attempt<12;attempt++){const report=reportFromSource(await this.source());if(report)return report;await this.scroll();}throw new Error('Native diagnostics report unavailable.');}
   deepLink(url){this.adb(['shell','am','start','-W','-a','android.intent.action.VIEW','-d',url,this.package]);}
 }

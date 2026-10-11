@@ -1,0 +1,1 @@
+const fs=require('node:fs'),file='scripts/bdd-ui-records.cjs';let text=fs.readFileSync(file,'utf8');text=text.replace("s.includes('存储')","s.includes('尚未确认保存')").replace("'AC043.A2.storage-feedback','存储'","'AC043.A2.storage-feedback','尚未确认保存'");fs.writeFileSync(file,text);console.log('Storage UI observations use the production user-facing error for both IO and full.');

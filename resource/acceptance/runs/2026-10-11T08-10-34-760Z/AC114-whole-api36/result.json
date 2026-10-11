@@ -1,0 +1,43 @@
+{
+  "caseId": "AC114",
+  "rowId": "whole",
+  "configId": "api36-393dp-font1",
+  "runId": "2026-10-11T08-10-34-760Z",
+  "status": "FAIL",
+  "startedAt": "2026-10-11T08:10:34.760Z",
+  "endedAt": "2026-10-11T08:10:36.017Z",
+  "inputSha256": "3a63e0b2d5a9fe84d810895b39af9101e1b95f1daf60ada13ec4e3b25c347601",
+  "previousRecord": null,
+  "scope": "AC114-whole-api36",
+  "implementationIds": [
+    "IP08"
+  ],
+  "assertions": [
+    {
+      "id": "execution",
+      "expected": "successful scoped verification",
+      "actual": "Development application is disconnected",
+      "status": "FAIL"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-10-34-760Z/AC114-whole-api36/bridge-identity.json",
+      "sha256": "fdfa3bbe697b525685af5b75203076646b61a213f062ff7883312446f0df5756"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-10-34-760Z/AC114-whole-api36/device.json",
+      "sha256": "06a8b38b757feefaa4ba03cc47bef1cb1debe7ad832f495339fc5fbd7df73847"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T08-10-34-760Z/AC114-whole-api36/inputs.json",
+      "sha256": "507fd49472ce493eadb4bccd342f0a621e0911610781ad2ff1087e7af2b1ab1b"
+    }
+  ],
+  "limitations": [
+    "Business When operations execute production AppService on the actual single native SQLite executor. Fixture/clock changes are isolated .dev Given preparation. UI clauses are tracked separately."
+  ]
+}

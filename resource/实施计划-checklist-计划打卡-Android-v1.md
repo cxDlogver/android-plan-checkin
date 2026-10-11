@@ -38,7 +38,7 @@ flowchart LR
 
 ## 总 checklist
 
-- [x] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，DONE
+- [ ] [IP01｜建立应用工程与冻结依赖](#ip01) — P1，IN_PROGRESS
 - [x] [IP02｜原生身份、备份排除与可重建配置](#ip02) — P1，DONE
 - [x] [IP03｜签名与Debug/Release原生编译](#ip03) — P1，DONE
 - [x] [IP04｜最小原生模块与视觉小样](#ip04) — P1，DONE
@@ -75,7 +75,7 @@ flowchart LR
 
 ### IP01｜建立应用工程与冻结依赖
 
-阶段：P1；状态：DONE；前置：已确认技术0.8；当前项目目录
+阶段：P1；状态：IN_PROGRESS；前置：已确认技术0.8；当前项目目录
 
 需求关联：[FR32](设计需求文档-计划打卡-Android-v1.md#fr32)
 
