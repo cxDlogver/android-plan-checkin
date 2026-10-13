@@ -1,0 +1,11 @@
+const {take,read,references}=require('./acceptance-evidence.cjs');
+module.exports=function(api){
+ const beforeStart=take(`AC055-default-${api==='29'?'M3':'M7'}`),weekly=take(`AC109-weekly-api${api}`),s=read(beforeStart,'final-native-facts.json').snapshot,p=s.facts.plans.find(p=>p.starts_on==='2026-10-15'),examples=[];
+ for(const [row,resumeOn]of [['before-start','2026-10-12'],['after-start','2026-10-20']]){
+  const facts=structuredClone(s.facts);facts.lifecycle_events=facts.lifecycle_events.filter(e=>e.plan_id!==p.id);facts.command_receipts=facts.command_receipts.filter(r=>r.plan_id!==p.id||r.kind==='CreatePlan');facts.plans.find(r=>r.id===p.id).revision=1;facts.app_meta.find(m=>m.key==='data_revision').value='1';
+   for(const [kind,on,baseId]of [['pause','2026-10-10','3d1538d5-0550-4a76-b168-010000000010'],['resume',resumeOn,'3d1538d5-0550-4a76-b168-010000000012']]){const id=row==='after-start'?baseId.replace('0100000000','0200000000'):baseId;facts.lifecycle_events.push({id,plan_id:p.id,kind,source_key:'user:'+id,effective_on:on,effective_at_ms:Date.parse(on+'T00:00:00+08:00'),reason:'user',requested_at_ms:Date.parse('2026-10-09T12:00:00+08:00'),cancelled_at_ms:null});}
+  const today='2026-10-21',snapshot={...s,facts,today,asOfMs:Date.parse(today+'T12:00:00+08:00'),dataRevision:1};examples.push({row,snapshot,planId:p.id,on:resumeOn<'2026-10-15'?'2026-10-15':resumeOn,expectedStart:Date.parse((resumeOn<'2026-10-15'?'2026-10-15':resumeOn)+'T00:00:00+08:00')});
+ }
+ const original=read(weekly,'after-facts.json').snapshot,today='2026-10-19',changed=original.facts.rule_versions.filter(r=>r.kind==='weekly_target'&&r.revision===3&&r.cancelled_at_ms===null&&JSON.parse(r.value_json).weeklyTarget===4);if(changed.length!==1)throw new Error('Exact accepted target rule replacement plan is not unique');const week={snapshot:{...original,today,asOfMs:Date.parse(today+'T12:00:00+08:00')},planId:changed[0].plan_id};
+ return {dependencies:references([beforeStart,weekly]),examples,week,scope:'New missing query combinations only. AC055 uses explicitly derived synthetic Given with future start and pause/resume events, without replaying original management. AC058 restores accepted exact rule replacement facts and changes only the query clock; no rule edit or record save repeats.'};
+};

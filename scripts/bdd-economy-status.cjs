@@ -1,0 +1,5 @@
+const fs=require('node:fs'),state=require('./progress.cjs').read(),catalog=require('../resource/acceptance/追踪目录.json');
+const parents=catalog.scenarios.filter(s=>state.acceptance[s.id]?.status==='PASS'),core=catalog.scenarios.filter(s=>s.core),modules=['create','records','lifecycle','calendar','statistics','pages'];
+const missingCore=[];for(const s of core){const rows=modules.map(m=>require('./bdd-ui-'+m+'.cjs').definitions[s.id]).find(Boolean);if(!rows)continue;for(const c of ['M1','M2','M3','M4','M5','M6','M7','M8'])for(const row of Object.keys(rows))if(state.commands[`${s.id}-${row}-${c}`]?.status!=='PASS')missingCore.push(`${s.id}/${row}/${c}`);}
+const active=Object.entries(state.commands).filter(([,v])=>['IN_PROGRESS','RUNNING'].includes(v.status)).map(([key,v])=>({key,directory:v.workingDirectory||null}));
+console.log(JSON.stringify({parentPass:parents.length,total:catalog.scenarios.length,coreRemaining:missingCore,active,limits:'Read-only status; no evidence hashing, device query, build, test, business action or full-run folder scan. Final evidence integrity remains independent.'}));

@@ -1,0 +1,5 @@
+const fs=require('node:fs'),path=require('node:path'),{spawn}=require('node:child_process'),{env,node,toolRoot}=require('./task-env.cjs');
+async function main(){try{const response=await fetch('http://127.0.0.1:4723/status',{signal:AbortSignal.timeout(2000)});if(response.ok){console.log('SKIP already healthy Appium');return;}}catch{}
+ const output=fs.createWriteStream('.cache/appium-supervised.log',{flags:'a'}),child=spawn(node,[path.join(toolRoot,'appium/node_modules/appium/index.js'),'--address','127.0.0.1','--port','4723','--log',path.join(toolRoot,'logs/appium-4723.log'),'--log-timestamp','--log-no-colors'],{env,windowsHide:true,stdio:['ignore','pipe','pipe']});
+ console.log(JSON.stringify({pid:child.pid,address:'127.0.0.1',port:4723}));child.stdout.pipe(output,{end:false});child.stderr.pipe(output,{end:false});child.on('error',error=>{console.error(error.message);process.exitCode=1;});child.on('exit',(code,signal)=>{output.end('\n'+JSON.stringify({exitedAt:new Date().toISOString(),code,signal}));process.exitCode=code??1;});
+}main().catch(error=>{console.error(error.stack);process.exitCode=1;});

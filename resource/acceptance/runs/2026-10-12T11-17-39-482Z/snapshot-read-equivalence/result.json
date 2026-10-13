@@ -1,0 +1,59 @@
+{
+  "phase": "SNAPSHOT_READ_OPTIMIZATION_SCOPE",
+  "runId": "2026-10-12T11-17-39-482Z",
+  "status": "PASS",
+  "startedAt": "2026-10-12T11:17:39.482Z",
+  "endedAt": "2026-10-12T11:17:39.597Z",
+  "inputSha256": "dc136224dfcf5871e10872c0e01ad9e8c3fad667968999e33fa80e862cf9c0af",
+  "previousRecord": null,
+  "scope": "snapshot-read-equivalence",
+  "implementationIds": [
+    "IP16",
+    "IP28"
+  ],
+  "assertions": [
+    {
+      "id": "exact-reviewed-service-draft",
+      "expected": "db9165efbe0e40d42b2f0c6113cb582a44ad8193ad4fd3fd9caf87a0e9fea5ef",
+      "actual": "db9165efbe0e40d42b2f0c6113cb582a44ad8193ad4fd3fd9caf87a0e9fea5ef",
+      "status": "PASS"
+    },
+    {
+      "id": "full-snapshot-and-persisted-facts-equal",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "comparisons",
+      "expected": 87,
+      "actual": 87,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-12T11-17-39-482Z/snapshot-read-equivalence/after-service.ts",
+      "sha256": "db9165efbe0e40d42b2f0c6113cb582a44ad8193ad4fd3fd9caf87a0e9fea5ef"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T11-17-39-482Z/snapshot-read-equivalence/before-service.ts",
+      "sha256": "a941ab41fd1aeaad0b0429db238e5409d275b9ea6d3701b9e44bcdebfce84876"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T11-17-39-482Z/snapshot-read-equivalence/inputs.json",
+      "sha256": "046efca624dcdd1a5407779a90f147483097c331eb9d0046859e61471ef11f02"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T11-17-39-482Z/snapshot-read-equivalence/optimization-source-scope.json",
+      "sha256": "afc53ed8b6baa79d1e3cec7ff43048e8e1232ee62e5761b6be4407b7cdbfd116"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T11-17-39-482Z/snapshot-read-equivalence/snapshot-read-differential.json",
+      "sha256": "fa7b236613480617c0659e0b4f190939e77fa5fb5b125d2acb53f3c6c5b303e0"
+    }
+  ],
+  "limitations": [
+    "HostSQLite differences verify only this source change. Actual Android finalAPK scope must be accepted separately; no prior user command is replayed."
+  ]
+}

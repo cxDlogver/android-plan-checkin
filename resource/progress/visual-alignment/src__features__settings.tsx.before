@@ -1,0 +1,5 @@
+import * as Application from 'expo-application';
+import { settingsVersion } from '@verification/runtime';
+import { useApp } from '../state/AppProvider';
+import { Body, Metal, Page } from '../ui/metal';
+export default function Settings(){const {snapshot,queries}=useApp(),native=settingsVersion(Application.nativeApplicationVersion,Application.nativeBuildVersion),settings=queries.settings(snapshot,native.version,native.build);return <Page title="本机设置" back><Metal><Body title>计划打卡</Body><Body>版本：{settings.nativeVersion}（{settings.nativeBuild}）</Body><Body>固定时区：{snapshot.zone}</Body><Body>时区在首次使用时确定，设备时区变更不会重新解释历史业务日期。</Body></Metal><Metal><Body title>数据与隐私</Body><Body>无需登录，计划和文字记录仅保存在这台设备的应用私有目录。</Body><Body>没有账号、云同步、远程埋点或在线备份；没有提醒、照片、定位或社交功能。</Body><Body>卸载应用、清除应用数据或设备损坏可能导致数据永久丢失。系统云备份与设备迁移已禁用。</Body><Body>普通记录仅业务日当天可修改；补记保存后立即只读。归档保留历史且不能恢复；永久删除会清空对应计划全部历史。</Body></Metal><Metal><Body title>开源许可</Body><Body>Noto Sans SC：SIL Open Font License 1.1。字体许可随应用资源和源码一并保存。</Body><Body>React、React Native、Expo、Luxon、Zod 等依赖的许可随安装的发布包保留。</Body></Metal></Page>;}

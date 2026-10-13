@@ -1,0 +1,47 @@
+[
+  {
+    "file": "src/features/today.tsx",
+    "removed": [
+      "result=>({value:result,label:resultText(plan,result as 'success'|'failure'|'skip'),color:resultColor(result)})"
+    ],
+    "added": [
+      "result=>({value:result,label:resultLabel(plan,result as 'success'|'failure'|'skip'),accessibilityLabel:resultText(plan,result as 'success'|'failure'|'skip'),color:resultColor(result)})"
+    ]
+  },
+  {
+    "file": "src/features/shared.tsx",
+    "removed": [],
+    "added": [
+      "(plan:Plan,result:CycleResult|Outcome)=>result==='success'&&plan.direction==='avoid'?'✓ 做到了':result==='failure'&&plan.direction==='avoid'?'× 发生了':resultText(plan,result)"
+    ]
+  },
+  {
+    "file": "src/features/plan-form.tsx",
+    "removed": [],
+    "added": []
+  },
+  {
+    "file": "src/features/record-form.tsx",
+    "removed": [
+      "value=>({value,label:resultText(plan,value as Parameters<typeof resultText>[1]),color:resultColor(value)})"
+    ],
+    "added": [
+      "value=>({value,label:resultLabel(plan,value as Parameters<typeof resultText>[1]),accessibilityLabel:resultText(plan,value as Parameters<typeof resultText>[1]),color:resultColor(value)})"
+    ]
+  },
+  {
+    "file": "src/features/plan-detail.tsx",
+    "removed": [],
+    "added": []
+  },
+  {
+    "file": "src/features/calendar.tsx",
+    "removed": [],
+    "added": []
+  },
+  {
+    "file": "src/features/settings.tsx",
+    "removed": [],
+    "added": []
+  }
+]

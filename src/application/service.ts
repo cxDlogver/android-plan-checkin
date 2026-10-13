@@ -9,7 +9,7 @@ function storageCode(error:unknown){if(error instanceof DomainError)return error
 export class AppService {
   constructor(private executor:DatabaseExecutor,private clock:()=>number=now){}
   private async reconciled(tx:Tx,now:number){const before=await loadFacts(tx),zone=metaValue(before,'app_timezone')!;const result=reconcile(before,now,zone,Crypto.randomUUID);if(result.changed)await this.executor.transaction(tx,()=>persist(tx,before,result.facts));return result.facts;}
-  async snapshot():Promise<Snapshot>{return this.executor.queue(async tx=>{const now=this.clock();await this.reconciled(tx,now);return this.executor.transaction(tx,async()=>{const facts=await loadFacts(tx),zone=metaValue(facts,'app_timezone')!;return {facts,zone,today:businessToday(now,zone),asOfMs:now,dataRevision:Number(metaValue(facts,'data_revision')||0)};},true);});}
+  async snapshot():Promise<Snapshot>{return this.executor.queue(async tx=>{const now=this.clock(),facts=await this.reconciled(tx,now);return this.executor.transaction(tx,async()=>{const zone=metaValue(facts,'app_timezone')!;return {facts,zone,today:businessToday(now,zone),asOfMs:now,dataRevision:Number(metaValue(facts,'data_revision')||0)};},true);});}
   async execute(input:Envelope):Promise<CommandResult>{
     try {
       const envelope=normalizeEnvelope(input);observeUserCommand(envelope);const digest=await Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256,canonical(envelope));

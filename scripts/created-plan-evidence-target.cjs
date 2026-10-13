@@ -1,0 +1,2 @@
+const fs=require('node:fs');
+module.exports=(item,snapshot)=>{const chain=require('./accepted-report-prefix-chain.cjs')(item),ids=new Set();for(const c of chain)for(const e of c.r.evidence.filter(e=>e.path.endsWith('-given-create.json'))){const data=JSON.parse(fs.readFileSync(e.path));if(data.envelope?.kind==='CreatePlan'&&snapshot.facts.plans.some(p=>p.id===data.envelope.payload.planId))ids.add(data.envelope.payload.planId);}if(ids.size!==1)throw new Error('Original created plan is not unique in accepted facts: '+[...ids]);return [...ids][0];};

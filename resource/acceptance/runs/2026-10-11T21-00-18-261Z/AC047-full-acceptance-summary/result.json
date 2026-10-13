@@ -1,0 +1,501 @@
+{
+  "caseId": "AC047",
+  "phase": "CLAUSE_SCOPE_SUMMARY",
+  "configurations": [
+    "DOMAIN",
+    "M3",
+    "M7"
+  ],
+  "runId": "2026-10-11T21-00-18-261Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T21:00:18.261Z",
+  "endedAt": "2026-10-11T21:00:21.188Z",
+  "inputSha256": "9878225af69ecf20d576fbc4d9abe0fe64cb1ce3f84cf5d391923b50c075ec2c",
+  "previousRecord": "resource/acceptance/runs/2026-10-11T20-59-37-694Z/AC047-full-acceptance-summary/result.json",
+  "scope": "AC047-full-acceptance-summary",
+  "implementationIds": [
+    "IP24"
+  ],
+  "assertions": [
+    {
+      "id": "AC047.E3.independent-original-cancel-interval-rule",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A1.exact-event-preserved",
+      "expected": {
+        "id": "4d01bd7e-3367-4c16-bc7f-4858bf10b016",
+        "plan_id": "fb8c7cf9-2ab4-4979-bf87-ed088808fe77",
+        "kind": "pause",
+        "source_key": "user:4d01bd7e-3367-4c16-bc7f-4858bf10b016",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "actual": {
+        "id": "4d01bd7e-3367-4c16-bc7f-4858bf10b016",
+        "plan_id": "fb8c7cf9-2ab4-4979-bf87-ed088808fe77",
+        "kind": "pause",
+        "source_key": "user:4d01bd7e-3367-4c16-bc7f-4858bf10b016",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A4.only-unexecuted-request-cancelled",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A4.same-stage-events",
+      "expected": [],
+      "actual": [],
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A4.at-most-one-active-same-day-request",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A3.actual-cancel-dialog",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A1.cancelledAt",
+      "expected": 1791518400000,
+      "actual": 1791518400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A1.events-retained",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M3/AC047.A2.state",
+      "expected": "running",
+      "actual": "running",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A1.exact-event-preserved",
+      "expected": {
+        "id": "f05e78d2-ac16-40df-922b-20a97ccdd7d5",
+        "plan_id": "1e393bca-1d28-4a0e-bff9-efedab42860e",
+        "kind": "resume",
+        "source_key": "user:f05e78d2-ac16-40df-922b-20a97ccdd7d5",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "actual": {
+        "id": "f05e78d2-ac16-40df-922b-20a97ccdd7d5",
+        "plan_id": "1e393bca-1d28-4a0e-bff9-efedab42860e",
+        "kind": "resume",
+        "source_key": "user:f05e78d2-ac16-40df-922b-20a97ccdd7d5",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A4.only-unexecuted-request-cancelled",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A4.same-stage-events",
+      "expected": [
+        {
+          "id": "dc1da011-3f42-4ab1-abed-a76ec7565a44",
+          "plan_id": "1e393bca-1d28-4a0e-bff9-efedab42860e",
+          "kind": "pause",
+          "source_key": "user:dc1da011-3f42-4ab1-abed-a76ec7565a44",
+          "effective_on": "2026-10-02",
+          "effective_at_ms": 1790870400000,
+          "reason": "user",
+          "requested_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "actual": [
+        {
+          "id": "dc1da011-3f42-4ab1-abed-a76ec7565a44",
+          "plan_id": "1e393bca-1d28-4a0e-bff9-efedab42860e",
+          "kind": "pause",
+          "source_key": "user:dc1da011-3f42-4ab1-abed-a76ec7565a44",
+          "effective_on": "2026-10-02",
+          "effective_at_ms": 1790870400000,
+          "reason": "user",
+          "requested_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A4.at-most-one-active-same-day-request",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A3.actual-cancel-dialog",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/step-4.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A1.cancelledAt",
+      "expected": 1791518400000,
+      "actual": 1791518400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A1.events-retained",
+      "expected": 2,
+      "actual": 2,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M3/AC047.A2.state",
+      "expected": "paused",
+      "actual": "paused",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A1.exact-event-preserved",
+      "expected": {
+        "id": "188adc64-4391-4a96-bf1c-a306a8ef85a1",
+        "plan_id": "866071a5-f5f8-4775-907f-438d9a2afcf5",
+        "kind": "pause",
+        "source_key": "user:188adc64-4391-4a96-bf1c-a306a8ef85a1",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "actual": {
+        "id": "188adc64-4391-4a96-bf1c-a306a8ef85a1",
+        "plan_id": "866071a5-f5f8-4775-907f-438d9a2afcf5",
+        "kind": "pause",
+        "source_key": "user:188adc64-4391-4a96-bf1c-a306a8ef85a1",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A4.only-unexecuted-request-cancelled",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A4.same-stage-events",
+      "expected": [],
+      "actual": [],
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A4.at-most-one-active-same-day-request",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A3.actual-cancel-dialog",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A1.cancelledAt",
+      "expected": 1791518400000,
+      "actual": 1791518400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A1.events-retained",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-pause-M7/AC047.A2.state",
+      "expected": "running",
+      "actual": "running",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A1.exact-event-preserved",
+      "expected": {
+        "id": "1dd8e3f7-4f8e-433d-a6e1-398a115b7de6",
+        "plan_id": "f8f008a4-75f7-4b1e-a401-18c78ca52bef",
+        "kind": "resume",
+        "source_key": "user:1dd8e3f7-4f8e-433d-a6e1-398a115b7de6",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "actual": {
+        "id": "1dd8e3f7-4f8e-433d-a6e1-398a115b7de6",
+        "plan_id": "f8f008a4-75f7-4b1e-a401-18c78ca52bef",
+        "kind": "resume",
+        "source_key": "user:1dd8e3f7-4f8e-433d-a6e1-398a115b7de6",
+        "effective_on": "2026-10-10",
+        "effective_at_ms": 1791561600000,
+        "reason": "user",
+        "requested_at_ms": 1791518400000,
+        "cancelled_at_ms": 1791518400000
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A4.only-unexecuted-request-cancelled",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A4.same-stage-events",
+      "expected": [
+        {
+          "id": "1b477e07-40f1-4a03-ba30-ed3c3b7606f2",
+          "plan_id": "f8f008a4-75f7-4b1e-a401-18c78ca52bef",
+          "kind": "pause",
+          "source_key": "user:1b477e07-40f1-4a03-ba30-ed3c3b7606f2",
+          "effective_on": "2026-10-02",
+          "effective_at_ms": 1790870400000,
+          "reason": "user",
+          "requested_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "actual": [
+        {
+          "id": "1b477e07-40f1-4a03-ba30-ed3c3b7606f2",
+          "plan_id": "f8f008a4-75f7-4b1e-a401-18c78ca52bef",
+          "kind": "pause",
+          "source_key": "user:1b477e07-40f1-4a03-ba30-ed3c3b7606f2",
+          "effective_on": "2026-10-02",
+          "effective_at_ms": 1790870400000,
+          "reason": "user",
+          "requested_at_ms": 1790827200000,
+          "cancelled_at_ms": null
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A4.at-most-one-active-same-day-request",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A3.actual-cancel-dialog",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/step-4.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A1.cancelledAt",
+      "expected": 1791518400000,
+      "actual": 1791518400000,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A1.events-retained",
+      "expected": 2,
+      "actual": 2,
+      "status": "PASS"
+    },
+    {
+      "id": "AC047-resume-M7/AC047.A2.state",
+      "expected": "paused",
+      "actual": "paused",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/step-3.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/step-5.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/step-6.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/AC110/cancel.status",
+      "expected": "running",
+      "actual": "running",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/AC110.A2.same-stage",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/AC110.A2.open-stage",
+      "expected": null,
+      "actual": null,
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api29/AC110.idempotent",
+      "expected": [
+        82,
+        3,
+        0
+      ],
+      "actual": [
+        82,
+        3,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/step-3.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/step-5.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/step-6.result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/AC110/cancel.status",
+      "expected": "running",
+      "actual": "running",
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/AC110.A2.same-stage",
+      "expected": 1,
+      "actual": 1,
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/AC110.A2.open-stage",
+      "expected": null,
+      "actual": null,
+      "status": "PASS"
+    },
+    {
+      "id": "AC110-cancel-api36/AC110.idempotent",
+      "expected": [
+        80,
+        3,
+        0
+      ],
+      "actual": [
+        80,
+        3,
+        0
+      ],
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T21-00-18-261Z/AC047-full-acceptance-summary/clause-coverage.json",
+      "sha256": "d482faa31c72a471c5943af3ab1d495748c05a04311cac33714852b186e7c081"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T21-00-18-261Z/AC047-full-acceptance-summary/executed-cancellation-scope.json",
+      "sha256": "e112be56267e95c4cf156ba53512b284332f4eb8423cebbe76f951a107524d39"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T21-00-18-261Z/AC047-full-acceptance-summary/inputs.json",
+      "sha256": "243cb34da4fa5d87c961f3fa3c9b73ede401c2df13840e75921ed330b4d208d2"
+    }
+  ],
+  "limitations": []
+}

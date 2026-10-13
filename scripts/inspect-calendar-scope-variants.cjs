@@ -1,0 +1,2 @@
+const {take,read}=require('./acceptance-evidence.cjs'),scope=require('./ui-calendar-behavior-reuse-scope.cjs');
+for(const c of ['M1','M2','M3','M4','M5','M6','M7','M8']){const item=take((process.argv[2]||'AC078-default')+'-'+c);try{scope(item);}catch(e){console.log(JSON.stringify({key:item.key,source:read(item,'inputs.json').source.find(s=>s.path==='src/features/calendar.tsx'),error:e.message}));}}

@@ -4,9 +4,14 @@
 
 ## 运行与证据
 
+本次代码同步包含源码、可执行验收脚本、进度、120 项验收汇总报告与当前构建清单。新增原始日志、截图、SQLite 夹具与 APK 保存在本机；汇总中的证据路径和摘要供本机核对，Git 历史已有的验收产物保留。公开同步范围见 [代码同步记录](resource/progress/代码同步记录.md)。
+
+[安装与覆盖升级](resource/progress/安装与覆盖升级.md) · [完整验收结论](resource/progress/验收完成报告.md)
+
+
 [公开仓库](https://github.com/cxDlogver/android-plan-checkin) · [实时开发进度](resource/progress/开发进度.md) · [代码与验证交付记录](resource/progress/代码交付记录.md) · [构建与签名](resource/progress/构建与签名.md)
 
-正式包版本、SHA256、证书、内嵌 Hermes 与字体摘要及冻结源码关联见 [build-manifest.json](resource/progress/build-manifest.json)，平台与 APK 的对应关系见 [独立运行及回归记录](resource/progress/release-device-results.json)。APK 保存在本机 `.artifacts/apk/release/`，未加入 Git。API 29/36 已分别通过原生 SQLite 参数、日期/DST 核查和创建/取消/提交/同日修正流程；正式包离线结果按平台另行记录。完整 BDD、八组合、TalkBack、性能、覆盖升级、备份和厂商真机尚未全部验收，不以这些局部结果代替。
+正式包版本、SHA256、证书、内嵌 Hermes 与字体摘要及冻结源码关联见 [当前构建清单](resource/acceptance/runs/2026-10-12T11-24-40-184Z/apk-bundle-audit/build-manifest.json)，平台与 APK 的对应关系见 [独立运行及回归记录](resource/progress/release-device-results.json)。APK 保存在本机 `.artifacts/apk/release/`，未加入 Git。API 29/36 已分别通过原生 SQLite 参数、日期/DST 核查和创建/取消/提交/同日修正流程；正式包离线结果按平台另行记录。八组合、实际 TalkBack 与正式包性能已有独立通过证据。完整验收结论与范围见[验收完成报告](resource/progress/验收完成报告.md)；其他厂商真机与换机迁移单列 NOT_RUN。
 
 使用 Node 24.21.0、pnpm 10.28.2 和 JDK 17；Android SDK 编译/目标36，最低29。项目依赖33项精确固定，TypeScript根据Expo实际检查调整为6.0.3，原因与原始失败记录见[技术执行调整](resource/progress/技术执行调整.md)。
 
@@ -29,8 +34,8 @@ F01–F08 与 PERF 使用固定种子，具体日期/时区/计数和合法数�
 
 - [详细需求：截图紧邻功能正文、32项功能与28组验收](resource/设计需求文档-计划打卡-Android-v1.md)
 - [技术设计文档（0.8已确认基线）](resource/技术设计文档-计划打卡-Android-v1.md)
-- [实施计划 checklist（1.0评审稿，30个实施项）](resource/实施计划-checklist-计划打卡-Android-v1.md)
-- [BDD验收 checklist（1.0评审稿，场景/操作/结果、断言与证据）](resource/BDD验收-checklist-计划打卡-Android-v1.md)
+- [实施计划 checklist（1.0执行基线，30个实施项）](resource/实施计划-checklist-计划打卡-Android-v1.md)
+- [BDD验收 checklist（1.0执行基线，场景/操作/结果、断言与证据）](resource/BDD验收-checklist-计划打卡-Android-v1.md)
 - [实施与BDD图文浏览：搜索、主题导航、按需展开](resource/acceptance/浏览.html)
 - [IP–AC–FR–AT追踪目录](resource/acceptance/追踪目录.json)、[Gherkin场景文件](resource/acceptance/features/)、[单实例报告空模板](resource/acceptance/单实例报告模板.json)
 - [技术详细规格：数据/迁移](resource/technical/数据结构与迁移契约.md)、[命令/查询](resource/technical/命令与查询契约.md)、[日期/统计](resource/technical/日期生命周期与统计决策表.md)、[验收/构建](resource/technical/验收与构建证据规范.md)
@@ -49,7 +54,7 @@ F01–F08 与 PERF 使用固定种子，具体日期/时区/计数和合法数�
 
 首版为个人核心闭环：三类计划、今日结果确认、文字备注、合法补记、日历与全部历史统计。普通记录只能当天改；补记保存后立即只读；不允许撤回。暂停/归档禁止补记，恢复后也不能补暂停前日期。
 
-本轮已明确新建固定星期默认不选，必须手动选择至少一天；“每日”为显式全选快捷操作。实施和BDD文档按固定IP/AC编号双向关联，每个参数/设备实例单独保存断言及证据。当前实现及命令结果见实时进度；完整产品BDD与八组合仍待原生执行。.feature是验收规格，尚无全量自动化步骤定义。
+本轮已明确新建固定星期默认不选，必须手动选择至少一天；“每日”为显式全选快捷操作。实施和BDD文档按固定IP/AC编号双向关联，每个参数/设备实例单独保存断言及证据。当前实现及命令结果见实时进度；可执行验收脚本位于 scripts，逐实例断言、原始失败与恢复记录位于 resource/acceptance/runs；.feature 保留作为规格。已通过业务 When 复用有摘要和范围证明的原证据，改动只验证受影响部分。
 
 运行中/暂停计划删除后立即移入归档，保留历史；归档后无恢复，只有查看和永久删除。循环到期次日自动归档；一次性普通终态次日、历史补报立即归档。暂停不可编辑，只改状态；固定时区在首次使用确定并全部计划共用。
 

@@ -1,0 +1,14 @@
+const {runCases}=require('./bdd-ui-session.cjs'),{take,read,references}=require('./acceptance-evidence.cjs'),{randomUUID}=require('node:crypto');
+const api=process.argv[2]||'36',weekly=take(`AC114-over-api${api}`),once=take(`AC115-ontime-api${api}`);
+const definitions={AC116:{'shared-weekly-target-and-manual-result':async t=>{
+ t.run.write('accepted-Given-provenance.json',{dependencies:references([weekly,once]),scope:'Restore the previously accepted over-target and ordinary one-time-result snapshots as Given. No record is submitted again. Execute only the previously unobserved empty-day calendar query at target and manual archive of an already recorded one-time plan.'});
+ const over=read(weekly,'given-facts.json').snapshot,p=over.facts.plans.find(p=>p.type==='weekly'&&over.facts.cycle_records.filter(r=>r.plan_id===p.id).length===4);if(!p)throw new Error('Original over-target plan absent');
+ await t.client.call('factsFixture',{facts:over.facts,confirm:'RESET_ISOLATED_DEV_FACTS'});await t.clock(new Date(over.asOfMs).toISOString());
+ const calendar=await t.client.call('query',{kind:'calendar',planId:p.id,on:over.today});t.run.write('target-reached-calendar-query.json',calendar);const days=calendar.view.days;
+ t.check('AC116.A2.reached-target-empty-day',0,calendar.view.items.length);t.check('AC116.A2.only-four-real-days',['2026-10-05','2026-10-06','2026-10-07','2026-10-08'],days.filter(d=>d.total).map(d=>d.on));t.check('AC116.A2.no-generated-day-items',true,days.filter(d=>!['2026-10-05','2026-10-06','2026-10-07','2026-10-08'].includes(d.on)).every(d=>d.total===0&&d.completed===0));
+ const terminal=read(once,'terminal-facts.json').snapshot,r=terminal.facts.one_time_results.find(r=>terminal.facts.plans.find(p=>p.id===r.plan_id)?.type==='one_time');if(!r)throw new Error('Original ordinary result absent');
+ await t.client.call('factsFixture',{facts:terminal.facts,confirm:'RESET_ISOLATED_DEV_FACTS'});await t.clock(new Date(terminal.asOfMs).toISOString());const before=await t.capture('manual-before-facts');
+ const envelope={commandId:randomUUID(),issuedAtMs:t.now,kind:'ArchivePlan',payload:{...await t.ref(r.plan_id),eventId:randomUUID()}},archived=await t.client.call('command',{envelope});t.run.write('actual-new-manual-archive-envelope.json',{envelope,response:archived});t.check('AC116.A4.manual-archive-accepted','OK',archived.result.code);
+ const actual=await t.client.call('query',{kind:'calendar',planId:r.plan_id,on:r.business_on});t.run.write('manual-recorded-calendar-query.json',actual);t.check('AC116.A4.manual-record-remains',[[r.id,r.business_on]],actual.view.items.map(i=>[i.record?.id,i.record?.business_on]));t.check('AC116.A4.manual-record-not-rewritten',before.facts.one_time_results,(await t.capture('manual-after-facts')).facts.one_time_results);
+}}};
+runCases(api,definitions,[],api==='29'?'M3':'M7').catch(e=>{console.error(e.stack);process.exitCode=1;});

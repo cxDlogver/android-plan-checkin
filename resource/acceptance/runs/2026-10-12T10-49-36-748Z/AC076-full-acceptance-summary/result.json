@@ -1,0 +1,892 @@
+{
+  "caseId": "AC076",
+  "phase": "CLAUSE_SCOPE_SUMMARY",
+  "configurations": [
+    "M3",
+    "M7"
+  ],
+  "runId": "2026-10-12T10-49-36-748Z",
+  "status": "PASS",
+  "startedAt": "2026-10-12T10:49:36.748Z",
+  "endedAt": "2026-10-12T10:49:37.416Z",
+  "inputSha256": "eae3337215f85867dd51ebfd14e06df2faa606ff9f0183aee7bc7aa2f350cfd0",
+  "previousRecord": null,
+  "scope": "AC076-full-acceptance-summary",
+  "implementationIds": [
+    "IP18",
+    "IP21",
+    "IP22"
+  ],
+  "assertions": [
+    {
+      "id": "AC076-past-M3/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-past-M3/AC076.A1.past-only",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-past-M3/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-today-M3/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-today-M3/AC076.A1.past-only",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-today-M3/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-future-M3/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-future-M3/AC076.A1.past-only",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-future-M3/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M3/AC076.past.before-calendar-no-business-write",
+      "expected": {
+        "plans": [
+          {
+            "id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "40fe237e-ba0e-43bc-b45b-aecef68041b2",
+            "plan_id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-08\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "2593a4d9-965f-4d3e-ae0a-aac81306a8e2",
+            "plan_id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "kind": "CreatePlan",
+            "payload_digest": "ceb91eb3e5639af81126c6fb33afd00633dc5ead6e11b24cbf514beab7d808c7",
+            "result_code": "OK",
+            "object_id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "40fe237e-ba0e-43bc-b45b-aecef68041b2",
+            "plan_id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-08\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "2593a4d9-965f-4d3e-ae0a-aac81306a8e2",
+            "plan_id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "kind": "CreatePlan",
+            "payload_digest": "ceb91eb3e5639af81126c6fb33afd00633dc5ead6e11b24cbf514beab7d808c7",
+            "result_code": "OK",
+            "object_id": "d019b8ea-1fc7-4666-bec6-f5d3df5a250f",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M3/AC076.today.before-calendar-no-business-write",
+      "expected": {
+        "plans": [
+          {
+            "id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "15d0871b-9757-4324-9248-62d403afc771",
+            "plan_id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "24404b09-12c4-435a-9cd8-30c605939ae8",
+            "plan_id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "kind": "CreatePlan",
+            "payload_digest": "2a2889efba997aa7a8a67348125c3f60a8a69be54b97d2dc8876151004fc7503",
+            "result_code": "OK",
+            "object_id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "15d0871b-9757-4324-9248-62d403afc771",
+            "plan_id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "24404b09-12c4-435a-9cd8-30c605939ae8",
+            "plan_id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "kind": "CreatePlan",
+            "payload_digest": "2a2889efba997aa7a8a67348125c3f60a8a69be54b97d2dc8876151004fc7503",
+            "result_code": "OK",
+            "object_id": "e39b9f23-fa83-440b-a0ed-594543ea6422",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M3/AC076.future.before-calendar-no-business-write",
+      "expected": {
+        "plans": [
+          {
+            "id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "91bc9e8a-e245-4446-8f44-57e8097a3819",
+            "plan_id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "fa53c657-4944-4a99-a5a6-16452d13eda4",
+            "plan_id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "kind": "CreatePlan",
+            "payload_digest": "3a79e71bda78f01063bd717f2a54d76c4a81a2fd7435693eeb676f294f00cd3b",
+            "result_code": "OK",
+            "object_id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "91bc9e8a-e245-4446-8f44-57e8097a3819",
+            "plan_id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "fa53c657-4944-4a99-a5a6-16452d13eda4",
+            "plan_id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "kind": "CreatePlan",
+            "payload_digest": "3a79e71bda78f01063bd717f2a54d76c4a81a2fd7435693eeb676f294f00cd3b",
+            "result_code": "OK",
+            "object_id": "a4d7222b-b8eb-41b9-88a1-00b676839e36",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M3/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-past-M7/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-past-M7/AC076.A1.past-only",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-past-M7/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-today-M7/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-today-M7/AC076.A1.past-only",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-today-M7/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-future-M7/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-future-M7/AC076.A1.past-only",
+      "expected": false,
+      "actual": false,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-future-M7/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M7/AC076.past.before-calendar-no-business-write",
+      "expected": {
+        "plans": [
+          {
+            "id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "fd28818e-a746-4b36-a49c-c09700c3351a",
+            "plan_id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-08\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "8beb0ce1-5957-4d1c-a6a1-2da28c079369",
+            "plan_id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "kind": "CreatePlan",
+            "payload_digest": "89cc561dd4957de25134a12413f6359c2e8b153a8c894e1264ba246b1998af83",
+            "result_code": "OK",
+            "object_id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "fd28818e-a746-4b36-a49c-c09700c3351a",
+            "plan_id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-08\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "8beb0ce1-5957-4d1c-a6a1-2da28c079369",
+            "plan_id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "kind": "CreatePlan",
+            "payload_digest": "89cc561dd4957de25134a12413f6359c2e8b153a8c894e1264ba246b1998af83",
+            "result_code": "OK",
+            "object_id": "305e63b2-6a7c-41f4-9c73-cefaf386bb41",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M7/AC076.today.before-calendar-no-business-write",
+      "expected": {
+        "plans": [
+          {
+            "id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "476b4cb5-1999-40bc-ae48-e7f18284d512",
+            "plan_id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "d2739aea-9c15-4d4d-808a-c2bff7fb9a41",
+            "plan_id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "kind": "CreatePlan",
+            "payload_digest": "41abe552281d10974f712d044f122db3b6deebf4e92c7280fe04e4f1ae2801b8",
+            "result_code": "OK",
+            "object_id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "476b4cb5-1999-40bc-ae48-e7f18284d512",
+            "plan_id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "d2739aea-9c15-4d4d-808a-c2bff7fb9a41",
+            "plan_id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "kind": "CreatePlan",
+            "payload_digest": "41abe552281d10974f712d044f122db3b6deebf4e92c7280fe04e4f1ae2801b8",
+            "result_code": "OK",
+            "object_id": "aee0dd7f-96e9-4106-9ad7-f2ff94959738",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M7/AC076.future.before-calendar-no-business-write",
+      "expected": {
+        "plans": [
+          {
+            "id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "a3cb2598-c66d-4c63-928f-a453f0d07901",
+            "plan_id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "3d0bdd2c-5a7f-4e48-b9b4-a9cadfd12996",
+            "plan_id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "kind": "CreatePlan",
+            "payload_digest": "988ac8a0e1c709b74831bc4fd05a3373cdcd1c93c0f2b915b3d0f767202a6772",
+            "result_code": "OK",
+            "object_id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "type": "one_time",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791345600000,
+            "created_on": "2026-10-07",
+            "starts_on": "2026-10-07",
+            "revision": 1
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "a3cb2598-c66d-4c63-928f-a453f0d07901",
+            "plan_id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "kind": "due_on",
+            "effective_on": "2026-10-07",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-10\"}",
+            "created_at_ms": 1791345600000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "3d0bdd2c-5a7f-4e48-b9b4-a9cadfd12996",
+            "plan_id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "kind": "CreatePlan",
+            "payload_digest": "988ac8a0e1c709b74831bc4fd05a3373cdcd1c93c0f2b915b3d0f767202a6772",
+            "result_code": "OK",
+            "object_id": "9b62c170-7e62-4a3f-9c4f-e9d1b92e9489",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "1"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC076-shared-derived-before-manual-archive-calendar-M7/E-UI.actual-frames-and-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-12T10-49-36-748Z/AC076-full-acceptance-summary/clause-coverage.json",
+      "sha256": "aac56f8a647aa0b97571514d505c95b69311d625a3d26d2c81345c8696e6a7a7"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-12T10-49-36-748Z/AC076-full-acceptance-summary/exact-executed-source-scope.json",
+      "sha256": "21544d40bbeb3b625077f1972ad6595d583c94fdc8c61fd6be6a8ae745766cf8"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-12T10-49-36-748Z/AC076-full-acceptance-summary/inputs.json",
+      "sha256": "99b8a504d5eca744031470b5137c2840105dcdd162a387def8b597c24edcc818"
+    }
+  ],
+  "limitations": []
+}

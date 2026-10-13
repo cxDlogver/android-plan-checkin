@@ -1,0 +1,107 @@
+{
+  "phase": "OPTIMIZATION_DIFFERENTIAL_SCOPE",
+  "runId": "2026-10-12T10-58-18-379Z",
+  "status": "PASS",
+  "startedAt": "2026-10-12T10:58:18.379Z",
+  "endedAt": "2026-10-12T10:58:18.582Z",
+  "inputSha256": "58622bdf335c223a0eb134b9eaf79d782a8502c241e171cba9f7dcee6c90ca99",
+  "previousRecord": null,
+  "scope": "query-date-cache-equivalence",
+  "implementationIds": [
+    "IP16",
+    "IP28"
+  ],
+  "assertions": [
+    {
+      "id": "src/domain/date.ts/exact-reviewed-draft",
+      "expected": "3b32abcff83ff0e03cb4c0ba33a32770eee26790a374ec71577977c690332f05",
+      "actual": "3b32abcff83ff0e03cb4c0ba33a32770eee26790a374ec71577977c690332f05",
+      "status": "PASS"
+    },
+    {
+      "id": "src/domain/rules.ts/exact-reviewed-draft",
+      "expected": "3a332fc3650794b2d1639200cba838209ae84ed39162c00dfdfb1749e2c6c159",
+      "actual": "3a332fc3650794b2d1639200cba838209ae84ed39162c00dfdfb1749e2c6c159",
+      "status": "PASS"
+    },
+    {
+      "id": "src/application/projections.ts/exact-reviewed-draft",
+      "expected": "76e83f2722dfd00fc3541bdba86711ca7f712bd4546c345861258356aba96b4a",
+      "actual": "76e83f2722dfd00fc3541bdba86711ca7f712bd4546c345861258356aba96b4a",
+      "status": "PASS"
+    },
+    {
+      "id": "full-query-DTO-equivalence",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "bounded-date-cache-equivalence",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "retained-native-snapshots",
+      "expected": 43,
+      "actual": 43,
+      "status": "PASS"
+    },
+    {
+      "id": "full-DTO-comparisons",
+      "expected": 856,
+      "actual": 856,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/after-src__application__projections.ts",
+      "sha256": "76e83f2722dfd00fc3541bdba86711ca7f712bd4546c345861258356aba96b4a"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/after-src__domain__date.ts",
+      "sha256": "3b32abcff83ff0e03cb4c0ba33a32770eee26790a374ec71577977c690332f05"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/after-src__domain__rules.ts",
+      "sha256": "3a332fc3650794b2d1639200cba838209ae84ed39162c00dfdfb1749e2c6c159"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/before-src__application__projections.ts",
+      "sha256": "b840c3364efce245910fa6089de0cc51c421b01d2aa88c8406620ffdfa529ade"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/before-src__domain__date.ts",
+      "sha256": "5ec617803e1567fd2c6952b828b3327e8fa6c1d2302587d45490b694d732fbdf"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/before-src__domain__rules.ts",
+      "sha256": "2d4c4cfc3a83dd06e76c51fe3e30ed5a7ab7ef2d0654371dbcd3b54eb6177256"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/inputs.json",
+      "sha256": "0a8d66b62dfdc11f5b4ff38b281a1745a238bdbf47607207b64d9c41d5773509"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/optimization-source-scope.json",
+      "sha256": "f51e2e1b6d893ec6811cd98972d80229ada76b8f883d2b65fd0d22afbb226135"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/performance-date-cache-prototype.json",
+      "sha256": "2c29b8636e2345b4b275c348b6adf146095230dfdf4c2d98e5473a7a8b8dd878"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/performance-query-cache-equivalence.json",
+      "sha256": "79177fc127db1348433a0c8d06b759f4b8ec987a9f480990895a6b7e875e1772"
+    },
+    {
+      "path": "resource/acceptance/runs/2026-10-12T10-58-18-379Z/query-date-cache-equivalence/performance-query-cache-prototype.json",
+      "sha256": "61ec1392ed5142874342f824f22e8016b4103b51eafa66f48168391ce8b253e7"
+    }
+  ],
+  "limitations": [
+    "This scope proves the exact reviewed source change and retained data equivalence. It does not claim Android performance, fresh formal APK acceptance or unchanged whole-source SHA."
+  ]
+}

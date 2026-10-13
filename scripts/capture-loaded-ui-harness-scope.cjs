@@ -1,0 +1,14 @@
+const fs=require('node:fs'),path=require('node:path'),{createRun}=require('./evidence-run.cjs'),{sha}=require('./p1.cjs');
+const first='resource/acceptance/runs/2026-10-11T20-01-20-985Z/AC024-failure-M7/result.json',original=JSON.parse(fs.readFileSync(first)),inputs=JSON.parse(fs.readFileSync(path.join(path.dirname(first),'inputs.json'))),stop=JSON.parse(fs.readFileSync('resource/progress/API36验收脚本重载.json'));
+const pair={
+ 'scripts/bdd-ui-session.cjs':fs.readFileSync('scripts/bdd-ui-session.cjs','utf8').replace("s.includes('查看或修改记录')||",''),
+ 'scripts/device-driver.cjs':fs.readFileSync('scripts/device-driver.cjs','utf8').replace("const id=/^(?:record|plan)\\.(?:save|reconfirm)$/.test(testID)?await this.revealButton(testID):await this.seek(testID);","const id=await this.seek(testID);")
+};
+for(const [file,body]of Object.entries(pair))if(inputs.verificationHarness.shared.find(f=>f.path===file)?.sha256!==sha(body))throw new Error('Loaded original harness pair was not exactly recovered '+file);
+const state=require('./progress.cjs').read(),reports=Object.entries(state.commands).filter(([key,c])=>/-M7$/.test(key)&&c.record).map(([key,c])=>({key,record:c.record,r:JSON.parse(fs.readFileSync(c.record))})).filter(i=>i.r.startedAt>=original.startedAt&&i.r.endedAt<=stop.stoppedAt&&i.r.evidence.some(e=>e.path.endsWith('appium.log')));
+const run=createRun('API36-loaded-UI-harness-provenance',{firstOriginal:first,firstSha256:sha(fs.readFileSync(first)),stop,affected:reports.map(i=>({key:i.key,record:i.record,sha256:sha(fs.readFileSync(i.record))}))},[]);if(run){let error;try{
+ for(const [file,body]of Object.entries(pair))run.write('loaded-'+path.basename(file),body);
+ run.write('loaded-versus-disk-scope.json',{inference:'The single run-bdd-uncompleted Node process loaded its shared module pair before its first recorded scenario; CommonJS keeps that pair cached throughout this process. Complete reconstructed files match that first snapshot SHA. Later per-case snapshots recorded the newer disk files after observer edits, so those shared snapshot hashes are not claimed to describe reloaded functions.',originalReference:first,loaded:inputs.verificationHarness.shared,diskAfterFix:Object.keys(pair).map(file=>({path:file,sha256:sha(fs.readFileSync(file))})),reports:reports.map(i=>({key:i.key,record:i.record,status:i.r.status,recordedDiskShared:JSON.parse(fs.readFileSync(path.join(path.dirname(i.record),'inputs.json'))).verificationHarness?.shared})),scope:'Product source and original UI/native logs remain unchanged. This companion corrects harness provenance only; it does not upgrade a failed business assertion or rerun any accepted operation.'});
+ run.check('original-loaded-shared-file-count',2,Object.keys(pair).length);run.check('closed-scenarios-retained',true,reports.length>0);
+ }catch(e){error=e;}run.finish(error);if(error)throw error;
+}

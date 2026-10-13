@@ -1,0 +1,5092 @@
+{
+  "caseId": "AC066",
+  "phase": "CLAUSE_SCOPE_SUMMARY",
+  "configurations": [
+    "M1",
+    "M2",
+    "M3",
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+  ],
+  "runId": "2026-10-11T23-09-49-565Z",
+  "status": "PASS",
+  "startedAt": "2026-10-11T23:09:49.565Z",
+  "endedAt": "2026-10-11T23:09:50.875Z",
+  "inputSha256": "19c722ec8e855fe0ed1497496fcf770cf730bddb11bfd107bb5283ca5ede5d30",
+  "previousRecord": null,
+  "scope": "AC066-full-acceptance-summary",
+  "implementationIds": [
+    "IP26"
+  ],
+  "assertions": [
+    {
+      "id": "AC066-default-M1/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "19b5d302-d534-4ef9-b6c7-a1c4bb854c3d",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "9aa4deb7-4b06-4fe0-a851-c1a22bc8e564",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "f9f59766-168a-40e3-8a06-63dc5f26a107",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "659db5e6-0c74-486b-8fe2-b66b31e46db5",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "e7939434-92dd-449a-a423-fff2c04a0dcd",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "c6fcc709-5f89-4b23-ba1f-12c786f197a9",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "f1fbb8c0-6896-415a-b5ea-9ed968f8556d",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "CreatePlan",
+            "payload_digest": "f3635b89b4077180e09d8436b2d39627a81cf6c2b66557daacc0359d02983602",
+            "result_code": "OK",
+            "object_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "df13d372-9c74-4910-92d6-82ec804c4a98",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "13540ac934c01f39083ec1a7b5ac7238880da8eeaaaab1d5d9c64d6ed37911f3",
+            "result_code": "OK",
+            "object_id": "f9f59766-168a-40e3-8a06-63dc5f26a107",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "9ce40828-bfae-4a5e-97ad-b3dbefc143a3",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "624888f5025481c7cd43711ee54f4442919b2c75103b2d00d8634c80a325145e",
+            "result_code": "OK",
+            "object_id": "659db5e6-0c74-486b-8fe2-b66b31e46db5",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "ea3b5fb8-d72e-4f4c-a448-019694e05774",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "8c6ce474c358bf06cfdb8eeb5fa32673fa04b779743c1d56117ed73fb10bf971",
+            "result_code": "OK",
+            "object_id": "e7939434-92dd-449a-a423-fff2c04a0dcd",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "bb38247a-03c5-490f-b0cc-a923004aefdc",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "b5a1502a86050c85bf9a5be413460a277ab1ecd367ba30798cce19c03fcd2d5b",
+            "result_code": "OK",
+            "object_id": "c6fcc709-5f89-4b23-ba1f-12c786f197a9",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "19b5d302-d534-4ef9-b6c7-a1c4bb854c3d",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "9aa4deb7-4b06-4fe0-a851-c1a22bc8e564",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "f9f59766-168a-40e3-8a06-63dc5f26a107",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "659db5e6-0c74-486b-8fe2-b66b31e46db5",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "e7939434-92dd-449a-a423-fff2c04a0dcd",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "c6fcc709-5f89-4b23-ba1f-12c786f197a9",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "f1fbb8c0-6896-415a-b5ea-9ed968f8556d",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "CreatePlan",
+            "payload_digest": "f3635b89b4077180e09d8436b2d39627a81cf6c2b66557daacc0359d02983602",
+            "result_code": "OK",
+            "object_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "df13d372-9c74-4910-92d6-82ec804c4a98",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "13540ac934c01f39083ec1a7b5ac7238880da8eeaaaab1d5d9c64d6ed37911f3",
+            "result_code": "OK",
+            "object_id": "f9f59766-168a-40e3-8a06-63dc5f26a107",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "9ce40828-bfae-4a5e-97ad-b3dbefc143a3",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "624888f5025481c7cd43711ee54f4442919b2c75103b2d00d8634c80a325145e",
+            "result_code": "OK",
+            "object_id": "659db5e6-0c74-486b-8fe2-b66b31e46db5",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "ea3b5fb8-d72e-4f4c-a448-019694e05774",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "8c6ce474c358bf06cfdb8eeb5fa32673fa04b779743c1d56117ed73fb10bf971",
+            "result_code": "OK",
+            "object_id": "e7939434-92dd-449a-a423-fff2c04a0dcd",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "bb38247a-03c5-490f-b0cc-a923004aefdc",
+            "plan_id": "14edddbb-a38d-4542-8f3f-f6cc0406ec2c",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "b5a1502a86050c85bf9a5be413460a277ab1ecd367ba30798cce19c03fcd2d5b",
+            "result_code": "OK",
+            "object_id": "c6fcc709-5f89-4b23-ba1f-12c786f197a9",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/step-2.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "eb4edd27-d105-4099-89e7-822259be72d3",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "27f139b2-d546-428b-8a38-615879ba0564",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "b69811aa-4f83-4998-849a-2e3393ed02a9",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "4ec0ee6a-33e2-49b9-8429-ec62304704e0",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "0158e672-3f2d-4ec3-a19e-399accb3d159",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "717ef11c-2f2e-4e76-bd37-4bee5c72f028",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "566e8e5a-9dcc-4690-bd2d-ffafe9272e3b",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "CreatePlan",
+            "payload_digest": "819f7b009b5ffeb8f6432fcb926bf0506170190e34f647ed258536df599ce65e",
+            "result_code": "OK",
+            "object_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "ba7bbc63-c5d7-4161-a600-e45906e80cb2",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "22c20ea83a7909c3da4f784967e11f9d2ab2d8547a7c46e9f51478eb00666acb",
+            "result_code": "OK",
+            "object_id": "b69811aa-4f83-4998-849a-2e3393ed02a9",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "367327af-3ce5-482d-882b-761256e32938",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "5d998fda5d450fcf7b431c3c68c06b83ef1e6f481bc020bb851b52666825cde6",
+            "result_code": "OK",
+            "object_id": "4ec0ee6a-33e2-49b9-8429-ec62304704e0",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "cbfb3d59-a430-4ea3-97f1-ab59107f0a8d",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "3b498d16e4ab36fa6ee19fdcd19d76d27fd36b0caa367f5be1e685eebcf5dc6d",
+            "result_code": "OK",
+            "object_id": "0158e672-3f2d-4ec3-a19e-399accb3d159",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "c126e0ed-0224-4215-a7d2-39161a0c5c43",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "ad98529a5e800a0284a2927b637587e12287507fd04fc3f70cd9edeb273434f6",
+            "result_code": "OK",
+            "object_id": "717ef11c-2f2e-4e76-bd37-4bee5c72f028",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "eb4edd27-d105-4099-89e7-822259be72d3",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "27f139b2-d546-428b-8a38-615879ba0564",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "b69811aa-4f83-4998-849a-2e3393ed02a9",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "4ec0ee6a-33e2-49b9-8429-ec62304704e0",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "0158e672-3f2d-4ec3-a19e-399accb3d159",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "717ef11c-2f2e-4e76-bd37-4bee5c72f028",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "566e8e5a-9dcc-4690-bd2d-ffafe9272e3b",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "CreatePlan",
+            "payload_digest": "819f7b009b5ffeb8f6432fcb926bf0506170190e34f647ed258536df599ce65e",
+            "result_code": "OK",
+            "object_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "ba7bbc63-c5d7-4161-a600-e45906e80cb2",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "22c20ea83a7909c3da4f784967e11f9d2ab2d8547a7c46e9f51478eb00666acb",
+            "result_code": "OK",
+            "object_id": "b69811aa-4f83-4998-849a-2e3393ed02a9",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "367327af-3ce5-482d-882b-761256e32938",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "5d998fda5d450fcf7b431c3c68c06b83ef1e6f481bc020bb851b52666825cde6",
+            "result_code": "OK",
+            "object_id": "4ec0ee6a-33e2-49b9-8429-ec62304704e0",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "cbfb3d59-a430-4ea3-97f1-ab59107f0a8d",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "3b498d16e4ab36fa6ee19fdcd19d76d27fd36b0caa367f5be1e685eebcf5dc6d",
+            "result_code": "OK",
+            "object_id": "0158e672-3f2d-4ec3-a19e-399accb3d159",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "c126e0ed-0224-4215-a7d2-39161a0c5c43",
+            "plan_id": "6aed5bf5-e281-4d78-b4e7-94fb5f535ee5",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "ad98529a5e800a0284a2927b637587e12287507fd04fc3f70cd9edeb273434f6",
+            "result_code": "OK",
+            "object_id": "717ef11c-2f2e-4e76-bd37-4bee5c72f028",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "59289f42-23dc-4831-9bb5-cf8b98742984",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "04997079-b3b3-4326-993e-1777dd1a5e41",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "45af950d-e240-4421-9a2d-19cfe7891643",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "c100ae46-fcf6-4f66-ab8e-dbbadbd179de",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "762f4a21-8d23-41c7-a135-f97a97460e4a",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "6dca6009-906a-4dd4-93c2-8550b1bd1201",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "66d7e937-501c-4757-a09e-281997db4d17",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "CreatePlan",
+            "payload_digest": "c8c18463f7d17003b383a4e3349dfa275a0c702e332f59f60b0c1cf458e262c3",
+            "result_code": "OK",
+            "object_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "6bc9d5ed-c42b-4b40-937c-5e0b348b4d74",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "2f5352d049d9be42e995fb0b7a2fc0be2202f554b962982a320abd85c7c1824d",
+            "result_code": "OK",
+            "object_id": "45af950d-e240-4421-9a2d-19cfe7891643",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "a881f6be-9101-410e-93c0-579499e2c990",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "47934a9925154a09e9bff7d3ce9f39788df13a348c240667acbb229dc5c81cf2",
+            "result_code": "OK",
+            "object_id": "c100ae46-fcf6-4f66-ab8e-dbbadbd179de",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "aa0ed0c1-e7ce-430b-9a7e-56e567b57a0f",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "844eeafc97c81d2484cb47a48fa2e2627c7be5cd2d1dda3084530a64ea7bf069",
+            "result_code": "OK",
+            "object_id": "762f4a21-8d23-41c7-a135-f97a97460e4a",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "d4a8caf4-2c20-4e6d-94c3-228647de5036",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "c4b29237e7f891717474d9e39071d5e7b5fbd1ba7c3e0b7629348c9f71c7dbcf",
+            "result_code": "OK",
+            "object_id": "6dca6009-906a-4dd4-93c2-8550b1bd1201",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "77"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "59289f42-23dc-4831-9bb5-cf8b98742984",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "04997079-b3b3-4326-993e-1777dd1a5e41",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "45af950d-e240-4421-9a2d-19cfe7891643",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "c100ae46-fcf6-4f66-ab8e-dbbadbd179de",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "762f4a21-8d23-41c7-a135-f97a97460e4a",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "6dca6009-906a-4dd4-93c2-8550b1bd1201",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "66d7e937-501c-4757-a09e-281997db4d17",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "CreatePlan",
+            "payload_digest": "c8c18463f7d17003b383a4e3349dfa275a0c702e332f59f60b0c1cf458e262c3",
+            "result_code": "OK",
+            "object_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "6bc9d5ed-c42b-4b40-937c-5e0b348b4d74",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "2f5352d049d9be42e995fb0b7a2fc0be2202f554b962982a320abd85c7c1824d",
+            "result_code": "OK",
+            "object_id": "45af950d-e240-4421-9a2d-19cfe7891643",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "a881f6be-9101-410e-93c0-579499e2c990",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "47934a9925154a09e9bff7d3ce9f39788df13a348c240667acbb229dc5c81cf2",
+            "result_code": "OK",
+            "object_id": "c100ae46-fcf6-4f66-ab8e-dbbadbd179de",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "aa0ed0c1-e7ce-430b-9a7e-56e567b57a0f",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "844eeafc97c81d2484cb47a48fa2e2627c7be5cd2d1dda3084530a64ea7bf069",
+            "result_code": "OK",
+            "object_id": "762f4a21-8d23-41c7-a135-f97a97460e4a",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "d4a8caf4-2c20-4e6d-94c3-228647de5036",
+            "plan_id": "4128ce4f-deb0-4495-a900-f7f548dac6c6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "c4b29237e7f891717474d9e39071d5e7b5fbd1ba7c3e0b7629348c9f71c7dbcf",
+            "result_code": "OK",
+            "object_id": "6dca6009-906a-4dd4-93c2-8550b1bd1201",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "77"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "dc9d869e-50a1-4d64-97a4-d6e1f7ab0a63",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "2e60c595-446e-4f05-8000-a31b66a0f1d9",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "65070ece-ebbc-4cef-a44a-cbf3c51919d5",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "e8687305-1fb4-415d-8785-4a3e886efaf2",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "2b04ac1c-4336-48c6-8990-094d97b611ec",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "7d33d1ed-3c6b-43b2-80c0-24df719788a9",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "589bbfda-62d9-4d8b-a267-6866ae3f62e2",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "CreatePlan",
+            "payload_digest": "c817febcf2384f7ee41cea42e07fdf4109c5ba4a8f584ce5e81f210635fa51f6",
+            "result_code": "OK",
+            "object_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "9bdb0b6d-387c-4245-b1dd-a53fd790a86f",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "740f1fa859f28532d8079116c4bf25771eeac78b5f333da492a71cee8546b671",
+            "result_code": "OK",
+            "object_id": "65070ece-ebbc-4cef-a44a-cbf3c51919d5",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "20ea22a9-4c2c-455a-b69e-f6293a578a8f",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "35108e460b3e9d8206a00687022ac2dbabe07d3efab8ade71aa14dd3152cbf94",
+            "result_code": "OK",
+            "object_id": "e8687305-1fb4-415d-8785-4a3e886efaf2",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "b383dbab-7014-405a-9d55-adac3b2f5138",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "e51ba2cba80b2ed192e58edfac92f4baf43cb4ba4d2c3a931c896b3c9bfe4fd7",
+            "result_code": "OK",
+            "object_id": "2b04ac1c-4336-48c6-8990-094d97b611ec",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "4e826b83-1e97-4960-8871-0978a216935f",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "3748e3d033e3312a228edfd8c9dfb0f596440bec687fededd6192f9bfa4fa53f",
+            "result_code": "OK",
+            "object_id": "7d33d1ed-3c6b-43b2-80c0-24df719788a9",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "dc9d869e-50a1-4d64-97a4-d6e1f7ab0a63",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "2e60c595-446e-4f05-8000-a31b66a0f1d9",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "65070ece-ebbc-4cef-a44a-cbf3c51919d5",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "e8687305-1fb4-415d-8785-4a3e886efaf2",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "2b04ac1c-4336-48c6-8990-094d97b611ec",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "7d33d1ed-3c6b-43b2-80c0-24df719788a9",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "589bbfda-62d9-4d8b-a267-6866ae3f62e2",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "CreatePlan",
+            "payload_digest": "c817febcf2384f7ee41cea42e07fdf4109c5ba4a8f584ce5e81f210635fa51f6",
+            "result_code": "OK",
+            "object_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "9bdb0b6d-387c-4245-b1dd-a53fd790a86f",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "740f1fa859f28532d8079116c4bf25771eeac78b5f333da492a71cee8546b671",
+            "result_code": "OK",
+            "object_id": "65070ece-ebbc-4cef-a44a-cbf3c51919d5",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "20ea22a9-4c2c-455a-b69e-f6293a578a8f",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "35108e460b3e9d8206a00687022ac2dbabe07d3efab8ade71aa14dd3152cbf94",
+            "result_code": "OK",
+            "object_id": "e8687305-1fb4-415d-8785-4a3e886efaf2",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "b383dbab-7014-405a-9d55-adac3b2f5138",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "e51ba2cba80b2ed192e58edfac92f4baf43cb4ba4d2c3a931c896b3c9bfe4fd7",
+            "result_code": "OK",
+            "object_id": "2b04ac1c-4336-48c6-8990-094d97b611ec",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "4e826b83-1e97-4960-8871-0978a216935f",
+            "plan_id": "c6b032d9-ad06-4477-9883-6f3b1f9f741b",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "3748e3d033e3312a228edfd8c9dfb0f596440bec687fededd6192f9bfa4fa53f",
+            "result_code": "OK",
+            "object_id": "7d33d1ed-3c6b-43b2-80c0-24df719788a9",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "63b5460f-b9d6-41fb-ac8a-2558435df8fa",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "5a823c5d-d0e0-46b8-8b75-524ebcf166a6",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "0bd4b439-52ab-446c-a751-d3b2c80ef766",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "87516bc0-eb94-4c08-bb44-54dbbc4418a5",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "638a29ac-f95d-42ea-a86f-e3fee3c5d830",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "03ab8844-f51b-44c0-89e9-bf6cbe8b5dd9",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "4f702898-af43-485f-ba83-55479e320937",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "CreatePlan",
+            "payload_digest": "104ce8e30b56f85f6b9ee8757af5bd597af2626a2de10525ff981267865f71e2",
+            "result_code": "OK",
+            "object_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "ef12a5d8-1284-49bd-b7ec-851b2b73f6fb",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "4d20e3cd65745b3720e5a52367dd9d766689a907f27104cb411df769f9449a06",
+            "result_code": "OK",
+            "object_id": "0bd4b439-52ab-446c-a751-d3b2c80ef766",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "3546adfd-1601-4365-98d3-14869cd29190",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "8b68162768615ff234a6b44e1604a41a38836f20a55e85ff8ab3d44ce9258482",
+            "result_code": "OK",
+            "object_id": "87516bc0-eb94-4c08-bb44-54dbbc4418a5",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "9ef4f22d-a4be-43ba-a58b-8a722185deb2",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "4591fbb0bce002b5b2fc0072da5a011e7aee711be49c36b93e6f7b4901f3035e",
+            "result_code": "OK",
+            "object_id": "638a29ac-f95d-42ea-a86f-e3fee3c5d830",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "ef96e15a-b269-470e-b80f-3f493a6285d3",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "41b0040ef05300ffd4e6f48c26e1b9634cdd69a25b395cfcebe2290ce5254d9d",
+            "result_code": "OK",
+            "object_id": "03ab8844-f51b-44c0-89e9-bf6cbe8b5dd9",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "63b5460f-b9d6-41fb-ac8a-2558435df8fa",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "5a823c5d-d0e0-46b8-8b75-524ebcf166a6",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "0bd4b439-52ab-446c-a751-d3b2c80ef766",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "87516bc0-eb94-4c08-bb44-54dbbc4418a5",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "638a29ac-f95d-42ea-a86f-e3fee3c5d830",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "03ab8844-f51b-44c0-89e9-bf6cbe8b5dd9",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "4f702898-af43-485f-ba83-55479e320937",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "CreatePlan",
+            "payload_digest": "104ce8e30b56f85f6b9ee8757af5bd597af2626a2de10525ff981267865f71e2",
+            "result_code": "OK",
+            "object_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "ef12a5d8-1284-49bd-b7ec-851b2b73f6fb",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "4d20e3cd65745b3720e5a52367dd9d766689a907f27104cb411df769f9449a06",
+            "result_code": "OK",
+            "object_id": "0bd4b439-52ab-446c-a751-d3b2c80ef766",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "3546adfd-1601-4365-98d3-14869cd29190",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "8b68162768615ff234a6b44e1604a41a38836f20a55e85ff8ab3d44ce9258482",
+            "result_code": "OK",
+            "object_id": "87516bc0-eb94-4c08-bb44-54dbbc4418a5",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "9ef4f22d-a4be-43ba-a58b-8a722185deb2",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "4591fbb0bce002b5b2fc0072da5a011e7aee711be49c36b93e6f7b4901f3035e",
+            "result_code": "OK",
+            "object_id": "638a29ac-f95d-42ea-a86f-e3fee3c5d830",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "ef96e15a-b269-470e-b80f-3f493a6285d3",
+            "plan_id": "beb90a80-8359-4b25-9483-46c7b27458e2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "41b0040ef05300ffd4e6f48c26e1b9634cdd69a25b395cfcebe2290ce5254d9d",
+            "result_code": "OK",
+            "object_id": "03ab8844-f51b-44c0-89e9-bf6cbe8b5dd9",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "d687a967-c2e7-4150-bdf6-22f649158ce5",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "5941f01c-0ff8-488b-a3de-ef8d95c5cf51",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "b2e6d083-4b9d-439d-ac7e-c97d3055a823",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "346c55d2-4b18-4119-b9f9-e77b2b604f10",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "c0cc373e-31b6-492b-be20-b2b71681834f",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "6ed209af-fb48-43a1-8d66-42aea638e82e",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "63808f1d-6961-4e06-b795-55bf0811f008",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "CreatePlan",
+            "payload_digest": "34729df364572a3573b900e0174e4f62013733e0d2d7401d7eeb2c6b06e9d0f4",
+            "result_code": "OK",
+            "object_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "7ca61de1-f083-40c5-bfd9-04adb141e691",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "9c88d7d1f3b92beb6113d3dd3d2f20fec847cc928aa59889d48c089e3cd26ad8",
+            "result_code": "OK",
+            "object_id": "b2e6d083-4b9d-439d-ac7e-c97d3055a823",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "2f60164e-1297-49e6-827a-4e083d24076f",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "10a82f94189ab6c567d411d8eeab84799bbac832ac5dae4630207fcbf0d24591",
+            "result_code": "OK",
+            "object_id": "346c55d2-4b18-4119-b9f9-e77b2b604f10",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "a01f88d6-1840-42aa-bd02-e09bf7ea9ccb",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "65ae85d0df9ed7e90e42a5d0eb9bc07f9fef758c4d9b84f4143ec1b32acb5cc9",
+            "result_code": "OK",
+            "object_id": "c0cc373e-31b6-492b-be20-b2b71681834f",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "01914394-cf84-4fdb-91e4-41cacdb44439",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "6e068441319d38398811b7caccb32019c9579ee570b36c021341101533e86d44",
+            "result_code": "OK",
+            "object_id": "6ed209af-fb48-43a1-8d66-42aea638e82e",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "d687a967-c2e7-4150-bdf6-22f649158ce5",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "5941f01c-0ff8-488b-a3de-ef8d95c5cf51",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "b2e6d083-4b9d-439d-ac7e-c97d3055a823",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "346c55d2-4b18-4119-b9f9-e77b2b604f10",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "c0cc373e-31b6-492b-be20-b2b71681834f",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "6ed209af-fb48-43a1-8d66-42aea638e82e",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "63808f1d-6961-4e06-b795-55bf0811f008",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "CreatePlan",
+            "payload_digest": "34729df364572a3573b900e0174e4f62013733e0d2d7401d7eeb2c6b06e9d0f4",
+            "result_code": "OK",
+            "object_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "7ca61de1-f083-40c5-bfd9-04adb141e691",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "9c88d7d1f3b92beb6113d3dd3d2f20fec847cc928aa59889d48c089e3cd26ad8",
+            "result_code": "OK",
+            "object_id": "b2e6d083-4b9d-439d-ac7e-c97d3055a823",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "2f60164e-1297-49e6-827a-4e083d24076f",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "10a82f94189ab6c567d411d8eeab84799bbac832ac5dae4630207fcbf0d24591",
+            "result_code": "OK",
+            "object_id": "346c55d2-4b18-4119-b9f9-e77b2b604f10",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "a01f88d6-1840-42aa-bd02-e09bf7ea9ccb",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "65ae85d0df9ed7e90e42a5d0eb9bc07f9fef758c4d9b84f4143ec1b32acb5cc9",
+            "result_code": "OK",
+            "object_id": "c0cc373e-31b6-492b-be20-b2b71681834f",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "01914394-cf84-4fdb-91e4-41cacdb44439",
+            "plan_id": "3ffcdbd5-11f5-4d63-a496-4c6e9e77d5d3",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "6e068441319d38398811b7caccb32019c9579ee570b36c021341101533e86d44",
+            "result_code": "OK",
+            "object_id": "6ed209af-fb48-43a1-8d66-42aea638e82e",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "78e4d7df-e915-4640-aac8-d3ec89d196cb",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "53ce5e3b-7971-4f3c-be99-5861b49167c9",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "3b3070b2-1f51-41df-9ca2-f271cd1d06c2",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "2e23e314-86c8-48c6-8666-8b9f9477ea49",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "7c5f090c-9f7f-46f9-9d83-8c47b473bd46",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "7f438315-3367-4c31-88b4-c6cfe27acbfd",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "f3fccd85-a84c-4ef9-87e7-63fc7c136910",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "CreatePlan",
+            "payload_digest": "784173551d1d3db507718869d59a846dee58b7e6ed6dbfdbddc1ec7a3566ce78",
+            "result_code": "OK",
+            "object_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "7adaa9d2-0f75-45a3-9161-a6e6b9dbf7ca",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "c9248676949bc2c53070d8c369dac949c4d73f428541bbba27962975ca099cab",
+            "result_code": "OK",
+            "object_id": "3b3070b2-1f51-41df-9ca2-f271cd1d06c2",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "f74f029e-9ebf-46d0-a51f-e7caf751e728",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "35e556b1674cbde4dc1921dd3e88080b68484bded3827aa4fa88a8e78976ba34",
+            "result_code": "OK",
+            "object_id": "2e23e314-86c8-48c6-8666-8b9f9477ea49",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "1ba456f4-6a93-4788-8289-d578f8b642f0",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "94a33d42fa87ff87ecfe6456259788fa426f0af30308661e5017f018209941aa",
+            "result_code": "OK",
+            "object_id": "7c5f090c-9f7f-46f9-9d83-8c47b473bd46",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "4173d7f1-dc29-4ff6-80af-29228d386f0d",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "032a15b86451190c7199923b0e6b9a3df1268df7c4639d9ba6989007267f0f90",
+            "result_code": "OK",
+            "object_id": "7f438315-3367-4c31-88b4-c6cfe27acbfd",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "75"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "78e4d7df-e915-4640-aac8-d3ec89d196cb",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "53ce5e3b-7971-4f3c-be99-5861b49167c9",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "3b3070b2-1f51-41df-9ca2-f271cd1d06c2",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "2e23e314-86c8-48c6-8666-8b9f9477ea49",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "7c5f090c-9f7f-46f9-9d83-8c47b473bd46",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "7f438315-3367-4c31-88b4-c6cfe27acbfd",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "f3fccd85-a84c-4ef9-87e7-63fc7c136910",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "CreatePlan",
+            "payload_digest": "784173551d1d3db507718869d59a846dee58b7e6ed6dbfdbddc1ec7a3566ce78",
+            "result_code": "OK",
+            "object_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "7adaa9d2-0f75-45a3-9161-a6e6b9dbf7ca",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "c9248676949bc2c53070d8c369dac949c4d73f428541bbba27962975ca099cab",
+            "result_code": "OK",
+            "object_id": "3b3070b2-1f51-41df-9ca2-f271cd1d06c2",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "f74f029e-9ebf-46d0-a51f-e7caf751e728",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "35e556b1674cbde4dc1921dd3e88080b68484bded3827aa4fa88a8e78976ba34",
+            "result_code": "OK",
+            "object_id": "2e23e314-86c8-48c6-8666-8b9f9477ea49",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "1ba456f4-6a93-4788-8289-d578f8b642f0",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "94a33d42fa87ff87ecfe6456259788fa426f0af30308661e5017f018209941aa",
+            "result_code": "OK",
+            "object_id": "7c5f090c-9f7f-46f9-9d83-8c47b473bd46",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "4173d7f1-dc29-4ff6-80af-29228d386f0d",
+            "plan_id": "d21f3eab-a2d5-4dfd-b51f-517889a83ea2",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "032a15b86451190c7199923b0e6b9a3df1268df7c4639d9ba6989007267f0f90",
+            "result_code": "OK",
+            "object_id": "7f438315-3367-4c31-88b4-c6cfe27acbfd",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "75"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/Given.plan-created",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/step-5.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/step-7.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/step-9.command-result",
+      "expected": "OK",
+      "actual": "OK",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/AC066.A1.actual-progress",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/AC066.A1.actual-and-cap",
+      "expected": [
+        4,
+        3,
+        1
+      ],
+      "actual": [
+        4,
+        3,
+        1
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/AC066.A4.current-excluded",
+      "expected": [
+        0,
+        0
+      ],
+      "actual": [
+        0,
+        0
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/step-13.command-result",
+      "expected": "RECORD_EXISTS",
+      "actual": "RECORD_EXISTS",
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/AC066.A1.one-day-unique",
+      "expected": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "cab1a371-1d82-4ea0-9abb-5bd940a95805",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "28229c12-cd45-47b5-91e8-8c303acc7ae7",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "a915345f-9a36-4422-934a-e8648fbb2373",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "b8fe59e6-e3ea-4cda-b457-e0e00b57d05a",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "b83a0943-530b-412c-a410-e3417bfaac6f",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "ed8aef74-1263-438e-ad59-4f3fd35d0915",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "19d2fbc5-e3f0-4d34-a041-65ee1c1f9724",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "CreatePlan",
+            "payload_digest": "ba68c104eae18f0561c1704922dd809e7f2b59a1b6f5ee991411bb03709615b1",
+            "result_code": "OK",
+            "object_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "aeaa9412-bc65-4c66-99fa-c2684c084d4b",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "0a7d5073cfd210c91728418d49e9c5126db4b554136457e6052075874ad59ce8",
+            "result_code": "OK",
+            "object_id": "a915345f-9a36-4422-934a-e8648fbb2373",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "01a3b84b-f329-4260-85a1-bd54075b8b24",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "38d15c0c1ef86b89fc8a993c032966ac55b4755e41450b4f44197210d2a380a7",
+            "result_code": "OK",
+            "object_id": "b8fe59e6-e3ea-4cda-b457-e0e00b57d05a",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "3ced04fb-38d0-4c3c-9d10-31b4d5c4a692",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "f60e1d003cd71b125729320a6e8b6b4c47dff00e59fabb68e02eed1d60dc189a",
+            "result_code": "OK",
+            "object_id": "b83a0943-530b-412c-a410-e3417bfaac6f",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "e51540de-ff63-4131-93d3-e4d77c8028cf",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "03b0f3be63520f9f26f22396362b357a95efb3a9506be57308f9d586c0bf9d5a",
+            "result_code": "OK",
+            "object_id": "ed8aef74-1263-438e-ad59-4f3fd35d0915",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "actual": {
+        "plans": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000001",
+            "type": "fixed",
+            "direction": "do",
+            "name": "F01 fixed",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000005",
+            "type": "weekly",
+            "direction": "do",
+            "name": "F01 weekly",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000009",
+            "type": "one_time",
+            "direction": "do",
+            "name": "F01 one_time",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000c",
+            "type": "fixed",
+            "direction": "avoid",
+            "name": "F01 不要做",
+            "description": "隔离开发验收夹具",
+            "created_at_ms": 1791518400000,
+            "created_on": "2026-10-09",
+            "starts_on": "2026-10-09",
+            "revision": 1
+          },
+          {
+            "id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "type": "weekly",
+            "direction": "do",
+            "name": "BDD 页面夹具",
+            "description": "",
+            "created_at_ms": 1791172800000,
+            "created_on": "2026-10-05",
+            "starts_on": "2026-10-05",
+            "revision": 5
+          }
+        ],
+        "rule_versions": [
+          {
+            "id": "313f7653-0000-4000-8000-000000000003",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000004",
+            "plan_id": "313f7653-0000-4000-8000-000000000001",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000007",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-000000000008",
+            "plan_id": "313f7653-0000-4000-8000-000000000005",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000b",
+            "plan_id": "313f7653-0000-4000-8000-000000000009",
+            "kind": "due_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"dueOn\":\"2026-10-09\"}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000e",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "weekday_mask",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"weekdayMask\":127}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "313f7653-0000-4000-8000-00000000000f",
+            "plan_id": "313f7653-0000-4000-8000-00000000000c",
+            "kind": "end_on",
+            "effective_on": "2026-10-09",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791518400000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "cab1a371-1d82-4ea0-9abb-5bd940a95805",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "weekly_target",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"weeklyTarget\":3}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          },
+          {
+            "id": "28229c12-cd45-47b5-91e8-8c303acc7ae7",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "end_on",
+            "effective_on": "2026-10-05",
+            "revision": 1,
+            "value_json": "{\"endOn\":null}",
+            "created_at_ms": 1791172800000,
+            "cancelled_at_ms": null
+          }
+        ],
+        "lifecycle_events": [],
+        "cycle_records": [
+          {
+            "id": "a915345f-9a36-4422-934a-e8648fbb2373",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-05",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791172800000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "b8fe59e6-e3ea-4cda-b457-e0e00b57d05a",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-06",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791259200000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "b83a0943-530b-412c-a410-e3417bfaac6f",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-07",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791345600000,
+            "modified_at_ms": null,
+            "revision": 1
+          },
+          {
+            "id": "ed8aef74-1263-438e-ad59-4f3fd35d0915",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "business_on": "2026-10-08",
+            "result": "success",
+            "note": "",
+            "entry_kind": "ordinary",
+            "submitted_at_ms": 1791432000000,
+            "modified_at_ms": null,
+            "revision": 1
+          }
+        ],
+        "one_time_results": [],
+        "cycle_record_originals": [],
+        "one_time_result_originals": [],
+        "command_receipts": [
+          {
+            "command_id": "19d2fbc5-e3f0-4d34-a041-65ee1c1f9724",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "CreatePlan",
+            "payload_digest": "ba68c104eae18f0561c1704922dd809e7f2b59a1b6f5ee991411bb03709615b1",
+            "result_code": "OK",
+            "object_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "aeaa9412-bc65-4c66-99fa-c2684c084d4b",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "0a7d5073cfd210c91728418d49e9c5126db4b554136457e6052075874ad59ce8",
+            "result_code": "OK",
+            "object_id": "a915345f-9a36-4422-934a-e8648fbb2373",
+            "issued_at_ms": 1791172800000,
+            "committed_at_ms": 1791172800000,
+            "expires_at_ms": 1791777600000
+          },
+          {
+            "command_id": "01a3b84b-f329-4260-85a1-bd54075b8b24",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "38d15c0c1ef86b89fc8a993c032966ac55b4755e41450b4f44197210d2a380a7",
+            "result_code": "OK",
+            "object_id": "b8fe59e6-e3ea-4cda-b457-e0e00b57d05a",
+            "issued_at_ms": 1791259200000,
+            "committed_at_ms": 1791259200000,
+            "expires_at_ms": 1791864000000
+          },
+          {
+            "command_id": "3ced04fb-38d0-4c3c-9d10-31b4d5c4a692",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "f60e1d003cd71b125729320a6e8b6b4c47dff00e59fabb68e02eed1d60dc189a",
+            "result_code": "OK",
+            "object_id": "b83a0943-530b-412c-a410-e3417bfaac6f",
+            "issued_at_ms": 1791345600000,
+            "committed_at_ms": 1791345600000,
+            "expires_at_ms": 1791950400000
+          },
+          {
+            "command_id": "e51540de-ff63-4131-93d3-e4d77c8028cf",
+            "plan_id": "3a6fb634-9f1e-4f31-bf5d-7dfe1cc70db6",
+            "kind": "SubmitCycleRecord",
+            "payload_digest": "03b0f3be63520f9f26f22396362b357a95efb3a9506be57308f9d586c0bf9d5a",
+            "result_code": "OK",
+            "object_id": "ed8aef74-1263-438e-ad59-4f3fd35d0915",
+            "issued_at_ms": 1791432000000,
+            "committed_at_ms": 1791432000000,
+            "expires_at_ms": 1792036800000
+          }
+        ],
+        "app_meta": [
+          {
+            "key": "app_timezone",
+            "value": "Asia/Shanghai"
+          },
+          {
+            "key": "initialized_at_ms",
+            "value": "1791475200000"
+          },
+          {
+            "key": "data_revision",
+            "value": "6"
+          }
+        ]
+      },
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/E1.actual-native-frames-and-operation-log",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/E2.actual-native-facts-retained",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M1/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M2/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M3/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M4/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M5/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M6/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M7/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/A3.only-real-success-records",
+      "expected": true,
+      "actual": true,
+      "status": "PASS"
+    },
+    {
+      "id": "AC066-default-M8/A3.exact-four-unique-dates",
+      "expected": 4,
+      "actual": 4,
+      "status": "PASS"
+    }
+  ],
+  "evidence": [
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T23-09-49-565Z/AC066-full-acceptance-summary/clause-coverage.json",
+      "sha256": "ae09097a5e114a0a300d3127235aa7320b54dda45773930f9fab41051dfa0de6"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T23-09-49-565Z/AC066-full-acceptance-summary/executed-whole-source-and-scoped-branch-identity.json",
+      "sha256": "df90877c0fb5d77e91547e5f29e4b096dc52c4d12f7561d50766181885e85a8a"
+    },
+    {
+      "profile": "E-NATIVE",
+      "path": "resource/acceptance/runs/2026-10-11T23-09-49-565Z/AC066-full-acceptance-summary/inputs.json",
+      "sha256": "c3d83f3c83f0e49a4d28c9d932c81538b4de3ce38986c02eab0ca1c2d89449a8"
+    }
+  ],
+  "limitations": []
+}

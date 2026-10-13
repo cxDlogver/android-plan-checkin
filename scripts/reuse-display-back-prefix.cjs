@@ -12,7 +12,7 @@ module.exports=async t=>{
    await t.client.call('factsFixture',{facts:saved.facts,confirm:'RESET_ISOLATED_DEV_FACTS'});
    t.run.assertions.push(...r.assertions.filter(a=>a.status==='PASS'&&a.id!=='AC093.A3.native-navigation-mode'));
    t.run.write('reused-successful-keyboard-and-first-back.json',{record,sha256:sha(fs.readFileSync(record)),required,reason:'The actual keyboard, complete Save hit area and first Back already passed. Restore the unsaved draft as Given and execute only the remaining modal/discard Back actions.'});
-   return {planId:p.id,before:saved};
+   return {planId:p.id,before:saved,modalPassed:r.assertions.some(a=>a.id==='AC093.A2.modal-back-keeps-form'&&a.status==='PASS')};
   }
   record=r.previousRecord;
  }

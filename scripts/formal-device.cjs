@@ -13,7 +13,7 @@ function candidate(){
 }
 class FormalDevice extends DeviceDriver {
  constructor(api,directory){super(api,directory);this.package=packageName;this.capabilities={'appium:autoLaunch':false};this.logPath=path.join(toolRoot,'logs/appium-4723.log');this.logStart=fs.existsSync(this.logPath)?fs.statSync(this.logPath).size:0;}
- async close(){try{await super.close();}finally{if(fs.existsSync(this.logPath))fs.writeFileSync(path.join(this.directory,'appium.log'),fs.readFileSync(this.logPath).subarray(this.logStart));}}
+ async close(){try{await super.close();}finally{if(fs.existsSync(this.logPath))fs.writeFileSync(path.join(this.directory,'appium.log'),require('./read-log-range.cjs')(this.logPath,this.logStart));}}
  execBytes(args){return execFileSync(path.join(toolRoot,'sdk/platform-tools/adb.exe'),['-s',this.serial,...args],{env,timeout:180000,windowsHide:true,maxBuffer:64*1024*1024});}
  stop(){return this.adb(['shell','am','force-stop',this.package]);}
  launch(){return this.adb(['shell','am','start','-W','-n',`${this.package}/.MainActivity`]);}

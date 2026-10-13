@@ -59,16 +59,16 @@ export function dailyItems(snapshot:Snapshot,on:string,planId?:string):CalendarI
 export function marker(items:CalendarItem[],on:string,today:string){const completed=items.filter(item=>item.completed).length,total=items.length;return {completed,total,label:on===today||total===0?'':completed===total?'✓':`${completed}/${total}`};}
 export function displayPeriod(snapshot:Snapshot,plan:Plan){const arch=archiveEvent(snapshot.facts,plan.id,snapshot.asOfMs);const until=arch?.reason==='cycle_end'?addDays(arch.effective_on,-1,snapshot.zone):arch?.effective_on||snapshot.today;const first=plan.type==='one_time'?plan.created_on:plan.starts_on;return {kind:first>until?(arch?'no_execution':'not_started'):'range',startsOn:first,until,archivedOn:arch?.effective_on};}
 export function fixedStatistics(snapshot:Snapshot,plan:Plan){
-  const period=displayPeriod(snapshot,plan);let numerator=0,denominator=0,skipCount=0,pastUnknownCount=0,currentStreak=0,maximumStreak=0,lastStage:number|undefined;
+  const stages=intervals(snapshot.facts,plan,snapshot.zone),period=displayPeriod(snapshot,plan);let numerator=0,denominator=0,skipCount=0,pastUnknownCount=0,currentStreak=0,maximumStreak=0,lastStage:number|undefined;
   if(period.kind==='range')for(const on of daysBetween(period.startsOn,period.until,snapshot.zone)){
     const record=snapshot.facts.cycle_records.find(item=>item.plan_id===plan.id&&item.business_on===on);if(!record&&!eligibleOn(snapshot.facts,plan,on,snapshot.zone))continue;
-    const stage=intervals(snapshot.facts,plan,snapshot.zone).find(item=>item.start<=dayMs(on,snapshot.zone)&&item.end>dayMs(on,snapshot.zone));
+    const stage=stages.find(item=>item.start<=dayMs(on,snapshot.zone)&&item.end>dayMs(on,snapshot.zone));
     if(lastStage!==undefined&&stage?.start!==lastStage)currentStreak=0;lastStage=stage?.start;
     if(on>snapshot.today||on===snapshot.today&&!record)continue;
     if(record?.result==='skip')skipCount++;else denominator++;
     if(record?.result==='success'){numerator++;currentStreak++;maximumStreak=Math.max(maximumStreak,currentStreak);}else {currentStreak=0;if(!record&&on<snapshot.today)pastUnknownCount++;}
   }
-  const activeStage=intervals(snapshot.facts,plan,snapshot.zone).find(item=>item.start<=snapshot.asOfMs&&item.end>snapshot.asOfMs);
+  const activeStage=stages.find(item=>item.start<=snapshot.asOfMs&&item.end>snapshot.asOfMs);
   if(status(snapshot.facts,plan.id,snapshot.asOfMs)==='paused'||activeStage&&lastStage!==undefined&&activeStage.start!==lastStage)currentStreak=0;
   return {period,numerator,denominator,rate:denominator?numerator/denominator:null,skipCount,pastUnknownCount,currentStreak,maximumStreak};
 }

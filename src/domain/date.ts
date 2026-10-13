@@ -1,16 +1,19 @@
 import { DateTime, IANAZone } from 'luxon';
 import { DomainError } from './model';
 
-export function validZone(zone: string) { return IANAZone.isValidZone(zone); }
+const zones=new Map<string,boolean>(), dates=new Map<string,DateTime>(), additions=new Map<string,string|null>();
+function remember<T>(cache:Map<string,T>,key:string,value:T,limit:number){cache.delete(key);cache.set(key,value);if(cache.size>limit)cache.delete(cache.keys().next().value!);return value;}
+export function validZone(zone: string) { const cached=zones.get(zone);return cached===undefined?remember(zones,zone,IANAZone.isValidZone(zone),32):cached; }
 export function date(value: string, zone = 'Asia/Shanghai') {
   if(!/^\d{4}-\d{2}-\d{2}$/.test(value)||!validZone(zone))throw new DomainError('VALIDATION_FAILED',{date:'请输入有效日期 YYYY-MM-DD'});
+  const key=zone+'|'+value,cached=dates.get(key);if(cached)return cached;
   const parsed=DateTime.fromISO(value,{zone}).startOf('day');
   if(!parsed.isValid||parsed.toISODate()!==value)throw new DomainError('VALIDATION_FAILED',{date:'日期不存在'});
-  return parsed;
+  return remember(dates,key,parsed,2048);
 }
 export const businessToday=(now: number,zone: string)=>DateTime.fromMillis(now,{zone}).toISODate()!;
 export const dayMs=(value: string,zone: string)=>date(value,zone).toMillis();
-export const addDays=(value: string,days: number,zone: string)=>date(value,zone).plus({days}).toISODate()!;
+export const addDays=(value: string,days: number,zone: string)=>{const parsed=date(value,zone),key=zone+'|'+value+'|'+days;if(additions.has(key))return additions.get(key)!;return remember(additions,key,parsed.plus({days}).toISODate(),4096)!;};
 export const weekday=(value: string,zone: string)=>date(value,zone).weekday;
 export const monday=(value: string,zone: string)=>addDays(value,1-weekday(value,zone),zone);
 export const nextMonday=(value: string,zone: string)=>addDays(monday(value,zone),7,zone);
