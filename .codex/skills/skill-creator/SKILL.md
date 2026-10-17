@@ -3,7 +3,7 @@ name: skill-creator
 description: Create, refactor, or review reusable Codex Skills in this repository when explicitly requested. Focus on precise triggers, concise instructions, proportionate constraints, verifiable outcomes, and real-task iteration; not ordinary app changes.
 ---
 
-# Skill Creator（项目级）
+# Skill Creator
 
 为当前仓库创建、重构或审查 Skill。目标是**让 Skill 的必要规则容易被发现、正确执行并能够验证**，而不是为每个 Skill 构建一套 Agent 运行时。
 
