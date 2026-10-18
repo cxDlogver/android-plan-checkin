@@ -36,12 +36,13 @@ id 本运行唯一。kind：source、model、question、node_audit、round、dec
 | 一个资料片段／画板 | source（读取范围、版本、证据摘要）、缓存与观察；source 单元关联来源 ID |
 | 一组能独立说明的迁移 | 同步状态、迁移、需求、UI、来源；model 单元 |
 | 未定义规则／冲突 | questions、候选与双向 affectedIds/questionIds；question 单元 |
+| 一个执行见证、来源覆盖声明或衔接处置 | semantic_audit 或 model；记录对应 witness/coverageClaim/continuationAssessment ID 和依据，语义变化先修改 revision 再 checkpoint |
 | 一个节点的十维检查 | round.checks 的证据和理由、新前沿；node_audit，entityIds 仅该节点 |
 | 一轮／有效含义变化 | 轮次、revision、变化和新队列；round 或 model 单元 |
 | 人工回答 | 原文缓存、人类来源和决定；decision 单元，先落盘再依赖它修改模型 |
 | 暂停／压缩／切换上下文 | pause，明确 pause_reason、next_action 和未完前沿 |
 
-node_audit 不能同时改模型含义；先保存修改与新 revision，再审节点。所有 node_audit 须绑定当前语义摘要与闭合轮。新增轮即使未改需求，也要重新保存该轮逐节点过程。十维完成不等于语义完备，理由由独立评审核对。
+witnesses、coverageClaims、continuationAssessments 每一项均需以 model/semantic_audit 单元记录真实创建或核对过程，不能仅在最终汇总时填写字段。node_audit 不能同时改模型含义；先保存修改与新 revision，再审节点。所有 node_audit 须绑定当前语义摘要与闭合轮。新增轮即使未改需求，也要重新保存该轮逐节点过程。十维完成不等于语义完备，理由由独立评审核对。
 
 checkpoint 将模型、状态、本步记录写入新目录，校验后原子切换 current.json；中断的未指向目录不算完成。--base 不匹配拒绝旧快照覆盖，独占锁防止正常入口同时提交。异常遗留 checkpoint.lock 时先确认没有写入进程、保存诊断后显式删除锁，不自动猜测失效。
 
