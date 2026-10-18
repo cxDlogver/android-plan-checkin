@@ -357,7 +357,7 @@ def exports(model):
                              "features": model["features"], "nodes": model["states"], "edges": model["transitions"]},
         "atomic-requirements.json": {**header, "requirements": details},
         "requirement-graph.json": {**header, "features": model["features"], "nodes": nodes, "edges": edges,
-                                  "semantics": "Structural execution adjacency; the next event and guard must still hold. Not development dependencies."},
+                                  "semantics": "Structural continuation candidates; only witnessed adjacent steps count as executable. Excluded edges remain visible as structural candidates, not runnable dependencies."},
         **{name: {**header, **data} for name, data in semantic_summary(model).items()},
         "review-log.json": {**header, "phase": model["phase"], "scope": model["scope"],
                             "questions": model["questions"], "confirmations": model["confirmations"],
