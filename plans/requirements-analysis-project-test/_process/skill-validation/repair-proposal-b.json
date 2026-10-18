@@ -1,0 +1,1465 @@
+{
+  "modelDigest": "7c91737e9d3be2bdfa70d85d9f7c79fdd5cb678a02a456eed07eee62471ce679",
+  "status": "for_parent_review",
+  "operations": [
+    {
+      "action": "merge_obligation_then_remove_transition",
+      "transitionId": "T-STATS-today-result",
+      "removeRequirementId": "R-STATS-today-result",
+      "targetRequirementId": "R-STATS-fixed",
+      "targetStateId": "STATS.fixed",
+      "assertions": [
+        {
+          "given": "固定计划历史与完成率，上下文满足：今天为合法有效日",
+          "when": "普通当日结果提交或修订成功",
+          "then": [
+            "用旧记录贡献移除、新记录贡献加入重算：成功贡献(N,D)=(1,1)，失败(0,1)，跳过(0,0)且跳过数单列",
+            "普通当日新增未提交之前不在S；修订同一业务日不增加日期数或重复分母",
+            "当日结果与日历/详情一致，但日历跳过仍在日历T中，不能共用分母",
+            "固定统计以成功日期数N和排除跳过后的候选日期数D为参数；D为零时显示“暂无可计算记录”而不显示百分比，D大于零时显示N/D和四舍五入整数百分比；跳过与未记录数单独展示",
+            "当重算后分母由零变为正数时显示计算比率；由正数变为零时显示“暂无可计算记录”且不显示百分比；仍为正数时更新比率，始终按旧贡献移除、新贡献加入计算"
+          ]
+        },
+        {
+          "given": "历史已明确为6成功/8分母，今天是合法有效日且尚未提交",
+          "when": "今天首次保存成功、失败或跳过之一",
+          "then": [
+            "成功7/9，失败6/9，跳过6/8并跳过数+1；这是该给定数据的示例"
+          ]
+        }
+      ],
+      "meaning": "聚合是实际合法提交后的状态约束，不是详情页可无事务直接触发的独立动作。合并为读取同一计划已保存数据时验证公式/变化事实；实际记录提交成功继续刷新跨页。",
+      "sourceIds": [
+        "PRD-FR17",
+        "PRD-MATRIX",
+        "UI-SPEC",
+        "PRD-FR10"
+      ]
+    },
+    {
+      "action": "merge_obligation_then_remove_transition",
+      "transitionId": "T-STATS-backfill",
+      "removeRequirementId": "R-STATS-backfill",
+      "targetRequirementId": "R-STATS-fixed",
+      "targetStateId": "STATS.fixed",
+      "assertions": [
+        {
+          "given": "固定计划历史与完成率，上下文满足：原日在既有候选分母内",
+          "when": "历史未记录补成功提交成功",
+          "then": [
+            "原分母不新增，分子+1",
+            "按所属业务日重聚合，不按提交日"
+          ]
+        }
+      ],
+      "meaning": "聚合是实际合法提交后的状态约束，不是详情页可无事务直接触发的独立动作。合并为读取同一计划已保存数据时验证公式/变化事实；实际记录提交成功继续刷新跨页。",
+      "sourceIds": [
+        "PRD-FR12",
+        "PRD-FR17",
+        "PRD-MATRIX",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "merge_obligation_then_remove_transition",
+      "transitionId": "T-STATS-weekly-record",
+      "removeRequirementId": "R-STATS-weekly-record",
+      "targetRequirementId": "R-STATS-weekly",
+      "targetStateId": "STATS.weekly",
+      "assertions": [
+        {
+          "given": "周进度与已结束完整周统计，上下文满足：同业务日唯一",
+          "when": "合法周记录提交或修订成功",
+          "then": [
+            "按记录所属业务日期和当时规则重算所属周，不把历史补记归到提交日或今天",
+            "成功业务日去重，失败和跳过不增加成功日；实际进度3/3可变4/3，进度条不超过100%",
+            "所属周未结束时更新其进度，不提前计入历史达标率或连续",
+            "所属周已结束且为完整有效周时，重算该周达标、历史达标分子及受影响的连续；完整有效已结束周分母不因每次记录提交额外增加",
+            "中途开始、结束或暂停导致的非完整周继续按既有规则排除；没有完整周时显示“暂无完整周”"
+          ]
+        }
+      ],
+      "meaning": "聚合是实际合法提交后的状态约束，不是详情页可无事务直接触发的独立动作。合并为读取同一计划已保存数据时验证公式/变化事实；实际记录提交成功继续刷新跨页。",
+      "sourceIds": [
+        "PRD-FR04",
+        "PRD-FR19",
+        "PRD-MATRIX",
+        "UI-SPEC",
+        "PRD-FR12"
+      ]
+    },
+    {
+      "action": "update",
+      "transitionId": "T-STATS-FIX-fixed-break",
+      "event": "固定有效应执行日结束后重新读取当前连续",
+      "guard": "已跨入下一业务日，刚结束的有效应执行日没有记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "fixed"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "刚结束的过去有效应执行日未记录，因此当前连续中断；非执行星期间隔不算漏做。",
+        "今天未提交时保持昨日日终值；失败/跳过已提交的中断作为读取已保存记录的统计约束，不在此边模拟提交。"
+      ],
+      "sourceIds": [
+        "PRD-FR18"
+      ],
+      "reason": "保留FR18真实时间事件；提交型结果不能绕过记录事务。"
+    },
+    {
+      "action": "update",
+      "transitionId": "T-LINK-date-choice-MANAGE-invalid",
+      "guard": "弹层来自编辑字段非法，所选日期符合该字段规则，但其他已输入字段或关联规则仍存在错误",
+      "cases": [
+        {
+          "requires": {
+            "draftOrigin": [
+              "MANAGE.invalid"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "所选日期仅更新未提交草稿；保留仍未修复字段的错误并禁止最终保存。"
+      ],
+      "sourceIds": [
+        "PRD-FR23",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-date-correct-manage",
+      "from": "DRAFT.popup",
+      "to": "MANAGE.edit",
+      "event": "选择日期并关闭日期弹层",
+      "guard": "弹层来自编辑字段非法，所选日期修正后全部字段及关联规则均合法",
+      "cases": [
+        {
+          "requires": {
+            "draftOrigin": [
+              "MANAGE.invalid"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "日期写入同一未提交草稿，所有字段错误清除；显示可继续编辑和保存的表单，尚未落盘。"
+      ],
+      "sourceIds": [
+        "PRD-FR23",
+        "UI-SPEC"
+      ],
+      "reason": "T-MANAGE-correct源节点是MANAGE.invalid，不覆盖DRAFT.popup本次选择即修复的事件。"
+    },
+    {
+      "action": "add_failed_editor_back",
+      "from": "MANAGE.failed",
+      "to": "DRAFT.ask",
+      "transitionId": "T-SEM-manage-failed-leave",
+      "event": "取消或系统返回请求离开保存失败的编辑会话",
+      "guard": "有未保存变更，键盘或弹层已关闭",
+      "cases": [
+        {
+          "set": {
+            "draftOrigin": [
+              "MANAGE.failed"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "立即显示继续编辑或放弃修改确认，失败输入和原计划都保留，尚不丢弃。"
+      ],
+      "domainExtension": {
+        "draftOrigin": {
+          "value": "MANAGE.failed",
+          "label": "编辑保存失败，输入保留"
+        }
+      },
+      "companion": {
+        "transitionId": "T-SEM-manage-failed-continue",
+        "from": "DRAFT.ask",
+        "to": "MANAGE.failed",
+        "event": "继续编辑",
+        "guard": "原编辑会话是保存失败且保留输入",
+        "cases": [
+          {
+            "requires": {
+              "draftOrigin": [
+                "MANAGE.failed"
+              ]
+            },
+            "forget": []
+          }
+        ],
+        "then": [
+          "关闭离开确认，恢复原失败提示及输入，不重复提交。"
+        ]
+      },
+      "discard": "沿已有editorReturn=detail的放弃修改到ROOT.detail；删除未提交变更，不改原计划。",
+      "sourceIds": [
+        "PRD-FR31",
+        "PRD-FR32",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-life-failed-return",
+      "from": "LIFE.failed",
+      "to": "ROOT.detail",
+      "event": "离开失败提示，返回所选计划详情",
+      "guard": "同一计划及已有数据仍可读取",
+      "cases": [
+        {
+          "forget": []
+        }
+      ],
+      "then": [
+        "显示真实原生命周期、待生效申请与历史，保留原来源；失败不冒充提交成功。"
+      ],
+      "sourceIds": [
+        "PRD-FR32",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "add_returns_by_existing_origin",
+      "from": "LIFE.terminal_today",
+      "copyFrom": "RECORD.saved",
+      "onlyEvents": [
+        "离开或刷新今日",
+        "保存后返回来源计划详情",
+        "返回来源日历"
+      ],
+      "reason": "同一已保存普通当天一次性结果，返回来源义务相同；不复制首次保存或循环修改分支。",
+      "casesConstraint": {
+        "selectedType": [
+          "one"
+        ],
+        "selectedLife": [
+          "running"
+        ],
+        "recordMode": [
+          "one_today",
+          "one_edit"
+        ]
+      },
+      "then": [
+        "保留已保存完成/失败/取消及固定业务日期，返回原记录入口；当日修改仍按原权限，返回本身不重复写入。"
+      ],
+      "sourceIds": [
+        "PRD-FR28",
+        "PRD-FR10",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "update",
+      "transitionId": "T-LIFE-cancel-pause",
+      "guard": "固定时区生效日尚未到，所选计划仍有同一待生效申请，取消申请事务完整提交成功",
+      "cases": [
+        {
+          "requires": {
+            "selectedLife": [
+              "running"
+            ],
+            "pendingChange": [
+              "pause"
+            ]
+          },
+          "set": {
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "只取消尚未生效的这一申请，沿用原实际生命周期；完整提交后才显示已取消，不改已生效历史。"
+      ],
+      "sourceIds": [
+        "PRD-FR27",
+        "PRD-FR32"
+      ]
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-cancel-pause-fail",
+      "from": "LIFE.pending_pause",
+      "to": "LIFE.failed",
+      "event": "取消待生效申请写入失败",
+      "guard": "尚未生效，取消事务没有完整提交",
+      "cases": [
+        {
+          "requires": {
+            "selectedLife": [
+              "running"
+            ],
+            "pendingChange": [
+              "pause"
+            ]
+          },
+          "set": {
+            "failedOperation": [
+              "cancel_pause"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "原申请、生效日、实际状态与全部历史保留，明确失败且可重试或返回查看；不能显示取消成功。"
+      ],
+      "domainExtension": {
+        "failedOperation": {
+          "value": "cancel_pause",
+          "label": "取消暂停申请失败"
+        }
+      },
+      "companion": {
+        "transitionId": "T-SEM-cancel-pause-retry",
+        "from": "LIFE.failed",
+        "to": "LIFE.pending_pause",
+        "event": "重试取消前重新读取申请",
+        "guard": "失败操作为取消暂停，原申请仍未生效且有效",
+        "cases": [
+          {
+            "requires": {
+              "failedOperation": [
+                "cancel_pause"
+              ],
+              "selectedLife": [
+                "running"
+              ],
+              "pendingChange": [
+                "pause"
+              ]
+            },
+            "forget": []
+          }
+        ],
+        "then": [
+          "返回原待生效申请及真实生效日；后续取消仍须事务提交成功。"
+        ]
+      },
+      "lateCase": "若重读已到生效日，沿原late-cancel规则展示实际生效状态并拒绝取消；若自然结束归档优先。",
+      "sourceIds": [
+        "PRD-FR27",
+        "PRD-FR32"
+      ]
+    },
+    {
+      "action": "update",
+      "transitionId": "T-LIFE-cancel-resume",
+      "guard": "固定时区生效日尚未到，所选计划仍有同一待生效申请，取消申请事务完整提交成功",
+      "cases": [
+        {
+          "requires": {
+            "selectedLife": [
+              "paused"
+            ],
+            "pendingChange": [
+              "resume"
+            ]
+          },
+          "set": {
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "只取消尚未生效的这一申请，沿用原实际生命周期；完整提交后才显示已取消，不改已生效历史。"
+      ],
+      "sourceIds": [
+        "PRD-FR27",
+        "PRD-FR32"
+      ]
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-cancel-resume-fail",
+      "from": "LIFE.pending_resume",
+      "to": "LIFE.failed",
+      "event": "取消待生效申请写入失败",
+      "guard": "尚未生效，取消事务没有完整提交",
+      "cases": [
+        {
+          "requires": {
+            "selectedLife": [
+              "paused"
+            ],
+            "pendingChange": [
+              "resume"
+            ]
+          },
+          "set": {
+            "failedOperation": [
+              "cancel_resume"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "原申请、生效日、实际状态与全部历史保留，明确失败且可重试或返回查看；不能显示取消成功。"
+      ],
+      "domainExtension": {
+        "failedOperation": {
+          "value": "cancel_resume",
+          "label": "取消恢复申请失败"
+        }
+      },
+      "companion": {
+        "transitionId": "T-SEM-cancel-resume-retry",
+        "from": "LIFE.failed",
+        "to": "LIFE.pending_resume",
+        "event": "重试取消前重新读取申请",
+        "guard": "失败操作为取消恢复，原申请仍未生效且有效",
+        "cases": [
+          {
+            "requires": {
+              "failedOperation": [
+                "cancel_resume"
+              ],
+              "selectedLife": [
+                "paused"
+              ],
+              "pendingChange": [
+                "resume"
+              ]
+            },
+            "forget": []
+          }
+        ],
+        "then": [
+          "返回原待生效申请及真实生效日；后续取消仍须事务提交成功。"
+        ]
+      },
+      "lateCase": "若重读已到生效日，沿原late-cancel规则展示实际生效状态并拒绝取消；若自然结束归档优先。",
+      "sourceIds": [
+        "PRD-FR27",
+        "PRD-FR32"
+      ]
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-backfill-STATS-fixed",
+      "from": "STATS.fixed",
+      "to": "RECORD.backfill",
+      "event": "选择详情历史中可补记的空日",
+      "guard": "所选计划实际运行，目标日为当前执行阶段内合法过去空日，按该日期规则具备资格且尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入同一计划、同一过去业务日的补记确认，展示保存后不可修改；进入确认页不写入。",
+        "不使用日历当前选日代替详情选中的历史日；暂停、归档、旧执行阶段或已有记录不开放新增补记。"
+      ],
+      "sourceIds": [
+        "PRD-FR12",
+        "PRD-FR16",
+        "UI-acN0e"
+      ],
+      "reason": "画板已有可补记历史空行，补齐可见入口，不新增按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-backfill-STATS-fixed_streak",
+      "from": "STATS.fixed_streak",
+      "to": "RECORD.backfill",
+      "event": "选择详情历史中可补记的空日",
+      "guard": "所选计划实际运行，目标日为当前执行阶段内合法过去空日，按该日期规则具备资格且尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入同一计划、同一过去业务日的补记确认，展示保存后不可修改；进入确认页不写入。",
+        "不使用日历当前选日代替详情选中的历史日；暂停、归档、旧执行阶段或已有记录不开放新增补记。"
+      ],
+      "sourceIds": [
+        "PRD-FR12",
+        "PRD-FR16",
+        "UI-acN0e"
+      ],
+      "reason": "画板已有可补记历史空行，补齐可见入口，不新增按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-backfill-STATS-weekly",
+      "from": "STATS.weekly",
+      "to": "RECORD.backfill",
+      "event": "选择详情历史中可补记的空日",
+      "guard": "所选计划实际运行，目标日为当前执行阶段内合法过去空日，按该日期规则具备资格且尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入同一计划、同一过去业务日的补记确认，展示保存后不可修改；进入确认页不写入。",
+        "不使用日历当前选日代替详情选中的历史日；暂停、归档、旧执行阶段或已有记录不开放新增补记。"
+      ],
+      "sourceIds": [
+        "PRD-FR12",
+        "PRD-FR16",
+        "UI-i0tdn"
+      ],
+      "reason": "画板已有可补记历史空行，补齐可见入口，不新增按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-record-today-STATS-weekly",
+      "from": "STATS.weekly",
+      "to": "RECORD.choose",
+      "event": "点击周详情的记录今天",
+      "guard": "当前为实际运行的周目标，计划业务今天在有效期和当前执行阶段内且当日尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_new"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入今天的循环结果确认，按要做/不要做展示对应结果文案并允许选择备注；最终保存前不写入。",
+        "不能把周达标或空白自动变成每日完成，已有记录应查看/修改而不是重复新增。"
+      ],
+      "sourceIds": [
+        "PRD-FR04",
+        "PRD-FR07",
+        "PRD-FR08",
+        "PRD-FR10",
+        "UI-i0tdn"
+      ],
+      "reason": "UI-i0tdn明确记录今天按钮；三种统计视图共享同一周详情，不创造按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-backfill-STATS-partial",
+      "from": "STATS.partial",
+      "to": "RECORD.backfill",
+      "event": "选择详情历史中可补记的空日",
+      "guard": "所选计划实际运行，目标日为当前执行阶段内合法过去空日，按该日期规则具备资格且尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入同一计划、同一过去业务日的补记确认，展示保存后不可修改；进入确认页不写入。",
+        "不使用日历当前选日代替详情选中的历史日；暂停、归档、旧执行阶段或已有记录不开放新增补记。"
+      ],
+      "sourceIds": [
+        "PRD-FR12",
+        "PRD-FR16",
+        "UI-i0tdn"
+      ],
+      "reason": "画板已有可补记历史空行，补齐可见入口，不新增按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-record-today-STATS-partial",
+      "from": "STATS.partial",
+      "to": "RECORD.choose",
+      "event": "点击周详情的记录今天",
+      "guard": "当前为实际运行的周目标，计划业务今天在有效期和当前执行阶段内且当日尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_new"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入今天的循环结果确认，按要做/不要做展示对应结果文案并允许选择备注；最终保存前不写入。",
+        "不能把周达标或空白自动变成每日完成，已有记录应查看/修改而不是重复新增。"
+      ],
+      "sourceIds": [
+        "PRD-FR04",
+        "PRD-FR07",
+        "PRD-FR08",
+        "PRD-FR10",
+        "UI-i0tdn"
+      ],
+      "reason": "UI-i0tdn明确记录今天按钮；三种统计视图共享同一周详情，不创造按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-backfill-STATS-week_closed",
+      "from": "STATS.week_closed",
+      "to": "RECORD.backfill",
+      "event": "选择详情历史中可补记的空日",
+      "guard": "所选计划实际运行，目标日为当前执行阶段内合法过去空日，按该日期规则具备资格且尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入同一计划、同一过去业务日的补记确认，展示保存后不可修改；进入确认页不写入。",
+        "不使用日历当前选日代替详情选中的历史日；暂停、归档、旧执行阶段或已有记录不开放新增补记。"
+      ],
+      "sourceIds": [
+        "PRD-FR12",
+        "PRD-FR16",
+        "UI-i0tdn"
+      ],
+      "reason": "画板已有可补记历史空行，补齐可见入口，不新增按钮。"
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-detail-record-today-STATS-week_closed",
+      "from": "STATS.week_closed",
+      "to": "RECORD.choose",
+      "event": "点击周详情的记录今天",
+      "guard": "当前为实际运行的周目标，计划业务今天在有效期和当前执行阶段内且当日尚无记录",
+      "cases": [
+        {
+          "requires": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "planPresence": [
+              "positive"
+            ]
+          },
+          "set": {
+            "recordMode": [
+              "cycle_new"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "detail"
+            ],
+            "editorReturn": [
+              "detail"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "进入今天的循环结果确认，按要做/不要做展示对应结果文案并允许选择备注；最终保存前不写入。",
+        "不能把周达标或空白自动变成每日完成，已有记录应查看/修改而不是重复新增。"
+      ],
+      "sourceIds": [
+        "PRD-FR04",
+        "PRD-FR07",
+        "PRD-FR08",
+        "PRD-FR10",
+        "UI-i0tdn"
+      ],
+      "reason": "UI-i0tdn明确记录今天按钮；三种统计视图共享同一周详情，不创造按钮。"
+    },
+    {
+      "action": "update",
+      "transitionId": "T-LINK-date-choice-CREATE-invalid",
+      "guard": "弹层来自新建计划信息有误，所选日期符合该字段规则，但其他字段或关联规则仍非法",
+      "cases": [
+        {
+          "requires": {
+            "draftOrigin": [
+              "CREATE.invalid"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "更新同一未提交草稿日期，保留仍未修复字段的错误，禁止最终保存。"
+      ],
+      "sourceIds": [
+        "PRD-FR02",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "add",
+      "transitionId": "T-SEM-date-correct-create",
+      "from": "DRAFT.popup",
+      "to": "CREATE.ready",
+      "event": "选择日期并关闭日期弹层",
+      "guard": "弹层来自新建计划信息有误，选择后公共字段及当前类型字段全部合法",
+      "cases": [
+        {
+          "requires": {
+            "draftOrigin": [
+              "CREATE.invalid"
+            ]
+          },
+          "forget": []
+        }
+      ],
+      "then": [
+        "日期只写入当前类型草稿，所有错误清除，最终保存尚未发生。"
+      ],
+      "sourceIds": [
+        "PRD-FR02",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "merge_obligation_then_remove_transition",
+      "transitionId": "T-TIME-on-time",
+      "targetRequirementId": "R-LINK-once-result-load-on-time",
+      "meaning": "同一已保存结果只通过详情读取进入TIME类；保存反馈按recordOrigin返回，详情视图按detailOrigin返回，避免旧来源串线。",
+      "sourceIds": [
+        "PRD-FR05",
+        "PRD-FR09",
+        "PRD-FR20",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "action": "merge_obligation_then_remove_transition",
+      "transitionId": "T-TIME-late",
+      "targetRequirementId": "R-LINK-once-result-load-late",
+      "meaning": "同一已保存结果只通过详情读取进入TIME类；保存反馈按recordOrigin返回，详情视图按detailOrigin返回，避免旧来源串线。",
+      "sourceIds": [
+        "PRD-FR05",
+        "PRD-FR09",
+        "PRD-FR20",
+        "UI-SPEC"
+      ]
+    }
+  ],
+  "notes": [
+    "纯返回日历零项/集合守恒由A统一修复，B不重复列写操作。",
+    "所有新增UI沿已有画板/文字规格，不补画板；每条新增迁移建立1:1需求并登记changes来源。",
+    "主模型由父代理统一修改；本提案不代表当前模型通过验收。",
+    "B-F08键盘可修改底层有效性问题需按当前抽象明确，不能只按打开时来源恢复合法/非法；B-F10交A的数据读取返回事实统一处理。",
+    "视觉文字/图差异见semantic-audit-b.json.visualNotes；保留PRD义务，不擅自新绘页面。"
+  ],
+  "followupOperations": [
+    {
+      "id": "B-FOLLOW-TIME",
+      "action": "merge_then_remove",
+      "transitionIds": [
+        "T-TIME-on-time",
+        "T-TIME-late"
+      ],
+      "requirementTargets": {
+        "T-TIME-on-time": "R-LINK-once-result-load-on-time",
+        "T-TIME-late": "R-LINK-once-result-load-late"
+      },
+      "reason": "保存反馈入口用recordOrigin，详情结果视图返回用detailOrigin，混合会串来源。把实际完成日比较、补报只读的断言归并到已有详情读取结果需求；已保存反馈仍沿真实来源返回。",
+      "sourceIds": [
+        "PRD-FR05",
+        "PRD-FR09",
+        "PRD-FR10",
+        "PRD-FR20",
+        "UI-SPEC"
+      ]
+    },
+    {
+      "id": "B-FOLLOW-UNAVAILABLE",
+      "action": "split_existing_with_missing",
+      "update": {
+        "transitionId": "T-MANAGE-deleted",
+        "event": "重新加载所选计划详情失败",
+        "guard": "查询或读取失败，尚不能判定计划是否存在",
+        "cases": [
+          {
+            "forget": []
+          }
+        ],
+        "then": [
+          "显示无法读取详情且不能从旧缓存保存；读取失败不等于已删除或全库无计划。"
+        ]
+      },
+      "add": {
+        "transitionId": "T-SEM-detail-confirmed-missing",
+        "from": "ROOT.detail",
+        "to": "MANAGE.unavailable",
+        "event": "重新读取确认所选计划已被删除",
+        "guard": "详情查询成功，但原计划不存在；按AT20重读来源集合及全库数量",
+        "cases": [
+          {
+            "requires": {
+              "planPresence": [
+                "positive"
+              ]
+            },
+            "set": {
+              "selectedType": [
+                "none"
+              ],
+              "selectedLife": [
+                "none"
+              ],
+              "oneOutcome": [
+                "none"
+              ],
+              "pendingChange": [
+                "none"
+              ],
+              "recordMode": [
+                "none"
+              ],
+              "recordResult": [
+                "none"
+              ]
+            },
+            "forget": [
+              "planPresence",
+              "listCount",
+              "calendarTotal",
+              "calendarFilteredCount"
+            ]
+          }
+        ],
+        "then": [
+          "明确原计划已不可用，不从旧缓存继续提交。",
+          "仅因已证实发生外部删除而重读全库和来源集合，仍保留detailOrigin、原日历日期/月份/筛选；不能把确认单项删除推断为全库零。"
+        ]
+      },
+      "addReturn": {
+        "transitionId": "T-SEM-unavailable-return-empty",
+        "from": "MANAGE.unavailable",
+        "to": "ROOT.empty",
+        "event": "返回来源今日",
+        "guard": "原来源为今日，来源数据可读取且重读后本机没有计划",
+        "cases": [
+          {
+            "requires": {
+              "detailOrigin": [
+                "today"
+              ],
+              "planPresence": [
+                "zero"
+              ]
+            },
+            "forget": []
+          }
+        ],
+        "then": [
+          "显示真实今日空态与创建入口；本次读取/导航不产生额外删除，不用旧缓存展示已删除计划。"
+        ]
+      },
+      "sourceIds": [
+        "PRD-FR22",
+        "PRD-FR01",
+        "PRD-MATRIX",
+        "UI-SPEC"
+      ],
+      "reason": "AT20明确详情打开后被删除，可能是最后计划；区分查询失败与确定不存在，只有后者允许重读事实变化。A应与返回集合守恒方案协调。"
+    },
+    {
+      "id": "B-FOLLOW-KEYBOARD",
+      "action": "track_current_underlying_form",
+      "domainDescription": {
+        "draftOrigin": "共享弹层/键盘所覆盖的当前编辑状态。未修改时等于进入前状态；在键盘内修改输入后依据当前字段校验更新，不冻结打开时合法性；DRAFT.ask继续原样恢复其确认时表单。"
+      },
+      "updateState": {
+        "id": "DRAFT.keyboard",
+        "addFacts": [
+          "键盘内输入会更新同一未提交草稿；当前底层编辑状态随字段合法性变化，关闭键盘恢复当前状态，不恢复过期的合法或非法类别。"
+        ]
+      },
+      "addTransitions": [
+        {
+          "transitionId": "T-SEM-keyboard-input-valid",
+          "from": "DRAFT.keyboard",
+          "to": "DRAFT.keyboard",
+          "event": "输入字段并完成当前表单校验",
+          "guard": "仍在同一编辑会话且所有必填、长度、类型及关联字段均符合现有规则",
+          "cases": [
+            {
+              "requires": {
+                "draftOrigin": [
+                  "CREATE.fixed",
+                  "CREATE.weekly",
+                  "CREATE.one",
+                  "CREATE.ready",
+                  "CREATE.invalid"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "CREATE.ready"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "MANAGE.edit",
+                  "MANAGE.invalid"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "MANAGE.edit"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.choose"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.invalid"
+                ],
+                "invalidOrigin": [
+                  "RECORD.choose"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "RECORD.choose"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.one"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.invalid"
+                ],
+                "invalidOrigin": [
+                  "RECORD.one"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "RECORD.one"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.backfill"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.invalid"
+                ],
+                "invalidOrigin": [
+                  "RECORD.backfill"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "RECORD.backfill"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.edit"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.invalid"
+                ],
+                "invalidOrigin": [
+                  "RECORD.edit"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "RECORD.edit"
+                ]
+              },
+              "forget": []
+            }
+          ],
+          "then": [
+            "仅更新当前未提交输入；创建表单归为可保存，计划编辑归为合法编辑，记录表单恢复原普通/补记/修订方式。",
+            "键盘保持展开且主操作可达，已消除的字段错误不保留；是否最终保存仍按实际事务和权限判断。"
+          ]
+        },
+        {
+          "transitionId": "T-SEM-keyboard-input-invalid",
+          "from": "DRAFT.keyboard",
+          "to": "DRAFT.keyboard",
+          "event": "输入字段并完成当前表单校验",
+          "guard": "同一编辑会话的任一字段违反现有必填、码点长度或关联日期规则",
+          "cases": [
+            {
+              "requires": {
+                "draftOrigin": [
+                  "CREATE.fixed",
+                  "CREATE.weekly",
+                  "CREATE.one",
+                  "CREATE.ready",
+                  "CREATE.invalid"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "CREATE.invalid"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "MANAGE.edit",
+                  "MANAGE.invalid"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "MANAGE.invalid"
+                ]
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.choose",
+                  "RECORD.one",
+                  "RECORD.backfill",
+                  "RECORD.edit"
+                ]
+              },
+              "set": {
+                "draftOrigin": [
+                  "RECORD.invalid"
+                ]
+              },
+              "setFrom": {
+                "invalidOrigin": "draftOrigin"
+              },
+              "forget": []
+            },
+            {
+              "requires": {
+                "draftOrigin": [
+                  "RECORD.invalid"
+                ]
+              },
+              "forget": []
+            }
+          ],
+          "then": [
+            "仅更新未提交输入，按字段显示明确错误且禁止最终保存；保留其余值。",
+            "键盘保持展开，记录表单保留原操作类型以便修正后恢复；关闭键盘不把非法输入还原成合法状态。"
+          ]
+        }
+      ],
+      "updateExisting": "所有DRAFT.keyboard关闭边继续依draftOrigin选目标，但guard描述改为“键盘所覆盖的当前表单状态为…”，不再声称固定打开时状态；case已由输入边更新draftOrigin，不仅改中文字。",
+      "selfLoopEvidence": {
+        "sourceRefs": [
+          {
+            "sourceId": "PRD-FR02",
+            "locator": "公共字段必填/码点长度/字段反馈与保存合法性"
+          },
+          {
+            "sourceId": "PRD-FR23",
+            "locator": "编辑字段校验与未提交草稿"
+          },
+          {
+            "sourceId": "PRD-MATRIX",
+            "locator": "§12.2键盘焦点保存可达；AT02字段边界、AT26键盘与返回"
+          }
+        ],
+        "obligation": "键盘保持展开时可编辑已有字段；错误与保存资格按当前未提交值更新，Back不能恢复旧合法性；不新增字段或业务规则。",
+        "stateReason": "键盘仍展开、同一编辑会话；未提交参数和底层当前表单类别变化由draftOrigin/invalidOrigin保存，不代表写库或跳页面。"
+      },
+      "sourceIds": [
+        "PRD-FR02",
+        "PRD-FR23",
+        "PRD-FR31",
+        "PRD-MATRIX",
+        "UI-SPEC"
+      ],
+      "reason": "这不是为控件机械补边，而是已有字段合法/非法义务在键盘显示时仍成立；明确更新实际当前分类，避免不可能的close返回。请应用前确认RECORD.invalid各invalidOrigin已存在，不扩大记录权限。"
+    },
+    {
+      "id": "B-FOLLOW-UI",
+      "action": "clarify_mapping_scope",
+      "changes": [
+        {
+          "stateIds": [
+            "LIFE.pause_confirm",
+            "LIFE.resume_confirm",
+            "LIFE.pending_pause",
+            "LIFE.pending_resume"
+          ],
+          "frameId": "QpNMQ",
+          "stateLabelSuffix": "画板只含明天文案；具体生效日期由FR24/FR25文字规定，图片仅提供布局/组件参考。"
+        },
+        {
+          "stateIds": [
+            "LIFE.delete_confirm"
+          ],
+          "frameId": "IlUYa",
+          "stateLabelSuffix": "画板未显示记录数量；记录数量为FR29文字要求，图片仅为已有删除确认布局参考。"
+        },
+        {
+          "stateIds": [
+            "STATS.one"
+          ],
+          "replaceNonTokenRefs": [
+            {
+              "sourceId": "UI-SPEC",
+              "frameId": "UIUX:§4:一次性终态",
+              "region": "结果内容及日期/提交信息的文字规格，无独立完整终态画板",
+              "stateLabel": "一次性已保存结果回顾；o7qx2G为未终结逾期，L47R3V为未提交确认，二者不能作为已保存终态的完整画板证据。"
+            }
+          ]
+        }
+      ],
+      "requirements": "同步修改以这些状态为终点的原子需求uiRefs/相关图片说明；保留PRD字段义务，不把缺画板字段删掉，也不新增画板/按钮。uiApplicability可维持mapped但必须明确映射到UI-SPEC文字及组件参考，不称像素完整覆盖。",
+      "sourceIds": [
+        "PRD-FR24",
+        "PRD-FR25",
+        "PRD-FR29",
+        "UI-QpNMQ",
+        "UI-IlUYa",
+        "UI-o7qx2G",
+        "UI-L47R3V",
+        "UI-SPEC"
+      ]
+    }
+  ],
+  "incompatibleCases": [
+    {
+      "transitionId": "T-RECORD-FIX-ordinary-correct",
+      "caseIndex": 0,
+      "from": "LIFE.terminal_today",
+      "requiredType": [
+        "fixed",
+        "weekly"
+      ],
+      "actualStateTypes": [
+        "one"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-STATS-fixed-RECORD-FIX-detail-history",
+      "caseIndex": 1,
+      "from": "STATS.fixed",
+      "requiredType": [
+        "one"
+      ],
+      "actualStateTypes": [
+        "fixed"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-STATS-fixed_streak-RECORD-FIX-detail-history",
+      "caseIndex": 1,
+      "from": "STATS.fixed_streak",
+      "requiredType": [
+        "one"
+      ],
+      "actualStateTypes": [
+        "fixed"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-STATS-weekly-RECORD-FIX-detail-history",
+      "caseIndex": 1,
+      "from": "STATS.weekly",
+      "requiredType": [
+        "one"
+      ],
+      "actualStateTypes": [
+        "weekly"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-STATS-partial-RECORD-FIX-detail-history",
+      "caseIndex": 1,
+      "from": "STATS.partial",
+      "requiredType": [
+        "one"
+      ],
+      "actualStateTypes": [
+        "weekly"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-STATS-week_closed-RECORD-FIX-detail-history",
+      "caseIndex": 1,
+      "from": "STATS.week_closed",
+      "requiredType": [
+        "one"
+      ],
+      "actualStateTypes": [
+        "weekly"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-STATS-one-RECORD-FIX-detail-history",
+      "caseIndex": 0,
+      "from": "STATS.one",
+      "requiredType": [
+        "fixed",
+        "weekly"
+      ],
+      "actualStateTypes": [
+        "one"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-TIME-on_time-RECORD-FIX-detail-history",
+      "caseIndex": 0,
+      "from": "TIME.on_time",
+      "requiredType": [
+        "fixed",
+        "weekly"
+      ],
+      "actualStateTypes": [
+        "one"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-TIME-late-RECORD-FIX-detail-history",
+      "caseIndex": 0,
+      "from": "TIME.late",
+      "requiredType": [
+        "fixed",
+        "weekly"
+      ],
+      "actualStateTypes": [
+        "one"
+      ]
+    }
+  ],
+  "incompatibleCasesNote": "caseIndex为0起算，仅删除该case，不删除本边其他合法类型分支；来源类型由状态事实及真实入边确定，不放宽状态事实。"
+}

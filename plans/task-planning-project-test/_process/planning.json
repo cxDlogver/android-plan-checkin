@@ -1,0 +1,1283 @@
+{
+  "phase": "planning",
+  "outputs": {
+    "test-plan.json": "后续结构化消费",
+    "test-cases.md": "测试步骤及预期",
+    "implementation-plan.md": "开发计划",
+    "review.html": "人工图形审查",
+    "gate-result.json": "当前门禁"
+  },
+  "scope": {
+    "objective": "基于现有需求图一一建立主测试图，并复用需求审查HTML新增测试视图；保留已有代码开发计划。",
+    "excluded": [
+      "本轮不修改应用代码",
+      "不执行产品浏览器或模拟器验收",
+      "不新增延期功能",
+      "不指定四天排期",
+      "本轮暂不纳入回归测试"
+    ],
+    "initialConfirmation": {
+      "source": "current-conversation",
+      "humanReply": "重新生成，先不考虑回归问题，直接在需求图的基础上建立测试图，html复用需求的html内容，在此基础上新增测试图",
+      "context": "沿用开发仅静态和必要单测、完成开发后完整验收的已确认边界。"
+    }
+  },
+  "inputs": [
+    {
+      "role": "analysisModel",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/plans/requirements-analysis-project-test/analysis-model.json",
+      "sha256": "8671cb237d90ecb95da3f4fb729965a0573c5478537135abe269e39926b759a1",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "stateGraph",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/plans/requirements-analysis-project-test/state-graph.json",
+      "sha256": "41fd4461b0737952c7c87c98031802741a9faefae82e6de9a0b4162da146c5ed",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "requirements",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/plans/requirements-analysis-project-test/atomic-requirements.json",
+      "sha256": "3b85ef47d399926c48a18b5c012276f47b7274833d3b69543387c4dace6df038",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "requirementGraph",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/plans/requirements-analysis-project-test/requirement-graph.json",
+      "sha256": "04ecc68b0c5b43e7bc99424dcf554033c512047dd41934dba491e092727ef625",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "prd",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/设计需求文档-计划打卡-Android-v1.md",
+      "sha256": "691ecb2102ca58693092e5a310477e3aa06c85cf1a8ff723afd73db5cccbd062",
+      "readRanges": [
+        "§1–6、§12–13；FR01/02/03，其余功能读取上游逐条来源与原子断言，实施前核对原文"
+      ]
+    },
+    {
+      "role": "uiSpec",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/UIUX-计划打卡-Android-v1.md",
+      "sha256": "ee01440b93c6fe19fc90665986aef9b567fed033e4d1c0e53360a9ff9dc4e495",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "tokens",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/design-tokens.json",
+      "sha256": "26e7b9955d226f05e7028c03ccdd5fe30ae31190fa9bb828679247d997049fae",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "pageMap",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/page-map.json",
+      "sha256": "7322a7db56ccbfb961d661783aaa3f77d35aa44c0a798a27f260bcd7554a0547",
+      "readRanges": [
+        "当前结构化数据或文档"
+      ]
+    },
+    {
+      "role": "requirementsReview",
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/plans/requirements-analysis-project-test/review.html",
+      "sha256": "feefab8feb86011eac8c9931a0b8ecfc2f99535048696d3fc03538d6222120ab",
+      "readRanges": [
+        "内嵌需求与图数据、Canvas脚本和原布局"
+      ]
+    }
+  ],
+  "repository": {
+    "root": "F:/CX_notes/cx-learn-notes/android-plan-checkin",
+    "exists": true,
+    "codeRoots": [
+      "app",
+      "src",
+      "tests",
+      "package.json",
+      "pnpm-lock.yaml",
+      "tsconfig.json",
+      "tsconfig.node.json",
+      "app.config.ts",
+      "metro.config.js"
+    ],
+    "evidence": [
+      {
+        "path": "package.json",
+        "sha256": "1515d6b423e38d84dfee54588437af46c3661532cff51fe21447bff2b900cdf4",
+        "lines": "全部",
+        "finding": "已有 typecheck/test:domain；旧结果不作为本轮通过。"
+      },
+      {
+        "path": "src/domain/model.ts",
+        "sha256": "2cadcc006ecb37e6d1e8f0b916256b525df41722fa4aa40575438a9e087b0a32",
+        "lines": "全部",
+        "finding": "三种计划、命令及数据库事实模型已存在。"
+      },
+      {
+        "path": "src/domain/commands.ts",
+        "sha256": "4e414948b65edf29bb6736af181b1a2c876c3f168b635f5f535302c7c37b515c",
+        "lines": "schema及命令/回执入口",
+        "finding": "已有字段校验、命令和回执；UI 补齐不要求重写规则。"
+      },
+      {
+        "path": "src/domain/date.ts",
+        "sha256": "3b32abcff83ff0e03cb4c0ba33a32770eee26790a374ec71577977c690332f05",
+        "lines": "全部",
+        "finding": "固定时区、业务日期、周起点和42格月份投影。"
+      },
+      {
+        "path": "src/application/service.ts",
+        "sha256": "db9165efbe0e40d42b2f0c6113cb582a44ad8193ad4fd3fd9caf87a0e9fea5ef",
+        "lines": "全部",
+        "finding": "事务与回执共用；保存反馈需保留真实提交与读取顺序。"
+      },
+      {
+        "path": "src/application/projections.ts",
+        "sha256": "76e83f2722dfd00fc3541bdba86711ca7f712bd4546c345861258356aba96b4a",
+        "lines": "全部",
+        "finding": "游标依赖日期/时区/revision；缓存按身份和事实引用失效。"
+      },
+      {
+        "path": "src/state/AppProvider.tsx",
+        "sha256": "a652fc94df6454ba45fd33ff5b2d1b93c9b15d5bbda9d6ad322cd654b9921654",
+        "lines": "全部",
+        "finding": "请求序号防旧快照覆盖；持久读错误阻断；跨日/前台刷新已有。"
+      },
+      {
+        "path": "src/ui/metal.tsx",
+        "sha256": "3aa96a76b3e18622d40fba5e297b5dd3664b7bdbb4c7fad7bac824c81e8be16e",
+        "lines": "全部",
+        "finding": "共享组件影响全部页面及48dp、大字号、键盘与Back。"
+      },
+      {
+        "path": "src/features/calendar.tsx",
+        "sha256": "a0a7fff912af7cbd494f94028354390bcf3c14c0844ec25f2ac98da8ea3bfe85",
+        "lines": "全部",
+        "finding": "切月保留选中日和明细；选日重置筛选，符合人工确认。"
+      },
+      {
+        "path": "src/features/plan-form.tsx",
+        "sha256": "3376d44f0955e2ed120ff4ecf765b35cef52358b4dda2a30c3138497197ac056",
+        "lines": "全部",
+        "finding": "类型切换提示已有；保存禁用只判断busy与固定星期为空，其余必填主要提交后校验。"
+      },
+      {
+        "path": "src/features/record-form.tsx",
+        "sha256": "6098b3eb174c27f3436be26dfcedb6be170da73cffe456abc2378d0e5a3b7650",
+        "lines": "全部",
+        "finding": "确认、修订、补记、跨日已有；成功直接返回，未见统一已保存到本机反馈。"
+      },
+      {
+        "path": "src/features/draft.ts",
+        "sha256": "cac740799c3f21b6d6a1b4e21a272f4cf7d85f0f2962df13b1f3c7072777dcd6",
+        "lines": "全部",
+        "finding": "dirty/busy、弹窗防重入和确认后放行。"
+      },
+      {
+        "path": "src/features/today.tsx",
+        "sha256": "49513b025a3207a14fd727810b03a89e56d7e78591e94c2173ad10b2dfe455e2",
+        "lines": "全部",
+        "finding": "四分区与返回pin已有；真空态和今日无执行项共用Empty，需核对文案。"
+      },
+      {
+        "path": "src/features/plans.tsx",
+        "sha256": "a9d90b1c3be83667f323828f2bf90793505a653ad2a48b6bb2d1ee89febe027e",
+        "lines": "全部",
+        "finding": "筛选、分页和revision重置已有，需防漏项重复。"
+      },
+      {
+        "path": "src/features/plan-detail.tsx",
+        "sha256": "397941db6e6f0c43305314ddff8e32d2772d2bf2def8c28ae71201e5d902e127",
+        "lines": "全部",
+        "finding": "历史分页、统计、规则和两次删除确认已有。"
+      },
+      {
+        "path": "src/features/settings.tsx",
+        "sha256": "c4a7013dba704b559005dec21779afcddc48a5dd73770e982298ff7d35ca72cd",
+        "lines": "全部",
+        "finding": "本机版本/时区与数据说明已有；延期功能属于范围约束。"
+      },
+      {
+        "path": "src/features/shared.tsx",
+        "sha256": "83770c0b34c06226e10b597cab7c964a2f5db0a7ed06a6c24b4ed15f8b405da2",
+        "lines": "全部",
+        "finding": "PlanCard与结果文案/颜色跨页面复用。"
+      },
+      {
+        "path": "tests/domain/projections.test.ts",
+        "sha256": "66d1782c19f37fc127341e4f7c965c384eb791ac904567385be3e7e2017058f2",
+        "lines": "全部",
+        "finding": "稳定分页、缓存失效、42格及历史分页单测可复用。"
+      },
+      {
+        "path": "tests/domain/bdd-validation.test.ts",
+        "sha256": "056161438597faf24a6a2448feed3c7bf317af6f33f20a70ae7ccf7ad877db2f",
+        "lines": "测试及边界断言",
+        "finding": "Unicode、换行、mask、周目标边界已有。"
+      },
+      {
+        "path": "tests/domain/bdd-service-rules.test.ts",
+        "sha256": "8de137e31873e70a219fec7c33f5ebf32994b13e687fc2e2aa7414557a5a775d",
+        "lines": "全部",
+        "finding": "周规则替换、统计、一次性冻结截止测试已有。"
+      },
+      {
+        "path": "tests/integration/database.test.ts",
+        "sha256": "580cebd49f8288535767c206814149f9d1dab6a2804ef4509aced74578576402",
+        "lines": "全部",
+        "finding": "SQLite事务回滚/回执/升级测试放最终验收，不冒充开发单测。"
+      },
+      {
+        "path": "src/infrastructure/database/executor.ts",
+        "sha256": "8752b4ee196c34b517fe2657a1e48eabb05098c1b1ba4cdda4c7c033e1389839",
+        "lines": "全部",
+        "finding": "单连接队列、事务和外键检查；本轮UI计划不改schema。"
+      },
+      {
+        "path": "scripts/p1.cjs",
+        "sha256": "3cf1a13513a07126f90a5624176704576f311a7b3b754ee0580054de175abf01",
+        "lines": "检查入口声明",
+        "finding": "旧流程会写历史progress；本轮仅调查，不调用旧证据归档。"
+      }
+    ]
+  },
+  "issues": [
+    {
+      "id": "upstream",
+      "title": "上游需求分析尚未正式验收",
+      "source": "requirements-analysis-project-test/gate-result.json",
+      "impact": "可作为规划草案，不能直接成为正式开发基线。",
+      "resolution": null
+    },
+    {
+      "id": "fixtures",
+      "title": "逐段数据、时钟、故障与恢复操作待具体化",
+      "source": "状态迁移的自然语言守卫及有限域抽象",
+      "impact": "有限域路线不是已经准备好的可执行夹具；系统事件不能冒充可点击按钮。",
+      "resolution": null
+    },
+    {
+      "id": "matrix",
+      "title": "设备矩阵与共享视觉需要映射到验收实例",
+      "source": "PRD §12.2、UIUX §2/4",
+      "impact": "标准情景不能代表API29/36、360/393dp与100/200%全部组合。",
+      "resolution": null
+    },
+    {
+      "id": "ui-observation",
+      "title": "审查 HTML 尚无真实浏览器观察证据",
+      "source": "当前浏览器本地文件访问受限",
+      "impact": "只验证嵌入数据与模拟Canvas，不声称目测通过。",
+      "resolution": null
+    }
+  ],
+  "tasks": [
+    {
+      "id": "shared",
+      "title": "共享视觉与交互组件",
+      "codePaths": [
+        "src/ui/metal.tsx",
+        "src/features/shared.tsx"
+      ],
+      "dependsOn": [],
+      "approach": [
+        "按设计令牌核对字号、渐变、低圆角、边距与状态符号；组件保持48dp命中和字号缩放",
+        "复用现有 Metal/Button/Field/DateField，不改变组件消费者的事件和数据契约"
+      ],
+      "doneWhen": [
+        "公共组件覆盖23画板使用的视觉样式；新增差异有明确UI来源",
+        "不移除可访问名称、禁用状态、日期边界与原导航事件"
+      ],
+      "requirementIds": [],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "boot",
+      "title": "启动、今日与导航",
+      "codePaths": [
+        "src/state/AppProvider.tsx",
+        "src/features/today.tsx",
+        "src/features/settings.tsx",
+        "app/(tabs)/_layout.tsx"
+      ],
+      "dependsOn": [
+        "shared"
+      ],
+      "approach": [
+        "区分真实零计划和今日无可执行项，按PRD还原入口与文案",
+        "保持读取中/错误阻断、请求序号防乱序、来源返回和今日pin"
+      ],
+      "doneWhen": [
+        "启动/读取失败/今日空态具有不同呈现；不预置样例计划",
+        "设置延期能力仅作为范围限制，无新增不可用入口"
+      ],
+      "requirementIds": [
+        "R-BOOT-empty",
+        "R-BOOT-data",
+        "R-BOOT-read-fail",
+        "R-BOOT-migrate-fail",
+        "R-BOOT-retry",
+        "R-BOOT-reopen",
+        "R-NAV-calendar",
+        "R-NAV-plans",
+        "R-NAV-settings",
+        "R-NAV-settings-back",
+        "R-NAV-detail-today",
+        "R-NAV-detail-list",
+        "R-NAV-detail-calendar",
+        "R-NAV-return-calendar",
+        "R-NAV-return-list",
+        "R-NAV-return-today",
+        "R-COVER-detail-filtered",
+        "R-COVER-tab-CAL-all-ROOT-empty",
+        "R-COVER-tab-ROOT-plans-ROOT-empty",
+        "R-COVER-tab-today-data-ROOT-plans",
+        "R-COVER-tab-today-empty-ROOT-plans",
+        "R-COVER-tab-CAL-all-ROOT-plans",
+        "R-COVER-tab-today-data-MANAGE-list_empty",
+        "R-COVER-tab-today-empty-MANAGE-list_empty",
+        "R-COVER-tab-CAL-all-MANAGE-list_empty",
+        "R-COVER-tab-ROOT-plans-MANAGE-list_empty",
+        "R-COVER-tab-today-data-CAL-all",
+        "R-COVER-tab-ROOT-plans-CAL-all",
+        "R-COVER-tab-today-data-CAL-filtered",
+        "R-COVER-tab-ROOT-plans-CAL-filtered",
+        "R-COVER-tab-today-data-CAL-no_items",
+        "R-COVER-tab-today-empty-CAL-no_items",
+        "R-COVER-tab-ROOT-plans-CAL-no_items",
+        "R-COVER-tab-today-data-CAL-no_matches",
+        "R-COVER-tab-ROOT-plans-CAL-no_matches",
+        "R-COVER-tab-today-data-CAL-future",
+        "R-COVER-tab-ROOT-plans-CAL-future",
+        "R-COVER-settings-empty",
+        "R-COVER-STATS-fixed-NAV-return-calendar",
+        "R-COVER-STATS-fixed-NAV-return-list",
+        "R-COVER-STATS-fixed-NAV-return-today",
+        "R-COVER-STATS-fixed_streak-NAV-return-calendar",
+        "R-COVER-STATS-fixed_streak-NAV-return-list",
+        "R-COVER-STATS-fixed_streak-NAV-return-today",
+        "R-COVER-STATS-weekly-NAV-return-calendar",
+        "R-COVER-STATS-weekly-NAV-return-list",
+        "R-COVER-STATS-weekly-NAV-return-today",
+        "R-COVER-STATS-partial-NAV-return-calendar",
+        "R-COVER-STATS-partial-NAV-return-list",
+        "R-COVER-STATS-partial-NAV-return-today",
+        "R-COVER-STATS-week_closed-NAV-return-calendar",
+        "R-COVER-STATS-week_closed-NAV-return-list",
+        "R-COVER-STATS-week_closed-NAV-return-today",
+        "R-COVER-STATS-one-NAV-return-calendar",
+        "R-COVER-STATS-one-NAV-return-list",
+        "R-COVER-STATS-one-NAV-return-today",
+        "R-COVER-TIME-on_time-NAV-return-calendar",
+        "R-COVER-TIME-on_time-NAV-return-list",
+        "R-COVER-TIME-on_time-NAV-return-today",
+        "R-COVER-TIME-late-NAV-return-calendar",
+        "R-COVER-TIME-late-NAV-return-list",
+        "R-COVER-TIME-late-NAV-return-today",
+        "R-LINK-return-NAV-return-calendar-zero",
+        "R-LINK-return-NAV-return-calendar-filtered",
+        "R-LINK-return-NAV-return-calendar-nomatches",
+        "R-LINK-return-NAV-return-calendar-future",
+        "R-LINK-settings-back-empty",
+        "R-SEM-detail-confirmed-missing"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "create",
+      "title": "创建与编辑表单",
+      "codePaths": [
+        "src/features/plan-form.tsx",
+        "src/domain/commands.ts"
+      ],
+      "dependsOn": [
+        "shared"
+      ],
+      "approach": [
+        "提取或复用同一合法性规则，在输入变化后计算保存资格；避免按钮规则与提交校验分叉",
+        "保留切类型确认、公共字段、Unicode长度、规则待生效初值；业务规则已有则不重写"
+      ],
+      "doneWhen": [
+        "空名称、非法N、非法日期、未选星期均不能最终保存",
+        "待生效字段与未改变字段不会相互覆盖，错误贴近字段且可朗读"
+      ],
+      "requirementIds": [
+        "R-CREATE-open-empty",
+        "R-CREATE-open-list",
+        "R-CREATE-weekly",
+        "R-CREATE-one",
+        "R-CREATE-switch-ask",
+        "R-CREATE-switch-confirm",
+        "R-CREATE-valid-fixed",
+        "R-CREATE-valid-weekly",
+        "R-CREATE-valid-one",
+        "R-CREATE-invalid",
+        "R-CREATE-correct",
+        "R-CREATE-save",
+        "R-CREATE-ok",
+        "R-CREATE-error",
+        "R-CREATE-retry",
+        "R-CREATE-FIX-cancel-switch",
+        "R-CREATE-FIX-weekly-switch",
+        "R-CREATE-FIX-one-switch",
+        "R-CREATE-FIX-invalid-submit",
+        "R-CREATE-FIX-continue",
+        "R-COVER-create-list-empty",
+        "R-COVER-type-confirm-fixed",
+        "R-COVER-type-confirm-weekly",
+        "R-COVER-type-direct-weekly-fixed",
+        "R-COVER-type-direct-weekly-one",
+        "R-COVER-type-confirm-one",
+        "R-COVER-type-direct-one-fixed",
+        "R-COVER-type-direct-one-weekly",
+        "R-COVER-type-direct-ready-fixed",
+        "R-COVER-type-direct-ready-weekly",
+        "R-COVER-type-direct-ready-one",
+        "R-COVER-type-confirm-invalid",
+        "R-COVER-type-direct-invalid-fixed",
+        "R-COVER-type-direct-invalid-weekly",
+        "R-COVER-type-direct-invalid-one",
+        "R-COVER-cancel-type-fixed",
+        "R-COVER-cancel-type-weekly",
+        "R-COVER-cancel-type-one",
+        "R-COVER-cancel-type-invalid",
+        "R-LINK-create-initial-error-fixed",
+        "R-LINK-create-initial-error-weekly",
+        "R-LINK-create-initial-error-one",
+        "R-LINK-create-failed-invalid",
+        "R-SEM-clean-CREATE-fixed-ROOT-plans",
+        "R-SEM-clean-CREATE-fixed-ROOT-empty"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        },
+        {
+          "id": "domain",
+          "kind": "unit",
+          "command": "pnpm test:domain",
+          "reason": "复用现有纯规则/投影边界单测，保护本任务受影响行为。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "record",
+      "title": "记录确认与保存反馈",
+      "codePaths": [
+        "src/features/record-form.tsx",
+        "src/state/AppProvider.tsx",
+        "src/features/today.tsx",
+        "src/features/calendar.tsx"
+      ],
+      "dependsOn": [
+        "shared",
+        "create"
+      ],
+      "approach": [
+        "在真实事务成功与来源页刷新后提供已保存到本机反馈；失败不显示成功",
+        "保留冻结信封重试、当日修改、补记立即只读、跨日重新确认与保存中禁用"
+      ],
+      "doneWhen": [
+        "成功反馈可在原来源页看到；取消不落盘",
+        "失败保留输入，重复提交不重复创建，跨日不静默转补记"
+      ],
+      "requirementIds": [
+        "R-RECORD-do",
+        "R-RECORD-avoid",
+        "R-RECORD-one",
+        "R-RECORD-select",
+        "R-RECORD-normal-save",
+        "R-RECORD-one-save",
+        "R-RECORD-backfill-open",
+        "R-RECORD-backfill-save",
+        "R-RECORD-edit-open",
+        "R-RECORD-edit-save",
+        "R-RECORD-commit-normal",
+        "R-RECORD-commit-backfill",
+        "R-RECORD-fail",
+        "R-RECORD-retry",
+        "R-RECORD-repeat",
+        "R-RECORD-new-day",
+        "R-RECORD-one-new-day",
+        "R-RECORD-reconfirm",
+        "R-RECORD-reject-reconfirm",
+        "R-RECORD-one-reset",
+        "R-RECORD-edit-new-day",
+        "R-RECORD-existing",
+        "R-RECORD-conflict-edit",
+        "R-RECORD-conflict-read",
+        "R-RECORD-history",
+        "R-RECORD-reject-date",
+        "R-RECORD-return-calendar",
+        "R-RECORD-refresh-today",
+        "R-RECORD-FIX-lost-permission",
+        "R-RECORD-FIX-conflict-saving",
+        "R-RECORD-FIX-one-invalid",
+        "R-RECORD-FIX-detail-history",
+        "R-RECORD-FIX-ordinary-correct",
+        "R-RECORD-FIX-saved-retry",
+        "R-REPAIR-invalid-note-normal",
+        "R-REPAIR-invalid-note-backfill",
+        "R-REPAIR-invalid-note-edit",
+        "R-REPAIR-correct-input-normal",
+        "R-REPAIR-correct-input-one",
+        "R-REPAIR-correct-input-backfill",
+        "R-REPAIR-correct-input-edit",
+        "R-COVER-backfill-filtered",
+        "R-COVER-backfill-no_items",
+        "R-COVER-backfill-no_matches",
+        "R-COVER-history-filtered",
+        "R-COVER-STATS-fixed-RECORD-FIX-detail-history",
+        "R-COVER-STATS-fixed_streak-RECORD-FIX-detail-history",
+        "R-COVER-STATS-weekly-RECORD-FIX-detail-history",
+        "R-COVER-STATS-partial-RECORD-FIX-detail-history",
+        "R-COVER-STATS-week_closed-RECORD-FIX-detail-history",
+        "R-COVER-STATS-one-RECORD-FIX-detail-history",
+        "R-COVER-TIME-on_time-RECORD-FIX-detail-history",
+        "R-COVER-TIME-late-RECORD-FIX-detail-history",
+        "R-LINK-ordinary-edit-ROOT-today",
+        "R-LINK-ordinary-edit-CAL-all",
+        "R-LINK-ordinary-edit-CAL-filtered",
+        "R-LINK-ordinary-edit-ROOT-detail",
+        "R-LINK-readonly-return-detail",
+        "R-LINK-saved-return-detail",
+        "R-LINK-record-failed-continue-cycle",
+        "R-LINK-record-failed-continue-one",
+        "R-LINK-record-failed-continue-backfill",
+        "R-LINK-record-failed-continue-edit",
+        "R-LINK-return-RECORD-return-calendar-zero",
+        "R-LINK-return-RECORD-return-calendar-filtered",
+        "R-LINK-return-RECORD-return-calendar-nomatches",
+        "R-LINK-saved-calendar-all",
+        "R-LINK-saved-calendar-filtered",
+        "R-LINK-saved-calendar-nomatches",
+        "R-LINK-error-return-today-RECORD-ineligible",
+        "R-LINK-ineligible-return-detail",
+        "R-LINK-error-return-RECORD-ineligible-cal-all",
+        "R-LINK-error-return-RECORD-ineligible-cal-zero",
+        "R-LINK-error-return-RECORD-ineligible-cal-filtered",
+        "R-LINK-error-return-RECORD-ineligible-cal-nomatches",
+        "R-LINK-record-failed-invalid-cycle",
+        "R-LINK-record-failed-invalid-one",
+        "R-LINK-record-failed-invalid-backfill",
+        "R-LINK-record-failed-invalid-edit",
+        "R-LINK-record-failed-ineligible",
+        "R-LINK-record-failed-day-changed",
+        "R-SEM-clean-RECORD-edit-ROOT-today",
+        "R-SEM-clean-RECORD-edit-CAL-all",
+        "R-SEM-clean-RECORD-edit-ROOT-detail",
+        "R-SEM-clean-RECORD-edit-CAL-filtered",
+        "R-SEM-day-changed-leave",
+        "R-SEM-record-edit-archived"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "calendar",
+      "title": "日历、筛选与回看",
+      "codePaths": [
+        "src/features/calendar.tsx",
+        "src/application/projections.ts",
+        "src/ui/metal.tsx"
+      ],
+      "dependsOn": [
+        "shared",
+        "record"
+      ],
+      "approach": [
+        "保留已确认切月只浏览月份，不改变原选中日与明细",
+        "按UI核对今天/选中独立、未来只读、金色分数、七列对齐；优先复用现有月投影"
+      ],
+      "doneWhen": [
+        "全量集合计算日历分母，筛选仅改明细；切日重置，记录返回保留",
+        "大字号不得截断分数或降低48dp命中；不得引入缓存过期或重复分页"
+      ],
+      "requirementIds": [
+        "R-CAL-date",
+        "R-CAL-month",
+        "R-CAL-today",
+        "R-CAL-future",
+        "R-CAL-zero",
+        "R-CAL-expand",
+        "R-CAL-expand-filtered",
+        "R-CAL-apply",
+        "R-CAL-empty",
+        "R-CAL-close",
+        "R-CAL-reset",
+        "R-CAL-time-change",
+        "R-CAL-FIX-cancel-filtered",
+        "R-CAL-FIX-switch-from-filter",
+        "R-CAL-FIX-from-future",
+        "R-CAL-FIX-from-zero",
+        "R-REPAIR-today-positive-all",
+        "R-REPAIR-today-zero-all",
+        "R-REPAIR-month-filtered",
+        "R-REPAIR-today-zero-filtered",
+        "R-REPAIR-new-zero-filtered",
+        "R-REPAIR-new-future-filtered",
+        "R-REPAIR-month-no_items",
+        "R-REPAIR-today-positive-no_items",
+        "R-REPAIR-today-zero-no_items",
+        "R-REPAIR-new-zero-no_items",
+        "R-REPAIR-new-future-no_items",
+        "R-REPAIR-month-no_matches",
+        "R-REPAIR-today-positive-no_matches",
+        "R-REPAIR-today-zero-no_matches",
+        "R-REPAIR-new-zero-no_matches",
+        "R-REPAIR-new-future-no_matches",
+        "R-REPAIR-new-positive-no_matches",
+        "R-REPAIR-month-future",
+        "R-REPAIR-today-positive-future",
+        "R-REPAIR-today-zero-future",
+        "R-REPAIR-new-zero-future",
+        "R-REPAIR-new-future-future",
+        "R-LINK-calendar-entry-zero-NAV-calendar",
+        "R-LINK-calendar-entry-zero-COVER-tab-CAL-all-ROOT-plans",
+        "R-LINK-calendar-entry-zero-COVER-tab-CAL-all-MANAGE-list_empty",
+        "R-LINK-filter-open-no_matches",
+        "R-LINK-filter-open-future",
+        "R-LINK-filter-all-nonempty",
+        "R-LINK-filter-all-empty",
+        "R-LINK-filter-all-future",
+        "R-LINK-filter-close-nomatches",
+        "R-LINK-filter-close-future",
+        "R-LINK-reset-filter-future",
+        "R-LINK-future-plan-detail",
+        "R-CAL-zero-filter-open",
+        "R-CAL-zero-filter-select",
+        "R-CAL-zero-filter-close",
+        "R-CAL-record-today-all",
+        "R-CAL-record-today-filtered"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        },
+        {
+          "id": "domain",
+          "kind": "unit",
+          "command": "pnpm test:domain",
+          "reason": "复用现有纯规则/投影边界单测，保护本任务受影响行为。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "manage",
+      "title": "详情、列表与生命周期",
+      "codePaths": [
+        "src/features/plans.tsx",
+        "src/features/plan-detail.tsx",
+        "src/application/projections.ts"
+      ],
+      "dependsOn": [
+        "shared",
+        "create",
+        "record"
+      ],
+      "approach": [
+        "复用已有运行/暂停/归档、待生效取消和两阶段删除；按需求逐项核对呈现",
+        "不通过视觉调整改变归档优先级、历史只读或分页身份"
+      ],
+      "doneWhen": [
+        "取消/删除确认和失败反馈有来源明确文案；历史数据不被视觉任务改写",
+        "游标分页不漏项不重复；永久删除后不能显示旧详情"
+      ],
+      "requirementIds": [
+        "R-MANAGE-filter",
+        "R-MANAGE-empty",
+        "R-MANAGE-reset",
+        "R-MANAGE-edit",
+        "R-MANAGE-invalid",
+        "R-MANAGE-correct",
+        "R-MANAGE-save",
+        "R-MANAGE-unchanged",
+        "R-MANAGE-success",
+        "R-MANAGE-rule-effective",
+        "R-MANAGE-fail",
+        "R-MANAGE-retry",
+        "R-MANAGE-deleted",
+        "R-LIFE-open",
+        "R-LIFE-pause-dialog",
+        "R-LIFE-pause-submit",
+        "R-LIFE-pause-cancel",
+        "R-LIFE-cancel-pause",
+        "R-LIFE-pause-effective",
+        "R-LIFE-repeat-pause",
+        "R-LIFE-resume-dialog",
+        "R-LIFE-resume-submit",
+        "R-LIFE-resume-cancel",
+        "R-LIFE-cancel-resume",
+        "R-LIFE-resume-effective",
+        "R-LIFE-archive-open",
+        "R-LIFE-archive-submit",
+        "R-LIFE-archive-cancel",
+        "R-LIFE-archive-fail",
+        "R-LIFE-end-date",
+        "R-LIFE-terminal",
+        "R-LIFE-terminal-nextday",
+        "R-LIFE-historical-terminal",
+        "R-LIFE-delete-dialog",
+        "R-LIFE-delete-cancel",
+        "R-LIFE-delete-success",
+        "R-LIFE-delete-fail",
+        "R-LIFE-FIX-late-cancel-pause",
+        "R-LIFE-FIX-late-cancel-resume",
+        "R-LIFE-FIX-pause-write-fail",
+        "R-LIFE-FIX-resume-write-fail",
+        "R-LIFE-FIX-retry-archive",
+        "R-LIFE-FIX-retry-delete",
+        "R-LIFE-FIX-retry-pause",
+        "R-LIFE-FIX-retry-resume",
+        "R-LIFE-FIX-archive-paused",
+        "R-LIFE-FIX-archive-pause-pending",
+        "R-LIFE-FIX-archive-resume-pending",
+        "R-COVER-STATS-fixed-LIFE-archive-open",
+        "R-COVER-STATS-fixed-MANAGE-edit",
+        "R-COVER-STATS-fixed-lifecycle",
+        "R-COVER-STATS-fixed_streak-LIFE-archive-open",
+        "R-COVER-STATS-fixed_streak-MANAGE-edit",
+        "R-COVER-STATS-fixed_streak-lifecycle",
+        "R-COVER-STATS-weekly-LIFE-archive-open",
+        "R-COVER-STATS-weekly-MANAGE-edit",
+        "R-COVER-STATS-weekly-lifecycle",
+        "R-COVER-STATS-partial-LIFE-archive-open",
+        "R-COVER-STATS-partial-MANAGE-edit",
+        "R-COVER-STATS-partial-lifecycle",
+        "R-COVER-STATS-week_closed-LIFE-archive-open",
+        "R-COVER-STATS-week_closed-MANAGE-edit",
+        "R-COVER-STATS-week_closed-lifecycle",
+        "R-COVER-STATS-one-LIFE-archive-open",
+        "R-COVER-STATS-one-MANAGE-edit",
+        "R-COVER-TIME-on_time-LIFE-archive-open",
+        "R-COVER-TIME-on_time-MANAGE-edit",
+        "R-COVER-TIME-late-LIFE-archive-open",
+        "R-COVER-TIME-late-MANAGE-edit",
+        "R-LINK-life-load-pending-pause",
+        "R-LINK-life-load-paused",
+        "R-LINK-life-load-pending-resume",
+        "R-LINK-life-load-archived",
+        "R-LINK-life-return-running",
+        "R-LINK-life-return-pending_pause",
+        "R-LINK-life-return-paused",
+        "R-LINK-life-return-pending_resume",
+        "R-LINK-life-return-archived",
+        "R-LINK-manage-updated-return",
+        "R-LINK-delete-return-nonempty",
+        "R-LINK-delete-return-empty",
+        "R-LINK-manage-failed-continue-valid",
+        "R-LINK-manage-failed-continue-invalid",
+        "R-LINK-error-return-today-MANAGE-unavailable",
+        "R-LINK-unavailable-return-plans-nonempty",
+        "R-LINK-unavailable-return-plans-empty",
+        "R-LINK-error-return-MANAGE-unavailable-cal-all",
+        "R-LINK-error-return-MANAGE-unavailable-cal-zero",
+        "R-LINK-error-return-MANAGE-unavailable-cal-filtered",
+        "R-LINK-error-return-MANAGE-unavailable-cal-nomatches",
+        "R-LINK-error-return-MANAGE-unavailable-cal-future",
+        "R-SEM-manage-failed-leave",
+        "R-SEM-life-failed-return",
+        "R-SEM-terminal-RECORD-refresh-today",
+        "R-SEM-terminal-LINK-saved-return-detail",
+        "R-SEM-cancel-pause-fail",
+        "R-SEM-cancel-pause-retry",
+        "R-SEM-cancel-resume-fail",
+        "R-SEM-cancel-resume-retry",
+        "R-SEM-unavailable-return-empty"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        },
+        {
+          "id": "domain",
+          "kind": "unit",
+          "command": "pnpm test:domain",
+          "reason": "复用现有纯规则/投影边界单测，保护本任务受影响行为。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "stats",
+      "title": "统计、日期和规则边界",
+      "codePaths": [
+        "src/domain/rules.ts",
+        "src/domain/date.ts",
+        "src/application/projections.ts",
+        "src/features/plan-detail.tsx"
+      ],
+      "dependsOn": [
+        "calendar",
+        "manage"
+      ],
+      "approach": [
+        "先逐条对照已有单测与需求；仅对已证实差异补代码",
+        "保留固定率排除跳过、日历含跳过、部分周和整周暂停、冻结截止及固定时区"
+      ],
+      "doneWhen": [
+        "同一数据的分子分母按各自口径可复核",
+        "代码差异有对应边界单测，未经证实不重构领域规则"
+      ],
+      "requirementIds": [
+        "R-STATS-fixed",
+        "R-STATS-streak",
+        "R-STATS-weekly",
+        "R-STATS-partial",
+        "R-STATS-end-partial",
+        "R-STATS-complete-week",
+        "R-STATS-one",
+        "R-TIME-overdue",
+        "R-TIME-extend",
+        "R-STATS-FIX-week-unmet",
+        "R-STATS-FIX-fixed-break",
+        "R-STATS-FIX-restored-week",
+        "R-LINK-once-load-pending",
+        "R-LINK-once-record-pending",
+        "R-LINK-once-edit-pending",
+        "R-LINK-once-load-overdue",
+        "R-LINK-once-record-overdue",
+        "R-LINK-once-edit-overdue",
+        "R-LINK-once-result-load-on-time",
+        "R-LINK-once-result-load-late",
+        "R-LINK-return-COVER-STATS-fixed-NAV-return-calendar-zero",
+        "R-LINK-return-COVER-STATS-fixed-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-STATS-fixed-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-STATS-fixed-NAV-return-calendar-future",
+        "R-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-zero",
+        "R-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-future",
+        "R-LINK-return-COVER-STATS-weekly-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-STATS-weekly-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-STATS-partial-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-STATS-partial-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-STATS-week_closed-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-STATS-week_closed-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-STATS-one-NAV-return-calendar-zero",
+        "R-LINK-return-COVER-STATS-one-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-STATS-one-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-STATS-one-NAV-return-calendar-future",
+        "R-LINK-return-COVER-TIME-on_time-NAV-return-calendar-zero",
+        "R-LINK-return-COVER-TIME-on_time-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-TIME-on_time-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-TIME-on_time-NAV-return-calendar-future",
+        "R-LINK-return-COVER-TIME-late-NAV-return-calendar-zero",
+        "R-LINK-return-COVER-TIME-late-NAV-return-calendar-filtered",
+        "R-LINK-return-COVER-TIME-late-NAV-return-calendar-nomatches",
+        "R-LINK-return-COVER-TIME-late-NAV-return-calendar-future",
+        "R-LINK-once-return-pending-today",
+        "R-LINK-once-return-pending-plans",
+        "R-LINK-once-return-pending-cal-all",
+        "R-LINK-once-return-pending-cal-zero",
+        "R-LINK-once-return-pending-cal-filtered",
+        "R-LINK-once-return-pending-cal-nomatches",
+        "R-LINK-once-return-pending-cal-future",
+        "R-LINK-once-return-overdue-today",
+        "R-LINK-once-return-overdue-plans",
+        "R-LINK-once-return-overdue-cal-all",
+        "R-LINK-once-return-overdue-cal-zero",
+        "R-LINK-once-return-overdue-cal-filtered",
+        "R-LINK-once-return-overdue-cal-nomatches",
+        "R-LINK-once-return-overdue-cal-future",
+        "R-LINK-once-archive-pending",
+        "R-LINK-once-archive-overdue",
+        "R-SEM-detail-backfill-STATS-fixed",
+        "R-SEM-detail-backfill-STATS-fixed_streak",
+        "R-SEM-detail-backfill-STATS-weekly",
+        "R-SEM-detail-record-today-STATS-weekly",
+        "R-SEM-detail-backfill-STATS-partial",
+        "R-SEM-detail-record-today-STATS-partial",
+        "R-SEM-detail-backfill-STATS-week_closed",
+        "R-SEM-detail-record-today-STATS-week_closed"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        },
+        {
+          "id": "domain",
+          "kind": "unit",
+          "command": "pnpm test:domain",
+          "reason": "复用现有纯规则/投影边界单测，保护本任务受影响行为。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "draft",
+      "title": "草稿、返回与弹层",
+      "codePaths": [
+        "src/features/draft.ts",
+        "src/ui/metal.tsx",
+        "src/features/plan-form.tsx",
+        "src/features/record-form.tsx"
+      ],
+      "dependsOn": [
+        "create",
+        "record"
+      ],
+      "approach": [
+        "复用现有useDraftGuard，核对继续编辑/放弃、保存忙碌和弹层关闭的优先级",
+        "不得在返回时写入草稿或改变来源页上下文"
+      ],
+      "doneWhen": [
+        "重复Back不叠对话框，继续编辑保留输入，放弃仅清草稿",
+        "保存中不放行离开，不把日期弹层关闭当成页面返回"
+      ],
+      "requirementIds": [
+        "R-DRAFT-record-dirty",
+        "R-DRAFT-continue",
+        "R-DRAFT-discard",
+        "R-DRAFT-discard-calendar",
+        "R-DRAFT-close-keyboard",
+        "R-DRAFT-close-popup",
+        "R-DRAFT-FIX-plan-dirty",
+        "R-DRAFT-FIX-create-dirty",
+        "R-DRAFT-FIX-discard-list",
+        "R-DRAFT-FIX-discard-detail",
+        "R-REPAIR-focus-RECORD-choose",
+        "R-REPAIR-process-RECORD-choose",
+        "R-REPAIR-leave-RECORD-one",
+        "R-REPAIR-continue-RECORD-one",
+        "R-REPAIR-keyboard-RECORD-one",
+        "R-REPAIR-focus-RECORD-one",
+        "R-REPAIR-process-RECORD-one",
+        "R-REPAIR-popup-RECORD-one",
+        "R-REPAIR-leave-RECORD-backfill",
+        "R-REPAIR-continue-RECORD-backfill",
+        "R-REPAIR-keyboard-RECORD-backfill",
+        "R-REPAIR-focus-RECORD-backfill",
+        "R-REPAIR-process-RECORD-backfill",
+        "R-REPAIR-leave-RECORD-edit",
+        "R-REPAIR-continue-RECORD-edit",
+        "R-REPAIR-keyboard-RECORD-edit",
+        "R-REPAIR-focus-RECORD-edit",
+        "R-REPAIR-process-RECORD-edit",
+        "R-REPAIR-leave-RECORD-invalid",
+        "R-REPAIR-continue-RECORD-invalid",
+        "R-REPAIR-keyboard-RECORD-invalid",
+        "R-REPAIR-focus-RECORD-invalid",
+        "R-REPAIR-process-RECORD-invalid",
+        "R-REPAIR-continue-CREATE-ready",
+        "R-REPAIR-keyboard-CREATE-ready",
+        "R-REPAIR-focus-CREATE-ready",
+        "R-REPAIR-process-CREATE-ready",
+        "R-REPAIR-popup-CREATE-ready",
+        "R-REPAIR-close-popup-CREATE-ready",
+        "R-REPAIR-leave-CREATE-fixed",
+        "R-REPAIR-continue-CREATE-fixed",
+        "R-REPAIR-keyboard-CREATE-fixed",
+        "R-REPAIR-focus-CREATE-fixed",
+        "R-REPAIR-process-CREATE-fixed",
+        "R-REPAIR-popup-CREATE-fixed",
+        "R-REPAIR-close-popup-CREATE-fixed",
+        "R-REPAIR-leave-CREATE-weekly",
+        "R-REPAIR-continue-CREATE-weekly",
+        "R-REPAIR-keyboard-CREATE-weekly",
+        "R-REPAIR-focus-CREATE-weekly",
+        "R-REPAIR-process-CREATE-weekly",
+        "R-REPAIR-popup-CREATE-weekly",
+        "R-REPAIR-close-popup-CREATE-weekly",
+        "R-REPAIR-leave-CREATE-one",
+        "R-REPAIR-continue-CREATE-one",
+        "R-REPAIR-keyboard-CREATE-one",
+        "R-REPAIR-focus-CREATE-one",
+        "R-REPAIR-process-CREATE-one",
+        "R-REPAIR-popup-CREATE-one",
+        "R-REPAIR-close-popup-CREATE-one",
+        "R-REPAIR-leave-CREATE-invalid",
+        "R-REPAIR-continue-CREATE-invalid",
+        "R-REPAIR-keyboard-CREATE-invalid",
+        "R-REPAIR-focus-CREATE-invalid",
+        "R-REPAIR-process-CREATE-invalid",
+        "R-REPAIR-popup-CREATE-invalid",
+        "R-REPAIR-close-popup-CREATE-invalid",
+        "R-REPAIR-continue-MANAGE-edit",
+        "R-REPAIR-keyboard-MANAGE-edit",
+        "R-REPAIR-focus-MANAGE-edit",
+        "R-REPAIR-process-MANAGE-edit",
+        "R-REPAIR-popup-MANAGE-edit",
+        "R-REPAIR-close-popup-MANAGE-edit",
+        "R-REPAIR-leave-MANAGE-invalid",
+        "R-REPAIR-continue-MANAGE-invalid",
+        "R-REPAIR-keyboard-MANAGE-invalid",
+        "R-REPAIR-focus-MANAGE-invalid",
+        "R-REPAIR-process-MANAGE-invalid",
+        "R-REPAIR-popup-MANAGE-invalid",
+        "R-REPAIR-close-popup-MANAGE-invalid",
+        "R-LINK-date-choice-CREATE-fixed",
+        "R-LINK-date-choice-CREATE-weekly",
+        "R-LINK-date-choice-CREATE-one",
+        "R-LINK-date-choice-CREATE-ready",
+        "R-LINK-date-choice-CREATE-invalid",
+        "R-LINK-date-choice-RECORD-one",
+        "R-LINK-date-choice-MANAGE-edit",
+        "R-LINK-date-choice-MANAGE-invalid",
+        "R-LINK-return-DRAFT-discard-calendar-zero",
+        "R-LINK-return-DRAFT-discard-calendar-filtered",
+        "R-LINK-return-DRAFT-discard-calendar-nomatches",
+        "R-LINK-discard-today-empty",
+        "R-LINK-date-choice-invalid-CREATE-ready",
+        "R-LINK-date-choice-invalid-MANAGE-edit",
+        "R-SEM-date-correct-manage",
+        "R-SEM-manage-failed-continue",
+        "R-SEM-date-correct-create",
+        "R-SEM-day-changed-continue",
+        "R-SEM-keyboard-input-valid",
+        "R-SEM-keyboard-input-invalid"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        }
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "prepare",
+      "title": "最终验收夹具与证据接口",
+      "codePaths": [
+        "src/verification/fixtures.ts",
+        "src/verification/runtime-contract.ts",
+        "tests/domain/projections.test.ts",
+        "tests/domain/AppProvider-refresh.test.ts (planned)"
+      ],
+      "dependsOn": [
+        "boot",
+        "calendar",
+        "manage",
+        "stats",
+        "draft"
+      ],
+      "approach": [
+        "把每段测试准备具体化：计划/规则/记录、业务时区/时间、故障注入位置、清理与恢复；不能修改业务规则以凑可达",
+        "映射设备矩阵、证据定位与断言实例；本轮暂不新增回归测试项。",
+        "只准备验收驱动和文档；开发结束前不启动浏览器/模拟器完成产品验收"
+      ],
+      "doneWhen": [
+        "每个测试实例可由明确数据与操作复现；待决不自动填默认",
+        "准备接口与生产代码隔离；最终验收前所有实现项和开发检查完成"
+      ],
+      "requirementIds": [],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "typecheck",
+          "kind": "static",
+          "command": "pnpm typecheck",
+          "reason": "核对组件属性、状态与领域类型；本轮尚未运行。"
+        },
+        {
+          "id": "domain",
+          "kind": "unit",
+          "command": "pnpm test:domain",
+          "reason": "复用现有纯规则/投影边界单测，保护本任务受影响行为。"
+        }
+      ],
+      "status": "pending"
+    }
+  ],
+  "regressions": [],
+  "overrides": {},
+  "results": {},
+  "upstreamApproved": false,
+  "routePolicy": {
+    "mode": "inherit_requirement_graph",
+    "resetAllowed": true,
+    "resetReason": "原样继承需求图声明的真实起点重启规则，不增加测试入口。"
+  },
+  "defaultInstances": [
+    {
+      "id": "baseline",
+      "label": "API36，393dp，100%字号标准功能情景；数据待逐段具体化"
+    }
+  ],
+  "acceptanceMatrix": {
+    "source": "PRD §12.2 / UIUX §4",
+    "environments": [
+      "API29/360dp/100%",
+      "API29/360dp/200%",
+      "API29/393dp/100%",
+      "API29/393dp/200%",
+      "API36/360dp/100%",
+      "API36/360dp/200%",
+      "API36/393dp/100%",
+      "API36/393dp/200%"
+    ],
+    "policy": "标准功能完整覆盖；页面/组件和有差异状态的视觉与可访问性覆盖全矩阵，具体映射待准备。"
+  },
+  "sharedAssertions": [
+    {
+      "id": "shared-visual",
+      "matches": [
+        "所有可见终态遵守共享视觉/可访问性需求（UI-TOKENS、PRD§12），本条不代表已完成应用运行验证"
+      ],
+      "text": "共享视觉与可访问性：遵守设计令牌和PRD §12，按页面/状态矩阵验证；不是独立业务操作。"
+    },
+    {
+      "id": "scope-exclusions",
+      "matches": [
+        "延期能力无按钮或权限申请"
+      ],
+      "text": "首版范围约束：不呈现延期能力的不可用入口，不请求相应运行时权限；不作为新增需求或测试节点。"
+    }
+  ],
+  "routePreparations": {},
+  "uiAssets": [
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/bCoiJ.png",
+      "sha256": "f5126f20336ad8ebce9d17888fd050bebfe8edf67af535bd7043728e5e485d53"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/yB844.png",
+      "sha256": "c226d45bed9655eaac0e1c1f659aba771b759cd9420b81c617b682e991cda22a"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/P3WWL.png",
+      "sha256": "a45f2fd7f1d5daa25bab62736253de6f43d3ee48cceddf6cba0254610a1b16fc"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/SvK1L.png",
+      "sha256": "b85452bec706eceffb05678078504fd2b3f1bedbf2409c4016a3dd0ea460687a"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/JUDAa.png",
+      "sha256": "11bc877b98c0f0a9350cf9835321470ff5452139b3b61c5c6bd1f3ecff563117"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/qq7vq.png",
+      "sha256": "b883a96733d018ebb405dbdd3aec54b85384950bba7c7e1d92328be3c3221850"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/mTDhJ.png",
+      "sha256": "c7d373f026fcc4e34f25b49194a2acedc090202e598758cab2d8f7e12b68e319"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/HGmI6.png",
+      "sha256": "f30c2eca49eaeb5cbfeb92d9b8ea1426e7c880f7ebbedf296b513b09d0b1105c"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/I3hcqn.png",
+      "sha256": "1b478a11802f157ce3a0019d832d5b0a26864d41c1bcece20939027ca6ae74da"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/Y8mJyU.png",
+      "sha256": "18fc8a89ff8d9c676ca156b4bfcabdda80c6b1d51d0aff82063f1cb6d9841056"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/c6Yye.png",
+      "sha256": "383c1e7ee5572f6ed5bb34841391412c2cb4519dca1de4a83c732bf18c53f05a"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/acN0e.png",
+      "sha256": "7bad4c2ef7fe8c639efedfd1f4334546d2bd6d4ae84a6c11191ce054da82358c"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/i0tdn.png",
+      "sha256": "d6b52ad97b9387c30f3434acfa9170c3660503bb7a3ef9759e6f47fd6da78a4d"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/o7qx2G.png",
+      "sha256": "ce201f005f582867db9f7bdd4abe4a0f96c556b79e7cf134cff503c2ddefbaff"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/s1Nbh.png",
+      "sha256": "82c4b61489cbfff54820de280d379ae54b227510e12ad9a5ae055255028fdb7b"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/QpNMQ.png",
+      "sha256": "c29e0954838f54266472a5395964f5f02355b02b37e9b60fb37914080ee477fd"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/lsJHj.png",
+      "sha256": "ed65637ae9bbced4eb02e11d8767f894d36dbb5742fde0aff5785239754fa3ef"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/IlUYa.png",
+      "sha256": "62b0804eabf7183b254744fd50be7e69d64683208ef3273a31341b7a4678812a"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/l0Vci.png",
+      "sha256": "917234678d581f75b007590ae80242df553609687b7805b97785510a8886c715"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/B46K5.png",
+      "sha256": "c344e5666c4c2fe6fe538a60f456c5e7e29b3c3e07c2b65ccd152e5a1d469a9f"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/L47R3V.png",
+      "sha256": "7d906415366fd571f5838ce9bdf426357a525ed317ad93da397d451d004893b6"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/N7Gnu.png",
+      "sha256": "85793188ae63577cda5d4373d1c62658c67ea38d0e4e6e387d3f0bac2d26b1ea"
+    },
+    {
+      "path": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/HEOev.png",
+      "sha256": "6aebeb15d18587f0384198ca65be59cff2c2a18550e67e7e06862bafe30e90aa"
+    }
+  ],
+  "regressionPolicy": {
+    "mode": "deferred",
+    "reason": "用户要求：先不考虑回归，直接在需求图基础上建立测试图。"
+  }
+}

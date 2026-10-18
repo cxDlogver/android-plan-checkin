@@ -1,0 +1,3980 @@
+{
+  "modelDigest": "7c91737e9d3be2bdfa70d85d9f7c79fdd5cb678a02a456eed07eee62471ce679",
+  "status": "proposal_for_parent_review",
+  "principle": "纯返回不改变日历集合；返回边只读取此前已确立的事实。真实成功写入、合法日期改变及外部删除才允许更新或有依据地失效派生集合。",
+  "transitions": [
+    {
+      "transitionId": "T-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-RECORD-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-DRAFT-discard-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "editorReturn": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-STATS-fixed-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-STATS-fixed_streak-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-STATS-weekly-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-STATS-partial-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-STATS-week_closed-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-STATS-one-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-TIME-on_time-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-COVER-TIME-late-NAV-return-calendar",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-NAV-return-calendar-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-RECORD-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-RECORD-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-RECORD-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-DRAFT-discard-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "editorReturn": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-DRAFT-discard-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "editorReturn": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-DRAFT-discard-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "editorReturn": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed-NAV-return-calendar-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-fixed_streak-NAV-return-calendar-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-weekly-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-weekly-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-weekly-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-partial-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-partial-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-partial-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-week_closed-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-week_closed-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-week_closed-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-one-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-one-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-one-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-STATS-one-NAV-return-calendar-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-on_time-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-on_time-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-on_time-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-on_time-NAV-return-calendar-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-late-NAV-return-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-late-NAV-return-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-late-NAV-return-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-return-COVER-TIME-late-NAV-return-calendar-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-saved-calendar-all",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-saved-calendar-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-saved-calendar-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-saved-calendar-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-pending-cal-all",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-pending-cal-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-pending-cal-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-pending-cal-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-pending-cal-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-overdue-cal-all",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-overdue-cal-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-overdue-cal-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-overdue-cal-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-once-return-overdue-cal-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {},
+          "forget": []
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-RECORD-ineligible-cal-all",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-RECORD-ineligible-cal-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-RECORD-ineligible-cal-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-RECORD-ineligible-cal-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "recordOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-MANAGE-unavailable-cal-all",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past",
+              "today"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-MANAGE-unavailable-cal-zero",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-MANAGE-unavailable-cal-filtered",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-MANAGE-unavailable-cal-nomatches",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    },
+    {
+      "transitionId": "T-LINK-error-return-MANAGE-unavailable-cal-future",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-COMMON"
+      ],
+      "cases": [
+        {
+          "requires": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {}
+        }
+      ],
+      "guardChange": "保留现有文字守卫，必须作为进入前已确立事实，而非返回动作赋值结果。",
+      "acceptanceAdd": "若本次只读查看、取消或返回且期间没有合法写入/日期变化，原日历总集合及筛选数量保持不变。",
+      "reason": "现规则可在无写入、同日、同筛选上下文切换 zero/positive，破坏 FR15 只浏览不改数据与返回保留。"
+    }
+  ],
+  "writeEffectGuidance": [
+    {
+      "transitionIds": [
+        "T-MANAGE-success",
+        "T-LIFE-archive-submit",
+        "T-LIFE-delete-success",
+        "T-MANAGE-rule-effective",
+        "T-LIFE-pause-effective",
+        "T-LIFE-resume-effective"
+      ],
+      "recommendation": "在真实生效/成功边更新受影响日历派生量。只有原文确定影响的变量可 forget；删除计划可使全局计划数变零，归档保留历史且不能把全局 planPresence 清零。名称/说明编辑无数量变化；规则/截止更新可能改变相应日期要求，不能给所有编辑统一任意改总集合。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR23",
+        "PRD-FR24",
+        "PRD-FR25",
+        "PRD-FR26",
+        "PRD-FR29"
+      ]
+    },
+    {
+      "transitionIds": [
+        "T-RECORD-commit-normal",
+        "T-RECORD-FIX-saved-retry"
+      ],
+      "recommendation": "循环新增/修订成功后，所保存的选日必有记录，calendarTotal 必为 positive；按结果与当前筛选更新可见数量，不能允许 saved→该日零项。一次性首次终态替换截止安排，若来源选日与结果业务日不同，原选日可变零；必须显式表达此关系后才可放宽。一次性当日修订不移动业务日期。",
+      "sourceIds": [
+        "PRD-FR10",
+        "PRD-FR11",
+        "PRD-FR14"
+      ]
+    },
+    {
+      "transitionIds": [
+        "T-MANAGE-deleted"
+      ],
+      "recommendation": "已有事件包含“外部已删除”和“读取失败”两类；删除才允许失效计划/日历存在性，纯查询失败不得修改已有事实。应分 cases 及文字条件，必要时分有意义迁移。",
+      "sourceIds": [
+        "PRD-FR22",
+        "PRD-MATRIX"
+      ]
+    },
+    {
+      "transitionIds": [
+        "T-LINK-delete-return-nonempty",
+        "T-LINK-delete-return-empty"
+      ],
+      "recommendation": "列表计数应在删除成功时失效/重新观察，返回只 requires 对应结果；非空列表须 planPresence=positive。",
+      "sourceIds": [
+        "PRD-FR29",
+        "PRD-FR21"
+      ]
+    }
+  ],
+  "caution": "该修正会使部分机械生成返回边不可达。需按来源删除不可能组合，或补充真实成功写入的派生效果，不得为了保留边再次在返回时 set 数量。",
+  "remaining16Assessment": {
+    "removeAsMechanical": [
+      "T-LINK-saved-calendar-zero"
+    ],
+    "reason": "当前 recordOrigin=calendar 的普通新增/修改仅循环，或一次性普通当日修订；成功后选日必有记录。一次性首次终态入口来自详情(recordOrigin=detail)，不能借此保留 direct saved→zero。",
+    "retainWithRealEffect": [
+      {
+        "transitionId": "T-RECORD-commit-normal",
+        "effect": "对recordOrigin=calendar的循环普通新增/当日修订：set calendarTotal=[positive]；calendarFilter=all时set calendarFilteredCount=[positive]；completed且recordResult=success时positive，uncompleted且failure/skip时positive；反向筛选可zero或positive，应仅forget calendarFilteredCount。一次性当日修订同理complete vs failure/cancelled。不能forget总集合。",
+        "reason": "FR14一项记录仍占同日U，结果改变仅影响完成筛选；同一天其他记录是否存在未编码，逆筛选可能为空或仍非空。"
+      },
+      {
+        "transitionId": "T-RECORD-commit-backfill",
+        "effect": "recordOrigin=calendar的循环补记成功同上，新增记录必使原选日total positive；周空白独立补记区同理。",
+        "reason": "FR15明确新增补记加入U并按当前筛选显示。"
+      },
+      {
+        "transitionId": "T-TIME-extend",
+        "effect": "来源detailOrigin=calendar且确认本次截止确实改变：已保存变更移动当前截止安排，原选日可失去所选一次性项；在该真实变更边set/forget派生量，不在返回边改变。建议新增关系变量以区分原选日是否为旧截止、新截止是否仍等于选日；若仅支撑旧截止来源路径，可据FR14和真实入口事实收窄后forget total/count。",
+        "reason": "FR14明确旧截止安排移动。pending返回zero/nomatches有真实写入路径；延长期后再次跨截止可到overdue，同样可能返回旧选日zero。"
+      }
+    ],
+    "statsGuidance": "STATS.* 的 zero/nomatches 不应因裸查看统计而保留。若其入边允许在成功编辑、归档或补记后再读统计，应由相应真实写入影响日历事实才可达。固定补成功自环能导致原未完成筛选为空，但total仍positive；周目标单纯时间/统计查看不改变既有记录，不能凭新增forget保留zero。请与统计/生命周期审查组共同定位所有成功写入来源。"
+  },
+  "additionalFindings": [
+    {
+      "transitionIds": [
+        "T-COVER-type-direct-ready-fixed",
+        "T-COVER-type-direct-ready-weekly",
+        "T-COVER-type-direct-ready-one",
+        "T-COVER-type-direct-invalid-fixed",
+        "T-COVER-type-direct-invalid-weekly",
+        "T-COVER-type-direct-invalid-one"
+      ],
+      "suggestion": "requires.draftType 只能为目标类型以外两类，与文字目标不同一致。",
+      "sourceIds": [
+        "PRD-FR02",
+        "PRD-FR31"
+      ]
+    },
+    {
+      "transitionIds": [
+        "T-RECORD-select"
+      ],
+      "suggestion": "选择结果会改变未提交recordResult，set=[success,failure,skip]，不能forget:[]原样保留；编辑备注本身不改结果，可用cases区分。",
+      "sourceIds": [
+        "PRD-FR07",
+        "PRD-FR08"
+      ]
+    },
+    {
+      "transitionIds": [
+        "T-LINK-future-plan-detail",
+        "T-COVER-detail-filtered",
+        "T-NAV-detail-calendar"
+      ],
+      "suggestion": "未来一次性安排只能读取one+running+pending；不可one+paused或one已终结。completed筛选选一次性只能on_time/late，uncompleted只能pending/overdue/failed/cancelled。类型/生命周期/结果的相关性应拆case保留。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-FR05"
+      ]
+    },
+    {
+      "transitionIds": [
+        "T-RECORD-new-day",
+        "T-RECORD-one-new-day",
+        "T-LINK-record-failed-day-changed"
+      ],
+      "suggestion": "RECORD.day_changed图23有返回日历按钮且FR10说返回/放弃沿FR31，但当前无返回/退出边，只能继续补记或资格失败；补真实取消/返回→DRAFT.ask并保留来源；有变更不直接丢弃。",
+      "sourceIds": [
+        "PRD-FR10",
+        "PRD-FR31",
+        "UI-HEOev"
+      ]
+    }
+  ],
+  "exactSelectionRules": [
+    {
+      "transitionId": "T-LINK-future-plan-detail",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "oneOutcome": [
+              "none"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "paused"
+            ],
+            "oneOutcome": [
+              "none"
+            ],
+            "pendingChange": [
+              "resume"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "oneOutcome": [
+              "pending"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        }
+      ],
+      "reason": "FR14未来只含固定安排与一次性未终结截止；一次性无暂停、无未来已有结果。固定实际暂停仅已申请明日起恢复才可能有未来有效安排；运行且明日起暂停不能在未来产生新要求。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-FR24",
+        "PRD-FR25"
+      ]
+    },
+    {
+      "transitionId": "T-NAV-detail-calendar",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running",
+              "paused",
+              "archived"
+            ],
+            "oneOutcome": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": [
+            "pendingChange"
+          ]
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "archived"
+            ],
+            "oneOutcome": [
+              "on_time",
+              "late",
+              "failed",
+              "cancelled"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running",
+              "archived"
+            ],
+            "oneOutcome": [
+              "overdue"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running",
+              "paused",
+              "archived"
+            ],
+            "oneOutcome": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": [
+            "pendingChange"
+          ]
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running",
+              "archived"
+            ],
+            "oneOutcome": [
+              "on_time",
+              "late",
+              "failed",
+              "cancelled"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "oneOutcome": [
+              "pending"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        }
+      ],
+      "reason": "CAL.all事实只含非未来且全部筛选；过去一次性已终结均归档，未终结截止在过去为逾期。今天未终结为待完成且未归档，手动归档当天未记录要求已取消。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR28"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-detail-filtered",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarFilter": [
+              "completed"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running",
+              "paused",
+              "archived"
+            ],
+            "oneOutcome": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": [
+            "pendingChange"
+          ]
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarFilter": [
+              "completed"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "archived"
+            ],
+            "oneOutcome": [
+              "on_time",
+              "late"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running",
+              "paused",
+              "archived"
+            ],
+            "oneOutcome": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": [
+            "pendingChange"
+          ]
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "archived"
+            ],
+            "oneOutcome": [
+              "failed",
+              "cancelled"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running",
+              "archived"
+            ],
+            "oneOutcome": [
+              "overdue"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarFilter": [
+              "completed"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running",
+              "paused",
+              "archived"
+            ],
+            "oneOutcome": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": [
+            "pendingChange"
+          ]
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarFilter": [
+              "completed"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running",
+              "archived"
+            ],
+            "oneOutcome": [
+              "on_time",
+              "late"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running",
+              "paused",
+              "archived"
+            ],
+            "oneOutcome": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": [
+            "pendingChange"
+          ]
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running",
+              "archived"
+            ],
+            "oneOutcome": [
+              "failed",
+              "cancelled"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "oneOutcome": [
+              "pending"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "oneOutcome": [
+              "none"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "paused"
+            ],
+            "oneOutcome": [
+              "none"
+            ],
+            "pendingChange": [
+              "resume"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "future"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {
+            "detailOrigin": [
+              "calendar"
+            ],
+            "selectedType": [
+              "one"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "oneOutcome": [
+              "pending"
+            ],
+            "pendingChange": [
+              "none"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        }
+      ],
+      "reason": "已完成只可读取完成结果；未完成不得读成已完成。未来完成数量为零，不存在未来completed且positive可选择项。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15",
+        "PRD-FR28"
+      ]
+    }
+  ],
+  "selectionNotes": [
+    "这些cases只投影当前已有字段；selectedLife与pendingChange的完整相关性仍可进一步拆分，但不得给一次性暂停组合。",
+    "选择详情是选择数据集内另一计划，可绑定该计划事实；这与返回原来源任意重写数量不同。",
+    "CAL.all的旧未来case被状态不变量阻断，直接删除不保留死case。"
+  ],
+  "exactBackfillRules": [
+    {
+      "transitionId": "T-COVER-backfill-no_items",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarTotal": [
+              "zero"
+            ],
+            "calendarDay": [
+              "past"
+            ]
+          },
+          "set": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "calendar"
+            ],
+            "editorReturn": [
+              "calendar"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        }
+      ],
+      "reason": "FR15独立可补记区只提供周目标；零项/零匹配不存在可点的固定主列表项。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-backfill-no_matches",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "completed",
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "zero"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ]
+          },
+          "set": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "calendar"
+            ],
+            "editorReturn": [
+              "calendar"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        }
+      ],
+      "reason": "FR15独立可补记区只提供周目标；零项/零匹配不存在可点的固定主列表项。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15"
+      ]
+    },
+    {
+      "transitionId": "T-COVER-backfill-filtered",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ]
+          },
+          "set": {
+            "selectedType": [
+              "fixed",
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "calendar"
+            ],
+            "editorReturn": [
+              "calendar"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        },
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "completed"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ],
+            "calendarDay": [
+              "past"
+            ]
+          },
+          "set": {
+            "selectedType": [
+              "weekly"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "recordMode": [
+              "cycle_backfill"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "calendar"
+            ],
+            "editorReturn": [
+              "calendar"
+            ]
+          },
+          "setFrom": {},
+          "forget": []
+        }
+      ],
+      "reason": "完成筛选不显示固定未记录项，但独立周目标区不受主筛选。",
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15"
+      ]
+    }
+  ],
+  "newCalendarTodayTransitions": [
+    {
+      "id": "T-CAL-record-today-all",
+      "from": "CAL.all",
+      "to": "RECORD.choose",
+      "event": "记录合法今天的固定计划结果",
+      "guard": "选中业务今天；主列表可见尚无记录的有效固定应执行项，当前运行；筛选为全部或未完成",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "all"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "recordMode": [
+              "cycle_new"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "calendar"
+            ],
+            "editorReturn": [
+              "calendar"
+            ]
+          }
+        }
+      ],
+      "then": [
+        "进入同一固定计划与业务今天的结果确认，不提前落盘",
+        "选择结果和可选备注后最终保存才写入，保存资格仍按FR10重判"
+      ],
+      "sourceIds": [
+        "PRD-FR07",
+        "PRD-FR10",
+        "PRD-FR14",
+        "PRD-FR15"
+      ],
+      "reason": "FR07合法当天日期提供普通记录入口；周目标未记录今天不在U，FR15独立区仅历史补记，不自行增今日周目标区。"
+    },
+    {
+      "id": "T-CAL-record-today-filtered",
+      "from": "CAL.filtered",
+      "to": "RECORD.choose",
+      "event": "记录合法今天的固定计划结果",
+      "guard": "选中业务今天；主列表可见尚无记录的有效固定应执行项，当前运行；筛选为全部或未完成",
+      "cases": [
+        {
+          "requires": {
+            "planPresence": [
+              "positive"
+            ],
+            "calendarDay": [
+              "today"
+            ],
+            "calendarTotal": [
+              "positive"
+            ],
+            "calendarFilter": [
+              "uncompleted"
+            ],
+            "calendarFilteredCount": [
+              "positive"
+            ]
+          },
+          "set": {
+            "selectedType": [
+              "fixed"
+            ],
+            "selectedLife": [
+              "running"
+            ],
+            "recordMode": [
+              "cycle_new"
+            ],
+            "recordResult": [
+              "success",
+              "failure",
+              "skip"
+            ],
+            "recordOrigin": [
+              "calendar"
+            ],
+            "editorReturn": [
+              "calendar"
+            ]
+          }
+        }
+      ],
+      "then": [
+        "进入同一固定计划与业务今天的结果确认，不提前落盘",
+        "选择结果和可选备注后最终保存才写入，保存资格仍按FR10重判"
+      ],
+      "sourceIds": [
+        "PRD-FR07",
+        "PRD-FR10",
+        "PRD-FR14",
+        "PRD-FR15"
+      ],
+      "reason": "FR07合法当天日期提供普通记录入口；周目标未记录今天不在U，FR15独立区仅历史补记，不自行增今日周目标区。"
+    }
+  ],
+  "filterProjection": {
+    "newDomain": {
+      "name": "calendarCompletionClass",
+      "values": [
+        "empty",
+        "none_completed",
+        "mixed",
+        "all_completed"
+      ],
+      "labels": {
+        "empty": "选日没有执行项",
+        "none_completed": "选日有执行项但没有完成项",
+        "mixed": "选日完成项与未完成项都有",
+        "all_completed": "选日全部执行项已完成"
+      },
+      "sourceIds": [
+        "PRD-FR14",
+        "PRD-FR15"
+      ],
+      "reason": "U、C、T-C只区分0/正数的必要持久事实；同日筛选不得制造新C/T。"
+    },
+    "exactRules": [
+      {
+        "transitionId": "T-CAL-apply",
+        "cases": [
+          {
+            "requires": {
+              "calendarTotal": [
+                "positive"
+              ],
+              "calendarCompletionClass": [
+                "mixed",
+                "all_completed"
+              ],
+              "calendarDay": [
+                "past",
+                "today"
+              ]
+            },
+            "set": {
+              "calendarFilter": [
+                "completed"
+              ],
+              "calendarFilteredCount": [
+                "positive"
+              ]
+            }
+          },
+          {
+            "requires": {
+              "calendarTotal": [
+                "positive"
+              ],
+              "calendarCompletionClass": [
+                "none_completed",
+                "mixed"
+              ]
+            },
+            "set": {
+              "calendarFilter": [
+                "uncompleted"
+              ],
+              "calendarFilteredCount": [
+                "positive"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "transitionId": "T-CAL-empty",
+        "cases": [
+          {
+            "requires": {
+              "calendarTotal": [
+                "positive"
+              ],
+              "calendarCompletionClass": [
+                "none_completed"
+              ]
+            },
+            "set": {
+              "calendarFilter": [
+                "completed"
+              ],
+              "calendarFilteredCount": [
+                "zero"
+              ]
+            }
+          },
+          {
+            "requires": {
+              "calendarTotal": [
+                "positive"
+              ],
+              "calendarCompletionClass": [
+                "all_completed"
+              ],
+              "calendarDay": [
+                "past",
+                "today"
+              ]
+            },
+            "set": {
+              "calendarFilter": [
+                "uncompleted"
+              ],
+              "calendarFilteredCount": [
+                "zero"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "initializationRules": "真正选择另一业务日或初入今日读取才建立class：total=zero则empty；future正数则none_completed；past/today正数允许none_completed/mixed/all_completed。只浏览月份、返回、打开/关闭筛选必须保持。切回全部只改filter/count，不改class。",
+    "affectedReadTransitionIds": [
+      "T-NAV-calendar",
+      "T-CAL-date",
+      "T-CAL-today",
+      "T-CAL-future",
+      "T-CAL-zero",
+      "T-CAL-time-change",
+      "T-CAL-FIX-switch-from-filter",
+      "T-CAL-FIX-from-future",
+      "T-CAL-FIX-from-zero",
+      "T-CAL-FIX-membership",
+      "T-REPAIR-today-positive-all",
+      "T-REPAIR-today-zero-all",
+      "T-REPAIR-today-zero-filtered",
+      "T-REPAIR-new-zero-filtered",
+      "T-REPAIR-new-future-filtered",
+      "T-REPAIR-today-positive-no_items",
+      "T-REPAIR-today-zero-no_items",
+      "T-REPAIR-new-zero-no_items",
+      "T-REPAIR-new-future-no_items",
+      "T-REPAIR-today-positive-no_matches",
+      "T-REPAIR-today-zero-no_matches",
+      "T-REPAIR-new-zero-no_matches",
+      "T-REPAIR-new-future-no_matches",
+      "T-REPAIR-new-positive-no_matches",
+      "T-REPAIR-today-positive-future",
+      "T-REPAIR-today-zero-future",
+      "T-REPAIR-new-zero-future",
+      "T-REPAIR-new-future-future",
+      "T-COVER-tab-CAL-all-ROOT-empty",
+      "T-COVER-tab-CAL-all-ROOT-plans",
+      "T-COVER-tab-CAL-all-MANAGE-list_empty",
+      "T-CAL-reaggregate-empty",
+      "T-LINK-calendar-entry-zero-NAV-calendar",
+      "T-LINK-calendar-entry-zero-COVER-tab-CAL-all-ROOT-plans",
+      "T-LINK-calendar-entry-zero-COVER-tab-CAL-all-MANAGE-list_empty"
+    ],
+    "writeRule": "仅真实成功写入更改class；循环/同日修订保留total positive。若本次成功结果=完成，class可能mixed/all_completed；本次失败/跳过则none_completed/mixed。不能把每次提交都任意重置此前其他项结果，若要证明连续路线必须进一步保留其他项类别（见below）。",
+    "concreteLimitation": "class仍是有限抽象，可证明筛选一致性，但跨多次写同一/不同计划时若无selectedPlanId或当前项与其他项计数关联，不能宣称具体数据集整段已证明。应在HTML与gate说明有限域通过范围，真实业务完整执行由独立语义审查。"
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "phase": "acceptance",
+  "outputs": {
+    "test-plan.json": "后续结构化消费",
+    "test-cases.md": "测试步骤及预期",
+    "implementation-plan.md": "开发计划",
+    "review.html": "人工图形审查",
+    "gate-result.json": "当前门禁"
+  },
+  "scope": {
+    "objective": "toy",
+    "initialConfirmation": {
+      "humanReply": "confirmed"
+    }
+  },
+  "inputs": [
+    {
+      "role": "analysisModel",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\analysisModel.json",
+      "sha256": "a36530c0692fdcbad8380bffdda3bc4a9ea2101222acf75a5cfda9cf55829f8b",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "stateGraph",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\stateGraph.json",
+      "sha256": "1102fd30a25718f63b7c8f98e2b0f90834dda6d18225106e52ec018cc854388a",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "requirements",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\requirements.json",
+      "sha256": "2e2a3bce4db1b6cc1e4d3d3fb9a2fc19aa439e667b2e32e8815375ef2ad6e72d",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "requirementGraph",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\requirementGraph.json",
+      "sha256": "199569f20d1fb6a4df3e5ba9f2c28454bfae053ee37dd82094893f4a0053ae5d",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "prd",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\prd.json",
+      "sha256": "9d4bacb4376916256e3e9f7f63f189bf9dd20499747f653562b6f5585841d1e8",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "uiSpec",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\uiSpec.json",
+      "sha256": "7c32699ff595e13b5c1315db137593163f4e28052592c776bea23471139b2422",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "tokens",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\tokens.json",
+      "sha256": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f",
+      "readRanges": [
+        "all"
+      ]
+    },
+    {
+      "role": "pageMap",
+      "path": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\pageMap.json",
+      "sha256": "39a467cadfdd657c5bfc8554235f9b510f5f2a3ea5448964c0d8165dff7cc237",
+      "readRanges": [
+        "all"
+      ]
+    }
+  ],
+  "repository": {
+    "root": "F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plans\\task-planning-project-test\\_process\\independent-review\\toy\\repo",
+    "exists": true,
+    "evidence": [],
+    "codeRoots": [
+      "src.txt"
+    ]
+  },
+  "issues": [],
+  "tasks": [
+    {
+      "id": "impl",
+      "title": "实现",
+      "dependsOn": [],
+      "codePaths": [
+        "src.txt"
+      ],
+      "approach": [
+        "reuse"
+      ],
+      "doneWhen": [
+        "matches"
+      ],
+      "requirementIds": [
+        "r"
+      ],
+      "regressionIds": [],
+      "checks": [
+        {
+          "id": "static",
+          "kind": "static",
+          "command": "check",
+          "reason": "typecheck"
+        }
+      ],
+      "status": "complete"
+    }
+  ],
+  "regressions": [],
+  "overrides": {
+    "r": {
+      "readiness": "ready"
+    }
+  },
+  "results": {
+    "TC-r": {
+      "caseId": "TC-r",
+      "planningDigest": "a26498a0e67adf1321738097a32ba5b25dc0f39d3cb01fea905be846e55a97cc",
+      "codeDigest": "0c10e8b23ce6b006f414607bf983ec3a288eca78b67a3aaed27dd199c52b28d3",
+      "status": "passed",
+      "environment": {
+        "platform": "test",
+        "build": "test",
+        "fixture": "test",
+        "executedAt": "test"
+      },
+      "observations": [
+        {
+          "instanceId": "baseline",
+          "assertionId": "functional-1",
+          "verdict": "passed",
+          "actual": "verified 显示正确内容",
+          "evidence": [
+            {
+              "path": "_process/evidence.txt",
+              "sha256": "1f41997d2a548b65ed2a29e06e7af18f0ceb8918dd8a2a3383c6107940782041",
+              "locator": "line 1"
+            }
+          ]
+        },
+        {
+          "instanceId": "baseline",
+          "assertionId": "functional-2",
+          "verdict": "passed",
+          "actual": "verified 保留记录不变",
+          "evidence": [
+            {
+              "path": "_process/evidence.txt",
+              "sha256": "1f41997d2a548b65ed2a29e06e7af18f0ceb8918dd8a2a3383c6107940782041",
+              "locator": "line 1"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "upstreamApproved": true,
+  "routePolicy": {
+    "resetAllowed": true,
+    "resetReason": "fixture",
+    "maxConfigurations": 100,
+    "maxSegmentSteps": 10
+  },
+  "routePreparations": {
+    "route-1": {
+      "routeDigest": "824bd96c6f9d1d3f78ede51222803cff8dbb4fb0a13c95f0221062e368d36a0a",
+      "setup": [
+        "seed valid content"
+      ],
+      "controls": [
+        "complete read"
+      ],
+      "restore": [
+        "delete toy content"
+      ],
+      "sourceRefs": [
+        "prd"
+      ],
+      "guardReview": "condition is valid content"
+    }
+  },
+  "developmentEvidence": {
+    "impl/static": {
+      "path": "_process/evidence.txt",
+      "sha256": "1f41997d2a548b65ed2a29e06e7af18f0ceb8918dd8a2a3383c6107940782041",
+      "locator": "line 1",
+      "status": "passed",
+      "codeDigest": "0c10e8b23ce6b006f414607bf983ec3a288eca78b67a3aaed27dd199c52b28d3"
+    }
+  }
+}
