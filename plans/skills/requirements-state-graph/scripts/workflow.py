@@ -47,6 +47,10 @@ def entity_ids(model):
     return {x["id"] for k in ("states", "transitions", "requirements") for x in model[k]}
 
 
+def review_evidence_ids(model):
+    return {x["id"] for k in ("witnesses", "coverageClaims", "continuationAssessments") for x in model.get(k, [])}
+
+
 def verify_folder(folder):
     manifest = read(folder / "manifest.json")
     if not isinstance(manifest.get("files"), dict) or not manifest["files"]:
@@ -320,6 +324,8 @@ def check_review(report, model, manifest, value, root):
         errors.append("review artifact bundle digest stale")
     if set(report.get("reviewed_entity_ids", [])) != entity_ids(model):
         errors.append("review entity coverage differs")
+    if set(report.get("reviewed_evidence_ids", [])) != review_evidence_ids(model):
+        errors.append("review witness/coverage/continuation evidence coverage differs")
     rows = report.get("criteria_results", [])
     if not isinstance(rows, list) or len(rows) != len(value["required_criteria"]) or {r.get("criterion_id") for r in rows if isinstance(r, dict)} != set(value["required_criteria"]):
         errors.append("review criteria differ from fixed rubric")
@@ -477,6 +483,13 @@ def gate(root, bundle=None, report_path=None, approval_path=None):
         result["gate_status"] = "awaiting_final_confirmation"
     elif all(v == "passed" for v in statuses.values()):
         result["gate_status"] = "passed"
+    def aggregate(ids):
+        values = [statuses[k] for k in ids]
+        return "failed" if "failed" in values else "passed" if all(s == "passed" for s in values) else "pending"
+    result["completeness"] = {
+        "structural": aggregate(("MODEL-001", "LINK-001", "STRUCTURE-001", "AUDIT-001", "MODEL-REVIEW-001")),
+        "semantic": aggregate(("FEASIBILITY-001", "COVERAGE-001", "CONTINUATION-001", "MODEL-REVIEW-001")),
+    }
     value.update(checks=result["checks"], gate_status=result["gate_status"])
     atomic_json(root / "gate-contract.json", value)
     atomic_json(root / "gate-result.json", result)
