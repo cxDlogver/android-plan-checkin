@@ -105,7 +105,7 @@ scripts/model_tools.py 从唯一模型导出以下文件，每个文件都带 sc
 
 导出前进行结构检查；结构通过不等于业务已确认。--final 还检查当前版本人工确认记录、待决项、实体状态和完整闭合轮。程序仅验证记录一致性，无法认证 humanReference 的真实性或证明业务语义正确。
 
-所有 JSON 带 schemaVersion=2、revision、semanticDigest。衔接边 ID 为 C: 加紧凑 JSON 二元组 [前项ID,后项ID]，不用有歧义的冒号拼接。export 输出新整包目录（含 HTML、图片和 manifest），拒绝覆盖。正式交付须 workflow.py publish。
+所有 JSON 带 schemaVersion=2、revision、semanticDigest。门禁合同 contract_version=2，与旧合同运行不兼容；同为 schemaVersion=2 的旧模型仍需显式补证、重新审查、建立新运行，不得沿用旧通过状态。衔接边 ID 为 C: 加紧凑 JSON 二元组 [前项ID,后项ID]，不用有歧义的冒号拼接。export 输出新整包目录（含 HTML、图片和 manifest），拒绝覆盖。正式交付须 workflow.py publish。
 
 ## 新旧运行迁移
 
