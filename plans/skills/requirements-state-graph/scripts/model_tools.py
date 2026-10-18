@@ -6,6 +6,7 @@ import hashlib
 import json
 import sys
 from pathlib import Path
+from semantic_checks import summary as semantic_summary
 
 DIMENSIONS = {
     "sources", "events", "guard_complement", "boundaries", "failure",
@@ -16,7 +17,8 @@ DISPOSITIONS = {
 }
 STATUSES = {"draft", "candidate", "confirmed"}
 PHASES = {"clarifying", "analyzing", "review_ready", "confirmed", "incomplete"}
-COLLECTIONS = ("sources", "features", "states", "transitions", "requirements", "questions", "rounds")
+COLLECTIONS = ("sources", "features", "states", "transitions", "requirements", "questions", "rounds",
+               "witnesses", "coverageClaims", "continuationAssessments")
 
 
 def digest(value):
@@ -31,7 +33,8 @@ def scope_digest(model):
 def model_digest(model):
     semantic = {key: model.get(key) for key in (
         "schemaVersion", "revision", "scope", "sources", "features", "states",
-        "transitions", "requirements", "questions",
+        "transitions", "requirements", "questions", "witnesses",
+        "coverageClaims", "continuationAssessments",
     )}
     # Human confirmation metadata does not change the meaning under review.
     for key in ("states", "transitions", "requirements"):
@@ -340,17 +343,22 @@ def exports(model):
                       "featureIds": transition["featureIds"], "from": transition["from"],
                       "to": transition["to"], "status": requirement["status"]})
         outgoing.setdefault(transition["from"], []).append(rid)
+    assessment = {(a["fromRequirementId"], a["toRequirementId"]): a
+                  for a in model.get("continuationAssessments", [])}
     for node in nodes:
         for successor in outgoing.get(node["to"], []):
             edges.append({"id": "C:" + json.dumps([node["id"], successor], ensure_ascii=False, separators=(",", ":")), "from": node["id"],
                           "to": successor, "type": "continuation", "viaStateId": node["to"],
-                          "guardEvaluation": "required_at_execution"})
+                          "guardEvaluation": "required_at_execution",
+                           "executionStatus": assessment.get((node["id"], successor), {}).get("status", "pending"),
+                           "witnessId": assessment.get((node["id"], successor), {}).get("witnessId")})
     return {
         "state-graph.json": {**header, "scope": model["scope"], "sources": model["sources"],
                              "features": model["features"], "nodes": model["states"], "edges": model["transitions"]},
         "atomic-requirements.json": {**header, "requirements": details},
         "requirement-graph.json": {**header, "features": model["features"], "nodes": nodes, "edges": edges,
                                   "semantics": "Structural execution adjacency; the next event and guard must still hold. Not development dependencies."},
+        **{name: {**header, **data} for name, data in semantic_summary(model).items()},
         "review-log.json": {**header, "phase": model["phase"], "scope": model["scope"],
                             "questions": model["questions"], "confirmations": model["confirmations"],
                             "rounds": model["rounds"], "semanticDigest": model_digest(model),
