@@ -13,19 +13,24 @@ analysis-model.json 是唯一需求编辑源，JSON 使用 UTF-8。先编辑工�
 | phase | clarifying、analyzing、review_ready、confirmed、incomplete |
 | scope | objective、included[]、excluded[]、abstraction；描述本次功能与状态抽象边界 |
 | sources[] | id、kind（prd/ui/human）、uri、locator、version；另含 evidencePath、sha256、readRanges[]；见下文 |
-| features[] | id、title、scope、entryStateIds[]；按业务能力组织，不强制一组功能等于一个连通分量 |
+| features[] | id、title、scope、entryStateIds[]、entryEvidence[]（stateId/sourceIds[]/reason）；按业务能力组织，不强制一组功能等于一个连通分量 |
 | states[] | id、featureIds[]、title、facts[]、uiRefs[]、sourceIds[]、status；可选 questionIds[] |
 | transitions[] | id、featureIds[]、from、event、guard、to、requirementId、sourceIds[]、status；可选 questionIds[] |
 | requirements[] | id、transitionId、title、ruleIds[]、acceptance[]、uiRefs[]、uiApplicability、sourceIds[]、status；可选 questionIds[] |
 | questions[] | id、question、blocking、status（open/resolved/out_of_scope）、affectedIds[]；解决时填 resolution、humanReference |
 | confirmations[] | stage（scope/final）、revision、humanReference、summary；scope 必须 scopeDigest；传统 final 必须 semanticDigest、coveredIds[] |
 | rounds[] | id、revision、nodeIds[]、checks[]、changes[]、openFrontier[] |
+| witnesses[] | id、transitionId、entryStateId、pathTransitionIds[]、scenarioFacts[]、stepEvidence[]、sourceIds[]；每步包含 transitionId、eventEnabledReason、guardSatisfiedReason、resultReason |
+| coverageClaims[] | id、sourceId、locator、disposition、relatedIds[]、reason；声明某一可定位来源义务的覆盖／排除／待决 |
+| continuationAssessments[] | id、fromRequirementId、toRequirementId、status(witnessed/excluded/pending)、reason、sourceIds[]；witnessed 需 witnessId |
 
 实体 status 为 draft、candidate、confirmed。draft 表示依据资料推导的待最终验收内容；candidate 表示依赖未定解释的可选方案。二者都不是人工确认。confirmed 只能在当前版本最终获人工确认后写入。
 
 scope 确认绑定 scopeDigest（model_tools.py scope-digest），相同范围跨 revision 仍有效，范围改变须新人工确认。正常交付用独立 acceptance.json 绑定语义／包／报告摘要和全部状态、迁移、需求 ID，见 workflow.md。冻结快照保留当时 draft 和 review_ready，正式确认由 acceptance 与 gate-result 表达。传统 phase=confirmed 模型仍须当前 revision 的 final 确认和 semanticDigest，但结构通过不代表完整门禁通过。不得编造回复或对话引用。
 
 ## 状态与迁移
+
+最终完整性总契约见 [semantic-validation.md](semantic-validation.md)。**保留完整边**仅指保留全部有效迁移，而非保留一切画过的边。正式有效迁移必须有真实起点、合法前置操作及可满足条件的执行见证；无见证时应先排查遗漏，确证不成立才删边，无法确认则挂起问题。
 
 facts[] 用非空文字明确记录当前业务事实和有验收意义的 UI 表现。目标状态表达此次迁移的结果；迁移边不得混写“显示某提示／数据已保存”等结果或状态修改指令。
 
@@ -34,6 +39,14 @@ guard 是明确的条件表达，无法定义时不得伪造谓词。无附加�
 允许平行边、循环、共享节点和不连通图。相同 from/to 不表示两条边等价；事件或守卫不同仍是独立迁移。抽象事实相同且行为、可观察响应及后续能力相同的节点应复用。
 
 提示出现、弹窗打开、禁用／只读等若影响验收，可以成为状态差异。若定义的全部状态维度均未改变，可保留自环；不得一面声称 UI 状态已变化，一面仍用同一节点隐藏它。持续成立的视觉规范或不变量挂在状态／验收约束上，不为凑“一迁移一需求”制造虚假业务事件。
+
+## 执行见证、覆盖声明与可执行衔接
+
+features[].entryStateIds 必须有相同 stateId 的 entryEvidence（明确业务初始化依据及来源），不得把任意中途节点当入口。witnesses[] 是唯一模型中的场景证据；一项见证属于一个 transitionId，pathTransitionIds 必须首尾连续、从所属真实起点出发并以该迁移结束；stepEvidence 按路径每步说明事件可触发、守卫成立及目标状态一致性；scenarioFacts 为具体合法的数据／权限／时间事实。程序只检查路径与字段，业务真实性由独立评审复核；一个见证只能证明存在性。
+
+coverageClaims[] 按定位到具体条款／画板行为的单元拆分，disposition 为 covered、excluded_equivalent、out_of_scope、pending_decision。covered 必须关联有效迁移／需求；其他结论必须写明依据，待决应关联 question。不得以一个泛泛“所有需求已覆盖”占位。来源中遗漏的条款需由独立评审发现，程序不得自称穷尽。
+
+结构候选衔接公式仍是 to(Ri)==from(Rj)，但 **requirement-graph.json 中所有衔接都是结构候选而非默认的执行关系**。每对候选在 continuationAssessments[] 中分类：witnessed（必须引用确实含相邻两步的 witnessId）、excluded（已判断条件不兼容，理由及来源）、pending（尚未确定）。正式交付不允许 pending；excluded 不意味着应删除其中任一条本身有效的迁移。HTML 必须区分候选／已见证／已排除。
 
 ## 原子需求与衔接图
 
@@ -47,7 +60,7 @@ acceptance[] 每项含 id、given、when、then[]。一个迁移行为可包含�
 
 原子需求图节点 R 来自 requirements[]。对任意 Ri、Rj，当且仅当 to(Ri) == from(Rj) 时生成一条 continuation 边，记录 viaStateId。含自环或回环时仍按同一公式处理，不截断数据图。
 
-该边代表在当前抽象状态层面可衔接，后续事件与守卫仍需满足；不表示任意数据实例都能连续执行，不表示开发先后、规则依赖或已证明路径可满足。若守卫暴露状态抽象混淆，回到状态模型细化，不让 AI 私自画另一种关系图。
+该边仅代表结构候选；已验证连续执行的关系单独标记 witnessed（且有相邻路径见证）；不表示任意数据实例都能连续执行，不表示开发先后、规则依赖或已证明路径可满足。若守卫暴露状态抽象混淆，回到状态模型细化，不让 AI 私自画另一种关系图。
 
 ## UI 对应与来源
 
@@ -75,7 +88,7 @@ evidencePath 是相对 RUN 的实际缓存路径（不可越界），sha256 为�
 
 nodeId 必须在该轮 nodeIds 快照；relatedIds 与 openFrontier 可解析。历史删除对象以该轮 retiredIds[] 保留 ID，须有 remove 的 changes、来源和 meaning，不用凭空 retiredIds 掩盖错字。闭合轮只覆盖当前全部状态；同维度允许多条检查。
 
-最终闭合 audit 另记录 modelDigest。用 model_tools.py digest 计算；摘要包含 revision、范围、来源、功能、状态、迁移、需求与问题，排除审查／确认元数据及实体确认 status。这样更新人工确认状态无需改变语义版本，但改动行为、UI 对应、验收或问题解释后必须重审。
+最终闭合 audit 另记录 modelDigest。用 model_tools.py digest 计算；摘要包含 revision、范围、来源、功能、状态、迁移、需求、执行见证、来源覆盖、候选衔接处置与问题，排除审查／确认元数据及实体确认 status。这样更新人工确认状态无需改变语义版本，但改动行为、UI 对应、验收或问题解释后必须重审。
 
 允许未决业务问题留至最终验收，但不能把“该问题已有唯一答案”作为继续推导的前提；依赖它的内容维持 candidate 并关联问题。结构不确定的分支留在问题记录，不制造看似真实的占位状态。
 
@@ -86,11 +99,17 @@ scripts/model_tools.py 从唯一模型导出以下文件，每个文件都带 sc
 - state-graph.json：scope、sources、features、nodes、edges。
 - atomic-requirements.json：requirements，并解析 featureIds、sourceState、transition、targetState 和完整 statement，便于独立阅读。
 - requirement-graph.json：feature 分组、原子需求节点、continuation 边；不加入其他边类型。
+- execution-witnesses.json：每条迁移的执行见证和路径、步骤依据。
+- coverage-report.json：来源条款覆盖与衔接候选的处置汇总。
 - review-log.json：phase、scope、questions、confirmations、rounds 及结构检查摘要。
 
 导出前进行结构检查；结构通过不等于业务已确认。--final 还检查当前版本人工确认记录、待决项、实体状态和完整闭合轮。程序仅验证记录一致性，无法认证 humanReference 的真实性或证明业务语义正确。
 
 所有 JSON 带 schemaVersion=2、revision、semanticDigest。衔接边 ID 为 C: 加紧凑 JSON 二元组 [前项ID,后项ID]，不用有歧义的冒号拼接。export 输出新整包目录（含 HTML、图片和 manifest），拒绝覆盖。正式交付须 workflow.py publish。
+
+## 新旧运行迁移
+
+此次固定门禁升级增加执行见证、来源覆盖和候选衔接处置。既有 schemaVersion=2 数据不因版本号相同自动获得通过；旧 run 的合同摘要失效，须新建 run，真实补读补审，不伪造过去见证与独立评审。新 schemaVersion=2 在 init 时初始化这些新数组，正式状态要求全部相应证据完备。旧确认只能按原回答覆盖范围复用。
 
 ## v1 显式迁移
 
