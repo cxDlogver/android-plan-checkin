@@ -66,6 +66,20 @@ def inspect(model):
         real_entries.update(feature_entries & covered)
     if ts and not real_entries:
         error("STRUCTURE-001", "no evidenced real entry states")
+    # Topological reachability is necessary but never sufficient for business feasibility.
+    reachable, frontier = set(real_entries), list(real_entries)
+    while frontier:
+        sid = frontier.pop()
+        for t in ts.values():
+            if t["from"] == sid and t["to"] not in reachable:
+                reachable.add(t["to"])
+                frontier.append(t["to"])
+    for sid in states:
+        if sid not in reachable:
+            error("STRUCTURE-001", f"{sid}: no route from any real entry (guards still require review)")
+    for tid, t in ts.items():
+        if str(t.get("guard", "")).strip().lower() == "false":
+            error("FEASIBILITY-001", f"{tid}: guard is explicitly false; no executable instance")
 
     witnesses_by_transition = defaultdict(list)
     for wid, w in ws.items():
@@ -127,16 +141,18 @@ def inspect(model):
         if not isinstance(claim.get("reason"), str) or not claim["reason"].strip():
             error("COVERAGE-001", f"{cid}: explanation required")
         related = claim.get("relatedIds", [])
-        if disposition == "covered" and not related:
-            error("COVERAGE-001", f"{cid}: covered claim has no mapping")
+        if disposition in ("covered", "excluded_equivalent") and not related:
+            error("COVERAGE-001", f"{cid}: coverage or equivalence claim has no mapping")
         if not isinstance(related, list):
             error("COVERAGE-001", f"{cid}: relatedIds must be an array")
             related = []
         for rid in related:
             if rid in ts:
-                covered_transitions.add(rid)
+                if disposition == "covered":
+                    covered_transitions.add(rid)
             elif rid in reqs:
-                covered_transitions.add(reqs[rid]["transitionId"])
+                if disposition == "covered":
+                    covered_transitions.add(reqs[rid]["transitionId"])
             elif rid not in states and rid not in questions:
                 error("COVERAGE-001", f"{cid}: unknown mapping {rid}")
         if disposition == "pending_decision":
