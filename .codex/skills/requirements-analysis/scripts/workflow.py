@@ -5,6 +5,7 @@ import json
 import os
 import shutil
 import sys
+import time
 import uuid
 from pathlib import Path
 
@@ -67,7 +68,17 @@ def atomic_json(path, value):
     temp = temp_dir / (path.name + ".tmp-" + uuid.uuid4().hex)
     try:
         write(temp, value)
-        os.replace(temp, path)
+        # Windows file scanners and brief file locks can reject an otherwise
+        # valid atomic replacement. Retry the *same* prepared file a bounded
+        # number of times; persistent permission errors must still fail.
+        for attempt in range(4):
+            try:
+                os.replace(temp, path)
+                break
+            except PermissionError:
+                if attempt == 3:
+                    raise
+                time.sleep(0.05 * (2 ** attempt))
     finally:
         temp.unlink(missing_ok=True)
 
