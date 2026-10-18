@@ -14,6 +14,7 @@ description: Analyze PRDs and UI designs into a state transition graph, one atom
 - 建模与字段：[model-contract.md](references/model-contract.md)。创建结构化数据前读取。
 - 分支补漏与收敛：[branch-review.md](references/branch-review.md)。进入循环分析前读取。
 - HTML 观察与人工验收：[html-review.md](references/html-review.md)。生成 HTML 前读取。
+- **双重完整性与有效迁移定义**：[semantic-validation.md](references/semantic-validation.md)。构建前和最终门禁前必读；同时要求结构完整性和语义完整性。
 
 ## 已固定的工作方式
 
@@ -22,7 +23,9 @@ description: Analyze PRDs and UI designs into a state transition graph, one atom
 3. 状态节点可含业务事实和有验收意义的 UI 状态；边仅描述操作／事件和守卫条件，状态结果由目标节点表达。
 4. 一条迁移对应且只对应一个原子需求：R = (起始状态, 迁移, 目标状态)。多步链路是上下文，不是一条原子需求。
 5. 原子需求图是执行衔接图：A 的终态 ID 等于 B 的初态 ID 时连接 A → B。由同一状态模型确定性生成，不混入开发依赖。
-6. HTML 为只读观察产物；确认在对话中完成。页面打开、浏览、AI 推断或无人回复，都不能产生人工确认。
+6. **完整边只指全部有效迁移**：每条正式有效迁移必须有至少一条从真实起点出发，必要前置操作齐全、条件成立、实际可执行的场景；无见证时先排查前置操作／状态／守卫，确证无效才删除并保留处置记录，未知必须待决。
+7. **双重完整性最终门禁**：结构完整性（状态／边／映射／来源覆盖）与语义完整性（可执行性／条件与结果／有效分支覆盖）同时满足；结构候选衔接不等于已证实可连续执行。
+8. HTML 为只读观察产物；确认在对话中完成。页面打开、浏览、AI 推断或无人回复，都不能产生人工确认。
 
 ## 阶段一：读取与初始澄清
 
@@ -38,13 +41,15 @@ description: Analyze PRDs and UI designs into a state transition graph, one atom
 
 ## 阶段二：同步建模与多轮审查
 
-先建立功能分组、主流程状态和迁移，同时为每条迁移建立原子需求详情。底层采用有向多重图：允许多个不连通部分、共享状态、回环、自环和同起终点不同事件的平行边；不要强行制造公共根节点或复制等价状态。
+先建立功能分组、真实起点及其来源证据、主流程状态和迁移，同时为每条迁移建立原子需求详情。底层采用有向多重图：允许多个不连通部分、共享状态、回环、自环和同起终点不同事件的平行边；不要强行制造公共根节点或复制等价状态。
 
 每条迁移应是一个可独立说明、验收的行为；共同成立的多个结果断言可同属一条需求。若混入互不依赖的行为，拆分迁移并建立有意义的中间状态。不要按每个断言、每个测试数据或页面数量拆需求。
 
-执行 [branch-review.md](references/branch-review.md) 的逐节点循环：
+执行 [branch-review.md](references/branch-review.md) 和 [semantic-validation.md](references/semantic-validation.md) 的逐节点、逐迁移、逐来源循环：
 
 - 从已发现功能出发补充边界；检查事件、守卫反面、合法域、失败、拒绝、取消、返回、重复操作等适用维度。
+- 每建模或修改一组迁移立即尝试提供真实起点到目标边的完整执行见证；对无法证明的边排查缺少的前置操作、状态和条件；确证无效的删除、无法确定的待决。
+- 从来源条款及 UI 行为反向检查有效分支覆盖；同一行为与验收义务不因样本不同重复拆分；审查潜在衔接是否有连续执行见证，不把状态 ID 相同冒充实际可执行。
 - 每轮记录所有在审节点的检查与理由。新建和修改节点及其受影响邻居加入待审集合；下一轮继续检查，不能只复核第一版节点。
 - 只为改变行为、约束、可观察结果或后续允许操作的差异增加分支。逆向检查不等于每条边都必须有逆操作。
 - 未定义规则留为待决；有依据的候选与已获支持的草案明确区分，不能悄悄用惯例填空。
@@ -60,6 +65,8 @@ description: Analyze PRDs and UI designs into a state transition graph, one atom
 - state-graph.json：状态图结构化导出。
 - atomic-requirements.json：每个原子需求的结构化详情；解析其起点、事件／条件、终点及验收信息。
 - requirement-graph.json：确定性生成的原子需求执行衔接图。
+- execution-witnesses.json：逐迁移真实起点、完整执行路径和条件依据。
+- coverage-report.json：逐来源行为义务、有效分支覆盖及排除／待决处置。
 - review-log.json：循环审查、分支处置、待决项与确认记录。
 - review.html：按 [html-review.md](references/html-review.md) 生成的只读观察入口，展示双图、完整链路、原子需求详情及 UI 对照。
 
@@ -76,7 +83,7 @@ python <skill-dir>/scripts/model_tools.py export <analysis-model.json> <output-d
 
 把未定规则、候选差异、设计缺口与对整体链路的影响集中交给用户。根据人工作答修订；若状态、迁移、原子需求或 UI 含义变化，重新循环审查、导出并刷新 HTML，然后提交更新版本供最终确认。这属于最终验收阶段，不是每个内部轮次都要求确认。
 
-集中取得缺失业务决定并修订、闭合后，运行 workflow.py assert，并由独立评审上下文按固定 rubric 核对来源、分支、原子性、条件、UI、待决、收敛和实际 HTML 观察。报告绑定当前语义、实体覆盖及整包摘要。失败或证据不足先修复复审；不能用构建者自评或手填通过代替独立验收。
+集中取得缺失业务决定并修订、闭合后，运行 workflow.py assert，并由独立评审上下文按固定 rubric 核对来源、分支、原子性、条件、UI、待决、收敛、**结构完整性、逐迁移语义可执行性、来源反向覆盖及候选衔接**和实际 HTML 观察。报告绑定当前语义、实体覆盖及整包摘要。失败或证据不足先修复复审；不能用构建者自评或手填通过代替独立验收。
 
 只有 assert 返回 awaiting_final_confirmation，才请求用户对当前版本整体确认。真实回复先缓存并 checkpoint，建立绑定语义／包／报告摘要的 acceptance.json，再 assert 和 publish。冻结评审快照保留当时状态；正式确认由同包 acceptance.json 和 gate-result.json 表达。以下命令仅核对传统 confirmed 模型结构，不含独立模型验收，不能替代 assert/publish：
 
