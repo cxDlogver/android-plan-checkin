@@ -13,11 +13,13 @@ CONTINUATIONS = {"witnessed", "excluded", "pending"}
 def candidates(model):
     """All structural adjacency candidates, including loops and parallel edges."""
     ts = {t["id"]: t for t in model["transitions"]}
+    by_source = defaultdict(list)
+    for requirement in model["requirements"]:
+        by_source[ts[requirement["transitionId"]]["from"]].append(requirement["id"])
     pairs = []
-    for a in model["requirements"]:
-        for b in model["requirements"]:
-            if ts[a["transitionId"]]["to"] == ts[b["transitionId"]]["from"]:
-                pairs.append((a["id"], b["id"]))
+    for requirement in model["requirements"]:
+        for successor in by_source[ts[requirement["transitionId"]]["to"]]:
+            pairs.append((requirement["id"], successor))
     return pairs
 
 
