@@ -71,14 +71,15 @@ model-review.json：
   "review_id":"review-01","reviewer_context_ref":"实际独立上下文ID","independent":true,
   "reviewed_revision":"r8","semantic_digest":"model_tools digest结果",
   "bundle_digest":"已审包manifest中的bundle_digest",
-  "reviewed_entity_ids":["S1","T1","R1"],"input_complete":true,
+  "reviewed_entity_ids":["S1","T1","R1"],
+  "reviewed_evidence_ids":["W1","COV1"],"input_complete":true,
   "criteria_results":[{"criterion_id":"source_consistency","status":"passed","reason":"具体对象与核对结果","affected_ids":["R1"],"evidence_refs":["evidence/reviewer-observations.md"]}],
   "evidence_files":{"evidence/reviewer-observations.md":"该文件SHA256"},
   "findings":[],"limitations":[],"html_runtime_verified":true
 }
 ```
 
-示例仅演示一项，实际覆盖固定八项，每项一次。status=pending/passed/failed/inconclusive。每项需具体理由、非空当前实体引用、证据路径；evidence_files 索引证据 SHA256。findings 每项含 id、status（open/resolved）、说明和对象，有开放发现不得 passed。input_complete=false、报告缺失、HTML 未实际浏览均未完成。HTML 观察记录真实工具／浏览器上下文、步骤、统计对比与结果，附可用截图。脚本只核对声明和证据一致性，语义由独立评审负责。
+示例仅演示一项，实际必须覆盖固定 rubric 的全部项目（含结构完整性、语义可执行性、来源分支完整性），每项一次。reviewed_evidence_ids 必须覆盖当前全部 witnesses、coverageClaims、continuationAssessments，不能仅审原子需求标题。status=pending/passed/failed/inconclusive。每项需具体理由、非空当前实体引用、证据路径；evidence_files 索引证据 SHA256。findings 每项含 id、status（open/resolved）、说明和对象，有开放发现不得 passed。input_complete=false、报告缺失、HTML 未实际浏览均未完成。HTML 观察记录真实工具／浏览器上下文、步骤、统计对比与结果，附可用截图。脚本只核对声明和证据一致性，语义由独立评审负责。
 
 报告或包改变须重新 assert；语义或证据改变，重审后刷新报告；不能手填 passed 冒充执行。最终待决先问人，答案导致语义变化则修复、全量闭合和独立复审，再请求整体确认。
 
