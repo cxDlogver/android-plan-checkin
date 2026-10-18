@@ -91,7 +91,8 @@ class WorkflowTests(unittest.TestCase):
         (self.run / "evidence/reviewer.md").write_text("SYNTHETIC MODEL CONTRACT RECORD ONLY; not actual independent acceptance", encoding="utf8")
         report = {"review_id": "SYNTHETIC", "reviewer_context_ref": "test-independent-context", "independent": True,
             "reviewed_revision": model["revision"], "semantic_digest": mt.model_digest(model), "bundle_digest": manifest["bundle_digest"],
-            "reviewed_entity_ids": sorted(wf.entity_ids(model)), "input_complete": True,
+            "reviewed_entity_ids": sorted(wf.entity_ids(model)),
+            "reviewed_evidence_ids": sorted(wf.review_evidence_ids(model)), "input_complete": True,
             "criteria_results": [{"criterion_id": key, "status": "passed", "reason": "Synthetic contract test only", "affected_ids": ["R"],
                "evidence_refs": ["evidence/reviewer.md"]} for key in wf.read(wf.TEMPLATE)["required_criteria"]],
             "evidence_files": {"evidence/reviewer.md": wf.file_hash(self.run / "evidence/reviewer.md")},
