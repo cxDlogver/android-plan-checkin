@@ -72,7 +72,7 @@ class WorkflowTests(unittest.TestCase):
         model["continuationAssessments"] = []
         model["rounds"] = [{"id": "BUILD", "kind": "build", "revision": "r3", "nodeIds": ["S0", "S1"],
             "checks": [], "changes": [{"kind": "add", "entityId": "T", "meaning": "value receiving obligation", "sourceIds": ["SRC"]}], "openFrontier": ["S0", "S1"]}]
-        self.save(model, "model", ["S0", "S1", "T", "R"])
+        self.save(model, "model", ["S0", "S1", "T", "R", "W", "COV"])
         model["rounds"].append({"id": "AUDIT", "kind": "audit", "revision": "r3", "nodeIds": ["S0", "S1"], "checks": [], "changes": [], "openFrontier": []})
         self.save(model, "round", ["AUDIT"])
         for sid in ("S0", "S1"):
