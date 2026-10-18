@@ -262,6 +262,23 @@ class WorkflowTests(unittest.TestCase):
         model["witnesses"][0]["scenarioFacts"].append("user is online")
         self.assertNotEqual(original_digest, mt.model_digest(model))
 
+    def test_final_gate_reports_both_completeness_dimensions(self):
+        model = self.baseline()
+        bundle, path, report = self.bundle_and_report(model)
+        gate = wf.gate(self.run, bundle, path)
+        self.assertEqual({"structural": "passed", "semantic": "passed"}, gate["completeness"])
+        bad = copy.deepcopy(report)
+        bad["reviewed_evidence_ids"] = []
+        wf.write(path, bad)
+        gate = wf.gate(self.run, bundle, path)
+        self.assertEqual("failed", gate["checks"]["MODEL-REVIEW-001"]["status"])
+        self.assertEqual("failed", gate["completeness"]["semantic"])
+
+    def test_explicit_false_guard_fails_semantics(self):
+        model = self.baseline()
+        model["transitions"][0]["guard"] = "false"
+        self.assertTrue(sc.inspect(model)["FEASIBILITY-001"])
+
     def test_missing_entry_witness_and_coverage_are_rejected(self):
         model = self.baseline()
         model["features"][0]["entryEvidence"] = []
