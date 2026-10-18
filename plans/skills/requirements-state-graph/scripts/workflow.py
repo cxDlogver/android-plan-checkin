@@ -227,14 +227,15 @@ def checkpoint(root, model_path, state_path, record_path, base):
     errors, _ = validate(model)
     if errors:
         raise ValueError("model invalid: " + "; ".join(errors))
-    if record.get("kind") not in {"source", "model", "question", "node_audit", "round", "decision", "pause"}:
+    if record.get("kind") not in {"source", "model", "semantic_audit", "question", "node_audit", "round", "decision", "pause"}:
         raise ValueError("invalid work unit kind")
     if not isinstance(record.get("id"), str) or not record["id"].strip() or record["id"] in previous_state["completed_step_ids"]:
         raise ValueError("step id must be new and nonempty")
     if not isinstance(record.get("summary"), str) or not record["summary"].strip():
         raise ValueError("step summary required")
     ids, evidence_refs = record.get("entityIds"), record.get("evidenceRefs")
-    known = {x["id"] for k in ("sources", "features", "states", "transitions", "requirements", "questions", "rounds") for x in model[k]}
+    known = {x["id"] for k in ("sources", "features", "states", "transitions", "requirements", "questions", "rounds",
+                                  "witnesses", "coverageClaims", "continuationAssessments") for x in model[k]}
     if not isinstance(ids, list) or not set(ids) <= known | {"scope"}:
         raise ValueError("step entityIds must resolve")
     if not isinstance(evidence_refs, list):
@@ -409,6 +410,9 @@ def gate(root, bundle=None, report_path=None, approval_path=None):
             process_errors.append("scope confirmation not saved as a decision unit")
     if not any(s["kind"] == "model" for s in steps):
         process_errors.append("no incrementally saved model unit")
+    for eid in review_evidence_ids(model):
+        if not any(eid in s.get("entityIds", []) and s["kind"] in {"model", "semantic_audit"} for s in steps):
+            process_errors.append("semantic evidence not checkpointed: " + eid)
     last = model["rounds"][-1] if model["rounds"] else {}
     for sid in (s["id"] for s in model["states"]):
         try:
