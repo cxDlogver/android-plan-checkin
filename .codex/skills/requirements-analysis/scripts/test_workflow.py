@@ -92,6 +92,33 @@ class WorkflowTests(unittest.TestCase):
         wf.write(report_path, report)
         return bundle, report_path, report
 
+    def test_atomic_json_retries_transient_file_lock(self):
+        target = wf.work(self.run, 'atomic-retry.json')
+        original = wf.os.replace
+        calls = []
+        def replace_once_unlocked(src, dst):
+            calls.append(1)
+            if len(calls) < 3:
+                raise PermissionError('busy')
+            return original(src, dst)
+        with patch.object(wf.os, 'replace', side_effect=replace_once_unlocked):
+            with patch.object(wf.time, 'sleep') as sleeper:
+                wf.atomic_json(target, {'ok': True})
+        self.assertEqual(3, len(calls))
+        self.assertEqual(2, sleeper.call_count)
+        self.assertEqual({'ok': True}, wf.read(target))
+        self.assertFalse(list(target.parent.glob(target.name + '.tmp-*')))
+
+    def test_atomic_json_keeps_persistent_error(self):
+        target = wf.work(self.run, 'atomic-failure.json')
+        with patch.object(wf.os, 'replace', side_effect=PermissionError('denied')):
+            with patch.object(wf.time, 'sleep') as sleeper:
+                with self.assertRaises(PermissionError):
+                    wf.atomic_json(target, {'ok': False})
+        self.assertEqual(3, sleeper.call_count)
+        self.assertFalse(target.exists())
+        self.assertFalse(list(target.parent.glob(target.name + '.tmp-*')))
+
     def test_init_pending_and_template_tamper(self):
         value = wf.contract(self.run)
         self.assertTrue(all(c["status"] == "pending" for c in value["checks"].values()))
