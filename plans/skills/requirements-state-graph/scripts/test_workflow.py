@@ -10,13 +10,14 @@ from unittest.mock import patch
 
 import model_tools as mt
 import workflow as wf
+import semantic_checks as sc
 
 TEST_ROOT = None
 
 
 class WorkflowTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix="requirements-v2-", dir=TEST_ROOT)
+        self.temp = tempfile.TemporaryDirectory(prefix="requirements-dual-gates-", dir=TEST_ROOT)
         self.addCleanup(self.temp.cleanup)
         self.home = Path(self.temp.name)
         self.run = self.home / "run"
@@ -52,7 +53,8 @@ class WorkflowTests(unittest.TestCase):
             "summary": "SYNTHETIC ONLY", "scopeDigest": mt.scope_digest(model)}]
         self.save(model, "decision", ["HUMAN", "scope"], ["evidence/scope.md"])
         model.update(revision="r3", phase="analyzing")
-        model["features"] = [{"id": "F", "title": "receiver", "scope": "value receiver", "entryStateIds": ["S0"]}]
+        model["features"] = [{"id": "F", "title": "receiver", "scope": "value receiver", "entryStateIds": ["S0"],
+            "entryEvidence": [{"stateId": "S0", "sourceIds": ["SRC"], "reason": "Synthetic receiver begins with absent value"}]}]
         model["states"] = [{"id": sid, "featureIds": ["F"], "title": title, "facts": [title], "uiRefs": [],
                            "sourceIds": ["SRC"], "status": "draft"} for sid, title in [("S0", "absent"), ("S1", "present")]]
         model["transitions"] = [{"id": "T", "featureIds": ["F"], "from": "S0", "to": "S1", "event": "receive value", "guard": "true",
@@ -60,6 +62,14 @@ class WorkflowTests(unittest.TestCase):
         model["requirements"] = [{"id": "R", "transitionId": "T", "title": "receive value", "ruleIds": [],
             "acceptance": [{"id": "AC", "given": "value absent", "when": "value received", "then": ["value present"]}],
             "uiRefs": [], "uiApplicability": {"status": "not_applicable", "reason": "headless synthetic PRD"}, "sourceIds": ["SRC"], "status": "draft"}]
+        model["witnesses"] = [{"id": "W", "transitionId": "T", "entryStateId": "S0",
+            "pathTransitionIds": ["T"], "scenarioFacts": ["value is absent at startup"],
+            "stepEvidence": [{"transitionId": "T", "eventEnabledReason": "receiver is ready",
+                              "guardSatisfiedReason": "unconditional receive",
+                              "resultReason": "value becomes present"}], "sourceIds": ["SRC"]}]
+        model["coverageClaims"] = [{"id": "COV", "sourceId": "SRC", "locator": "whole",
+            "disposition": "covered", "relatedIds": ["R"], "reason": "Synthetic receive clause maps to R"}]
+        model["continuationAssessments"] = []
         model["rounds"] = [{"id": "BUILD", "kind": "build", "revision": "r3", "nodeIds": ["S0", "S1"],
             "checks": [], "changes": [{"kind": "add", "entityId": "T", "meaning": "value receiving obligation", "sourceIds": ["SRC"]}], "openFrontier": ["S0", "S1"]}]
         self.save(model, "model", ["S0", "S1", "T", "R"])
@@ -240,6 +250,71 @@ class WorkflowTests(unittest.TestCase):
         (self.run / "evidence/prd.md").write_text("changed", encoding="utf8")
         with self.assertRaisesRegex(ValueError, "evidence changed"):
             wf.history(self.run)
+
+    def test_dual_completeness_evidence_and_exports(self):
+        model = self.baseline()
+        self.assertTrue(all(not x for x in sc.inspect(model).values()), sc.inspect(model))
+        artifacts = mt.exports(model)
+        self.assertIn("execution-witnesses.json", artifacts)
+        self.assertIn("coverage-report.json", artifacts)
+        original_digest = mt.model_digest(model)
+        model["witnesses"][0]["scenarioFacts"].append("user is online")
+        self.assertNotEqual(original_digest, mt.model_digest(model))
+
+    def test_missing_entry_witness_and_coverage_are_rejected(self):
+        model = self.baseline()
+        model["features"][0]["entryEvidence"] = []
+        self.assertTrue(sc.inspect(model)["STRUCTURE-001"])
+        model["features"][0]["entryEvidence"] = [{"stateId": "S0", "sourceIds": ["SRC"], "reason": "from source"}]
+        model["witnesses"] = []
+        self.assertTrue(sc.inspect(model)["FEASIBILITY-001"])
+        model["witnesses"] = [{"id": "W", "transitionId": "T", "entryStateId": "S0",
+            "pathTransitionIds": ["T"], "scenarioFacts": ["value absent"],
+            "stepEvidence": [{"transitionId": "T", "eventEnabledReason": "allowed",
+                              "guardSatisfiedReason": "true", "resultReason": "now present"}],
+            "sourceIds": ["SRC"]}]
+        model["coverageClaims"] = []
+        self.assertTrue(sc.inspect(model)["COVERAGE-001"])
+
+    def test_broken_path_is_not_valid_executable_witness(self):
+        model = self.baseline()
+        model["witnesses"][0]["entryStateId"] = "S1"
+        self.assertTrue(sc.inspect(model)["FEASIBILITY-001"])
+        model["witnesses"][0]["entryStateId"] = "S0"
+        model["witnesses"][0]["stepEvidence"][0]["guardSatisfiedReason"] = ""
+        self.assertTrue(sc.inspect(model)["FEASIBILITY-001"])
+
+    def test_continuation_requires_consecutive_witness(self):
+        model = self.baseline()
+        model["states"].append({"id": "S2", "featureIds": ["F"], "title": "finished",
+            "facts": ["finished"], "uiRefs": [], "sourceIds": ["SRC"], "status": "draft"})
+        model["transitions"].append({"id": "T2", "featureIds": ["F"], "from": "S1", "to": "S2",
+            "event": "complete", "guard": "true", "requirementId": "R2",
+            "sourceIds": ["SRC"], "status": "draft"})
+        model["requirements"].append({"id": "R2", "transitionId": "T2", "title": "complete",
+            "ruleIds": [], "acceptance": [{"id": "AC2", "given": "present",
+            "when": "complete", "then": ["finished"]}], "uiRefs": [],
+            "uiApplicability": {"status": "not_applicable", "reason": "headless"},
+            "sourceIds": ["SRC"], "status": "draft"})
+        model["witnesses"].append({"id": "W2", "transitionId": "T2",
+            "entryStateId": "S0", "pathTransitionIds": ["T", "T2"],
+            "scenarioFacts": ["value received before completing"],
+            "stepEvidence": [
+                {"transitionId": "T", "eventEnabledReason": "ready",
+                 "guardSatisfiedReason": "true", "resultReason": "present"},
+                {"transitionId": "T2", "eventEnabledReason": "present",
+                 "guardSatisfiedReason": "true", "resultReason": "finished"}],
+            "sourceIds": ["SRC"]})
+        model["coverageClaims"][0]["relatedIds"].append("R2")
+        self.assertTrue(sc.inspect(model)["CONTINUATION-001"])
+        model["continuationAssessments"] = [{"id": "C1", "fromRequirementId": "R",
+            "toRequirementId": "R2", "status": "witnessed", "witnessId": "W2",
+            "reason": "W2 contains both steps", "sourceIds": ["SRC"]}]
+        self.assertFalse(sc.inspect(model)["CONTINUATION-001"])
+        model["continuationAssessments"][0]["witnessId"] = "W"
+        self.assertTrue(sc.inspect(model)["CONTINUATION-001"])
+        model["continuationAssessments"][0]["status"] = "pending"
+        self.assertTrue(sc.inspect(model)["CONTINUATION-001"])
 
     def test_malformed_json_types_return_diagnostics(self):
         for model in [None, [], {"schemaVersion": 2, "scope": [], "states": [{"id": ["bad"]}]}]:
