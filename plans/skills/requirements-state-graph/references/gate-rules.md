@@ -1,6 +1,6 @@
 # 固定验收门禁
 
-固定规则和 rubric 是 assets/gate-contract.json。不得按本轮难易删规则或补造通过记录。init 全 pending；assert 重算实际检查，旧 checks 的 passed 不作依据。失败含 rule_id、failed_object、expected、actual、evidence_ref、failure_reason、repair_from、recheck_from。
+固定规则和 rubric 是 assets/gate-contract.json。结构与语义双重完整性的含义以 [semantic-validation.md](semantic-validation.md) 为准。两者是通用**最终**门禁，不能通过仅修补当前案例或只检查已有图的连通性来代替。不得按本轮难易删规则或补造通过记录。init 全 pending；assert 重算实际检查，旧 checks 的 passed 不作依据。失败含 rule_id、failed_object、expected、actual、evidence_ref、failure_reason、repair_from、recheck_from。
 
 ## 机械规则
 
@@ -13,6 +13,10 @@
 | SCOPE-001 / 程序＋人 | 真实初始确认绑定当前 scopeDigest；相同范围可跨 revision | 人工确认新范围、保存决定，再分析 |
 | MODEL-001 / 程序 | schemaVersion=2，结构、类型、枚举、来源／UI／功能引用合法 | 修模型、全量验证 |
 | LINK-001 / 程序 | 迁移需求双向一一对应，衔接公式成立，边 ID 无歧义且唯一 | 修迁移／需求，同源重导出 |
+| STRUCTURE-001 / 程序＋模型 | 真实入口与结构依据完整；节点/边/需求/来源引用、全部有效边与等价排除均经过独立评审 | 补结构与来源证据、全量重审 |
+| FEASIBILITY-001 / 程序＋模型 | 每条非候选迁移至少一个完整合法路径见证；路径程序核对，业务条件与结果由独立模型核对 | 排查前置操作、状态、条件；无效删边、未知待决 |
+| COVERAGE-001 / 程序＋模型 | PRD/UI 可定位条款的覆盖声明与需求引用齐全；独立反向核对有效分支没有遗漏 | 补来源覆盖与遗漏边、复审 |
+| CONTINUATION-001 / 程序＋模型 | 所有潜在衔接有 witnessed/excluded 分类与依据，无 pending；不把结构相邻冒充可连续执行 | 修正状态抽象、补相邻见证或排除理由 |
 | PROCESS-001 / 程序 | 指针历史可校验，来源及当前每节点审查有已提交单元，待审队列空 | 恢复完整点，执行缺失单元，不补造历史 |
 | AUDIT-001 / 程序 | 至少一次建模／审查后，当前摘要闭合轮覆盖全状态×十维，无变化／前沿；phase=review_ready 或 confirmed | 从缺节点、轮次或变更后重审 |
 | QUESTION-001 / 程序＋人 | 所有开放问题处置、候选转有据草案；affectedIds/questionIds 一致 | 最终集中问答、修订、闭合与评审 |
@@ -30,6 +34,9 @@
 | branch_meaning | 新分支改变义务，等价排除有理由，未臆造异常业务 |
 | atomicity | 一迁移为独立行为；结果和共同断言完整 |
 | guards_and_complements | 条件、合法域、反面与边界有据，未知未补默认值 |
+| structural_completeness | 有效迁移、状态、原子需求、来源与多重图结构完整，没有重复、漏边或无效边 |
+| semantic_feasibility | 独立验证逐迁移真实入口、前置路径、事件／守卫、场景数据、时间权限与目标事实，未把声明当证明 |
+| semantic_coverage | 独立从 PRD/UI 逐条反向核对全部有效行为及边界分支、排除依据，并核对衔接分类 |
 | ui_mapping | 实际画板／区域／状态对应，缺稿与无UI区分 |
 | unresolved_decisions | 未定义未隐含选定；人工决定与影响相符 |
 | convergence | 最后变更后全量复审，新／受影响节点处置充分；限定范围 |
