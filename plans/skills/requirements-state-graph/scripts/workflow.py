@@ -9,6 +9,7 @@ import uuid
 from pathlib import Path
 
 from model_tools import DIMENSIONS, digest, exports, model_digest, scope_digest, validate
+from semantic_checks import inspect as inspect_semantics
 
 SKILL = Path(__file__).resolve().parent.parent
 TEMPLATE = SKILL / "assets" / "gate-contract.json"
@@ -192,7 +193,8 @@ def initialize(root, run_id, context):
     model = {"schemaVersion": 2, "revision": "r0", "phase": "clarifying",
              "scope": {"objective": "", "included": [], "excluded": [], "abstraction": ""},
              **{key: [] for key in ("sources", "features", "states", "transitions", "requirements",
-                                    "questions", "confirmations", "rounds")}}
+                                    "questions", "confirmations", "rounds", "witnesses",
+                                    "coverageClaims", "continuationAssessments")}}
     state = {"run_id": run_id, "phase": "clarifying", "round_id": None, "active_node_id": None,
              "pending_node_ids": [], "completed_step_ids": ["init"], "open_question_ids": [],
              "artifact_revision": "r0", "semantic_digest": model_digest(model),
@@ -386,6 +388,9 @@ def gate(root, bundle=None, report_path=None, approval_path=None):
     else:
         link_errors.append("model invalid; cannot derive graph")
     check("LINK-001", link_errors, evidence=["analysis-model.json#/transitions"])
+    mechanical_semantics = inspect_semantics(model) if not errors else {rule: ["model invalid; semantic evidence cannot be checked"] for rule in ("STRUCTURE-001", "FEASIBILITY-001", "COVERAGE-001", "CONTINUATION-001")}
+    for rule in ("STRUCTURE-001", "FEASIBILITY-001", "COVERAGE-001", "CONTINUATION-001"):
+        check(rule, mechanical_semantics[rule], evidence=["analysis-model.json", "execution-witnesses.json", "coverage-report.json"])
     steps = [x[3] for x in trail]
     process_errors = []
     if state["pending_node_ids"] or state["active_node_id"]:
@@ -424,7 +429,7 @@ def gate(root, bundle=None, report_path=None, approval_path=None):
             frozen = read(bundle / "analysis-model.json")
             if frozen != model or manifest.get("semantic_digest") != model_digest(model):
                 raise ValueError("bundle does not match current checkpoint")
-            expected_files = {"analysis-model.json", "state-graph.json", "atomic-requirements.json", "requirement-graph.json", "review-log.json", "review.html", "ui-media.json"}
+            expected_files = {"analysis-model.json", "state-graph.json", "atomic-requirements.json", "requirement-graph.json", "execution-witnesses.json", "coverage-report.json", "review-log.json", "review.html", "ui-media.json"}
             if set(manifest["files"]) != expected_files:
                 raise ValueError("bundle missing required artifacts")
             for name, data in exports(model).items():
