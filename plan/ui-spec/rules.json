@@ -1,0 +1,169 @@
+{
+  "schemaVersion": "2.0.0",
+  "kind": "rules",
+  "classification": {
+    "breakpoint": 768,
+    "unit": "logical-px",
+    "mobile": "0 < width < 768",
+    "desktop": "width >= 768"
+  },
+  "decisions": {
+    "source-visual": {
+      "statement": "原生节点取值、样例文字和视觉配方严格保存；矢量从当前plan导出的同名同库SVG取得，逐页核对全部节点名称与顺序。",
+      "origin": "source",
+      "evidence": "26份MCP节点快照及对应plan HTML"
+    },
+    "flow-layout": {
+      "statement": "一维容器唯一采用Flex；fill_container在横向主轴按等权fraction=1分配，其余填充明确父级区域。普通流不使用原图x/y定位。",
+      "origin": "normalized",
+      "evidence": "435个原生frame均为vertical/horizontal，未发现覆盖或绝对定位"
+    },
+    "content-min-height": {
+      "statement": "非环境容器的源数值高度转换为content+相同min；基准不压缩，文字放大和换行可增高；图标和形状保持fixed。",
+      "origin": "normalized",
+      "evidence": "源按钮48、页头92、导航70及日期格48；长文字不能裁剪"
+    },
+    "main-scroll": {
+      "statement": "页面内容是唯一业务纵向滚动区，填满页头/导航/环境区域外的剩余高度；其内部子节点不收缩。表单保存按钮保留在正文流中，不擅自吸底。",
+      "origin": "normalized",
+      "evidence": "23个页面均有名为页面内容的fill_container容器"
+    },
+    "mobile-window": {
+      "statement": "W<768选择mobile；画布宽min(W,480)，在可用窗口居中，画布高填满窗口。W>=768不提供页面。480只限宽、不改变端型。参考Size仍保存原稿393及各画板高度。",
+      "origin": "normalized",
+      "evidence": "当前23屏宽393；plan中既有阅读限宽约定480；本次按两端独立规则修正适用范围"
+    },
+    "calendar-grid": {
+      "statement": "月历日期统一为7等权列、5行Grid，列距2、行距12；星期同样7等权列。去除5个冗余周行，日期顺序、填充、描边与内容全部保留。",
+      "origin": "normalized",
+      "evidence": "11-日历：星期+第0至4周，35日期格，原周距12、格距2"
+    },
+    "environment-regions": {
+      "statement": "系统状态/手势示例归环境所有；参考图使用36/24，实际只由宿主处理一次对应insets，样例子节点不在业务层重复绘制。",
+      "origin": "normalized",
+      "evidence": "所有页面的状态栏36、底部环境区域24"
+    },
+    "text-flow": {
+      "statement": "业务文字保留基准字体，宽度不足按字素换行，content宽不超过父级分配区域，横向文本可收缩且高度按内容增加；环境样例不随业务字体缩放。",
+      "origin": "normalized",
+      "evidence": "窄屏与fontScale检查需要明确文字溢出策略；源文字及参考边界完整保留"
+    },
+    "progress-proportion": {
+      "statement": "两处进度填充宽度按203.33333333333331/321=0.6334371754932502计算父轨道百分比，保持源393宽时的几何，不解释为业务完成比例。",
+      "origin": "normalized",
+      "evidence": "02、13页已完成进度及进度条的原生bounds；文案2/3单独保留为已知设计差异"
+    },
+    "continuous-mobile": {
+      "statement": "当前稿件无需类内布局断点，modes为空。保持单列、等权按钮与7列日期；主文案换行与content撑高，字号图标不随宽度缩放。",
+      "origin": "normalized",
+      "evidence": "当前所有页面仅有393宽样例，未提供可据以切换结构的另一组设计"
+    }
+  },
+  "profiles": {
+    "mobile": {
+      "formFactor": "mobile",
+      "units": {
+        "layout": "logical-px",
+        "typography": "logical-px"
+      },
+      "environment": {
+        "baselineWidth": 393,
+        "baselineHeight": 852,
+        "fontScale": 1,
+        "locale": "zh-CN",
+        "theme": "light",
+        "safeAreaPolicy": "宿主处理环境区域一次；参考top=36、bottom=24，实际取环境insets",
+        "keyboardPolicy": "键盘缩小正文可用高度；滚动页面内容以显示焦点字段及保存按钮，不移动到画面外",
+        "scrollPolicy": "仅页面内容纵向滚动；页头、导航、环境区域在其外"
+      },
+      "modes": [],
+      "validationCases": [
+        {
+          "width": 320,
+          "height": 640,
+          "fontScale": 1,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 360,
+          "height": 800,
+          "fontScale": 1,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 393,
+          "height": 852,
+          "fontScale": 1,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 480,
+          "height": 852,
+          "fontScale": 1,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 767,
+          "height": 852,
+          "fontScale": 1,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 393,
+          "height": 600,
+          "fontScale": 1,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 393,
+          "height": 852,
+          "fontScale": 1.3,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 320,
+          "height": 640,
+          "fontScale": 1.3,
+          "theme": "light",
+          "orientation": "portrait"
+        },
+        {
+          "width": 393,
+          "height": 500,
+          "fontScale": 1.3,
+          "theme": "light",
+          "orientation": "portrait"
+        }
+      ],
+      "extensions": {
+        "supportedWidth": {
+          "min": 320,
+          "maxExclusive": 768
+        },
+        "contentMaxWidth": 480,
+        "unprovidedProfile": "desktop",
+        "validationCasesStatus": "planned-not-executed",
+        "fontScalePolicy": "scaleWithSystem=true时字号及长度型行高乘fontScale；倍率型行高保持倍率",
+        "provenance": "源画板均为393；320为当前规范化验收下限，低于320未纳入已声明适配范围",
+        "breakpointBoundaryCases": [
+          {
+            "width": 767,
+            "expectedProfile": "mobile"
+          },
+          {
+            "width": 768,
+            "expectedProfile": "desktop",
+            "coverage": "not-provided"
+          }
+        ]
+      }
+    }
+  }
+}

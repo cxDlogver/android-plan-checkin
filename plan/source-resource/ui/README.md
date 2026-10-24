@@ -1,4 +1,6 @@
-# UI 设计导出资源
+# UI 设计导出资源（转换来源留档）
+
+> 当前分析见[UI JSON规范](../../ui-spec/UI规范.md)及其登记的JSON，状态为draft（Inter字体待补），结构校验通过，视觉未验收。本目录HTML、PNG和pen用于来源审计；后续修改与对齐维护规范JSON。
 
 来源：`resource/ui.pen`，导出日期：2026-10-24。
 
