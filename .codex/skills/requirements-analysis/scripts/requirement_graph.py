@@ -18,6 +18,21 @@ def continuation_id(a, b):
 
 def full_requirement_graph(model):
     requirements = {r['id']: r for r in model['requirements']}
+    transitions = {t['id']: t for t in model['transitions']}
+    if len(requirements) != len(model['requirements']) or len(transitions) != len(model['transitions']):
+        raise ValueError('duplicate transition or atomic requirement')
+    if len(requirements) != len(transitions):
+        raise ValueError('each state transition must correspond to exactly one atomic requirement')
+    for rid, requirement in requirements.items():
+        tid = requirement.get('transitionId')
+        if requirement.get('kind', 'behavior') != 'behavior' or 'stateIds' in requirement:
+            raise ValueError(rid + ': static constraints cannot replace transition-derived atomic requirements')
+        if tid not in transitions or transitions[tid].get('requirementId') != rid:
+            raise ValueError(rid + ': transition/requirement reference mismatch')
+    for tid, transition in transitions.items():
+        rid = transition.get('requirementId')
+        if rid not in requirements or requirements[rid].get('transitionId') != tid:
+            raise ValueError(tid + ': transition/requirement reference mismatch')
     nodes, edges, outgoing = [], [], {}
     for t in model['transitions']:
         rid = t['requirementId']
@@ -293,7 +308,10 @@ def check_context(model, route, max_contexts=200000):
 
 def verify_coverage(model, graph):
     """Verify routes/support/counts and a primary-cost residual certificate."""
-    full = full_requirement_graph(model)
+    try:
+        full = full_requirement_graph(model)
+    except ValueError as exc:
+        return [str(exc)]
     original = {e['id']: e for e in full['edges']}
     transitions = {t['id']: t for t in model['transitions']}
     reqs = {t['requirementId']: t for t in model['transitions']}

@@ -1,0 +1,19 @@
+{
+  "command": "workflow.py prepare plans/ui-requirements-analysis",
+  "exitCode": 2,
+  "result": {
+    "gate_status": "failed",
+    "failures": [
+      {
+        "rule_id": "COMMAND-001",
+        "failed_object": "prepare",
+        "expected": "valid current run inputs",
+        "actual": "cannot prepare invalid model: entryStateIds: must not be empty; F-UI.entryStateIds: must not be empty; transitions: analysis must not be empty; requirements: analysis must not be empty",
+        "evidence_ref": "plans\\ui-requirements-analysis",
+        "failure_reason": "cannot prepare invalid model: entryStateIds: must not be empty; F-UI.entryStateIds: must not be empty; transitions: analysis must not be empty; requirements: analysis must not be empty",
+        "repair_from": "repair current files and run save; no historical restore is performed",
+        "recheck_from": "prepare"
+      }
+    ]
+  }
+}

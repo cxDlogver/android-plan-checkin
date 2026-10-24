@@ -1,0 +1,861 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "analysisId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "requirementsPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirementsSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "requirementsDigest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "gatePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gateSha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "requirementsPath",
+        "requirementsSha256",
+        "requirementsDigest",
+        "gatePath",
+        "gateSha256"
+      ],
+      "additionalProperties": false
+    },
+    "executionPolicy": {
+      "type": "object",
+      "properties": {
+        "allowedLevels": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "unit",
+              "integration"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "browserAcceptance": {
+          "const": false
+        },
+        "fixtureMode": {
+          "const": "isolated"
+        },
+        "onFailure": {
+          "const": "stop"
+        },
+        "entryRule": {
+          "const": "previous_passed_edge"
+        },
+        "rootRule": {
+          "const": "no_external_preconditions"
+        }
+      },
+      "required": [
+        "allowedLevels",
+        "browserAcceptance",
+        "fixtureMode",
+        "onFailure",
+        "entryRule",
+        "rootRule"
+      ],
+      "additionalProperties": false
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "primary",
+              "supporting",
+              "scenario"
+            ]
+          },
+          "requirementIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "mappingRationale": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "level": {
+            "enum": [
+              "unit",
+              "integration"
+            ]
+          },
+          "environment": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fixture": {
+            "type": "object",
+            "properties": {
+              "setup": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "cleanup": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "externalPreconditions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "setup",
+              "cleanup",
+              "externalPreconditions"
+            ],
+            "additionalProperties": false
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "action": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "expectedResultIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 0
+                }
+              },
+              "required": [
+                "id",
+                "action",
+                "expectedResultIds"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "expectedResults": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "expected": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "observe": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "criterionRefs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "id",
+                "expected",
+                "observe",
+                "criterionRefs"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "actualObservation": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "not_run",
+                  "pass",
+                  "fail"
+                ]
+              },
+              "observedValues": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "assertionId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "actual": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "assertionId",
+                    "actual"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "assertionResults": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "assertionId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "status": {
+                      "enum": [
+                        "pass",
+                        "fail"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "assertionId",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "command": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "exitCode": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "command",
+                    "exitCode"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "observedValues",
+              "assertionResults",
+              "evidence",
+              "note"
+            ],
+            "additionalProperties": false
+          },
+          "testFile": {
+            "type": "string",
+            "minLength": 1
+          },
+          "plannedCommand": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "requirementIds",
+          "mappingRationale",
+          "name",
+          "level",
+          "environment",
+          "fixture",
+          "steps",
+          "expectedResults",
+          "actualObservation",
+          "testFile",
+          "plannedCommand",
+          "limitations"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "graph": {
+      "type": "object",
+      "properties": {
+        "roots": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "minLength": 1
+              },
+              "to": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "from",
+              "to",
+              "reason"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "roots",
+        "edges"
+      ],
+      "additionalProperties": false
+    },
+    "traversal": {
+      "type": "object",
+      "properties": {
+        "route": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "repeatCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lowerBoundVisits": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "optimality": {
+          "enum": [
+            "proven_optimal",
+            "heuristic"
+          ]
+        },
+        "proof": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "route",
+        "repeatCount",
+        "lowerBoundVisits",
+        "optimality",
+        "proof"
+      ],
+      "additionalProperties": false
+    },
+    "plan": {
+      "type": "object",
+      "properties": {
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "baseline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "topic": {
+                "type": "string",
+                "minLength": 1
+              },
+              "choice": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "topic",
+              "choice",
+              "rationale"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "responsibility": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "path",
+              "responsibility"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "tasks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "dependsOn": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "requirementIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "caseIds": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "outputs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "steps": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "doneCriteria": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 1,
+                "uniqueItems": true
+              },
+              "status": {
+                "const": "planned"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "dependsOn",
+              "requirementIds",
+              "caseIds",
+              "outputs",
+              "steps",
+              "doneCriteria",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "purpose": {
+                "type": "string",
+                "minLength": 1
+              },
+              "command": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "const": "planned"
+              }
+            },
+            "required": [
+              "purpose",
+              "command",
+              "status"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 1
+        },
+        "verificationLimitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 0
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "url": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "title",
+              "url"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "objective",
+        "baseline",
+        "decisions",
+        "modules",
+        "tasks",
+        "commands",
+        "verificationLimitations",
+        "references"
+      ],
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "runId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "implementationRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "modelDigest": {
+          "type": "string"
+        },
+        "visits": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "caseId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "status": {
+                "enum": [
+                  "not_run",
+                  "pass",
+                  "fail"
+                ]
+              },
+              "observedValues": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "assertionId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "actual": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "assertionId",
+                    "actual"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "assertionResults": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "assertionId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "status": {
+                      "enum": [
+                        "pass",
+                        "fail"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "assertionId",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    },
+                    "command": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "exitCode": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256",
+                    "command",
+                    "exitCode"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "caseId",
+              "status",
+              "observedValues",
+              "assertionResults",
+              "evidence",
+              "note"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "runId",
+        "implementationRef",
+        "modelDigest",
+        "visits"
+      ],
+      "additionalProperties": false
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ruleId": {
+            "enum": [
+              "semantics",
+              "case-oracles",
+              "fixtures-and-order",
+              "implementation-plan",
+              "verification-boundaries"
+            ]
+          },
+          "result": {
+            "enum": [
+              "pass",
+              "fail"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "ruleId",
+          "result",
+          "evidence"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "reviewDigest": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "analysisId",
+    "revision",
+    "source",
+    "executionPolicy",
+    "cases",
+    "graph",
+    "traversal",
+    "plan",
+    "execution",
+    "reviews",
+    "reviewDigest"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "General task planning and test case acceptance order"
+}

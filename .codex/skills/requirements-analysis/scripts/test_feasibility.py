@@ -150,6 +150,7 @@ class FeasibilityTests(unittest.TestCase):
 
     def test_conflicting_structure_replaced_by_valid_explicit_segments(self):
         m=fixture();m['transitions']=m['transitions'][:3]
+        m['requirements']=[{'id':t['requirementId'],'transitionId':t['id'],'title':t['event']} for t in m['transitions']]
         for t in m['transitions']:m['pathContext']['transitionRules'][t['id']]={'cases':[{'set':{'x':['1']}} if t['id']=='T1' else {'requires':{'x':['0']}}],'reason':'合成','sourceRefs':[{'sourceId':'P','locator':'合成'}]}
         g=requirement_graph(m);p=g['traversal']
         self.assertEqual('feasible',p['status']);self.assertEqual('not_proven',p['optimality'])

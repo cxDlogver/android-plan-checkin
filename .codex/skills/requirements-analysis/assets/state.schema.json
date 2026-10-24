@@ -1,0 +1,505 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "enum": [
+        1
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "excluded": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "abstraction": {
+          "type": "object",
+          "properties": {
+            "object": {
+              "type": "string",
+              "minLength": 1
+            },
+            "level": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dimensions": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1
+            },
+            "parameters": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "required": [
+            "object",
+            "level",
+            "dimensions",
+            "parameters"
+          ]
+        }
+      },
+      "required": [
+        "objective",
+        "included",
+        "excluded",
+        "abstraction"
+      ]
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "prd",
+              "ui",
+              "human"
+            ]
+          },
+          "uri": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "uri",
+          "locator",
+          "summary"
+        ]
+      },
+      "minItems": 1
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "sourceIds"
+        ]
+      },
+      "minItems": 1
+    },
+    "entryStateIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "featureIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "definition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "ui": {
+            "type": "object",
+            "properties": {
+              "applicability": {
+                "enum": [
+                  "applicable",
+                  "not_applicable",
+                  "unknown"
+                ]
+              },
+              "reason": {
+                "type": "string"
+              },
+              "refs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sourceId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "locator": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "previewPath": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "sourceId",
+                    "locator"
+                  ]
+                },
+                "minItems": 0
+              },
+              "constraints": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "target": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "expected": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sourceIds": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 1
+                    },
+                    "css": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "target",
+                    "expected",
+                    "sourceIds"
+                  ]
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "applicability",
+              "reason",
+              "refs",
+              "constraints"
+            ]
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "featureIds",
+          "definition",
+          "facts",
+          "ui",
+          "sourceIds"
+        ]
+      },
+      "minItems": 1
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "featureIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "event": {
+            "type": "string",
+            "minLength": 1
+          },
+          "guard": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "effects": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "sourceIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "selfLoopEvidence": {
+            "type": "object",
+            "properties": {
+              "sourceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "sourceId": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "locator": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "previewPath": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "sourceId",
+                    "locator"
+                  ]
+                },
+                "minItems": 0
+              },
+              "obligation": {
+                "type": "string",
+                "minLength": 1
+              },
+              "stateReason": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "sourceRefs",
+              "obligation",
+              "stateReason"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "featureIds",
+          "from",
+          "event",
+          "guard",
+          "to",
+          "effects",
+          "sourceIds"
+        ]
+      },
+      "minItems": 1
+    },
+    "coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1
+          },
+          "obligation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "disposition": {
+            "enum": [
+              "mapped",
+              "out_of_scope",
+              "not_applicable"
+            ]
+          },
+          "stateIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "transitionIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "sourceId",
+          "locator",
+          "obligation",
+          "disposition",
+          "stateIds",
+          "transitionIds",
+          "reason"
+        ]
+      },
+      "minItems": 1
+    },
+    "clarifications": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "question": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affectedIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "status": {
+            "enum": [
+              "open",
+              "resolved"
+            ]
+          },
+          "resolution": {
+            "type": "string"
+          },
+          "humanReference": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "affectedIds",
+          "status",
+          "resolution",
+          "humanReference"
+        ]
+      },
+      "minItems": 0
+    },
+    "clarificationDocument": {
+      "type": "string"
+    },
+    "pathContext": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "scope",
+    "sources",
+    "features",
+    "entryStateIds",
+    "states",
+    "transitions",
+    "coverage",
+    "clarifications"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "State transition contract"
+}

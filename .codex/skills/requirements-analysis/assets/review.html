@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="analysis-digest" content="__DATA_DIGEST__">
+  <title>需求分析审查</title>
+  <style>
+    :root {font:14px/1.65 system-ui,"Microsoft YaHei",sans-serif;color:#21334b;background:#f3f6fa}
+    * {box-sizing:border-box} body {margin:0;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+    header {padding:12px 18px;border-bottom:1px solid #d6deea;background:#fff;z-index:2}
+    h1 {font-size:19px;margin:0 0 8px} h2 {font-size:20px;margin:0 0 12px} h3 {font-size:16px;margin:22px 0 8px}
+    p {margin:7px 0} button,input,select {font:inherit;color:inherit;border:1px solid #c5d1e1;border-radius:7px;padding:6px 10px;background:#fff}
+    button {cursor:pointer} button:hover {background:#edf3fb} button[aria-pressed=true] {background:#28588c;color:#fff}
+    button:focus-visible,input:focus-visible,select:focus-visible {outline:3px solid #98b7e2;outline-offset:2px}
+    .tools {display:flex;flex-wrap:wrap;align-items:center;gap:7px} .tools select {max-width:230px} .tools input {width:150px}
+    main {position:relative;flex:1;min-height:0} #graph {width:100%;height:100%;display:block;touch-action:none;cursor:grab}
+    .caption {position:absolute;left:14px;top:12px;padding:7px 11px;border:1px solid #d6dfec;border-radius:7px;background:#ffffffe8;max-width:70%;pointer-events:none}
+    .mini {position:absolute;left:14px;bottom:14px;background:#fffffff2;border:1px solid #c8d6e5;border-radius:9px;padding:6px}
+    #mini {display:block;width:200px;height:110px;cursor:crosshair} .muted,small {color:#64758d;font-size:12px}
+    #details {position:absolute;right:0;top:0;bottom:0;width:min(680px,54vw);padding:18px 22px 50px;background:#fff;border-left:1px solid #d6dfeb;overflow:auto;box-shadow:-10px 0 35px #24395614}
+    #details[hidden] {display:none} .bar {display:flex;justify-content:space-between;gap:12px;align-items:center;position:sticky;top:-18px;background:#fff;padding:9px 0;z-index:1}
+    .check,.note {padding:10px 13px;margin:9px 0;border:1px solid #dce4f0;border-radius:7px;background:#f7f9fc}
+    .condition {background:#fff8e8;border-color:#ecd6a8} ol,ul {padding-left:22px} li {margin:6px 0}
+    .link {border:0;padding:0;text-align:left;color:#28588c;background:none} .source {font-size:12px;color:#64758d;overflow-wrap:anywhere}
+    pre {white-space:pre-wrap;overflow-wrap:anywhere;background:#1e3049;color:#e3edf9;padding:12px;border-radius:7px;font:12px/1.7 Consolas,monospace}
+    figure {margin:12px 0} img {max-width:100%;max-height:600px;object-fit:contain;background:#f5f7fa;border:1px solid #e1e6ee} figcaption {font-size:12px;color:#64758d}
+    @media(max-width:850px) {#details {width:90vw}.caption {max-width:90%}.tools select {max-width:170px}.mini {transform:scale(.8);transform-origin:bottom left}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="title">需求分析审查</h1>
+    <div class="tools">
+      <button id="state-mode" aria-pressed="true">状态图</button><button id="requirements-mode" aria-pressed="false">需求图</button>
+      <label>节点 <select id="node-list" aria-label="选择节点"></select></label>
+      <label>箭头 <select id="edge-list" aria-label="选择箭头"></select></label>
+      <label>功能 <select id="feature-list" aria-label="按功能定位"></select></label>
+      <label>搜索 <input id="search" placeholder="输入名称后回车"></label>
+      <button id="zoom-in" aria-label="放大">＋</button><button id="zoom-out" aria-label="缩小">－</button>
+      <button id="fit">全图适配</button><button id="reset">恢复布局</button><button id="coverage">覆盖路线</button>
+    </div>
+  </header>
+  <main>
+    <canvas id="graph" aria-label="可拖动缩放的有向图"></canvas>
+    <div id="caption" class="caption"></div>
+    <div class="mini"><canvas id="mini" width="400" height="220" aria-label="缩略图定位"></canvas><small id="entry-legend">绿色为真实入口；拖节点移动，拖空白平移</small></div>
+    <aside id="details" hidden><div class="bar"><span>需求详情</span><button id="close">关闭</button></div><div id="content"></div></aside>
+  </main>
+  <script id="analysis-data" type="application/json">__PAYLOAD__</script>
+  <script>
+    'use strict';
+    const D = JSON.parse(document.getElementById('analysis-data').textContent);
+    const $ = id => document.getElementById(id);
+    const stateMap = new Map(D.states.map(x => [x.id,x]));
+    const transitionMap = new Map(D.transitions.map(x => [x.id,x]));
+    const reqMap = new Map(D.requirements.map(x => [x.id,x]));
+    const transitionReq = new Map(D.requirements.map(x => [x.transitionId,x]));
+    const sourceMap = new Map(D.sources.map(x => [x.id,x]));
+    const featureMap = new Map(D.features.map(x => [x.id,x]));
+    const canvas = $('graph'), ctx = canvas.getContext('2d');
+    const mini = $('mini'), mc = mini.getContext('2d');
+    let mode = 'state', positions = structuredClone(D.layouts), view = {x:0,y:0,k:1};
+    let width=1,height=1,selected=null,geometry=[],drag=null,miniView=null;
+    const graph = () => mode==='state' ? {nodes:D.states,edges:D.transitions,entries:D.entries} :
+      {nodes:D.graph.nodes,edges:D.graph.edges,entries:D.graph.reduction.entryRequirementIds};
+    const title = id => stateMap.get(id)?.title || reqMap.get(id)?.title || '未命名对象';
+    function el(tag,text,parent,cls) {const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;if(parent)parent.append(n);return n;}
+    function section(text) {el('h3',text,$('content'));}
+    function paragraph(text,cls) {return el('p',text,$('content'),cls);}
+    function list(items,parent=$('content')) {const ul=el('ul',undefined,parent);for(const x of items)el('li',x,ul);return ul;}
+    function open(text) {$('content').replaceChildren();el('h2',text,$('content'));$('details').hidden=false;}
+    function sourceRefs(refs) {
+      for(const ref of refs) {const s=sourceMap.get(ref.sourceId);if(!s)continue;
+        const row=el('p',undefined,$('content'),'source');el('span',`${s.kind==='ui'?'设计资料':s.kind==='human'?'人工澄清':'需求资料'} · ${ref.locator||s.locator} · `,row);
+        try {const u=new URL(s.uri);if(['https:','http:'].includes(u.protocol)){const a=el('a',s.uri,row);a.href=u.href;a.target='_blank';a.rel='noopener noreferrer';}else el('span',s.uri,row);} catch {el('span',s.uri,row);}
+      }
+    }
+    function preview(refs) {for(const r of refs){if(!D.media[r.previewPath])continue;const f=el('figure',undefined,$('content'));const img=el('img',undefined,f);img.src=D.media[r.previewPath];img.alt=r.locator;el('figcaption',r.locator,f);}}
+    function contextText(row) {
+      return Object.entries(row||{}).map(([key,values])=>{const domain=D.pathContext?.domains[key];return `${domain?.description||'条件'}：${values.map(v=>domain?.labels[v]||v).join('／')}`;}).join('；');
+    }
+    function stepList(ids) {
+      const ol=el('ol',undefined,$('content'));
+      for(const id of ids) {const t=transitionMap.get(id);if(!t)continue;const li=el('li',undefined,ol);
+        const b=el('button',`${title(t.from)} → ${t.event}${t.guard==='true'?'':`（${t.guard}）`} → ${title(t.to)}`,li,'link');b.onclick=()=>showRequirement(transitionReq.get(id));
+        el('p',t.effects.length?'预期结果：'+t.effects.join('；'):'预期状态：'+title(t.to),li,'muted');}
+      return ol;
+    }
+    function showState(id) {
+      const s=stateMap.get(id);if(!s)return;selected=id;open(s.title);paragraph(s.definition);section('功能与当前事实');
+      paragraph(s.featureIds.map(x=>featureMap.get(x)?.title).filter(Boolean).join(' · '),'muted');list(s.facts);
+      section('最短到达链路');
+      for(const entry of D.entries) {const tids=D.analysis.pathsByEntry[entry][id];el('h4',`从 ${title(entry)}`,$('content'));
+        if(tids===null)paragraph('从此入口不可达。','muted');else if(!tids.length)paragraph('当前状态即该真实入口。');else {
+          const condition=D.analysis.pathConditionsByEntry?.[entry]?.[id];
+          if(condition?.initialContext)paragraph(contextText(condition.initialContext),'note condition');stepList(tids);
+          const last=transitionMap.get(tids[tids.length-1]);if(last.effects.length){paragraph('当前到达方式最后一步的结果','muted');list(last.effects);}}}
+      section('视觉约束');paragraph(s.ui.applicability==='not_applicable'?`不适用：${s.ui.reason}`:'以下目标依据所列资料。','muted');
+      for(const c of s.ui.constraints){paragraph(`${c.target}：${c.expected}`,'note');if(c.css)el('pre',c.css,$('content'));sourceRefs(c.sourceIds.map(sourceId=>({sourceId})));}
+      preview(s.ui.refs);sourceRefs(s.ui.refs);section('来源');sourceRefs(s.sourceIds.map(sourceId=>({sourceId})));draw();
+    }
+    function showFacet(label,facet) {
+      section(label);if(facet.applicability==='not_applicable'){paragraph(`不适用：${facet.reason}`,'muted');return;}
+      if(facet.reason)paragraph(facet.reason,'muted');
+      for(const c of facet.checks){const box=el('div',undefined,$('content'),'check');el('p',`前提：${c.given}`,box);el('p',`触发：${c.when}`,box);list(c.then,box);sourceRefs(c.sourceIds.map(sourceId=>({sourceId})));if(c.uiRefs){preview(c.uiRefs);sourceRefs(c.uiRefs);}}
+    }
+    function showRequirement(r) {
+      if(!r)return;const t=transitionMap.get(r.transitionId);selected=mode==='state'?null:r.id;open(r.title);
+      paragraph(`${title(t.from)} → ${t.event} → ${title(t.to)}`,'note');paragraph(`条件：${t.guard==='true'?'无附加条件':t.guard}`,'note condition');
+      paragraph('本需求在覆盖路线中执行 '+(D.graph.traversal.visitCounts[r.id]||0)+' 次。','muted');
+      if(t.selfLoopEvidence){section('自环成立依据');paragraph(t.selfLoopEvidence.obligation,'note');paragraph(t.selfLoopEvidence.stateReason);sourceRefs(t.selfLoopEvidence.sourceRefs);}
+      if(t.effects.length){section('迁移结果');list(t.effects);}showFacet('功能验收',r.functionalAcceptance);showFacet('视觉验收',r.visualAcceptance);
+      section('各条件分支的执行见证');
+      const witnesses=D.analysis.transitionValidation.caseResults[t.id];
+      witnesses.forEach((w,i)=>{el('h4','条件分支 '+(i+1),$('content'));
+        const rule=D.pathContext?.transitionRules[t.id]?.cases[i];
+        paragraph(rule?.requires&&Object.keys(rule.requires).length?contextText(rule.requires):'此分支无附加条件。','note condition');
+        paragraph('入口：'+title(w.entryStateId));
+        if(Object.keys(w.initialContext||{}).length)paragraph('所需初始条件：'+contextText(w.initialContext),'note condition');
+        paragraph(w.status==='finite_domain_passed'?'此分支已通过有限域见证重放。':'此分支无附加守卫条件，见证重放通过。','muted');stepList(w.transitionIds);});
+      section('来源');sourceRefs(r.sourceIds.map(sourceId=>({sourceId})));draw();
+    }
+    function showEdge(id) {
+      const edge=graph().edges.find(x=>x.id===id);if(!edge)return;
+      if(mode==='state'){selected=null;showRequirement(transitionReq.get(id));return;}
+      selected=null;open('需求执行衔接');paragraph(`${title(edge.from)} → ${title(edge.to)}`,'note');paragraph(`共用状态：${title(edge.viaStateId)}`);paragraph(`覆盖路线中实际使用 ${edge.usageCount} 次。`);draw();
+    }
+    function showCoverage() {
+      selected=null;open('需求覆盖路线');const t=D.graph.traversal;
+      paragraph(`共 ${D.requirements.length} 项需求，执行 ${t.totalVisits} 次，其中重复 ${t.repeatedVisits} 次。`);
+      paragraph(t.optimality==='not_proven'?`已完整可行覆盖，未证明全局最短；结构访问下界为 ${t.lowerBoundVisits} 次。`:'条件重放通过，已达到结构最优下界。','note');
+      for(const [i,r] of t.routes.entries()){section(`第 ${i+1} 段 · 从 ${title(r.entryStateId)}`);if(i)paragraph('本段按有据重启政策，从真实入口重新开始；不表示业务数据自动复位。','muted');
+        if(Object.keys(r.contextCheck.initialContext||{}).length)paragraph(contextText(r.contextCheck.initialContext),'note condition');
+        paragraph(r.contextCheck.status==='finite_domain_passed'?'已通过声明有限域内的整段条件重放。':'各步无附加守卫条件。','muted');stepList(r.transitionIds);}
+      section('验证范围');paragraph('HTML 已做静态数据与生成一致性检查；未进行真实浏览器验收。有限域以外的业务含义由独立语义评审核对。','muted');draw();
+    }
+    function bounds() {const ps=Object.values(positions[mode]);const x=Math.min(...ps.map(p=>p.x))-80,y=Math.min(...ps.map(p=>p.y))-100;return {x,y,w:Math.max(...ps.map(p=>p.x+p.w))-x+110,h:Math.max(...ps.map(p=>p.y+p.h))-y+100};}
+    function fit() {const b=bounds();view.k=Math.max(.05,Math.min(1.5,(width-50)/b.w,(height-50)/b.h));view.x=(width-b.w*view.k)/2-b.x*view.k;view.y=(height-b.h*view.k)/2-b.y*view.k;draw();}
+    function focus(id) {const p=positions[mode][id];if(!p)return;view.x=width*.38-(p.x+p.w/2)*view.k;view.y=height/2-(p.y+p.h/2)*view.k;mode==='state'?showState(id):showRequirement(reqMap.get(id));}
+    function options(select,rows,label) {select.replaceChildren();const first=el('option',label,select);first.value='';for(const r of rows){const o=el('option',r.title,select);o.value=r.id;}}
+    function setMode(next) {mode=next;$('entry-legend').textContent=(mode==='state'?'绿色为真实入口':'绿色为入口需求')+'；拖节点移动，拖空白平移';selected=null;$('details').hidden=true;$('state-mode').setAttribute('aria-pressed',mode==='state');$('requirements-mode').setAttribute('aria-pressed',mode==='requirements');
+      const g=graph();options($('node-list'),g.nodes,'选择节点');options($('edge-list'),g.edges.map(e=>({id:e.id,title:mode==='state'?`${title(e.from)} · ${e.event} → ${title(e.to)}`:`${title(e.from)} → ${title(e.to)}`})),'选择箭头');
+      $('caption').textContent=`${mode==='state'?'完整状态迁移图':'需求覆盖图'} · ${g.nodes.length} 个节点 · ${g.edges.length} 条有向边`;fit();}
+    function bezier(p,t) {const u=1-t;return {x:u*u*u*p[0].x+3*u*u*t*p[1].x+3*u*t*t*p[2].x+t*t*t*p[3].x,y:u*u*u*p[0].y+3*u*u*t*p[1].y+3*u*t*t*p[2].y+t*t*t*p[3].y};}
+    function curves() {
+      const g=graph(),totals=new Map(),counts=new Map();for(const e of g.edges){const key=JSON.stringify([e.from,e.to]);totals.set(key,(totals.get(key)||0)+1);}
+      return g.edges.map((edge,i)=>{const a=positions[mode][edge.from],b=positions[mode][edge.to];const key=JSON.stringify([edge.from,edge.to]);const n=counts.get(key)||0;counts.set(key,n+1);
+        const offset=(n-(totals.get(key)-1)/2)*15,ay=a.y+a.h/2+offset,by=b.y+b.h/2+offset;let p;
+        if(edge.from===edge.to){const x=a.x+a.w,y=a.y+a.h/2,rail=x+90+n*25;p=[{x,y:y-18},{x:rail,y:y-90},{x:rail,y:y+90},{x,y:y+18}];}
+        else if(a.x<b.x){const ax=a.x+a.w,bx=b.x;p=[{x:ax,y:ay},{x:ax+95,y:ay},{x:bx-95,y:by},{x:bx,y:by}];}
+        else if(a.x===b.x){const x=a.x+a.w,rail=x+100+n*30;p=[{x,y:ay},{x:rail,y:ay},{x:rail,y:by},{x:b.x+b.w,y:by}];}
+        else {const lane=Math.min(a.y,b.y)-85-(i%7)*24;p=[{x:a.x+20,y:a.y},{x:a.x+20,y:lane},{x:b.x+b.w-20,y:lane},{x:b.x+b.w-20,y:b.y}];}
+        return {edge,p,samples:Array.from({length:41},(_,i)=>bezier(p,i/40))};});
+    }
+    function wrap(text,max=15){const chars=Array.from(text),lines=[];for(let i=0;i<chars.length;i+=max)lines.push(chars.slice(i,i+max).join(''));return lines;}
+    function draw() {
+      ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);const dpr=window.devicePixelRatio||1;
+      ctx.setTransform(dpr*view.k,0,0,dpr*view.k,dpr*view.x,dpr*view.y);geometry=curves();ctx.lineWidth=1.8/view.k;
+      for(const {edge,p} of geometry){ctx.strokeStyle='#8196b3';ctx.beginPath();ctx.moveTo(p[0].x,p[0].y);ctx.bezierCurveTo(p[1].x,p[1].y,p[2].x,p[2].y,p[3].x,p[3].y);ctx.stroke();
+        const end=p[3],near=bezier(p,.96),angle=Math.atan2(end.y-near.y,end.x-near.x),size=10/view.k;ctx.fillStyle='#687e9e';ctx.beginPath();ctx.moveTo(end.x,end.y);ctx.lineTo(end.x-size*Math.cos(angle-.45),end.y-size*Math.sin(angle-.45));ctx.lineTo(end.x-size*Math.cos(angle+.45),end.y-size*Math.sin(angle+.45));ctx.closePath();ctx.fill();
+        const mid=bezier(p,.5),label=mode==='state'?edge.event:`×${edge.usageCount}`;ctx.font='12px system-ui';ctx.textAlign='center';ctx.fillStyle='#f3f6fa';ctx.fillRect(mid.x-ctx.measureText(label).width/2-5,mid.y-18,ctx.measureText(label).width+10,21);ctx.fillStyle='#526b8e';ctx.fillText(label,mid.x,mid.y-3);}
+      for(const node of graph().nodes){const p=positions[mode][node.id],entry=graph().entries.includes(node.id);ctx.fillStyle=node.id===selected?'#e2ecfc':'#fff';ctx.strokeStyle=node.id===selected?'#2f60a0':entry?'#238564':'#bac9df';ctx.lineWidth=(entry?2.5:1.4)/view.k;ctx.beginPath();ctx.roundRect(p.x,p.y,p.w,p.h,9);ctx.fill();ctx.stroke();ctx.fillStyle='#233b59';ctx.font='14px system-ui';ctx.textAlign='center';const lines=wrap(node.title);lines.forEach((s,i)=>ctx.fillText(s,p.x+p.w/2,p.y+p.h/2-(lines.length-1)*11+i*22+5));if(entry){ctx.font='11px system-ui';ctx.fillStyle='#238564';ctx.fillText(mode==='state'?'真实入口':'入口需求',p.x+p.w/2,p.y-8);}}
+      drawMini();
+    }
+    function drawMini(){const b=bounds(),k=Math.min(380/b.w,200/b.h),ox=(400-b.w*k)/2,oy=(220-b.h*k)/2;miniView={b,k,ox,oy};mc.clearRect(0,0,400,220);mc.save();mc.translate(ox-b.x*k,oy-b.y*k);mc.scale(k,k);mc.strokeStyle='#becbde';mc.lineWidth=1/k;
+      for(const {p} of geometry){mc.beginPath();mc.moveTo(p[0].x,p[0].y);mc.bezierCurveTo(p[1].x,p[1].y,p[2].x,p[2].y,p[3].x,p[3].y);mc.stroke();}mc.fillStyle='#8ba4c6';for(const p of Object.values(positions[mode]))mc.fillRect(p.x,p.y,p.w,p.h);mc.strokeStyle='#285b9e';mc.strokeRect(-view.x/view.k,-view.y/view.k,width/view.k,height/view.k);mc.restore();}
+    function point(e){const r=canvas.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
+    function world(p){return {x:(p.x-view.x)/view.k,y:(p.y-view.y)/view.k};}
+    function hit(p){const g=graph();for(const n of [...g.nodes].reverse()){const q=positions[mode][n.id];if(p.x>=q.x&&p.x<=q.x+q.w&&p.y>=q.y&&p.y<=q.y+q.h)return {kind:'node',id:n.id};}
+      let best=null,distance=10/view.k;for(const row of geometry){for(const q of row.samples){const d=Math.hypot(p.x-q.x,p.y-q.y);if(d<distance){distance=d;best={kind:'edge',id:row.edge.id};}}}return best;}
+    function zoom(factor,x=width/2,y=height/2){const before=world({x,y});view.k=Math.max(.05,Math.min(4,view.k*factor));view.x=x-before.x*view.k;view.y=y-before.y*view.k;draw();}
+    canvas.addEventListener('pointerdown',e=>{const p=point(e),w=world(p),target=hit(w);drag={target,start:p,last:p,origin:w,moved:false};canvas.setPointerCapture(e.pointerId);});
+    canvas.addEventListener('pointermove',e=>{if(!drag)return;const p=point(e),dx=p.x-drag.last.x,dy=p.y-drag.last.y;drag.moved ||= Math.hypot(p.x-drag.start.x,p.y-drag.start.y)>4;
+      if(drag.target?.kind==='node'){const n=positions[mode][drag.target.id];n.x+=dx/view.k;n.y+=dy/view.k;}else{view.x+=dx;view.y+=dy;}drag.last=p;draw();});
+    canvas.addEventListener('pointerup',()=>{if(drag&&!drag.moved&&drag.target){const t=drag.target;if(t.kind==='edge')showEdge(t.id);else if(mode==='state')showState(t.id);else showRequirement(reqMap.get(t.id));}drag=null;});
+    canvas.addEventListener('pointercancel',()=>{drag=null;});canvas.addEventListener('wheel',e=>{e.preventDefault();const p=point(e);zoom(Math.exp(-e.deltaY*.001),p.x,p.y);},{passive:false});
+    mini.addEventListener('pointerdown',e=>{if(!miniView)return;const r=mini.getBoundingClientRect(),m=miniView,x=(e.clientX-r.left)*400/r.width,y=(e.clientY-r.top)*220/r.height;view.x=width/2-((x-m.ox)/m.k+m.b.x)*view.k;view.y=height/2-((y-m.oy)/m.k+m.b.y)*view.k;draw();});
+    $('state-mode').onclick=()=>setMode('state');$('requirements-mode').onclick=()=>setMode('requirements');$('fit').onclick=fit;
+    $('reset').onclick=()=>{positions[mode]=structuredClone(D.layouts[mode]);fit();};$('zoom-in').onclick=()=>zoom(1.2);$('zoom-out').onclick=()=>zoom(1/1.2);
+    $('close').onclick=()=>{$('details').hidden=true;selected=null;draw();};$('coverage').onclick=showCoverage;
+    $('node-list').onchange=e=>{if(e.target.value)focus(e.target.value);};$('edge-list').onchange=e=>{if(e.target.value)showEdge(e.target.value);};
+    $('feature-list').onchange=e=>{const n=graph().nodes.find(x=>x.featureIds?.includes(e.target.value));if(n)focus(n.id);};
+    $('search').addEventListener('keydown',e=>{if(e.key==='Enter'){const q=e.target.value.trim().toLowerCase();if(!q)return;const n=graph().nodes.find(x=>x.title.toLowerCase().includes(q));if(n)focus(n.id);}});
+    function resize(){const rect=canvas.getBoundingClientRect(),dpr=window.devicePixelRatio||1;width=Math.max(1,rect.width);height=Math.max(1,rect.height);canvas.width=width*dpr;canvas.height=height*dpr;draw();}
+    $('title').textContent=D.scope.objective;options($('feature-list'),D.features,'按功能定位');new ResizeObserver(resize).observe(canvas);resize();setMode('state');
+  </script>
+</body>
+</html>

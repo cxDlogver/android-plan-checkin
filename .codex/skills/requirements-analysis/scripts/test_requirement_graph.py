@@ -12,7 +12,8 @@ def fixture(pairs, roots=('A',), restart=True):
     transitions = [{'id': 'T%d' % i, 'requirementId': 'R%d' % i, 'from': a, 'to': b,
                     'event': '操作', 'guard': 'true'} for i, (a, b) in enumerate(pairs)]
     return {'entryStateIds': list(roots), 'states': [{'id': x} for x in names],
-            'transitions': transitions, 'requirements': [],
+            'transitions': transitions,
+            'requirements': [{'id':t['requirementId'],'transitionId':t['id'],'title':t['event']} for t in transitions],
             'requirementTraversal': {'restartPolicy': 'documented_entries' if restart else 'none',
                                      'authorization': 'synthetic user decision'}}
 

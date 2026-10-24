@@ -1,0 +1,625 @@
+{
+  "observer": "root actual IAB session",
+  "semantic_digest": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+  "bundle_digest": "d29dbd7775be7f604b90c10fd1183c48a84cc8a0ad21146dcf52d02304fc4ceb",
+  "url": "http://127.0.0.1:8766/review.html",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "stateChecks": [
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "今日空态",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图01的今日空态：中部为空态引导卡片，下方为介绍文字与三入口导航。\n标题与设置图标、日期副标题位于上部。\n银色斜向反光面板内含记事图标、空态标题、说明及创建按钮。\n底部今日导航使用强调色，其余两项为辅助色。\n局部视觉约束：空态面板：保留斜向高光带、线性记事图标和标题层级；空态标题按局部节点25sp核对。；创建按钮位于面板内，保留金属渐变、边缘与阴影。\n局部视觉约束：辅助介绍与导航：保留介绍区顺序与大段留白；导航图标、标签及今日强调样式与稿一致。\n样例参数：日期与时间、介绍中的展示样例；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图02相比，中部为空态引导而非多分区计划卡片，独立布局与留白必须保留。\n分析边界：不据空态外观推导数据库为空或读取成功条件。；不把创建按钮的可见外观转为创建路由验收。\n视觉要求与 UI 对照\n今日空态 · 画板整体，逻辑尺寸393×852\n\nbCoiJ.png · full image visually inspected；空态面板；辅助介绍与导航\n\n空态面板：空态面板；定位文字：空态标题、空态说明、＋ 创建第一个计划\n\n辅助介绍与导航：辅助介绍与导航；定位文字：简单记录，平静回顾标题、使用说明、离线说明、三入口导航\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "今日空态视觉状态",
+      "visualRegions": [
+        "空态面板：空态面板；定位文字：空态标题、空态说明、＋ 创建第一个计划",
+        "辅助介绍与导航：辅助介绍与导航；定位文字：简单记录，平静回顾标题、使用说明、离线说明、三入口导航"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "今日有计划",
+          "height": 2280,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图02的今日有计划长画板：需要处理、本周可记录、截止提示、已记录四个区域均有样例。\n要做与不要做卡片并列展示不同结果文案。\n周目标卡片含2/3天样例、横向进度与记录按钮。\n截止提示使用警示浅底，已记录卡片含成功标签、时间备注和次按钮。\n局部视觉约束：需要处理的两种卡片：要做卡片保留完成／未完成／跳过文案；不要做卡片保留做到了／发生了／跳过文案。；绿色、红色、橙色的文字和边框分别核对，绿色按钮的浅底及阴影以当前画板为准。\n局部视觉约束：本周进度与截止提示：保留数字标签、深色已填段与浅灰轨道的比例和位置。；截止提示的文字、浅黄底与所在分区关系按稿核对，不转成进度或截止算法。\n局部视觉约束：已记录卡片与导航：成功标签、备注和次按钮构成独立卡片层级；底部今日导航保持强调。；逻辑高度1140的完整内容保持比例，使用完整或连续截图对照。\n样例参数：计划名称、日期、数量、进度数值、截止样例、时间与备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图01增加四区域及多种卡片外观；它们是同一整页场景内的局部样例，不拆成新的业务页面。\n分析边界：不推导四区域的数据筛选与排序算法。；不要求结果按钮完成真实记录写入。\n视觉要求与 UI 对照\n今日有计划 · 画板整体，逻辑尺寸393×1140\n\nyB844.png · full image visually inspected；需要处理的两种卡片；本周进度与截止提示；已记录卡片与导航\n\n需要处理的两种卡片：需要处理的两种卡片；定位文字：需要处理标题、要做、不要做、✓ 完成、✓ 做到了、× 未完成文字、× 发生了文字、— 跳过文字\n\n本周进度与截止提示：本周进度与截止提示；定位文字：本周可记录标题、2 / 3 天、运动说明、记录今天、明天截止\n\n已记录卡片与导航：已记录卡片与导航；定位文字：已记录标题、✓ 成功、伸展备注、查看或修改记录文字、三入口导航\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "今日有计划视觉状态",
+      "visualRegions": [
+        "需要处理的两种卡片：需要处理的两种卡片；定位文字：需要处理标题、要做、不要做、✓ 完成、✓ 做到了、× 未完成文字、× 发生了文字、— 跳过文字",
+        "本周进度与截止提示：本周进度与截止提示；定位文字：本周可记录标题、2 / 3 天、运动说明、记录今天、明天截止",
+        "已记录卡片与导航：已记录卡片与导航；定位文字：已记录标题、✓ 成功、伸展备注、查看或修改记录文字、三入口导航"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "计划列表",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图03的计划列表，筛选区显示运行中选中、暂停与归档未选。\n上方标题、添加图标与副标题之后是三项筛选。\n四张列表卡片分别呈现名称与一行类型说明。\n底部计划导航为强调样式。\n局部视觉约束：状态筛选栏：运行中使用深色边框、浅色底和强调文字；另外两项为浅表面、辅助文字和较浅边框。；不由未选选项的存在推导暂停或归档列表的完整画面。\n局部视觉约束：列表与创建图标：核对四卡的排列、内边距、标题与副行字号差、卡片金属表面及阴影。；添加图标、说明和底部导航的位置与留白符合画板。\n样例参数：计划名称、频次文本中的数字、截止日期；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对今日页面，主要内容为筛选栏与简洁列表卡片；只定义稿中运行中选中的整页组合。\n分析边界：不追加筛选切换流程或另外两个筛选结果页面。\n视觉要求与 UI 对照\n计划列表 · 画板整体，逻辑尺寸393×852\n\nP3WWL.png · full image visually inspected；状态筛选栏；列表与创建图标\n\n状态筛选栏：状态筛选栏；定位文字：运行中、暂停、归档\n\n列表与创建图标：列表与创建图标；定位文字：创建计划、晨间阅读、运动规则、不喝奶茶规则、提交报名材料规则、计划入口说明、三入口导航\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "计划列表视觉状态",
+      "visualRegions": [
+        "状态筛选栏：状态筛选栏；定位文字：运行中、暂停、归档",
+        "列表与创建图标：列表与创建图标；定位文字：创建计划、晨间阅读、运动规则、不喝奶茶规则、提交报名材料规则、计划入口说明、三入口导航"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "新建固定星期",
+          "height": 2080,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图04的新建固定星期表单：要做、固定日期为浅色选中，七个星期项均为深石墨选中样例。\n名称、方向、类型、星期、开始结束、说明、时区提示和保存按钮纵向排列。\n星期控件与方向／类型控件的选中材质不同。\n局部视觉约束：方向与类型选项：要做和固定日期的浅银灰底、边框与字重按图核对，未选项保留浅表面与辅助字色。\n局部视觉约束：星期控件：七项均保留深石墨渐变、浅色文字与紧密列间距；不由全选样例构造所有星期组合。\n局部视觉约束：字段与保存区域：输入框与字段名间距、日期合并展示、提示文案和金属保存按钮按稿定位。；逻辑高度1040，不压缩整页内容。\n样例参数：名称、日期文字、说明内容、时区展示值；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图05、图06共享创建表单风格，但本页有七列星期控件及已选择每天提示，构成明确的独立整页目标。\n分析边界：不追加星期校验、日期限制、键盘弹出或保存中的状态。\n视觉要求与 UI 对照\n新建固定星期 · 画板整体，逻辑尺寸393×1040\n\nSvK1L.png · full image visually inspected；方向与类型选项；星期控件；字段与保存区域\n\n方向与类型选项：方向与类型选项；定位文字：要做、不要做、固定日期、每周目标、一次性\n\n星期控件：星期控件；定位文字：执行日期标题、一、二、三、四、五、六、日、每日说明\n\n字段与保存区域：字段与保存区域；定位文字：名称字段名、开始 / 结束字段名、说明（可选）字段名、时区、保存计划\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "新建固定星期视觉状态",
+      "visualRegions": [
+        "方向与类型选项：方向与类型选项；定位文字：要做、不要做、固定日期、每周目标、一次性",
+        "星期控件：星期控件；定位文字：执行日期标题、一、二、三、四、五、六、日、每日说明",
+        "字段与保存区域：字段与保存区域；定位文字：名称字段名、开始 / 结束字段名、说明（可选）字段名、时区、保存计划"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "新建每周N天",
+          "height": 1880,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图05的新建每周N天表单：要做与每周目标选中，目标区展示3天样例。\n每周完成天数卡片含减号、数量、加号及说明。\n开始结束字段下方有部分周说明，之后为可选说明、时区和保存按钮。\n局部视觉约束：类型与方向选项：每周目标及要做为选中样式，其他选项为未选样式；不补数量边界时的禁用效果。\n局部视觉约束：目标数量面板：减号、3天、加号三个区域的宽度、间距、底色和文字层级与稿一致。\n局部视觉约束：日期与说明区：保留部分周说明的独立行与辅助文字层级；按940逻辑高度对照完整内容。\n样例参数：名称、N的展示数字、日期、说明、时区；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图04，星期行替换为数量面板，增加部分周提示；只按这一个已画出的数量样例对照。\n分析边界：不据减号／加号控件推导N的合法域和增减业务行为。\n视觉要求与 UI 对照\n新建每周N天 · 画板整体，逻辑尺寸393×940\n\nJUDAa.png · full image visually inspected；类型与方向选项；目标数量面板；日期与说明区\n\n类型与方向选项：类型与方向选项；定位文字：要做、不要做、固定日期、每周目标、一次性\n\n目标数量面板：目标数量面板；定位文字：每周完成天数标题、−、3 天、＋、自主说明\n\n日期与说明区：日期与说明区；定位文字：开始 / 结束字段名、部分周说明、说明（可选）字段名、时区、保存计划\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "新建每周N天视觉状态",
+      "visualRegions": [
+        "类型与方向选项：类型与方向选项；定位文字：要做、不要做、固定日期、每周目标、一次性",
+        "目标数量面板：目标数量面板；定位文字：每周完成天数标题、−、3 天、＋、自主说明",
+        "日期与说明区：日期与说明区；定位文字：开始 / 结束字段名、部分周说明、说明（可选）字段名、时区、保存计划"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "新建一次性任务",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图06的新建一次性任务：一次性选中，方向以说明卡片而非双选控件呈现。\n表单包含名称、三类型选项、方向说明面板、截止日期、说明、日期提示、时区和保存任务按钮。\n没有图04的星期行，也没有图05的目标数量面板。\n局部视觉约束：类型与说明面板：一次性为浅银灰选中；说明卡片保留方向强调行和下一行辅助说明。\n局部视觉约束：日期及保存区：截止日期与说明输入框、限制提示、时区说明和底部金属按钮按稿布局。；日期限制文字作为可见文案核对，不据此执行日期校验验收。\n样例参数：任务名称、截止日期、说明、时区；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图04／05相比，使用截止日期与一次性说明卡片，页面标题、保存按钮文案和字段结构均有不同的视觉核对点。\n分析边界：不追加一次性任务的创建、逾期、归档或日期校验业务。\n视觉要求与 UI 对照\n新建一次性任务 · 画板整体，逻辑尺寸393×852\n\nqq7vq.png · full image visually inspected；类型与说明面板；日期及保存区\n\n类型与说明面板：类型与说明面板；定位文字：固定日期、每周目标、一次性、方向、任务说明\n\n日期及保存区：日期及保存区；定位文字：截止日期字段名、说明（可选）字段名、合法日期、时区、保存任务\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "新建一次性任务视觉状态",
+      "visualRegions": [
+        "类型与说明面板：类型与说明面板；定位文字：固定日期、每周目标、一次性、方向、任务说明",
+        "日期及保存区：日期及保存区；定位文字：截止日期字段名、说明（可选）字段名、合法日期、时区、保存任务"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "要做确认记录",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图07的要做确认记录，成功项选中且备注已有内容。\n问题面板下方为成功／失败／跳过三个选项，成功为绿色边框与浅绿底。\n备注框、可选说明、保存按钮及保存后提示依次排列。\n局部视觉约束：问题与结果选项：核对提问面板的层级与三选项尺寸关系；绿色成功为当前选中样例，失败与跳过仅有未选样例。\n局部视觉约束：备注和保存区：保留已填备注框、两处提示各自位置及金属保存按钮。\n样例参数：计划名、日期、备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图08相比，使用今天做得怎么样的问题及成功／失败文案，没有图08的已选择说明行。\n分析边界：结果选中不表示已经保存；不追加失败／跳过选中的完整页面。\n视觉要求与 UI 对照\n要做确认记录 · 画板整体，逻辑尺寸393×852\n\nmTDhJ.png · full image visually inspected；问题与结果选项；备注和保存区\n\n问题与结果选项：问题与结果选项；定位文字：打卡标题、打卡规则、✓ 成功、× 失败、— 跳过\n\n备注和保存区：备注和保存区；定位文字：文字备注（可选）字段名、可选说明、保存记录、本机反馈\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "要做确认记录视觉状态",
+      "visualRegions": [
+        "问题与结果选项：问题与结果选项；定位文字：打卡标题、打卡规则、✓ 成功、× 失败、— 跳过",
+        "备注和保存区：备注和保存区；定位文字：文字备注（可选）字段名、可选说明、保存记录、本机反馈"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "不要做确认记录",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图08的不要做确认记录，做到了选中，出现已选择说明。\n问题及方向说明位于上方卡片内；结果文案为做到了／发生了／跳过。\n三选项下方多出已选择说明，备注与保存按钮之后有修正提醒。\n局部视觉约束：不要做的问题与结果表达：做到了为绿色选中；发生了用红色文字，跳过用橙色文字；保留选项下方已选择说明。\n局部视觉约束：备注和提醒：备注框、按钮和修正提醒按图排列；只核对提醒文字的呈现。\n样例参数：计划名及提问中的目标名称、日期、备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图07，不同的结果文案和新增已选择说明行改变视觉核对内容，不仅是任务名称样例变化。\n分析边界：不从修正提醒追加当天修改流程或后台业务限制。\n视觉要求与 UI 对照\n不要做确认记录 · 画板整体，逻辑尺寸393×852\n\nHGmI6.png · full image visually inspected；不要做的问题与结果表达；备注和提醒\n\n不要做的问题与结果表达：不要做的问题与结果表达；定位文字：主问题、方向说明、✓ 做到了、× 发生了、— 跳过、结果说明\n\n备注和提醒：备注和提醒；定位文字：文字备注（可选）字段名、文字备注（可选）内容、保存记录、修正提醒\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "不要做确认记录视觉状态",
+      "visualRegions": [
+        "不要做的问题与结果表达：不要做的问题与结果表达；定位文字：主问题、方向说明、✓ 做到了、× 发生了、— 跳过、结果说明",
+        "备注和提醒：备注和提醒；定位文字：文字备注（可选）字段名、文字备注（可选）内容、保存记录、修正提醒"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "修改当日记录",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图09的修改记录：上方显示原成功记录，下面的失败选项呈红色选中。\n原记录面板包含绿色已记录成功标签、原备注和提交时间。\n修改结果区域选中失败，下面是已填写备注、修订说明和保存修改按钮。\n局部视觉约束：原记录摘要：绿色标签、原备注和提交时间各自位置、字号层级符合原面板。\n局部视觉约束：失败选中的修改表单：失败选项保留红色边框和浅红底；成功与跳过为未选样式。；修订说明作为可见文字核对，不推导保存后或跨日后的新页面。\n样例参数：名称、业务日期、原提交时间、原备注与新备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：图07／08为首次确认呈现，本页同时展示原记录与修改表单；原成功标签和当前失败选中是两个不同区域，不能混为保存结果。\n分析边界：不据两组结果推导写入、撤回或修改资格判定。\n视觉要求与 UI 对照\n修改当日记录 · 画板整体，逻辑尺寸393×852\n\nI3hcqn.png · full image visually inspected；原记录摘要；失败选中的修改表单\n\n原记录摘要：原记录摘要；定位文字：已记录成功、原备注、原提交\n\n失败选中的修改表单：失败选中的修改表单；定位文字：修改结果标题、✓ 成功、× 失败、— 跳过、文字备注字段名、修订说明、保存修改\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "修改当日记录视觉状态",
+      "visualRegions": [
+        "原记录摘要：原记录摘要；定位文字：已记录成功、原备注、原提交",
+        "失败选中的修改表单：失败选中的修改表单；定位文字：修改结果标题、✓ 成功、× 失败、— 跳过、文字备注字段名、修订说明、保存修改"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "补记",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图10的补记表单：历史日期大字面板、成功选中和保存后不可修改提示均可见。\n历史日期卡片替代图07的问题面板。\n备注下方有记录日期、提交时间及补记锁定提示，保存按钮文案为保存补记。\n局部视觉约束：历史日期和结果：日期按局部22sp层级显示，成功为浅绿选中，另外两项为未选。\n局部视觉约束：备注与双时间提示：三行时间及不可修改说明保持换行、层级与按钮上方间距。\n样例参数：计划名、历史日期、备注、时间文字；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图07，本页的日期面板、时间说明块与保存文案独立；不由样例日期本身拆出更多状态。\n分析边界：不追加可补记日期域、锁定实现或保存成功状态。\n视觉要求与 UI 对照\n补记 · 画板整体，逻辑尺寸393×852\n\nY8mJyU.png · full image visually inspected；历史日期和结果；备注与双时间提示\n\n历史日期和结果：历史日期和结果；定位文字：历史日期、补记说明、✓ 成功、× 失败、— 跳过\n\n备注与双时间提示：备注与双时间提示；定位文字：文字备注（可选）字段名、两个时间、保存补记\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "补记视觉状态",
+      "visualRegions": [
+        "历史日期和结果：历史日期和结果；定位文字：历史日期、补记说明、✓ 成功、× 失败、— 跳过",
+        "备注与双时间提示：备注与双时间提示；定位文字：文字备注（可选）字段名、两个时间、保存补记"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（8项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "全局日历",
+          "height": 2200,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图11的全局日历：整月、已选日期、今日、日期下标、全部状态筛选及五项明细样例同屏存在。\n月份标题及左右箭头位于七列星期和日期格上方。\n样例9日有浅银灰底和加粗且无下标；8日有独立选中边框；5日有绿色勾；6／7／8日有金色分数；跨月日期为弱色。\n日期明细区含全部状态（5）筛选框及成功、失败、跳过、未记录的彩色行；底部日历导航强调。\n局部视觉约束：月历与日期格样例：星期与日期列居中对应；日期12sp、分数10sp／600、分数色#866500。；今日底色和加粗、选中边框、绿色勾、无下标日期、跨月弱色分别核对，保留已有组合。；月份栏有效左右16、日期容器左右2、列间2按节点核对；箭头位置与图标按稿。\n局部视觉约束：筛选与彩色明细：保留日期·项数标题、筛选图标／下拉箭头、计数排版和整块明细层级。；成功绿、失败红、跳过橙、未记录灰，文字与符号并用；不增加稿外解释行。；逻辑高度1100保持比例，完整对照下部明细和导航。\n样例参数：月份及日号、选中日／今日样例、完成分数、计数、计划名及备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对详情记录列表，本页新增整月七列网格与选日视觉；日期格样式是局部属性样例，不拆成多张整页或推导任意属性组合。\n分析边界：不推导完成分数算法、筛选展开面板、切月路由或日期点击效果。\n视觉要求与 UI 对照\n全局日历 · 画板整体，逻辑尺寸393×1100\n\nc6Yye.png · full image visually inspected；月历与日期格样例；筛选与彩色明细\n\n月历与日期格样例：月历与日期格样例；定位文字：月份名称、一、二、三、四、五、六、日、日号、日期全部完成、日期完成汇总 0/1、10月8日完成汇总\n\n筛选与彩色明细：筛选与彩色明细；定位文字：选中日期标题、当前筛选全部、晨间阅读结果、运动结果、不要吸烟结果、晚间拉伸结果、喝水结果、三入口导航\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（8项）\n查看依据",
+      "title": "全局日历视觉状态",
+      "visualRegions": [
+        "月历与日期格样例：月历与日期格样例；定位文字：月份名称、一、二、三、四、五、六、日、日号、日期全部完成、日期完成汇总 0/1、10月8日完成汇总",
+        "筛选与彩色明细：筛选与彩色明细；定位文字：选中日期标题、当前筛选全部、晨间阅读结果、运动结果、不要吸烟结果、晚间拉伸结果、喝水结果、三入口导航"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "固定详情",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图12的固定详情：金属统计面板、三种最近记录样例、编辑计划按钮及底部说明可见。\n主统计为75%大字号，下面是历史范围、完成次数、跳过／未记录及两个统计列。\n记录列表有成功、跳过、未记录三种表达，其中跳过备注含已修改字样。\n局部视觉约束：固定计划统计面板：百分比按局部36sp核对；斜向反光带、历史口径多行文字与两列统计对齐保持。\n局部视觉约束：最近记录及编辑区：成功、跳过、未记录的符号与色彩分别核对；保留已修改和可补记的辅助文案。；次按钮与底部说明的留白符合画板。\n样例参数：计划名／方向说明／时区、百分比与次数、起止日期、连续值、记录日期与备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图13，统计面板以历史百分比及日连续信息为主；相对图14，不使用逾期与截止状态面板。\n分析边界：不由75%与6/8推导完成率、连续或统计分母规则。\n视觉要求与 UI 对照\n固定详情 · 画板整体，逻辑尺寸393×852\n\nacN0e.png · full image visually inspected；固定计划统计面板；最近记录及编辑区\n\n固定计划统计面板：固定计划统计面板；定位文字：比率、口径、连续、成功\n\n最近记录及编辑区：最近记录及编辑区；定位文字：最近记录标题、10月8日结果、10月7日结果、10月6日结果、10月7日备注、编辑计划文字、今天口径\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "固定详情视觉状态",
+      "visualRegions": [
+        "固定计划统计面板：固定计划统计面板；定位文字：比率、口径、连续、成功",
+        "最近记录及编辑区：最近记录及编辑区；定位文字：最近记录标题、10月8日结果、10月7日结果、10月6日结果、10月7日备注、编辑计划文字、今天口径"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "周目标详情",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图13周目标详情，顶部显示2/3天金属进度面板，下面为周统计与最近记录。\n进度面板含大数字、剩余说明、深色进度条和记录今天按钮。\n周统计卡片与当前周进度分离，最近记录含成功、跳过与空白三个样例。\n局部视觉约束：金属周进度面板：2/3天按局部32sp核对，进度轨道、已填段、按钮与反光带的相对位置按稿。\n局部视觉约束：周统计和部分周说明：周统计为17sp多行强调信息，部分周说明为12sp辅助文字；核对换行和层级，不计算比率与连续。\n局部视觉约束：最近记录的空白样例：保留成功绿、跳过橙、空白灰的符号与文案；空白不能在视觉文案上替换为未记录。\n样例参数：名称／方向、周目标和已完成数字、历史日期、达标比率与连续值、备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图12以历史完成率为主的面板，本页新增当前周进度条与独立完整周统计卡片；空白记录使用稿中专门文案。\n分析边界：不推导整周暂停、部分周、达标率或连续中断算法。\n视觉要求与 UI 对照\n周目标详情 · 画板整体，逻辑尺寸393×852\n\ni0tdn.png · full image visually inspected；金属周进度面板；周统计和部分周说明；最近记录的空白样例\n\n金属周进度面板：金属周进度面板；定位文字：进度、剩余、记录今天\n\n周统计和部分周说明：周统计和部分周说明；定位文字：周统计、部分周\n\n最近记录的空白样例：最近记录的空白样例；定位文字：最近记录标题、10月8日结果、10月7日结果、10月6日结果、10月6日备注\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "周目标详情视觉状态",
+      "visualRegions": [
+        "金属周进度面板：金属周进度面板；定位文字：进度、剩余、记录今天",
+        "周统计和部分周说明：周统计和部分周说明；定位文字：周统计、部分周",
+        "最近记录的空白样例：最近记录的空白样例；定位文字：最近记录标题、10月8日结果、10月7日结果、10月6日结果、10月6日备注"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "一次性详情",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图14的一次性详情逾期样例：逾期标签、截止面板、三个操作按钮与时间线均可见。\n逾期标签使用警示色，截止日期为大字，面板下方有现在完成主按钮。\n标记失败与取消任务为并列次操作，后面是任务时间线和辅助说明。\n局部视觉约束：逾期截止信息：核对警示标签、截止日期22sp和辅助说明的层级；标签具体底色以本画板节点为准。\n局部视觉约束：操作与任务时间线：现在完成保留银色金属样式；标记失败为红字红边、取消任务为次样式，二者并列。；时间线多行文字和底部说明按稿排版。\n样例参数：任务名、逾期天数、截止日、时间线日期；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对固定／周目标详情，本页无统计百分比或周进度，使用逾期信息、截止日期、操作行与时间线。\n分析边界：此逾期样例与其他画板同名任务不强行串成同一时间线。；不追加完成、失败或取消后的页面及统计逻辑。\n视觉要求与 UI 对照\n一次性详情 · 画板整体，逻辑尺寸393×852\n\no7qx2G.png · full image visually inspected；逾期截止信息；操作与任务时间线\n\n逾期截止信息：逾期截止信息；定位文字：逾期 2 天、任务截止、任务说明\n\n操作与任务时间线：操作与任务时间线；定位文字：现在完成、标记失败文字、取消任务文字、任务时间线标题、时间线、一次性说明\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "一次性详情视觉状态",
+      "visualRegions": [
+        "逾期截止信息：逾期截止信息；定位文字：逾期 2 天、任务截止、任务说明",
+        "操作与任务时间线：操作与任务时间线；定位文字：现在完成、标记失败文字、取消任务文字、任务时间线标题、时间线、一次性说明"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "编辑计划",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图15的编辑计划表单，每天选中，指定星期未选，下面为结束日期与生效说明。\n名称与说明为已填输入框，执行规则仅展示每天／指定星期两个选项。\n生效说明面板及不可变说明位于保存修改按钮之前。\n局部视觉约束：已填字段与执行规则：名称、说明、两项规则及结束日期的顺序、选中表现与输入框内边距符合画板。\n局部视觉约束：生效提示与保存区：保留生效面板的强调标题、历史说明和面板外不可变说明；不由文案追加规则版本功能。\n样例参数：名称、说明内容、结束日期展示；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图04创建表单，本页没有方向与三类型选择，增加修改生效说明；不把当前／待生效文字拆为两张新页面。\n分析边界：不追加指定星期展开态、不同生效时间算法或暂停／归档编辑资格。\n视觉要求与 UI 对照\n编辑计划 · 画板整体，逻辑尺寸393×852\n\ns1Nbh.png · full image visually inspected；已填字段与执行规则；生效提示与保存区\n\n已填字段与执行规则：已填字段与执行规则；定位文字：名称字段名、说明字段名、执行规则标题、每天、指定星期、结束日期字段名\n\n生效提示与保存区：生效提示与保存区；定位文字：固定星期生效说明、历史、不可变说明、保存修改\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "编辑计划视觉状态",
+      "visualRegions": [
+        "已填字段与执行规则：已填字段与执行规则；定位文字：名称字段名、说明字段名、执行规则标题、每天、指定星期、结束日期字段名",
+        "生效提示与保存区：生效提示与保存区；定位文字：固定星期生效说明、历史、不可变说明、保存修改"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "暂停与恢复确认",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图16提供的组合参考画板：上方暂停确认卡片、中间恢复说明和下方待生效申请卡片分别保留。\n确认卡片含暂时停一下标题、说明、确认暂停主按钮和继续执行次按钮。\n恢复样例只有一段辅助文字；下方待生效卡片含已申请标题、说明与取消申请按钮。\n局部视觉约束：暂停确认样例：核对卡片内标题、说明、主次按钮与间距；暂停标题局部23sp。\n局部视觉约束：恢复说明样例：只对齐中间辅助文字区域及换行；不补恢复按钮、确认弹窗或完整恢复页面。\n局部视觉约束：待生效申请样例：保留下方独立卡片、强调状态标题及取消申请金属按钮。；不通过隐藏／移动上方区域来拼出资料未定义的新整页布局。\n样例参数：计划名称、说明中的日期展示；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图17／18的单一确认卡片相比，该画板并列多个视觉样例；它们是局部对照目标，不表示同一业务时刻或多张完整页面。\n分析边界：不追加暂停、恢复、取消申请的切换链路或生效业务。\n视觉要求与 UI 对照\n暂停与恢复确认 · 画板整体，逻辑尺寸393×852\n\nQpNMQ.png · full image visually inspected；暂停确认样例；恢复说明样例；待生效申请样例\n\n暂停确认样例：暂停确认样例；定位文字：暂停计划标题、暂停标题、暂停内容、确认暂停、继续执行文字\n\n恢复说明样例：恢复说明样例；定位文字：恢复状态\n\n待生效申请样例：待生效申请样例；定位文字：申请状态标题、取消申请说明、取消申请\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "暂停与恢复确认视觉状态",
+      "visualRegions": [
+        "暂停确认样例：暂停确认样例；定位文字：暂停计划标题、暂停标题、暂停内容、确认暂停、继续执行文字",
+        "恢复说明样例：恢复说明样例；定位文字：恢复状态",
+        "待生效申请样例：待生效申请样例；定位文字：申请状态标题、取消申请说明、取消申请"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "删除并保留历史",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图17删除并保留历史确认，包含归档图标、主说明卡片、确认／取消按钮和卡片外提示。\n确认卡片使用线性归档图标与23sp主标题。\n确认移入归档为金属主按钮，取消为浅表面次按钮。\n局部视觉约束：归档确认卡片：归档图标、标题、说明及两按钮的位置和留白按图；图标线宽、尺寸以对应节点为准。\n局部视觉约束：卡片外辅助提示：保留确认后说明的单独辅助行及其换行，不把文案变成归档数据处理验收。\n样例参数：计划名；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图18，本页以保留历史的中性色提示和归档图标为主，非红色永久删除强调。\n分析边界：不执行删除、归档、历史保留或不可恢复逻辑验收。\n视觉要求与 UI 对照\n删除并保留历史 · 画板整体，逻辑尺寸393×852\n\nlsJHj.png · full image visually inspected；归档确认卡片；卡片外辅助提示\n\n归档确认卡片：归档确认卡片；定位文字：归档标题、归档说明、确认移入归档、取消文字\n\n卡片外辅助提示：卡片外辅助提示；定位文字：归档位置\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "删除并保留历史视觉状态",
+      "visualRegions": [
+        "归档确认卡片：归档确认卡片；定位文字：归档标题、归档说明、确认移入归档、取消文字",
+        "卡片外辅助提示：卡片外辅助提示；定位文字：归档位置"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "归档后永久删除",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图18归档后永久删除确认，红色标题与红色描边操作构成危险提示层级。\n副标题含已归档样例，卡片内为红色23sp标题、正文说明和辅助说明。\n永久删除计划为红色描边与红字，取消为中性色次按钮。\n局部视觉约束：危险说明与确认按钮：红色标题、正文与辅助说明字号分层，核对多行换行及卡片内纵向留白。；永久删除按钮保留红色边框、浅底与红色文字；取消按钮保持中性样式。；图形仅按本画板已有内容核对，不追加未画出的图标。\n样例参数：计划名称；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图17，本页使用危险操作的红色强调与不同说明层级；不由图17的归档图标补画本页未出现的危险图标。\n分析边界：不追加永久删除范围、不可撤销或取消后数据保留的实际业务验证。\n视觉要求与 UI 对照\n归档后永久删除 · 画板整体，逻辑尺寸393×852\n\nIlUYa.png · full image visually inspected；危险说明与确认按钮\n\n危险说明与确认按钮：危险说明与确认按钮；定位文字：删除标题、删除范围、归档替代、永久删除计划文字、取消文字\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "归档后永久删除视觉状态",
+      "visualRegions": [
+        "危险说明与确认按钮：危险说明与确认按钮；定位文字：删除标题、删除范围、归档替代、永久删除计划文字、取消文字"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "本机设置",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图19本机设置，存储介绍、数据说明、时区说明与版本面板依次显示。\n银色反光面板内含手机图标、保存标题和多行说明。\n数据说明与日期时区为面板外独立分组，版本信息位于底部浅色卡片。\n局部视觉约束：本机保存介绍：手机线性图标、22sp局部标题、14sp说明与斜向反光带的相对位置符合稿。\n局部视觉约束：数据、时区和版本分组：保留面板外分组标题及说明换行，版本卡片内主次文字层级和大段下部留白按稿。\n样例参数：版本文字及数值；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图01引导卡片，本页没有创建按钮，包含设备、数据、时区和版本信息的独立分组。\n分析边界：可见离线、备份与时区说明仅作为展示文案，不新增对应实现或验证任务。\n视觉要求与 UI 对照\n本机设置 · 画板整体，逻辑尺寸393×852\n\nl0Vci.png · full image visually inspected；本机保存介绍；数据、时区和版本分组\n\n本机保存介绍：本机保存介绍；定位文字：保存标题、保存说明、本机图标\n\n数据、时区和版本分组：数据、时区和版本分组；定位文字：数据说明标题、卸载说明、日期与时区标题、时区说明、产品名称、版本号\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "本机设置视觉状态",
+      "visualRegions": [
+        "本机保存介绍：本机保存介绍；定位文字：保存标题、保存说明、本机图标",
+        "数据、时区和版本分组：数据、时区和版本分组；定位文字：数据说明标题、卸载说明、日期与时区标题、时区说明、产品名称、版本号"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "存储异常",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图20存储异常视觉：红色警示图标、未保存说明、主次按钮与已填写内容摘要均可见。\n上方卡片为浅色表面，图标用失败红，标题为正文深色。\n保留输入面板位于下方，已选成功文字使用主色而非绿色结果样式。\n局部视觉约束：保存异常提示卡片：红色圆圈感叹号、23sp深色标题、辅助说明和主次按钮按图排列；不改成整块黄色警示面板。\n局部视觉约束：已填写内容展示：保留内容框的边框、姓名日期强调行、主色结果行与辅助备注层级分别核对。\n样例参数：计划名、日期、备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图23同属警示类，但本页卡片为中性浅色、红色图标，按钮文案与保留结果色彩不同，不能仅以相似结构合并。\n分析边界：不触发真实写入失败、不验证重试、清库或数据保留机制。\n视觉要求与 UI 对照\n存储异常 · 画板整体，逻辑尺寸393×852\n\nB46K5.png · full image visually inspected；保存异常提示卡片；已填写内容展示\n\n保存异常提示卡片：保存异常提示卡片；定位文字：异常图标、错误标题、错误说明、重试保存、返回继续编辑文字\n\n已填写内容展示：已填写内容展示；定位文字：已填写内容标题、保留计划、保留结果、保留备注\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "存储异常视觉状态",
+      "visualRegions": [
+        "保存异常提示卡片：保存异常提示卡片；定位文字：异常图标、错误标题、错误说明、重试保存、返回继续编辑文字",
+        "已填写内容展示：已填写内容展示；定位文字：已填写内容标题、保留计划、保留结果、保留备注"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "一次性实际完成日",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图21登记完成，任务摘要、实际完成日期输入、可选备注、说明及保存按钮均可见。\n任务摘要有19sp名称与13sp截止文字，页面主标题局部23sp。\n实际完成日期输入后有辅助解释；备注区之后另有提交时间说明。\n局部视觉约束：任务摘要与实际完成日期：核对任务摘要卡片、日期字段名、已填日期框及说明的字号差与间距；不自行画日期选择弹层。\n局部视觉约束：备注和提交时间说明：备注框、两类时间说明及底部金属保存按钮按图定位。\n样例参数：任务名、截止日期、实际完成日期、备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图06一次性创建表单相比，本页无类型选择与截止日期编辑，而是任务摘要和实际完成日期；与图10也有不同字段结构。\n分析边界：不追加按时／迟完成判定、日期合法域或保存后归档逻辑。\n视觉要求与 UI 对照\n一次性实际完成日 · 画板整体，逻辑尺寸393×852\n\nL47R3V.png · full image visually inspected；任务摘要与实际完成日期；备注和提交时间说明\n\n任务摘要与实际完成日期：任务摘要与实际完成日期；定位文字：任务标题、任务截止、实际完成日期字段名、实际完成日期内容、实际完成日期说明\n\n备注和提交时间说明：备注和提交时间说明；定位文字：文字备注（可选）字段名、文字备注（可选）内容、提交时间说明、保存完成记录\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "一次性实际完成日视觉状态",
+      "visualRegions": [
+        "任务摘要与实际完成日期：任务摘要与实际完成日期；定位文字：任务标题、任务截止、实际完成日期字段名、实际完成日期内容、实际完成日期说明",
+        "备注和提交时间说明：备注和提交时间说明；定位文字：文字备注（可选）字段名、文字备注（可选）内容、提交时间说明、保存完成记录"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "历史记录只读",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图22历史记录只读：结果摘要、日期时区提交时间、备注、只读说明与返回按钮均以展示方式呈现。\n成功结果为绿色大字，业务日期为正文，时区与提交时间为辅助文字。\n备注以内容卡片展示，没有图09的结果选择与保存修改表单。\n局部视觉约束：结果与时间摘要：22sp绿色成功结果、15sp业务日期与12sp时区／提交时间分层排布。\n局部视觉约束：备注、只读说明与返回：备注展示卡片与只读说明卡片分开；返回按钮保留金属样式。；核对无图稿外编辑控件的只读呈现，不声称验证底层修改拦截。\n样例参数：计划名、日期、时区、提交时间、备注；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：与图09相比，使用静态结果和备注卡片及只读说明，操作区为返回日历而非修改表单。\n分析边界：不据静态只读外观推导修改资格、锁定实现或返回路由。\n视觉要求与 UI 对照\n历史记录只读 · 画板整体，逻辑尺寸393×852\n\nN7Gnu.png · full image visually inspected；结果与时间摘要；备注、只读说明与返回\n\n结果与时间摘要：结果与时间摘要；定位文字：历史成功、业务日期、计划时区、原始提交\n\n备注、只读说明与返回：备注、只读说明与返回；定位文字：文字备注标题、历史备注、只读标题、只读规则、返回日历\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "历史记录只读视觉状态",
+      "visualRegions": [
+        "结果与时间摘要：结果与时间摘要；定位文字：历史成功、业务日期、计划时区、原始提交",
+        "备注、只读说明与返回：备注、只读说明与返回；定位文字：文字备注标题、历史备注、只读标题、只读规则、返回日历"
+      ]
+    },
+    {
+      "applicableChecks": [
+        "UI视觉稿样式对齐 · 本状态验收约束（7项）",
+        "查看依据"
+      ],
+      "cssBlocks": 1,
+      "images": [
+        {
+          "alt": "跨日重新确认",
+          "height": 1704,
+          "loaded": true,
+          "width": 786
+        }
+      ],
+      "kind": "状态约束的观察目标",
+      "sharedScope": true,
+      "text": "本状态按观察条件核对已有视觉目标。\n\n功能归属\nUI视觉稿样式对齐\n当前事实与视觉边界\n视觉纳入边界：呈现图23跨日重新确认视觉：日期变化副标题、黄色警示面板、两个按钮及尚未保存的内容摘要。\n警示面板使用浅黄底和警示色边框／图标，标题仍为深色。\n已填写内容标题含尚未保存字样，摘要中的已选成功为绿色并带勾。\n局部视觉约束：日期变化警示与按钮：警示底#F7EBCF、警示色#88500D及23sp标题按相应节点核对。；进入补记确认和返回日历按钮的主次层级与面板内间距保留。\n局部视觉约束：尚未保存的内容摘要：标题、名称日期、绿色勾与已选成功行、备注按稿排布，不与图20的主色结果行互换。\n样例参数：当前／记录日期、计划名、备注、系统时间；按对应视觉目标核对，不扩为全部取值组合。\n同层级区分：相对图20，整块警示底色、边框、图标颜色、主次按钮文案和保留结果行均不同，需独立对照。\n分析边界：不模拟午夜跨日、阻止提交、恢复输入或补记保存的实际业务。\n视觉要求与 UI 对照\n跨日重新确认 · 画板整体，逻辑尺寸393×852\n\nHEOev.png · full image visually inspected；日期变化警示与按钮；尚未保存的内容摘要\n\n日期变化警示与按钮：日期变化警示与按钮；定位文字：页面辅助说明、异常图标、错误标题、错误说明、进入补记确认、返回继续编辑文字\n\n尚未保存的内容摘要：尚未保存的内容摘要；定位文字：已填写内容标题、保留计划、保留结果、保留备注\n\nCSS 设计值\n\n共享参考值；本状态的局部差异以对应图稿及节点为准。\n\ndesign-tokens.json · colors, font, layout, radius, gradients, effects; visual scope only\n\n/* 来自设计令牌；px列示原设计数值，平台dp/sp语义仍以原稿为准。 */\n:root {\n  --background: #E8ECF0;\n  --surface: #FAFBFC;\n  --primary: #263440;\n  --text: #17212B;\n  --secondary: #84919C;\n  --muted-text: #4D5B68;\n  --border: #ABB6C1;\n  --primary-soft: #E0E6EB;\n  --calendar-progress: #866500;\n  --success: #006E3A;\n  --success-soft: #E2F2E8;\n  --failure: #B62029;\n  --failure-soft: #FBE8E9;\n  --skip: #8E4A00;\n  --skip-soft: #FCEDD9;\n  --warning: #88500D;\n  --warning-soft: #F7EBCF;\n  --font-body: 15px;\n  --font-caption: 12px;\n  --font-title: 22px;\n  --font-title-weight: 700;\n  --font-section-weight: 700;\n  --font-label-weight: 600;\n  --font-calendar-date: 12px;\n  --font-calendar-fraction: 10px;\n  --font-calendar-fraction-weight: 600;\n  --font-section: 16px;\n  --font-line-height-ratio: 1.5;\n  --radius-control: 2px;\n  --radius-card: 3px;\n  --radius-panel: 3px;\n  --radius-tag: 1px;\n  --page-inset: 20px;\n  --card-padding: 16px;\n  --section-gap: 16px;\n  --control-gap: 8px;\n}\n.design-screen {\n  background: var(--background);\n  color: var(--text);\n  font-size: var(--font-body);\n  line-height: var(--font-line-height-ratio);\n  font-family: \"Noto Sans SC\", sans-serif;\n  padding-inline: var(--page-inset);\n}\n.design-title {\n  font-size: var(--font-title);\n  font-weight: var(--font-title-weight);\n}\n.design-card {\n  padding: var(--card-padding);\n  border-radius: var(--radius-card);\n}\n.design-control {\n  border-radius: var(--radius-control);\n}\n.design-panel {\n  border-radius: var(--radius-panel);\n}\n.design-tag {\n  border-radius: var(--radius-tag);\n}\n.design-input {\n  padding: 14px 12px;\n}\n.design-gradient-button {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #D4DAE0 15.0%, #EEF2F5 40.0%, #FFFFFF 44.0%, #D7DFE6 48.0%, #B9C4CE 100%);\n}\n.design-gradient-silver {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(135deg, #FFFFFF 0%, #E3E9EE 22.0%, #D4DAE0 46.0%, #FDFEFF 50.0%, #E5EBF0 56.0%, #CDD6DE 100%);\n}\n.design-gradient-card {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #F2F5F7 22.0%, #E6ECF1 100%);\n}\n.design-gradient-rim {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #FFFFFF 0%, #BAC5CF 22.0%, #97A4B0 55.0%, #F7FAFC 100%);\n}\n.design-gradient-graphite {\n  /* 角度与色标按设计令牌原值列示。 */\n  background-image: linear-gradient(180deg, #687987 0%, #354756 22.0%, #243440 70.0%, #16232D 100%);\n}\n.design-shadow-card {\n  box-shadow: 0px 3px 8px #2134461F, inset 0px 1px 0px #FFFFFFE6;\n}\n.design-shadow-button {\n  box-shadow: 0px 2px 4px #15273733, inset 0px 1px 0px #FFFFFF, inset 0px -1px 0px #8293A033;\n}\n.design-shadow-input {\n  box-shadow: inset 0px 1px 3px #2437471A;\n}\n.design-calendar-date {\n  font-size: var(--font-calendar-date);\n}\n.design-calendar-fraction {\n  font-size: var(--font-calendar-fraction);\n  font-weight: var(--font-calendar-fraction-weight);\n  color: var(--calendar-progress);\n}\n适用的状态约束需求\nUI视觉稿样式对齐\nUI视觉稿样式对齐 · 本状态验收约束（7项）\n查看依据",
+      "title": "跨日重新确认视觉状态",
+      "visualRegions": [
+        "日期变化警示与按钮：日期变化警示与按钮；定位文字：页面辅助说明、异常图标、错误标题、错误说明、进入补记确认、返回继续编辑文字",
+        "尚未保存的内容摘要：尚未保存的内容摘要；定位文字：已填写内容标题、保留计划、保留结果、保留备注"
+      ]
+    }
+  ],
+  "requirementCheck": {
+    "assertionCount": 8,
+    "kind": "状态约束型需求",
+    "scopes": [
+      "适用状态：本需求全部 23 个适用状态",
+      "适用状态：本需求全部 23 个适用状态",
+      "适用状态：本需求全部 23 个适用状态",
+      "适用状态：本需求全部 23 个适用状态",
+      "适用状态：本需求全部 23 个适用状态",
+      "适用状态：本需求全部 23 个适用状态",
+      "适用状态：全局日历视觉状态",
+      "适用状态：本需求全部 23 个适用状态"
+    ],
+    "states": [
+      "今日空态视觉状态",
+      "今日有计划视觉状态",
+      "计划列表视觉状态",
+      "新建固定星期视觉状态",
+      "新建每周N天视觉状态",
+      "新建一次性任务视觉状态",
+      "要做确认记录视觉状态",
+      "不要做确认记录视觉状态",
+      "修改当日记录视觉状态",
+      "补记视觉状态",
+      "全局日历视觉状态",
+      "固定详情视觉状态",
+      "周目标详情视觉状态",
+      "一次性详情视觉状态",
+      "编辑计划视觉状态",
+      "暂停与恢复确认视觉状态",
+      "删除并保留历史视觉状态",
+      "归档后永久删除视觉状态",
+      "本机设置视觉状态",
+      "存储异常视觉状态",
+      "一次性实际完成日视觉状态",
+      "历史记录只读视觉状态",
+      "跨日重新确认视觉状态"
+    ],
+    "text": "对所列状态持续成立的要求；不表示一次产品操作，也不计入行为访问次数。\n\n适用状态\n\n覆盖 23 个状态；点击可查看对应观察目标。\n\n今日空态视觉状态今日有计划视觉状态计划列表视觉状态新建固定星期视觉状态新建每周N天视觉状态新建一次性任务视觉状态要做确认记录视觉状态不要做确认记录视觉状态修改当日记录视觉状态补记视觉状态全局日历视觉状态固定详情视觉状态周目标详情视觉状态一次性详情视觉状态编辑计划视觉状态暂停与恢复确认视觉状态删除并保留历史视觉状态归档后永久删除视觉状态本机设置视觉状态存储异常视觉状态一次性实际完成日视觉状态历史记录只读视觉状态跨日重新确认视觉状态\n验收约束与观察条件\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行覆盖完整对照。\n\n逐页有对应视觉对照，已有局部样例不遗漏。\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行布局一致对照。\n\n顺序、位置、对齐、留白及纵向关系按对应稿。\n布局、圆角与间距：常规左右边距20dp、卡片内边距及区块间距16dp、输入内边距上下14／左右12dp、常规控件间距8dp。\n布局、圆角与间距：其他间距按节点及4／8／12／16／24／32梯度核对。\n布局、圆角与间距：卡片／面板3dp、按钮2dp、标签1dp，保持小圆角和直角感。\n布局、圆角与间距：字段、标题、按钮、导航与系统区域相对布局按对应画板核对；不把系统示例时间固化为业务数据。\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行视觉参数一致对照。\n\n色彩、字重字号、圆角间距、渐变高光阴影与源参数相符，局部节点优先。\n色彩与结果表达：背景#E8ECF0、表面#FAFBFC、主色#263440、正文#17212B、辅助字#4D5B68、次要色#84919C、边框#ABB6C1。\n色彩与结果表达：浅选中／今日底#E0E6EB；成功#006E3A／#E2F2E8、失败#B62029／#FBE8E9、跳过#8E4A00／#FCEDD9、警示#88500D／#F7EBCF。\n色彩与结果表达：成功／失败／跳过／未记录保留对应符号、文字与颜色的组合，局部色值以对应节点为准。\n字体与局部字号：首选Noto Sans SC；如回退，需核对字形、字重、换行与布局。\n字体与局部字号：常规页面标题22sp／700、区块16sp／700、正文15sp、辅助12sp，重要标签600–700；基础行高比例1.5。\n字体与局部字号：局部节点优先：例如图01空态标题25sp，图12比率36sp，图13进度32sp，图21任务标题19sp，部分页标题23sp，部分副标题11sp。\n字体与局部字号：局部例外来自设计树，不一律强制改成公共字号，也不据此判定源资料冲突。\n金属材质、渐变与阴影：保留冷银灰、金属面板、斜向反光、高光边缘、软外阴影及已有内阴影；不简化成单色平面。\n金属材质、渐变与阴影：button／silver／card／rim／graphite的设计角度与完整色标位置按令牌核对；局部选择效果按对应节点。\n金属材质、渐变与阴影：card／button／input的阴影类型、方向、偏移、模糊和透明度按令牌及局部节点核对；不自行发明缺失材质。\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行组件一致对照。\n\n组件外观、尺寸关系、图标与文字层级可逐项核对。\n图标、控件与局部状态：图标按已有线性轮廓、粗细、尺寸、位置和对齐核对。\n图标、控件与局部状态：选中／未选、结果、只读、警示、主次／危险按钮仅按已画样例分别核对。\n图标、控件与局部状态：一个画板的多个局部样例不推导成多张完整页面；不由可见按钮追加点击结果或禁用效果。\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行状态一致对照。\n\n核对已有视觉状态，允许使用对应场景数据呈现，不要求业务先生成。\n展示数据与跨画板关系：名称、日期、数量、备注与进度数值是视觉场景样例，不要求写入正式数据。\n展示数据与跨画板关系：相同名称出现在不同画板，不自动合并为一条业务时间线；不同固定视觉文案与结构仍须分别核对。\n展示数据与跨画板关系：画板名称和稿内业务说明用于定位呈现，不将其转为业务操作、日期限制或统计实现要求。\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行比例正确对照。\n\n393dp逻辑宽度、2×导出和长画板均保持正确比例。\n画板比例与参考尺寸：逻辑参考宽度393dp，常规视口393×852。\n画板比例与参考尺寸：PNG为2×导出；786px图宽不能误当786dp。\n画板比例与参考尺寸：图02／04／05／11分别为1140／1040／940／1100逻辑高度，长内容采用完整或连续截图，保持比例与纵向关系。\n\n适用状态：全局日历视觉状态\n\n前提：具有图11全局日历及PRD第4.4节规定的已画日期格、筛选与明细样例。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行日历一致对照。\n\n日期、分数、勾、今日底色、选中边框、跨月弱色、筛选及明细均按稿。\n日历专用视觉：周一起七列，月份标题、箭头、星期和日期列对齐。\n日历专用视觉：今日浅银灰且日期加粗，不显示点、勾或分数；选中日期使用独立边框。\n日历专用视觉：绿色勾、金色分数、无下标日期及跨月弱色日号分别对照已有样例。\n日历专用视觉：日期12sp，分数10sp／600、#866500；月份栏有效左右16、日期容器左右2、列间2。\n日历专用视觉：日期·项数标题、全部状态筛选框、计数、彩色明细与间距按稿，不追加解释行或展开面板。\n\n适用状态：本需求全部 23 个适用状态\n\n前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。\n\n观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行证据明确对照。\n\n逐页截图、尺寸、场景与差异复核记录明确，未知结果不写通过。\n视觉对照证据：逐页记录画板编号、对应截图、逻辑尺寸、场景和局部样例、差异位置及复核结论。\n视觉对照证据：同逻辑宽度、字体比例和对应场景进行并排或叠加对照；先结构定位，再文字颜色材质图标与细部间距。\n视觉对照证据：未核对项明确标识；不虚构相似度百分比或像素容差。\n视觉对照证据：本分析的已映射／已读资料不等于应用视觉对齐通过；产品截图与实际差异复核尚未执行。\n精确需求依据\n\n2026-10-17-UI设计还原需求文档.md · sections 1-7 · §1、§1.1：UI视觉稿样式对齐及范围；§3：23画板与局部样例；§4：视觉规范；§6 A01–A08及§6.1：检查与对照方式\n\n人工作答 · 真实用户对范围澄清问题的答复 · 用户答复全文：需求是UI视觉稿样式对齐，不考虑需求以外实现\n\n来源与适用范围映射已核对；这些断言仍需产品对照验收，不能将模型覆盖写成产品通过。\n\n查看依据",
+    "title": "UI视觉稿样式对齐"
+  },
+  "coverageRead": "无行为迁移；状态约束按适用范围核对\n\n状态约束覆盖\nUI视觉稿样式对齐\n\n适用 23 个状态；对应断言与来源已映射，产品验收尚未进行。\n\n本范围没有行为迁移，不生成产品执行路线或最短访问宣称。",
+  "validationRead": "这些检查用于审查需求模型；每项应用功能、视觉效果和真实操作仍须在实现后的验收阶段验证。\n\n状态约束覆盖检查\n\n已映射 1 / 1 项状态约束；覆盖 23 个状态。此处核对来源和适用范围，不表示产品已通过。\n\nUI视觉稿样式对齐\n逐条迁移检查\n\n本范围没有行为迁移，不要求虚构业务入口或执行见证。\n\n连续路线检查\n\n无行为迁移；状态约束按适用范围核对\n\n覆盖 0 / 0 项行为需求；0 段，当前访问 0 次，重复 0 次。\n\n查看各段完整路线和初始条件\n仍需人工与独立语义审查\n\n程序通过只证明当前已编码条件。原文解释、分支意义、条件遗漏、实际数据准备和界面可读性须分别审查；正式整体结论以同目录当前门禁结果和真实人工确认为准。\n\n行为断言在迁移详情中阅读；状态约束在需求节点及适用状态中阅读。UI图与CSS依据并列，模型检查不代表产品验收。",
+  "graphInteractions": [
+    {
+      "action": "drag node",
+      "result": "node position changed visually; graph retained"
+    },
+    {
+      "action": "pan background",
+      "result": "canvas translated"
+    },
+    {
+      "action": "zoom in",
+      "before": "完整状态图：23 个节点 · 0 条有向边 · 63%",
+      "after": "完整状态图：23 个节点 · 0 条有向边 · 75%"
+    },
+    {
+      "action": "minimap navigation",
+      "result": "viewport navigation exercised"
+    }
+  ],
+  "observedScreenshots": [
+    "state-graph-browser.png",
+    "requirement-graph-browser.png",
+    "canvas-drag-pan-browser.png",
+    "validation-browser.png",
+    "visual-css-browser.png"
+  ],
+  "limitations": [
+    "Current product UI implementation and visual alignment have not been executed or accepted.",
+    "No behavior transitions are in the confirmed scope; real business paths and arrows are absent rather than fabricated.",
+    "Synthetic Canvas regression evidence is recorded separately from this real browser observation."
+  ],
+  "rawAx": {
+    "requirement": "Browser tab: 2, Title: \"需求图审查\", URL: \"http://127.0.0.1:8766/review.html#frame-1\".\n1 AXWebArea 需求图审查, URL: 127.0.0.1:8766/review.html#frame-1\n\t2 container header\n\t\t3 heading 需求图审查, Value: 1\n\t\t\t4 text 需求图审查\n\t\t5 text 只读分析草案 · 图与需求同源 · 0 个真实起点\n\t\t6 checkbox 完整状态转移图, Value: 0, ID: state-mode\n\t\t7 checkbox 需求覆盖图, Value: 1, ID: requirement-mode\n\t\t8 container\n\t\t\t9 text 流程起点\n\t\t\t10 pop up button (disabled, collapsed, settable) Description: 选择真实流程起点, Value: 本范围无业务起点, ID: root-choice, Secondary Actions: Expand\n\t\t\t\t11 menu\n\t\t\t\t\t12 (disabled) 本范围无业务起点\n\t\t13 container\n\t\t\t14 text 定位\n\t\t\t15 text field (settable) 定位 UI视觉稿样式对齐, ID: search\n\t\t\t16 pop up button (collapsed, settable) Description: 定位图节点, Value: UI视觉稿样式对齐, ID: target, Secondary Actions: Expand\n\t\t\t\t17 menu\n\t\t\t\t\t58 定位到…\n\t\t\t\t\t59 (selected) UI视觉稿样式对齐\n\t\t42 button (disabled) 定位起点, ID: locate-start\n\t\t60 button 覆盖路线与校验, ID: coverage-route\n\t\t43 button 验收检查, ID: validation-summary\n\t\t44 button 查看全图, ID: fit\n\t\t45 button Description: 缩小, ID: zoom-out\n\t\t46 button Description: 放大, ID: zoom-in\n\t\t47 button 重置布局, ID: reset-layout\n\t\t48 text 拖拽空白平移 · 拖拽节点调整位置 · 滚轮缩放 · 点击箭头审查需求\n\t49 container stage\n\t\t50 image Description: 可拖拽的完整有向图，亦可使用上方定位及详情中的动作按钮访问, ID: graph\n\t\t61 text 需求图：1 个节点 · 0 条有向边 · 0 项行为需求 · 1 项状态约束 · 无行为迁移；状态约束按适用范围核对 · 85%\n\t\t52 container\n\t\t\t62 text 无行为入口\n\t\t\t54 text 当前链路 全部节点保留\n\t\t55 container\n\t\t\t56 image Description: 全图缩略导航, ID: minimap\n\t\t\t57 text 点击缩略图定位\n\t\t63 container Description: 需求审查详情, ID: details\n\t\t\t64 container\n\t\t\t\t65 text 状态约束型需求\n\t\t\t\t66 button 收起详情 ×, ID: close-details\n\t\t\t67 heading UI视觉稿样式对齐, Value: 2, ID: detail-title\n\t\t\t\t68 text UI视觉稿样式对齐\n\t\t\t69 text 需求分析草案 · 尚未最终确认\n\t\t\t70 container detail-body\n\t\t\t\t71 text 对所列状态持续成立的要求；不表示一次产品操作，也不计入行为访问次数。\n\t\t\t\t72 container\n\t\t\t\t\t73 heading 适用状态, Value: 3\n\t\t\t\t\t\t74 text 适用状态\n\t\t\t\t\t75 text 覆盖 23 个状态；点击可查看对应观察目标。\n\t\t\t\t\t76 button 今日空态视觉状态\n\t\t\t\t\t77 button 今日有计划视觉状态\n\t\t\t\t\t78 button 计划列表视觉状态\n\t\t\t\t\t79 button 新建固定星期视觉状态\n\t\t\t\t\t80 button 新建每周N天视觉状态\n\t\t\t\t\t81 button 新建一次性任务视觉状态\n\t\t\t\t\t82 button 要做确认记录视觉状态\n\t\t\t\t\t83 button 不要做确认记录视觉状态\n\t\t\t\t\t84 button 修改当日记录视觉状态\n\t\t\t\t\t85 button 补记视觉状态\n\t\t\t\t\t86 button 全局日历视觉状态\n\t\t\t\t\t87 button 固定详情视觉状态\n\t\t\t\t\t88 button 周目标详情视觉状态\n\t\t\t\t\t89 button 一次性详情视觉状态\n\t\t\t\t\t90 button 编辑计划视觉状态\n\t\t\t\t\t91 button 暂停与恢复确认视觉状态\n\t\t\t\t\t92 button 删除并保留历史视觉状态\n\t\t\t\t\t93 button 归档后永久删除视觉状态\n\t\t\t\t\t94 button 本机设置视觉状态\n\t\t\t\t\t95 button 存储异常视觉状态\n\t\t\t\t\t96 button 一次性实际完成日视觉状态\n\t\t\t\t\t97 button 历史记录只读视觉状态\n\t\t\t\t\t98 button 跨日重新确认视觉状态\n\t\t\t\t99 container\n\t\t\t\t\t100 heading 验收约束与观察条件, Value: 3\n\t\t\t\t\t\t101 text 验收约束与观察条件\n\t\t\t\t\t102 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行覆盖完整对照。\n\t\t\t\t\t103 content list\n\t\t\t\t\t\t104 container\n\t\t\t\t\t\t\t105 AXListMarker • \n\t\t\t\t\t\t\t106 text 逐页有对应视觉对照，已有局部样例不遗漏。\n\t\t\t\t\t107 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行布局一致对照。\n\t\t\t\t\t108 content list\n\t\t\t\t\t\t109 container\n\t\t\t\t\t\t\t110 AXListMarker • \n\t\t\t\t\t\t\t111 text 顺序、位置、对齐、留白及纵向关系按对应稿。\n\t\t\t\t\t\t112 container\n\t\t\t\t\t\t\t113 AXListMarker • \n\t\t\t\t\t\t\t114 text 布局、圆角与间距：常规左右边距20dp、卡片内边距及区块间距16dp、输入内边距上下14／左右12dp、常规控件间距8dp。\n\t\t\t\t\t\t115 container\n\t\t\t\t\t\t\t116 AXListMarker • \n\t\t\t\t\t\t\t117 text 布局、圆角与间距：其他间距按节点及4／8／12／16／24／32梯度核对。\n\t\t\t\t\t\t118 container\n\t\t\t\t\t\t\t119 AXListMarker • \n\t\t\t\t\t\t\t120 text 布局、圆角与间距：卡片／面板3dp、按钮2dp、标签1dp，保持小圆角和直角感。\n\t\t\t\t\t\t121 container\n\t\t\t\t\t\t\t122 AXListMarker • \n\t\t\t\t\t\t\t123 text 布局、圆角与间距：字段、标题、按钮、导航与系统区域相对布局按对应画板核对；不把系统示例时间固化为业务数据。\n\t\t\t\t\t124 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行视觉参数一致对照。\n\t\t\t\t\t125 content list\n\t\t\t\t\t\t126 container\n\t\t\t\t\t\t\t127 AXListMarker • \n\t\t\t\t\t\t\t128 text 色彩、字重字号、圆角间距、渐变高光阴影与源参数相符，局部节点优先。\n\t\t\t\t\t\t129 container\n\t\t\t\t\t\t\t130 AXListMarker • \n\t\t\t\t\t\t\t131 text 色彩与结果表达：背景#E8ECF0、表面#FAFBFC、主色#263440、正文#17212B、辅助字#4D5B68、次要色#84919C、边框#ABB6C1。\n\t\t\t\t\t\t132 container\n\t\t\t\t\t\t\t133 AXListMarker • \n\t\t\t\t\t\t\t134 text 色彩与结果表达：浅选中／今日底#E0E6EB；成功#006E3A／#E2F2E8、失败#B62029／#FBE8E9、跳过#8E4A00／#FCEDD9、警示#88500D／#F7EBCF。\n\t\t\t\t\t\t135 container\n\t\t\t\t\t\t\t136 AXListMarker • \n\t\t\t\t\t\t\t137 text 色彩与结果表达：成功／失败／跳过／未记录保留对应符号、文字与颜色的组合，局部色值以对应节点为准。\n\t\t\t\t\t\t138 container\n\t\t\t\t\t\t\t139 AXListMarker • \n\t\t\t\t\t\t\t140 text 字体与局部字号：首选Noto Sans SC；如回退，需核对字形、字重、换行与布局。\n\t\t\t\t\t\t141 container\n\t\t\t\t\t\t\t142 AXListMarker • \n\t\t\t\t\t\t\t143 text 字体与局部字号：常规页面标题22sp／700、区块16sp／700、正文15sp、辅助12sp，重要标签600–700；基础行高比例1.5。\n\t\t\t\t\t\t144 container\n\t\t\t\t\t\t\t145 AXListMarker • \n\t\t\t\t\t\t\t146 text 字体与局部字号：局部节点优先：例如图01空态标题25sp，图12比率36sp，图13进度32sp，图21任务标题19sp，部分页标题23sp，部分副标题11sp。\n\t\t\t\t\t\t147 container\n\t\t\t\t\t\t\t148 AXListMarker • \n\t\t\t\t\t\t\t149 text 字体与局部字号：局部例外来自设计树，不一律强制改成公共字号，也不据此判定源资料冲突。\n\t\t\t\t\t\t150 container\n\t\t\t\t\t\t\t151 AXListMarker • \n\t\t\t\t\t\t\t152 text 金属材质、渐变与阴影：保留冷银灰、金属面板、斜向反光、高光边缘、软外阴影及已有内阴影；不简化成单色平面。\n\t\t\t\t\t\t153 container\n\t\t\t\t\t\t\t154 AXListMarker • \n\t\t\t\t\t\t\t155 text 金属材质、渐变与阴影：button／silver／card／rim／graphite的设计角度与完整色标位置按令牌核对；局部选择效果按对应节点。\n\t\t\t\t\t\t156 container\n\t\t\t\t\t\t\t157 AXListMarker • \n\t\t\t\t\t\t\t158 text 金属材质、渐变与阴影：card／button／input的阴影类型、方向、偏移、模糊和透明度按令牌及局部节点核对；不自行发明缺失材质。\n\t\t\t\t\t159 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行组件一致对照。\n\t\t\t\t\t160 content list\n\t\t\t\t\t\t161 container\n\t\t\t\t\t\t\t162 AXListMarker • \n\t\t\t\t\t\t\t163 text 组件外观、尺寸关系、图标与文字层级可逐项核对。\n\t\t\t\t\t\t164 container\n\t\t\t\t\t\t\t165 AXListMarker • \n\t\t\t\t\t\t\t166 text 图标、控件与局部状态：图标按已有线性轮廓、粗细、尺寸、位置和对齐核对。\n\t\t\t\t\t\t167 container\n\t\t\t\t\t\t\t168 AXListMarker • \n\t\t\t\t\t\t\t169 text 图标、控件与局部状态：选中／未选、结果、只读、警示、主次／危险按钮仅按已画样例分别核对。\n\t\t\t\t\t\t170 container\n\t\t\t\t\t\t\t171 AXListMarker • \n\t\t\t\t\t\t\t172 text 图标、控件与局部状态：一个画板的多个局部样例不推导成多张完整页面；不由可见按钮追加点击结果或禁用效果。\n\t\t\t\t\t173 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行状态一致对照。\n\t\t\t\t\t174 content list\n\t\t\t\t\t\t175 container\n\t\t\t\t\t\t\t176 AXListMarker • \n\t\t\t\t\t\t\t177 text 核对已有视觉状态，允许使用对应场景数据呈现，不要求业务先生成。\n\t\t\t\t\t\t178 container\n\t\t\t\t\t\t\t179 AXListMarker • \n\t\t\t\t\t\t\t180 text 展示数据与跨画板关系：名称、日期、数量、备注与进度数值是视觉场景样例，不要求写入正式数据。\n\t\t\t\t\t\t181 container\n\t\t\t\t\t\t\t182 AXListMarker • \n\t\t\t\t\t\t\t183 text 展示数据与跨画板关系：相同名称出现在不同画板，不自动合并为一条业务时间线；不同固定视觉文案与结构仍须分别核对。\n\t\t\t\t\t\t184 container\n\t\t\t\t\t\t\t185 AXListMarker • \n\t\t\t\t\t\t\t186 text 展示数据与跨画板关系：画板名称和稿内业务说明用于定位呈现，不将其转为业务操作、日期限制或统计实现要求。\n\t\t\t\t\t187 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行比例正确对照。\n\t\t\t\t\t188 content list\n\t\t\t\t\t\t189 container\n\t\t\t\t\t\t\t190 AXListMarker • \n\t\t\t\t\t\t\t191 text 393dp逻辑宽度、2×导出和长画板均保持正确比例。\n\t\t\t\t\t\t192 container\n\t\t\t\t\t\t\t193 AXListMarker • \n\t\t\t\t\t\t\t194 text 画板比例与参考尺寸：逻辑参考宽度393dp，常规视口393×852。\n\t\t\t\t\t\t195 container\n\t\t\t\t\t\t\t196 AXListMarker • \n\t\t\t\t\t\t\t197 text 画板比例与参考尺寸：PNG为2×导出；786px图宽不能误当786dp。\n\t\t\t\t\t\t198 container\n\t\t\t\t\t\t\t199 AXListMarker • \n\t\t\t\t\t\t\t200 text 画板比例与参考尺寸：图02／04／05／11分别为1140／1040／940／1100逻辑高度，长内容采用完整或连续截图，保持比例与纵向关系。\n\t\t\t\t\t201 text 适用状态：全局日历视觉状态 前提：具有图11全局日历及PRD第4.4节规定的已画日期格、筛选与明细样例。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行日历一致对照。\n\t\t\t\t\t202 content list\n\t\t\t\t\t\t203 container\n\t\t\t\t\t\t\t204 AXListMarker • \n\t\t\t\t\t\t\t205 text 日期、分数、勾、今日底色、选中边框、跨月弱色、筛选及明细均按稿。\n\t\t\t\t\t\t206 container\n\t\t\t\t\t\t\t207 AXListMarker • \n\t\t\t\t\t\t\t208 text 日历专用视觉：周一起七列，月份标题、箭头、星期和日期列对齐。\n\t\t\t\t\t\t209 container\n\t\t\t\t\t\t\t210 AXListMarker • \n\t\t\t\t\t\t\t211 text 日历专用视觉：今日浅银灰且日期加粗，不显示点、勾或分数；选中日期使用独立边框。\n\t\t\t\t\t\t212 container\n\t\t\t\t\t\t\t213 AXListMarker • \n\t\t\t\t\t\t\t214 text 日历专用视觉：绿色勾、金色分数、无下标日期及跨月弱色日号分别对照已有样例。\n\t\t\t\t\t\t215 container\n\t\t\t\t\t\t\t216 AXListMarker • \n\t\t\t\t\t\t\t217 text 日历专用视觉：日期12sp，分数10sp／600、#866500；月份栏有效左右16、日期容器左右2、列间2。\n\t\t\t\t\t\t218 container\n\t\t\t\t\t\t\t219 AXListMarker • \n\t\t\t\t\t\t\t220 text 日历专用视觉：日期·项数标题、全部状态筛选框、计数、彩色明细与间距按稿，不追加解释行或展开面板。\n\t\t\t\t\t221 text 适用状态：本需求全部 23 个适用状态 前提：具有对应设计画板、区域及已画出的状态样例；动态内容可使用对应场景数据。 观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行证据明确对照。\n\t\t\t\t\t222 content list\n\t\t\t\t\t\t223 container\n\t\t\t\t\t\t\t224 AXListMarker • \n\t\t\t\t\t\t\t225 text 逐页截图、尺寸、场景与差异复核记录明确，未知结果不写通过。\n\t\t\t\t\t\t226 container\n\t\t\t\t\t\t\t227 AXListMarker • \n\t\t\t\t\t\t\t228 text 视觉对照证据：逐页记录画板编号、对应截图、逻辑尺寸、场景和局部样例、差异位置及复核结论。\n\t\t\t\t\t\t229 container\n\t\t\t\t\t\t\t230 AXListMarker • \n\t\t\t\t\t\t\t231 text 视觉对照证据：同逻辑宽度、字体比例和对应场景进行并排或叠加对照；先结构定位，再文字颜色材质图标与细部间距。\n\t\t\t\t\t\t232 container\n\t\t\t\t\t\t\t233 AXListMarker • \n\t\t\t\t\t\t\t234 text 视觉对照证据：未核对项明确标识；不虚构相似度百分比或像素容差。\n\t\t\t\t\t\t235 container\n\t\t\t\t\t\t\t236 AXListMarker • \n\t\t\t\t\t\t\t237 text 视觉对照证据：本分析的已映射／已读资料不等于应用视觉对齐通过；产品截图与实际差异复核尚未执行。\n\t\t\t\t238 container\n\t\t\t\t\t239 heading 精确需求依据, Value: 3\n\t\t\t\t\t\t240 text 精确需求依据\n\t\t\t\t\t241 text 2026-10-17-UI设计还原需求文档.md · sections 1-7 · §1、§1.1：UI视觉稿样式对齐及范围；§3：23画板与局部样例；§4：视觉规范；§6 A01–A08及§6.1：检查与对照方式 人工作答 · 真实用户对范围澄清问题的答复 · 用户答复全文：需求是UI视觉稿样式对齐，不考虑需求以外实现\n\t\t\t\t242 text 来源与适用范围映射已核对；这些断言仍需产品对照验收，不能将模型覆盖写成产品通过。\n\t\t\t\t243 button (collapsed) 查看依据, Secondary Actions: Expand\n\t\t\t\t\t244 text 查看依据\n\nThe focused UI element is 7 checkbox 需求覆盖图, Value: 1, ID: requirement-mode",
+    "coverage": "Browser tab: 2, Title: \"需求图审查\", URL: \"http://127.0.0.1:8766/review.html#frame-1\".\nThe following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.\nRemoved element IDs: 61-62, 65, 68-69, 71-244\n+\t\t71 text 需求图：1 个节点 · 0 条有向边 · 0 项行为需求 · 1 项状态约束 · 无行为迁移；状态约束按适用范围核对 · 85%\n+\t\t\t72 text 无行为入口\n+\t\t\t\t73 text 状态约束覆盖\n~\t\t\t67 heading 适用范围与观察条件, Value: 2, ID: detail-title\n+\t\t\t\t74 text 适用范围与观察条件\n+\t\t\t75 text 需求分析草案 · 尚未最终确认\n+\t\t\t\t76 text 无行为迁移；状态约束按适用范围核对\n+\t\t\t\t77 container\n+\t\t\t\t\t78 heading 状态约束覆盖, Value: 3\n+\t\t\t\t\t\t79 text 状态约束覆盖\n+\t\t\t\t\t80 button UI视觉稿样式对齐\n+\t\t\t\t\t81 text 适用 23 个状态；对应断言与来源已映射，产品验收尚未进行。\n+\t\t\t\t82 text 本范围没有行为迁移，不生成产品执行路线或最短访问宣称。\nThe focused UI element is 60 button 覆盖路线与校验, ID: coverage-route",
+    "validation": "Browser tab: 2, Title: \"需求图审查\", URL: \"http://127.0.0.1:8766/review.html#frame-1\".\nThe following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.\n~\t\t\t\t73 text 需求模型验收\n~\t\t\t67 heading 当前检查结果与验收范围, Value: 2, ID: detail-title\n~\t\t\t\t74 text 当前检查结果与验收范围\n~\t\t\t\t76 text 这些检查用于审查需求模型；每项应用功能、视觉效果和真实操作仍须在实现后的验收阶段验证。\n~\t\t\t\t\t78 heading 状态约束覆盖检查, Value: 3\n~\t\t\t\t\t\t79 text 状态约束覆盖检查\n~\t\t\t\t\t80 text 已映射 1 / 1 项状态约束；覆盖 23 个状态。此处核对来源和适用范围，不表示产品已通过。\n~\t\t\t\t\t81 button UI视觉稿样式对齐\n~\t\t\t\t82 container\n+\t\t\t\t\t83 heading 逐条迁移检查, Value: 3\n+\t\t\t\t\t\t84 text 逐条迁移检查\n+\t\t\t\t\t85 text 本范围没有行为迁移，不要求虚构业务入口或执行见证。\n+\t\t\t\t86 container\n+\t\t\t\t\t87 heading 连续路线检查, Value: 3\n+\t\t\t\t\t\t88 text 连续路线检查\n+\t\t\t\t\t89 text 无行为迁移；状态约束按适用范围核对 覆盖 0 / 0 项行为需求；0 段，当前访问 0 次，重复 0 次。\n+\t\t\t\t\t90 button 查看各段完整路线和初始条件\n+\t\t\t\t91 container\n+\t\t\t\t\t92 heading 仍需人工与独立语义审查, Value: 3\n+\t\t\t\t\t\t93 text 仍需人工与独立语义审查\n+\t\t\t\t\t94 text 程序通过只证明当前已编码条件。原文解释、分支意义、条件遗漏、实际数据准备和界面可读性须分别审查；正式整体结论以同目录当前门禁结果和真实人工确认为准。 行为断言在迁移详情中阅读；状态约束在需求节点及适用状态中阅读。UI图与CSS依据并列，模型检查不代表产品验收。\nThe focused UI element is 43 button 验收检查, ID: validation-summary",
+    "localExample": "Browser tab: 2, Title: \"需求图审查\", URL: \"http://127.0.0.1:8766/review.html#frame-1\".\nThere has been no change in the accessibility tree.\nThe focused UI element is 6 checkbox 完整状态转移图, Value: 1, ID: state-mode"
+  }
+}

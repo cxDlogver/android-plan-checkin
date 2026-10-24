@@ -1,0 +1,851 @@
+{
+  "reviewer_context_ref": "/root/scope_model_check",
+  "semantic_digest": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+  "bundle_digest": "d29dbd7775be7f604b90c10fd1183c48a84cc8a0ad21146dcf52d02304fc4ceb",
+  "model_sha256": "40df81db6aee09a1e29e564fd0d2ded47aec4e5420a86180cda2fcdffbe83aea",
+  "html_sha256": "ad9996173016441057327c834c0b8bf91becc186c464fa77f61dcfea1add053c",
+  "manifest_sha256": "7324818f8082a48aa96e61084504505bd4a3db806eb19cd47f2253ddcf048dc6",
+  "root_artifact_hashes": {
+    "analysis-model.json": "40df81db6aee09a1e29e564fd0d2ded47aec4e5420a86180cda2fcdffbe83aea",
+    "atomic-requirements.json": "75a21818ec778728c89aeb0af2076944c707b1958b98d4685fdba3b312ce5f56",
+    "requirement-graph.json": "d2b3f6dfb74726de3d4703813bcb6b016297dbce1b5802050ea35adff7761c55",
+    "review-log.json": "8494f46e9fcf4d789f7b454a3d30fd42bbd331cea3d7999de7f3a5d901f11963",
+    "review.html": "ad9996173016441057327c834c0b8bf91becc186c464fa77f61dcfea1add053c",
+    "state-graph.json": "0b6f835c97f789a7de30fefde2f332c2640908b91efa552fde1b354342e705e6"
+  },
+  "verification": {
+    "semantic": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+    "scope": "25fad8a41d0ef8ab1f64be7883311491688726179a5aa2dbaeba67d9b9dcbafe",
+    "validation": [],
+    "rootModelMatches": true,
+    "derivedMatches": {
+      "state-graph.json": true,
+      "atomic-requirements.json": true,
+      "requirement-graph.json": true,
+      "review-log.json": true
+    },
+    "coverageErrors": [],
+    "requirementGraph": {
+      "schemaVersion": 3,
+      "semanticDigest": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+      "features": [
+        {
+          "id": "F-UI",
+          "title": "UI视觉稿样式对齐",
+          "scope": "PRD UI-001：对齐既有画板与局部样例的视觉样式；A01至A08是本项需求的共同检查点。",
+          "entryStateIds": []
+        }
+      ],
+      "nodes": [
+        {
+          "id": "UI-001",
+          "title": "UI视觉稿样式对齐",
+          "kind": "state_constraint",
+          "featureIds": [
+            "F-UI"
+          ],
+          "stateIds": [
+            "V01",
+            "V02",
+            "V03",
+            "V04",
+            "V05",
+            "V06",
+            "V07",
+            "V08",
+            "V09",
+            "V10",
+            "V11",
+            "V12",
+            "V13",
+            "V14",
+            "V15",
+            "V16",
+            "V17",
+            "V18",
+            "V19",
+            "V20",
+            "V21",
+            "V22",
+            "V23"
+          ],
+          "status": "draft"
+        }
+      ],
+      "edges": [],
+      "reduction": {
+        "kind": "minimum_visit_route_support",
+        "algorithm": "min_cost_flow_then_hierholzer",
+        "entryRequirementIds": [],
+        "unreachableRequirementIds": [],
+        "uncoveredRequirementIds": [],
+        "originalEdgeCount": 0,
+        "retainedEdgeCount": 0,
+        "removedEdgeCount": 0,
+        "constraintRequirementIds": [
+          "UI-001"
+        ]
+      },
+      "traversal": {
+        "objective": "minimum_total_requirement_visits",
+        "restartPolicy": "none",
+        "restartCost": 0,
+        "optimalityScope": "structure_only",
+        "status": "optimal",
+        "totalVisits": 0,
+        "repeatedVisits": 0,
+        "visitCounts": {},
+        "routes": [],
+        "certificate": {
+          "balancingUnits": 0,
+          "residualNoNegativeCycle": true
+        }
+      },
+      "semantics": "All requirements remain. Retained original continuations are exactly adjacent pairs used by minimum-visit structural coverage routes, with multiplicity. Restart boundaries are explicit route boundaries, never business arrows. Edge count is not the optimization objective. Context checks do not prove unmodeled business conditions.",
+      "constraintValidation": {
+        "kind": "state_constraint_coverage",
+        "status": "mapped",
+        "requirements": {
+          "UI-001": {
+            "status": "mapped",
+            "stateIds": [
+              "V01",
+              "V02",
+              "V03",
+              "V04",
+              "V05",
+              "V06",
+              "V07",
+              "V08",
+              "V09",
+              "V10",
+              "V11",
+              "V12",
+              "V13",
+              "V14",
+              "V15",
+              "V16",
+              "V17",
+              "V18",
+              "V19",
+              "V20",
+              "V21",
+              "V22",
+              "V23"
+            ],
+            "acceptanceByState": {
+              "V01": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V02": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V03": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V04": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V05": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V06": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V07": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V08": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V09": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V10": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V11": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A07",
+                "A08"
+              ],
+              "V12": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V13": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V14": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V15": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V16": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V17": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V18": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V19": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V20": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V21": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V22": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ],
+              "V23": [
+                "A01",
+                "A02",
+                "A03",
+                "A04",
+                "A05",
+                "A06",
+                "A08"
+              ]
+            },
+            "sourceRefs": [
+              {
+                "locator": "§1、§1.1：UI-001及范围；§3：23画板与局部样例；§4：视觉规范；§6 A01–A08及§6.1：检查与对照方式",
+                "sourceId": "PRD"
+              },
+              {
+                "locator": "用户答复全文：需求是UI视觉稿样式对齐，不考虑需求以外实现",
+                "sourceId": "HUMAN-VISUAL-SCOPE"
+              }
+            ],
+            "issues": []
+          }
+        },
+        "coveredStateIds": [
+          "V01",
+          "V02",
+          "V03",
+          "V04",
+          "V05",
+          "V06",
+          "V07",
+          "V08",
+          "V09",
+          "V10",
+          "V11",
+          "V12",
+          "V13",
+          "V14",
+          "V15",
+          "V16",
+          "V17",
+          "V18",
+          "V19",
+          "V20",
+          "V21",
+          "V22",
+          "V23"
+        ],
+        "uncoveredStateIds": [],
+        "issues": [],
+        "meaning": "Source and applicability coverage only; semantic review and product acceptance remain separate."
+      }
+    },
+    "closing": {
+      "digest": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+      "nodeIds": [
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12",
+        "V13",
+        "V14",
+        "V15",
+        "V16",
+        "V17",
+        "V18",
+        "V19",
+        "V20",
+        "V21",
+        "V22",
+        "V23"
+      ],
+      "checks": 230,
+      "frontier": [],
+      "changes": []
+    },
+    "questions": [],
+    "stateUiRefs": 50
+  },
+  "html_deterministic": true,
+  "embedded_media_count": 23,
+  "embedded_media_issues": [],
+  "source_hash_checks": [
+    {
+      "id": "PRD",
+      "path": "_process/evidence/prd.md",
+      "hash": "00c062ea64a06a6755a10629ae36408ece56f66720fe0e3dd0dad56ed723e088",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "MAP",
+      "path": "_process/evidence/page-map.json",
+      "hash": "7322a7db56ccbfb961d661783aaa3f77d35aa44c0a798a27f260bcd7554a0547",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "TOKENS",
+      "path": "_process/evidence/design-tokens.json",
+      "hash": "26e7b9955d226f05e7028c03ccdd5fe30ae31190fa9bb828679247d997049fae",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "TREE",
+      "path": "_process/evidence/canvas-snapshot.json",
+      "hash": "9c1b30ba2c19fda0cb190b070d47d4e899df21996502f4291008b42c99432613",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-bCoiJ",
+      "path": "_process/evidence/bCoiJ.png",
+      "hash": "f5126f20336ad8ebce9d17888fd050bebfe8edf67af535bd7043728e5e485d53",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-yB844",
+      "path": "_process/evidence/yB844.png",
+      "hash": "c226d45bed9655eaac0e1c1f659aba771b759cd9420b81c617b682e991cda22a",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-P3WWL",
+      "path": "_process/evidence/P3WWL.png",
+      "hash": "a45f2fd7f1d5daa25bab62736253de6f43d3ee48cceddf6cba0254610a1b16fc",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-SvK1L",
+      "path": "_process/evidence/SvK1L.png",
+      "hash": "b85452bec706eceffb05678078504fd2b3f1bedbf2409c4016a3dd0ea460687a",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-JUDAa",
+      "path": "_process/evidence/JUDAa.png",
+      "hash": "11bc877b98c0f0a9350cf9835321470ff5452139b3b61c5c6bd1f3ecff563117",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-qq7vq",
+      "path": "_process/evidence/qq7vq.png",
+      "hash": "b883a96733d018ebb405dbdd3aec54b85384950bba7c7e1d92328be3c3221850",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-mTDhJ",
+      "path": "_process/evidence/mTDhJ.png",
+      "hash": "c7d373f026fcc4e34f25b49194a2acedc090202e598758cab2d8f7e12b68e319",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-HGmI6",
+      "path": "_process/evidence/HGmI6.png",
+      "hash": "f30c2eca49eaeb5cbfeb92d9b8ea1426e7c880f7ebbedf296b513b09d0b1105c",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-I3hcqn",
+      "path": "_process/evidence/I3hcqn.png",
+      "hash": "1b478a11802f157ce3a0019d832d5b0a26864d41c1bcece20939027ca6ae74da",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-Y8mJyU",
+      "path": "_process/evidence/Y8mJyU.png",
+      "hash": "18fc8a89ff8d9c676ca156b4bfcabdda80c6b1d51d0aff82063f1cb6d9841056",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-c6Yye",
+      "path": "_process/evidence/c6Yye.png",
+      "hash": "383c1e7ee5572f6ed5bb34841391412c2cb4519dca1de4a83c732bf18c53f05a",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-acN0e",
+      "path": "_process/evidence/acN0e.png",
+      "hash": "7bad4c2ef7fe8c639efedfd1f4334546d2bd6d4ae84a6c11191ce054da82358c",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-i0tdn",
+      "path": "_process/evidence/i0tdn.png",
+      "hash": "d6b52ad97b9387c30f3434acfa9170c3660503bb7a3ef9759e6f47fd6da78a4d",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-o7qx2G",
+      "path": "_process/evidence/o7qx2G.png",
+      "hash": "ce201f005f582867db9f7bdd4abe4a0f96c556b79e7cf134cff503c2ddefbaff",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-s1Nbh",
+      "path": "_process/evidence/s1Nbh.png",
+      "hash": "82c4b61489cbfff54820de280d379ae54b227510e12ad9a5ae055255028fdb7b",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-QpNMQ",
+      "path": "_process/evidence/QpNMQ.png",
+      "hash": "c29e0954838f54266472a5395964f5f02355b02b37e9b60fb37914080ee477fd",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-lsJHj",
+      "path": "_process/evidence/lsJHj.png",
+      "hash": "ed65637ae9bbced4eb02e11d8767f894d36dbb5742fde0aff5785239754fa3ef",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-IlUYa",
+      "path": "_process/evidence/IlUYa.png",
+      "hash": "62b0804eabf7183b254744fd50be7e69d64683208ef3273a31341b7a4678812a",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-l0Vci",
+      "path": "_process/evidence/l0Vci.png",
+      "hash": "917234678d581f75b007590ae80242df553609687b7805b97785510a8886c715",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-B46K5",
+      "path": "_process/evidence/B46K5.png",
+      "hash": "c344e5666c4c2fe6fe538a60f456c5e7e29b3c3e07c2b65ccd152e5a1d469a9f",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-L47R3V",
+      "path": "_process/evidence/L47R3V.png",
+      "hash": "7d906415366fd571f5838ce9bdf426357a525ed317ad93da397d451d004893b6",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-N7Gnu",
+      "path": "_process/evidence/N7Gnu.png",
+      "hash": "85793188ae63577cda5d4373d1c62658c67ea38d0e4e6e387d3f0bac2d26b1ea",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "UI-HEOev",
+      "path": "_process/evidence/HEOev.png",
+      "hash": "6aebeb15d18587f0384198ca65be59cff2c2a18550e67e7e06862bafe30e90aa",
+      "matches": true,
+      "originalMatches": true
+    },
+    {
+      "id": "HUMAN-VISUAL-SCOPE",
+      "path": "_process/evidence/visual-scope-user-reply.md",
+      "hash": "ff4f01f42103a8c66c47e1d9c8727a03cdc111ef92d0a8ea7f1fce1b97b2337a",
+      "matches": true,
+      "originalMatches": null
+    },
+    {
+      "id": "HUMAN-SKILL-ANALYSIS",
+      "path": "_process/evidence/skill-analysis-user-instruction.md",
+      "hash": "32f67a547ea2962f8f577551899f325ee74a0f27895203b951ecf7699e6fddfa",
+      "matches": true,
+      "originalMatches": null
+    },
+    {
+      "id": "HUMAN-CONTRACT",
+      "path": "_process/evidence/model-contract-user-reply.md",
+      "hash": "29faf999aac2ed9a012f572c5c8104547fcfd8d3535c91d723d75cb66c9a7913",
+      "matches": true,
+      "originalMatches": null
+    }
+  ],
+  "node_ref_count": 298,
+  "node_ref_issues": [],
+  "node_ref_resolution": "Full named path plus reusable ref base and per-instance descendants overrides; repeated vufPs IDs resolved in their instance context.",
+  "frame_reviews": [
+    {
+      "state_id": "V01",
+      "source_ref": "UI-bCoiJ",
+      "evidence_path": "_process/evidence/bCoiJ.png",
+      "status": "supported",
+      "observation": "空态金属引导面板、记事图标、大标题、创建按钮及下部说明/导航对应，区别于多卡片今日页。"
+    },
+    {
+      "state_id": "V02",
+      "source_ref": "UI-yB844",
+      "evidence_path": "_process/evidence/yB844.png",
+      "status": "supported",
+      "observation": "四个区域及两类结果文案、2/3进度、明天截止标签和已记录卡片均存在，长画板未当一屏义务。"
+    },
+    {
+      "state_id": "V03",
+      "source_ref": "UI-P3WWL",
+      "evidence_path": "_process/evidence/P3WWL.png",
+      "status": "supported",
+      "observation": "运行中选中与暂停/归档未选的筛选行、四张卡片及计划导航对应，未补另外两个结果页面。"
+    },
+    {
+      "state_id": "V04",
+      "source_ref": "UI-SvK1L",
+      "evidence_path": "_process/evidence/SvK1L.png",
+      "status": "supported",
+      "observation": "要做/固定日期浅色选中与七个深石墨星期项形成独立局部目标，表单和长内容对应。"
+    },
+    {
+      "state_id": "V05",
+      "source_ref": "UI-JUDAa",
+      "evidence_path": "_process/evidence/JUDAa.png",
+      "status": "supported",
+      "observation": "每周目标选中、3天减/数量/加面板、部分周说明与保存区对应，没有数量合法域扩展。"
+    },
+    {
+      "state_id": "V06",
+      "source_ref": "UI-qq7vq",
+      "evidence_path": "_process/evidence/qq7vq.png",
+      "status": "supported",
+      "observation": "一次性类型选中、方向说明卡片、截止字段与保存任务对应，区别于星期/数量表单。"
+    },
+    {
+      "state_id": "V07",
+      "source_ref": "UI-mTDhJ",
+      "evidence_path": "_process/evidence/mTDhJ.png",
+      "status": "supported",
+      "observation": "绿色成功选中、问题面板、已填备注与两处说明对应，没有补失败/跳过选中整页。"
+    },
+    {
+      "state_id": "V08",
+      "source_ref": "UI-HGmI6",
+      "evidence_path": "_process/evidence/HGmI6.png",
+      "status": "supported",
+      "observation": "不要做提问、做到了/发生了/跳过文案及已选择说明行对应，区别于图07。"
+    },
+    {
+      "state_id": "V09",
+      "source_ref": "UI-I3hcqn",
+      "evidence_path": "_process/evidence/I3hcqn.png",
+      "status": "supported",
+      "observation": "原成功摘要与当前失败选中分区同时存在，未把原记录和修改结果混为同一状态。"
+    },
+    {
+      "state_id": "V10",
+      "source_ref": "UI-Y8mJyU",
+      "evidence_path": "_process/evidence/Y8mJyU.png",
+      "status": "supported",
+      "observation": "历史日期大字面板、成功选中、双时间及不可修改提示对应，未推导补记业务。"
+    },
+    {
+      "state_id": "V11",
+      "source_ref": "UI-c6Yye",
+      "evidence_path": "_process/evidence/c6Yye.png",
+      "status": "supported",
+      "observation": "七列日历、8日独立边框和金色2/5、9日浅底加粗无下标、5日绿勾、弱色跨月及彩色明细均对应。"
+    },
+    {
+      "state_id": "V12",
+      "source_ref": "UI-acN0e",
+      "evidence_path": "_process/evidence/acN0e.png",
+      "status": "supported",
+      "observation": "75%及6/8历史统计和成功/跳过/未记录列表对应，已修改/可补记仅作为可见文字。"
+    },
+    {
+      "state_id": "V13",
+      "source_ref": "UI-i0tdn",
+      "evidence_path": "_process/evidence/i0tdn.png",
+      "status": "supported",
+      "observation": "2/3当前周进度与独立周统计、部分周说明、成功/跳过/空白列表对应，空白保留原文。"
+    },
+    {
+      "state_id": "V14",
+      "source_ref": "UI-o7qx2G",
+      "evidence_path": "_process/evidence/o7qx2G.png",
+      "status": "supported",
+      "observation": "逾期标签、截止面板、现在完成与并列次按钮、任务时间线对应，没有与其他同名任务串流程。"
+    },
+    {
+      "state_id": "V15",
+      "source_ref": "UI-s1Nbh",
+      "evidence_path": "_process/evidence/s1Nbh.png",
+      "status": "supported",
+      "observation": "已填表单、每天选中/指定星期未选、生效说明和不可变说明对应，没有补展开页。"
+    },
+    {
+      "state_id": "V16",
+      "source_ref": "UI-QpNMQ",
+      "evidence_path": "_process/evidence/QpNMQ.png",
+      "status": "supported",
+      "observation": "暂停确认卡、单段恢复辅助说明、待生效申请卡为三个局部样例，未拼出独立恢复页。"
+    },
+    {
+      "state_id": "V17",
+      "source_ref": "UI-lsJHj",
+      "evidence_path": "_process/evidence/lsJHj.png",
+      "status": "supported",
+      "observation": "线性归档图标、中性说明、金属确认与中性取消以及卡外提示对应。"
+    },
+    {
+      "state_id": "V18",
+      "source_ref": "UI-IlUYa",
+      "evidence_path": "_process/evidence/IlUYa.png",
+      "status": "supported",
+      "observation": "没有独立危险图标；红标题、两级说明、红描边删除按钮和中性取消构成独立目标。"
+    },
+    {
+      "state_id": "V19",
+      "source_ref": "UI-l0Vci",
+      "evidence_path": "_process/evidence/l0Vci.png",
+      "status": "supported",
+      "observation": "手机图标和金属介绍、数据/时区分组与版本卡对应；离线/备份文字未变为实现任务。"
+    },
+    {
+      "state_id": "V20",
+      "source_ref": "UI-B46K5",
+      "evidence_path": "_process/evidence/B46K5.png",
+      "status": "supported",
+      "observation": "中性浅面板、红错误图标、深色标题、主色且无勾的已选成功及保留输入框对应，区别于图23。"
+    },
+    {
+      "state_id": "V21",
+      "source_ref": "UI-L47R3V",
+      "evidence_path": "_process/evidence/L47R3V.png",
+      "status": "supported",
+      "observation": "任务摘要、实际完成日期与解释、备注、提交时间说明和保存完成记录对应，没有补日期弹层。"
+    },
+    {
+      "state_id": "V22",
+      "source_ref": "UI-N7Gnu",
+      "evidence_path": "_process/evidence/N7Gnu.png",
+      "status": "supported",
+      "observation": "绿色成功结果、日期/时区/提交时间、备注展示与只读说明卡、返回按钮对应，无编辑表单。"
+    },
+    {
+      "state_id": "V23",
+      "source_ref": "UI-HEOev",
+      "evidence_path": "_process/evidence/HEOev.png",
+      "status": "supported",
+      "observation": "浅黄警示面板及警示色图标/边框、尚未保存标题、绿色带勾已选成功和两按钮对应，区别于图20。"
+    }
+  ],
+  "self_loops": [],
+  "source_coverage": {
+    "record": "_process/evidence/current-source-coverage.json",
+    "prd_dispositions": 102,
+    "states": 23,
+    "local_targets": 50,
+    "unprocessed_items": []
+  },
+  "independent_browser_observation": {
+    "browser": "Chrome extension",
+    "tab_id": "378009495",
+    "url": "http://127.0.0.1:8766/review.html",
+    "actual_runtime": true,
+    "payload_semantic_digest": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+    "actions": [
+      "Opened final review in a separate Chrome tab from this independent context",
+      "Selected 全局日历视觉状态 using node selector",
+      "Expanded 本状态验收约束（8项） and read every state scope/observation condition including calendar-only A07",
+      "Captured and visually inspected the live calendar/UI/CSS screenshot",
+      "Selected 历史记录只读视觉状态 and confirmed 7 applicable assertions",
+      "Switched to 需求覆盖图, selected UI视觉稿样式对齐, confirmed 23 state links and eight assertion scopes",
+      "Opened 验收检查 and read 1/1 constraint coverage, no behavior entry/witness claim and 0/0 behavior routes",
+      "Read current DOM payload digest, 23 states/1 requirement/0 starts, disabled root choice and two canvas elements"
+    ],
+    "observed_excerpts": [
+      "完整状态图：23 个节点 · 0 条有向边 · 104%",
+      "全局日历视觉状态 · 本状态验收约束（8项）",
+      "历史记录只读视觉状态 · 本状态验收约束（7项）",
+      "适用状态：全局日历视觉状态；观察条件：在相同逻辑宽度、字体比例和对应视觉场景下进行日历一致对照。",
+      "需求图：1 个节点 · 0 条有向边 · 0 项行为需求 · 1 项状态约束",
+      "已映射 1 / 1 项状态约束；覆盖 23 个状态。此处核对来源和适用范围，不表示产品已通过。"
+    ],
+    "root_full_browser_evidence": "_process/evidence/browser-observation.json",
+    "independently_viewed_root_screenshots": [
+      "state-graph-browser.png",
+      "requirement-graph-browser.png",
+      "canvas-drag-pan-browser.png",
+      "validation-browser.png",
+      "visual-css-browser.png"
+    ],
+    "root_browser_comparison": "All 23 state images loaded and all 50 regions recorded; requirement scopes and available actions match the independent sample. Before/after Canvas screenshots corroborate node dragging and background panning; root runtime record shows 63% to 75% zoom and minimap navigation."
+  },
+  "limitations": [
+    "Original design tool live/unsaved state was not connected; review is bound to the current PRD/exported PNG/tree/token files and caches whose hashes were checked.",
+    "No product implementation or product visual alignment was run or accepted.",
+    "Root performed exhaustive state browsing and drag/pan/zoom; this independent context also browsed the current page directly and sampled actual details/typed scope/validation plus reviewed the complete runtime record and five screenshots."
+  ]
+}

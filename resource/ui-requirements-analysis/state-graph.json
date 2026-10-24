@@ -1,0 +1,1878 @@
+{
+  "schemaVersion": 3,
+  "semanticDigest": "0d21199d02a73ed95ea23d5d477e4f187e31c36175dcac868b660b311df21feb",
+  "scope": {
+    "objective": "UI-001：依据当前UI视觉稿，对齐23张画板及已有局部状态的样式；仅进行需求分析。",
+    "included": [
+      "需求文档第3节全部23个画板及其已画出的局部样例。",
+      "颜色、字体、布局、圆角、渐变、高光、阴影、图标与可见文案层级。",
+      "相同逻辑宽度与字体比例下的逐页对照方式，以及画板编号、状态、尺寸、截图与差异记录要求。",
+      "保留PRD A01至A08的视觉验收义务；按通用Skill生成分析产物并执行真实门禁。"
+    ],
+    "excluded": [
+      "历史PRD、FR／AT映射、历史决策和实现状态。",
+      "创建、记录、修改、补记、暂停、恢复、归档、永久删除等业务操作闭环。",
+      "存储、统计、权限、路由、日期或时区算法与跨日机制。",
+      "无稿的加载、校验、保存中、其他异常、额外空态。",
+      "资料未提供的设备／字号／主题矩阵、相似度阈值和像素误差容限。"
+    ],
+    "abstraction": "页面级视觉状态；局部组件样例作为所属状态的视觉约束，任务名、日期、数量和备注作为展示参数。只分析视觉判定，不以可见按钮推导业务事件、业务入口、路由或实现。"
+  },
+  "sources": [
+    {
+      "id": "PRD",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/plans/2026-10-17-UI设计还原需求文档.md",
+      "readRanges": [
+        "sections 1-7"
+      ],
+      "evidencePath": "_process/evidence/prd.md",
+      "sha256": "00c062ea64a06a6755a10629ae36408ece56f66720fe0e3dd0dad56ed723e088",
+      "kind": "prd",
+      "locator": "sections 1-7"
+    },
+    {
+      "id": "MAP",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/page-map.json",
+      "readRanges": [
+        "screens: order, title, frameId, canvasSize, preview only"
+      ],
+      "evidencePath": "_process/evidence/page-map.json",
+      "sha256": "7322a7db56ccbfb961d661783aaa3f77d35aa44c0a798a27f260bcd7554a0547",
+      "kind": "ui",
+      "locator": "screens: order, title, frameId, canvasSize, preview only"
+    },
+    {
+      "id": "TOKENS",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/design-tokens.json",
+      "readRanges": [
+        "colors, font, layout, radius, gradients, effects; visual scope only"
+      ],
+      "evidencePath": "_process/evidence/design-tokens.json",
+      "sha256": "26e7b9955d226f05e7028c03ccdd5fe30ae31190fa9bb828679247d997049fae",
+      "kind": "ui",
+      "locator": "colors, font, layout, radius, gradients, effects; visual scope only",
+      "designKeys": [
+        "colors",
+        "font",
+        "spacing",
+        "radius",
+        "gradients",
+        "effects",
+        "layout"
+      ]
+    },
+    {
+      "id": "TREE",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/canvas-snapshot.json",
+      "readRanges": [
+        "mapped 23 frame subtrees and reusable visual children; node paths and parameters extracted",
+        "all named scenario regions cross-checked with viewed PNGs"
+      ],
+      "evidencePath": "_process/evidence/canvas-snapshot.json",
+      "sha256": "9c1b30ba2c19fda0cb190b070d47d4e899df21996502f4291008b42c99432613",
+      "kind": "ui",
+      "locator": "mapped 23 frame subtrees and reusable visual children; node paths and parameters extracted；all named scenario regions cross-checked with viewed PNGs"
+    },
+    {
+      "id": "UI-bCoiJ",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/bCoiJ.png",
+      "readRanges": [
+        "full image visually inspected",
+        "空态面板",
+        "辅助介绍与导航"
+      ],
+      "evidencePath": "_process/evidence/bCoiJ.png",
+      "sha256": "f5126f20336ad8ebce9d17888fd050bebfe8edf67af535bd7043728e5e485d53",
+      "kind": "ui",
+      "locator": "full image visually inspected；空态面板；辅助介绍与导航"
+    },
+    {
+      "id": "UI-yB844",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/yB844.png",
+      "readRanges": [
+        "full image visually inspected",
+        "需要处理的两种卡片",
+        "本周进度与截止提示",
+        "已记录卡片与导航"
+      ],
+      "evidencePath": "_process/evidence/yB844.png",
+      "sha256": "c226d45bed9655eaac0e1c1f659aba771b759cd9420b81c617b682e991cda22a",
+      "kind": "ui",
+      "locator": "full image visually inspected；需要处理的两种卡片；本周进度与截止提示；已记录卡片与导航"
+    },
+    {
+      "id": "UI-P3WWL",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/P3WWL.png",
+      "readRanges": [
+        "full image visually inspected",
+        "状态筛选栏",
+        "列表与创建图标"
+      ],
+      "evidencePath": "_process/evidence/P3WWL.png",
+      "sha256": "a45f2fd7f1d5daa25bab62736253de6f43d3ee48cceddf6cba0254610a1b16fc",
+      "kind": "ui",
+      "locator": "full image visually inspected；状态筛选栏；列表与创建图标"
+    },
+    {
+      "id": "UI-SvK1L",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/SvK1L.png",
+      "readRanges": [
+        "full image visually inspected",
+        "方向与类型选项",
+        "星期控件",
+        "字段与保存区域"
+      ],
+      "evidencePath": "_process/evidence/SvK1L.png",
+      "sha256": "b85452bec706eceffb05678078504fd2b3f1bedbf2409c4016a3dd0ea460687a",
+      "kind": "ui",
+      "locator": "full image visually inspected；方向与类型选项；星期控件；字段与保存区域"
+    },
+    {
+      "id": "UI-JUDAa",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/JUDAa.png",
+      "readRanges": [
+        "full image visually inspected",
+        "类型与方向选项",
+        "目标数量面板",
+        "日期与说明区"
+      ],
+      "evidencePath": "_process/evidence/JUDAa.png",
+      "sha256": "11bc877b98c0f0a9350cf9835321470ff5452139b3b61c5c6bd1f3ecff563117",
+      "kind": "ui",
+      "locator": "full image visually inspected；类型与方向选项；目标数量面板；日期与说明区"
+    },
+    {
+      "id": "UI-qq7vq",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/qq7vq.png",
+      "readRanges": [
+        "full image visually inspected",
+        "类型与说明面板",
+        "日期及保存区"
+      ],
+      "evidencePath": "_process/evidence/qq7vq.png",
+      "sha256": "b883a96733d018ebb405dbdd3aec54b85384950bba7c7e1d92328be3c3221850",
+      "kind": "ui",
+      "locator": "full image visually inspected；类型与说明面板；日期及保存区"
+    },
+    {
+      "id": "UI-mTDhJ",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/mTDhJ.png",
+      "readRanges": [
+        "full image visually inspected",
+        "问题与结果选项",
+        "备注和保存区"
+      ],
+      "evidencePath": "_process/evidence/mTDhJ.png",
+      "sha256": "c7d373f026fcc4e34f25b49194a2acedc090202e598758cab2d8f7e12b68e319",
+      "kind": "ui",
+      "locator": "full image visually inspected；问题与结果选项；备注和保存区"
+    },
+    {
+      "id": "UI-HGmI6",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/HGmI6.png",
+      "readRanges": [
+        "full image visually inspected",
+        "不要做的问题与结果表达",
+        "备注和提醒"
+      ],
+      "evidencePath": "_process/evidence/HGmI6.png",
+      "sha256": "f30c2eca49eaeb5cbfeb92d9b8ea1426e7c880f7ebbedf296b513b09d0b1105c",
+      "kind": "ui",
+      "locator": "full image visually inspected；不要做的问题与结果表达；备注和提醒"
+    },
+    {
+      "id": "UI-I3hcqn",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/I3hcqn.png",
+      "readRanges": [
+        "full image visually inspected",
+        "原记录摘要",
+        "失败选中的修改表单"
+      ],
+      "evidencePath": "_process/evidence/I3hcqn.png",
+      "sha256": "1b478a11802f157ce3a0019d832d5b0a26864d41c1bcece20939027ca6ae74da",
+      "kind": "ui",
+      "locator": "full image visually inspected；原记录摘要；失败选中的修改表单"
+    },
+    {
+      "id": "UI-Y8mJyU",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/Y8mJyU.png",
+      "readRanges": [
+        "full image visually inspected",
+        "历史日期和结果",
+        "备注与双时间提示"
+      ],
+      "evidencePath": "_process/evidence/Y8mJyU.png",
+      "sha256": "18fc8a89ff8d9c676ca156b4bfcabdda80c6b1d51d0aff82063f1cb6d9841056",
+      "kind": "ui",
+      "locator": "full image visually inspected；历史日期和结果；备注与双时间提示"
+    },
+    {
+      "id": "UI-c6Yye",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/c6Yye.png",
+      "readRanges": [
+        "full image visually inspected",
+        "月历与日期格样例",
+        "筛选与彩色明细"
+      ],
+      "evidencePath": "_process/evidence/c6Yye.png",
+      "sha256": "383c1e7ee5572f6ed5bb34841391412c2cb4519dca1de4a83c732bf18c53f05a",
+      "kind": "ui",
+      "locator": "full image visually inspected；月历与日期格样例；筛选与彩色明细"
+    },
+    {
+      "id": "UI-acN0e",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/acN0e.png",
+      "readRanges": [
+        "full image visually inspected",
+        "固定计划统计面板",
+        "最近记录及编辑区"
+      ],
+      "evidencePath": "_process/evidence/acN0e.png",
+      "sha256": "7bad4c2ef7fe8c639efedfd1f4334546d2bd6d4ae84a6c11191ce054da82358c",
+      "kind": "ui",
+      "locator": "full image visually inspected；固定计划统计面板；最近记录及编辑区"
+    },
+    {
+      "id": "UI-i0tdn",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/i0tdn.png",
+      "readRanges": [
+        "full image visually inspected",
+        "金属周进度面板",
+        "周统计和部分周说明",
+        "最近记录的空白样例"
+      ],
+      "evidencePath": "_process/evidence/i0tdn.png",
+      "sha256": "d6b52ad97b9387c30f3434acfa9170c3660503bb7a3ef9759e6f47fd6da78a4d",
+      "kind": "ui",
+      "locator": "full image visually inspected；金属周进度面板；周统计和部分周说明；最近记录的空白样例"
+    },
+    {
+      "id": "UI-o7qx2G",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/o7qx2G.png",
+      "readRanges": [
+        "full image visually inspected",
+        "逾期截止信息",
+        "操作与任务时间线"
+      ],
+      "evidencePath": "_process/evidence/o7qx2G.png",
+      "sha256": "ce201f005f582867db9f7bdd4abe4a0f96c556b79e7cf134cff503c2ddefbaff",
+      "kind": "ui",
+      "locator": "full image visually inspected；逾期截止信息；操作与任务时间线"
+    },
+    {
+      "id": "UI-s1Nbh",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/s1Nbh.png",
+      "readRanges": [
+        "full image visually inspected",
+        "已填字段与执行规则",
+        "生效提示与保存区"
+      ],
+      "evidencePath": "_process/evidence/s1Nbh.png",
+      "sha256": "82c4b61489cbfff54820de280d379ae54b227510e12ad9a5ae055255028fdb7b",
+      "kind": "ui",
+      "locator": "full image visually inspected；已填字段与执行规则；生效提示与保存区"
+    },
+    {
+      "id": "UI-QpNMQ",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/QpNMQ.png",
+      "readRanges": [
+        "full image visually inspected",
+        "暂停确认样例",
+        "恢复说明样例",
+        "待生效申请样例"
+      ],
+      "evidencePath": "_process/evidence/QpNMQ.png",
+      "sha256": "c29e0954838f54266472a5395964f5f02355b02b37e9b60fb37914080ee477fd",
+      "kind": "ui",
+      "locator": "full image visually inspected；暂停确认样例；恢复说明样例；待生效申请样例"
+    },
+    {
+      "id": "UI-lsJHj",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/lsJHj.png",
+      "readRanges": [
+        "full image visually inspected",
+        "归档确认卡片",
+        "卡片外辅助提示"
+      ],
+      "evidencePath": "_process/evidence/lsJHj.png",
+      "sha256": "ed65637ae9bbced4eb02e11d8767f894d36dbb5742fde0aff5785239754fa3ef",
+      "kind": "ui",
+      "locator": "full image visually inspected；归档确认卡片；卡片外辅助提示"
+    },
+    {
+      "id": "UI-IlUYa",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/IlUYa.png",
+      "readRanges": [
+        "full image visually inspected",
+        "危险说明与确认按钮"
+      ],
+      "evidencePath": "_process/evidence/IlUYa.png",
+      "sha256": "62b0804eabf7183b254744fd50be7e69d64683208ef3273a31341b7a4678812a",
+      "kind": "ui",
+      "locator": "full image visually inspected；危险说明与确认按钮"
+    },
+    {
+      "id": "UI-l0Vci",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/l0Vci.png",
+      "readRanges": [
+        "full image visually inspected",
+        "本机保存介绍",
+        "数据、时区和版本分组"
+      ],
+      "evidencePath": "_process/evidence/l0Vci.png",
+      "sha256": "917234678d581f75b007590ae80242df553609687b7805b97785510a8886c715",
+      "kind": "ui",
+      "locator": "full image visually inspected；本机保存介绍；数据、时区和版本分组"
+    },
+    {
+      "id": "UI-B46K5",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/B46K5.png",
+      "readRanges": [
+        "full image visually inspected",
+        "保存异常提示卡片",
+        "已填写内容展示"
+      ],
+      "evidencePath": "_process/evidence/B46K5.png",
+      "sha256": "c344e5666c4c2fe6fe538a60f456c5e7e29b3c3e07c2b65ccd152e5a1d469a9f",
+      "kind": "ui",
+      "locator": "full image visually inspected；保存异常提示卡片；已填写内容展示"
+    },
+    {
+      "id": "UI-L47R3V",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/L47R3V.png",
+      "readRanges": [
+        "full image visually inspected",
+        "任务摘要与实际完成日期",
+        "备注和提交时间说明"
+      ],
+      "evidencePath": "_process/evidence/L47R3V.png",
+      "sha256": "7d906415366fd571f5838ce9bdf426357a525ed317ad93da397d451d004893b6",
+      "kind": "ui",
+      "locator": "full image visually inspected；任务摘要与实际完成日期；备注和提交时间说明"
+    },
+    {
+      "id": "UI-N7Gnu",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/N7Gnu.png",
+      "readRanges": [
+        "full image visually inspected",
+        "结果与时间摘要",
+        "备注、只读说明与返回"
+      ],
+      "evidencePath": "_process/evidence/N7Gnu.png",
+      "sha256": "85793188ae63577cda5d4373d1c62658c67ea38d0e4e6e387d3f0bac2d26b1ea",
+      "kind": "ui",
+      "locator": "full image visually inspected；结果与时间摘要；备注、只读说明与返回"
+    },
+    {
+      "id": "UI-HEOev",
+      "uri": "F:/CX_notes/cx-learn-notes/android-plan-checkin/resource/design/previews/HEOev.png",
+      "readRanges": [
+        "full image visually inspected",
+        "日期变化警示与按钮",
+        "尚未保存的内容摘要"
+      ],
+      "evidencePath": "_process/evidence/HEOev.png",
+      "sha256": "6aebeb15d18587f0384198ca65be59cff2c2a18550e67e7e06862bafe30e90aa",
+      "kind": "ui",
+      "locator": "full image visually inspected；日期变化警示与按钮；尚未保存的内容摘要"
+    },
+    {
+      "id": "HUMAN-VISUAL-SCOPE",
+      "kind": "human",
+      "uri": "conversation:current-user-visual-scope-reply",
+      "locator": "真实用户对范围澄清问题的答复",
+      "readRanges": [
+        "本轮用户答复全文"
+      ],
+      "evidencePath": "_process/evidence/visual-scope-user-reply.md",
+      "sha256": "ff4f01f42103a8c66c47e1d9c8727a03cdc111ef92d0a8ea7f1fce1b97b2337a"
+    },
+    {
+      "id": "HUMAN-SKILL-ANALYSIS",
+      "kind": "human",
+      "uri": "conversation:current-skill-analysis-user-request",
+      "locator": "本对话已明确视觉范围的答复及当前执行指令",
+      "evidencePath": "_process/evidence/skill-analysis-user-instruction.md",
+      "sha256": "32f67a547ea2962f8f577551899f325ee74a0f27895203b951ecf7699e6fddfa",
+      "readRanges": [
+        "范围澄清原文与本轮执行指令全文"
+      ]
+    },
+    {
+      "id": "HUMAN-CONTRACT",
+      "kind": "human",
+      "uri": "conversation:current-user-reply",
+      "locator": "用户实际答复全文",
+      "readRanges": [
+        "用户答复及对应问题"
+      ],
+      "evidencePath": "_process/evidence/model-contract-user-reply.md",
+      "sha256": "29faf999aac2ed9a012f572c5c8104547fcfd8d3535c91d723d75cb66c9a7913"
+    }
+  ],
+  "entryStateIds": [],
+  "pathContext": null,
+  "features": [
+    {
+      "id": "F-UI",
+      "title": "UI视觉稿样式对齐",
+      "scope": "PRD UI-001：对齐既有画板与局部样例的视觉样式；A01至A08是本项需求的共同检查点。",
+      "entryStateIds": []
+    }
+  ],
+  "nodes": [
+    {
+      "id": "V01",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "今日空态视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图01的今日空态：中部为空态引导卡片，下方为介绍文字与三入口导航。",
+        "标题与设置图标、日期副标题位于上部。",
+        "银色斜向反光面板内含记事图标、空态标题、说明及创建按钮。",
+        "底部今日导航使用强调色，其余两项为辅助色。",
+        "局部视觉约束：空态面板：保留斜向高光带、线性记事图标和标题层级；空态标题按局部节点25sp核对。；创建按钮位于面板内，保留金属渐变、边缘与阴影。",
+        "局部视觉约束：辅助介绍与导航：保留介绍区顺序与大段留白；导航图标、标签及今日强调样式与稿一致。",
+        "样例参数：日期与时间、介绍中的展示样例；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图02相比，中部为空态引导而非多分区计划卡片，独立布局与留白必须保留。",
+        "分析边界：不据空态外观推导数据库为空或读取成功条件。；不把创建按钮的可见外观转为创建路由验收。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-bCoiJ",
+          "frameId": "bCoiJ",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "今日空态"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "bCoiJ",
+          "region": "空态面板；定位文字：空态标题、空态说明、＋ 创建第一个计划",
+          "stateLabel": "空态面板",
+          "nodeIds": [
+            "MvQ7B",
+            "PmYTQ",
+            "tpMoY",
+            "vufPs"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "bCoiJ",
+          "region": "辅助介绍与导航；定位文字：简单记录，平静回顾标题、使用说明、离线说明、三入口导航",
+          "stateLabel": "辅助介绍与导航",
+          "nodeIds": [
+            "h5jnP7",
+            "YZ2Oa",
+            "J7hxKd",
+            "K5MyJx"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-bCoiJ",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V02",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "今日有计划视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图02的今日有计划长画板：需要处理、本周可记录、截止提示、已记录四个区域均有样例。",
+        "要做与不要做卡片并列展示不同结果文案。",
+        "周目标卡片含2/3天样例、横向进度与记录按钮。",
+        "截止提示使用警示浅底，已记录卡片含成功标签、时间备注和次按钮。",
+        "局部视觉约束：需要处理的两种卡片：要做卡片保留完成／未完成／跳过文案；不要做卡片保留做到了／发生了／跳过文案。；绿色、红色、橙色的文字和边框分别核对，绿色按钮的浅底及阴影以当前画板为准。",
+        "局部视觉约束：本周进度与截止提示：保留数字标签、深色已填段与浅灰轨道的比例和位置。；截止提示的文字、浅黄底与所在分区关系按稿核对，不转成进度或截止算法。",
+        "局部视觉约束：已记录卡片与导航：成功标签、备注和次按钮构成独立卡片层级；底部今日导航保持强调。；逻辑高度1140的完整内容保持比例，使用完整或连续截图对照。",
+        "样例参数：计划名称、日期、数量、进度数值、截止样例、时间与备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图01增加四区域及多种卡片外观；它们是同一整页场景内的局部样例，不拆成新的业务页面。",
+        "分析边界：不推导四区域的数据筛选与排序算法。；不要求结果按钮完成真实记录写入。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-yB844",
+          "frameId": "yB844",
+          "region": "画板整体，逻辑尺寸393×1140",
+          "stateLabel": "今日有计划"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "yB844",
+          "region": "需要处理的两种卡片；定位文字：需要处理标题、要做、不要做、✓ 完成、✓ 做到了、× 未完成文字、× 发生了文字、— 跳过文字",
+          "stateLabel": "需要处理的两种卡片",
+          "nodeIds": [
+            "hWIEx",
+            "K28yr",
+            "u0sT7m",
+            "vufPs",
+            "V507y",
+            "idGFr",
+            "DgX6A",
+            "V4A7NA",
+            "vufPs",
+            "rsiau",
+            "f4R7Nz"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "yB844",
+          "region": "本周进度与截止提示；定位文字：本周可记录标题、2 / 3 天、运动说明、记录今天、明天截止",
+          "stateLabel": "本周进度与截止提示",
+          "nodeIds": [
+            "wzS9R",
+            "y1qoAL",
+            "NdFnX",
+            "ysJnL",
+            "vufPs",
+            "hVmlh"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "yB844",
+          "region": "已记录卡片与导航；定位文字：已记录标题、✓ 成功、伸展备注、查看或修改记录文字、三入口导航",
+          "stateLabel": "已记录卡片与导航",
+          "nodeIds": [
+            "MayI6",
+            "Hv7pX",
+            "CDBMG",
+            "udfEY",
+            "jvvCs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-yB844",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V03",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "计划列表视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图03的计划列表，筛选区显示运行中选中、暂停与归档未选。",
+        "上方标题、添加图标与副标题之后是三项筛选。",
+        "四张列表卡片分别呈现名称与一行类型说明。",
+        "底部计划导航为强调样式。",
+        "局部视觉约束：状态筛选栏：运行中使用深色边框、浅色底和强调文字；另外两项为浅表面、辅助文字和较浅边框。；不由未选选项的存在推导暂停或归档列表的完整画面。",
+        "局部视觉约束：列表与创建图标：核对四卡的排列、内边距、标题与副行字号差、卡片金属表面及阴影。；添加图标、说明和底部导航的位置与留白符合画板。",
+        "样例参数：计划名称、频次文本中的数字、截止日期；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对今日页面，主要内容为筛选栏与简洁列表卡片；只定义稿中运行中选中的整页组合。",
+        "分析边界：不追加筛选切换流程或另外两个筛选结果页面。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-P3WWL",
+          "frameId": "P3WWL",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "计划列表"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "P3WWL",
+          "region": "状态筛选栏；定位文字：运行中、暂停、归档",
+          "stateLabel": "状态筛选栏",
+          "nodeIds": [
+            "e7ikW1",
+            "w7rYD",
+            "l5YyRW"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "P3WWL",
+          "region": "列表与创建图标；定位文字：创建计划、晨间阅读、运动规则、不喝奶茶规则、提交报名材料规则、计划入口说明、三入口导航",
+          "stateLabel": "列表与创建图标",
+          "nodeIds": [
+            "u37qD",
+            "z6PkYB",
+            "lUhlk",
+            "B3psFe",
+            "A0GgV",
+            "OaiBE",
+            "AwgjV",
+            "Y0xjQ"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-P3WWL",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V04",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "新建固定星期视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图04的新建固定星期表单：要做、固定日期为浅色选中，七个星期项均为深石墨选中样例。",
+        "名称、方向、类型、星期、开始结束、说明、时区提示和保存按钮纵向排列。",
+        "星期控件与方向／类型控件的选中材质不同。",
+        "局部视觉约束：方向与类型选项：要做和固定日期的浅银灰底、边框与字重按图核对，未选项保留浅表面与辅助字色。",
+        "局部视觉约束：星期控件：七项均保留深石墨渐变、浅色文字与紧密列间距；不由全选样例构造所有星期组合。",
+        "局部视觉约束：字段与保存区域：输入框与字段名间距、日期合并展示、提示文案和金属保存按钮按稿定位。；逻辑高度1040，不压缩整页内容。",
+        "样例参数：名称、日期文字、说明内容、时区展示值；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图05、图06共享创建表单风格，但本页有七列星期控件及已选择每天提示，构成明确的独立整页目标。",
+        "分析边界：不追加星期校验、日期限制、键盘弹出或保存中的状态。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-SvK1L",
+          "frameId": "SvK1L",
+          "region": "画板整体，逻辑尺寸393×1040",
+          "stateLabel": "新建固定星期"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "SvK1L",
+          "region": "方向与类型选项；定位文字：要做、不要做、固定日期、每周目标、一次性",
+          "stateLabel": "方向与类型选项",
+          "nodeIds": [
+            "i1dLh",
+            "afAVN",
+            "Ei1LM",
+            "Mz5h2",
+            "uZr9s"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "SvK1L",
+          "region": "星期控件；定位文字：执行日期标题、一、二、三、四、五、六、日、每日说明",
+          "stateLabel": "星期控件",
+          "nodeIds": [
+            "R0VlL",
+            "rd7xG",
+            "bcrAt",
+            "b08Bo",
+            "WjUjk",
+            "o5UjcZ",
+            "DhjUa",
+            "G36Ju0",
+            "NnFAf"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "SvK1L",
+          "region": "字段与保存区域；定位文字：名称字段名、开始 / 结束字段名、说明（可选）字段名、时区、保存计划",
+          "stateLabel": "字段与保存区域",
+          "nodeIds": [
+            "A7llxw",
+            "fehfn",
+            "h8ZDAa",
+            "JeZzh",
+            "YTsxX",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-SvK1L",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V05",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "新建每周N天视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图05的新建每周N天表单：要做与每周目标选中，目标区展示3天样例。",
+        "每周完成天数卡片含减号、数量、加号及说明。",
+        "开始结束字段下方有部分周说明，之后为可选说明、时区和保存按钮。",
+        "局部视觉约束：类型与方向选项：每周目标及要做为选中样式，其他选项为未选样式；不补数量边界时的禁用效果。",
+        "局部视觉约束：目标数量面板：减号、3天、加号三个区域的宽度、间距、底色和文字层级与稿一致。",
+        "局部视觉约束：日期与说明区：保留部分周说明的独立行与辅助文字层级；按940逻辑高度对照完整内容。",
+        "样例参数：名称、N的展示数字、日期、说明、时区；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图04，星期行替换为数量面板，增加部分周提示；只按这一个已画出的数量样例对照。",
+        "分析边界：不据减号／加号控件推导N的合法域和增减业务行为。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-JUDAa",
+          "frameId": "JUDAa",
+          "region": "画板整体，逻辑尺寸393×940",
+          "stateLabel": "新建每周N天"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "JUDAa",
+          "region": "类型与方向选项；定位文字：要做、不要做、固定日期、每周目标、一次性",
+          "stateLabel": "类型与方向选项",
+          "nodeIds": [
+            "Jc69s",
+            "dUyJK",
+            "zlmxt",
+            "VB8F8",
+            "qiLet"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "JUDAa",
+          "region": "目标数量面板；定位文字：每周完成天数标题、−、3 天、＋、自主说明",
+          "stateLabel": "目标数量面板",
+          "nodeIds": [
+            "E20tmc",
+            "XQ9Nf",
+            "mxG2d",
+            "Rp17m",
+            "ywHzO"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "JUDAa",
+          "region": "日期与说明区；定位文字：开始 / 结束字段名、部分周说明、说明（可选）字段名、时区、保存计划",
+          "stateLabel": "日期与说明区",
+          "nodeIds": [
+            "MzrAM",
+            "Qrzow",
+            "xh9fM",
+            "OW74F",
+            "EvXu3",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-JUDAa",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V06",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "新建一次性任务视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图06的新建一次性任务：一次性选中，方向以说明卡片而非双选控件呈现。",
+        "表单包含名称、三类型选项、方向说明面板、截止日期、说明、日期提示、时区和保存任务按钮。",
+        "没有图04的星期行，也没有图05的目标数量面板。",
+        "局部视觉约束：类型与说明面板：一次性为浅银灰选中；说明卡片保留方向强调行和下一行辅助说明。",
+        "局部视觉约束：日期及保存区：截止日期与说明输入框、限制提示、时区说明和底部金属按钮按稿布局。；日期限制文字作为可见文案核对，不据此执行日期校验验收。",
+        "样例参数：任务名称、截止日期、说明、时区；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图04／05相比，使用截止日期与一次性说明卡片，页面标题、保存按钮文案和字段结构均有不同的视觉核对点。",
+        "分析边界：不追加一次性任务的创建、逾期、归档或日期校验业务。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-qq7vq",
+          "frameId": "qq7vq",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "新建一次性任务"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "qq7vq",
+          "region": "类型与说明面板；定位文字：固定日期、每周目标、一次性、方向、任务说明",
+          "stateLabel": "类型与说明面板",
+          "nodeIds": [
+            "G5BTyl",
+            "hj4eE",
+            "s6tHh",
+            "qU9yv",
+            "tNFfK"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "qq7vq",
+          "region": "日期及保存区；定位文字：截止日期字段名、说明（可选）字段名、合法日期、时区、保存任务",
+          "stateLabel": "日期及保存区",
+          "nodeIds": [
+            "vVXE1",
+            "CQiye",
+            "l4DLoq",
+            "B2aJgD",
+            "EnAJe",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-qq7vq",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V07",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "要做确认记录视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图07的要做确认记录，成功项选中且备注已有内容。",
+        "问题面板下方为成功／失败／跳过三个选项，成功为绿色边框与浅绿底。",
+        "备注框、可选说明、保存按钮及保存后提示依次排列。",
+        "局部视觉约束：问题与结果选项：核对提问面板的层级与三选项尺寸关系；绿色成功为当前选中样例，失败与跳过仅有未选样例。",
+        "局部视觉约束：备注和保存区：保留已填备注框、两处提示各自位置及金属保存按钮。",
+        "样例参数：计划名、日期、备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图08相比，使用今天做得怎么样的问题及成功／失败文案，没有图08的已选择说明行。",
+        "分析边界：结果选中不表示已经保存；不追加失败／跳过选中的完整页面。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-mTDhJ",
+          "frameId": "mTDhJ",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "要做确认记录"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "mTDhJ",
+          "region": "问题与结果选项；定位文字：打卡标题、打卡规则、✓ 成功、× 失败、— 跳过",
+          "stateLabel": "问题与结果选项",
+          "nodeIds": [
+            "N4GG6",
+            "PaAwY",
+            "FnKZG",
+            "Cslgd",
+            "fpbF5"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "mTDhJ",
+          "region": "备注和保存区；定位文字：文字备注（可选）字段名、可选说明、保存记录、本机反馈",
+          "stateLabel": "备注和保存区",
+          "nodeIds": [
+            "ZHeB2",
+            "M3PbN",
+            "s3Xk6I",
+            "vufPs",
+            "X4nC0z"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-mTDhJ",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V08",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "不要做确认记录视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图08的不要做确认记录，做到了选中，出现已选择说明。",
+        "问题及方向说明位于上方卡片内；结果文案为做到了／发生了／跳过。",
+        "三选项下方多出已选择说明，备注与保存按钮之后有修正提醒。",
+        "局部视觉约束：不要做的问题与结果表达：做到了为绿色选中；发生了用红色文字，跳过用橙色文字；保留选项下方已选择说明。",
+        "局部视觉约束：备注和提醒：备注框、按钮和修正提醒按图排列；只核对提醒文字的呈现。",
+        "样例参数：计划名及提问中的目标名称、日期、备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图07，不同的结果文案和新增已选择说明行改变视觉核对内容，不仅是任务名称样例变化。",
+        "分析边界：不从修正提醒追加当天修改流程或后台业务限制。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-HGmI6",
+          "frameId": "HGmI6",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "不要做确认记录"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "HGmI6",
+          "region": "不要做的问题与结果表达；定位文字：主问题、方向说明、✓ 做到了、× 发生了、— 跳过、结果说明",
+          "stateLabel": "不要做的问题与结果表达",
+          "nodeIds": [
+            "RZFVC",
+            "qmuzW",
+            "O1O6u",
+            "VWCiG",
+            "ijJH9",
+            "LOdZk"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "HGmI6",
+          "region": "备注和提醒；定位文字：文字备注（可选）字段名、文字备注（可选）内容、保存记录、修正提醒",
+          "stateLabel": "备注和提醒",
+          "nodeIds": [
+            "YsBto",
+            "PfzdQ",
+            "B0Dhl",
+            "vufPs",
+            "a6Qrql"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-HGmI6",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V09",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "修改当日记录视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图09的修改记录：上方显示原成功记录，下面的失败选项呈红色选中。",
+        "原记录面板包含绿色已记录成功标签、原备注和提交时间。",
+        "修改结果区域选中失败，下面是已填写备注、修订说明和保存修改按钮。",
+        "局部视觉约束：原记录摘要：绿色标签、原备注和提交时间各自位置、字号层级符合原面板。",
+        "局部视觉约束：失败选中的修改表单：失败选项保留红色边框和浅红底；成功与跳过为未选样式。；修订说明作为可见文字核对，不推导保存后或跨日后的新页面。",
+        "样例参数：名称、业务日期、原提交时间、原备注与新备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：图07／08为首次确认呈现，本页同时展示原记录与修改表单；原成功标签和当前失败选中是两个不同区域，不能混为保存结果。",
+        "分析边界：不据两组结果推导写入、撤回或修改资格判定。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-I3hcqn",
+          "frameId": "I3hcqn",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "修改当日记录"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "I3hcqn",
+          "region": "原记录摘要；定位文字：已记录成功、原备注、原提交",
+          "stateLabel": "原记录摘要",
+          "nodeIds": [
+            "jInOg",
+            "OUIGE",
+            "Yb1xA"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "I3hcqn",
+          "region": "失败选中的修改表单；定位文字：修改结果标题、✓ 成功、× 失败、— 跳过、文字备注字段名、修订说明、保存修改",
+          "stateLabel": "失败选中的修改表单",
+          "nodeIds": [
+            "GCR7o",
+            "O9VkSk",
+            "K7ZXk",
+            "IzN3e",
+            "FhLtI",
+            "ZNZli",
+            "pIR8l",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-I3hcqn",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V10",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "补记视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图10的补记表单：历史日期大字面板、成功选中和保存后不可修改提示均可见。",
+        "历史日期卡片替代图07的问题面板。",
+        "备注下方有记录日期、提交时间及补记锁定提示，保存按钮文案为保存补记。",
+        "局部视觉约束：历史日期和结果：日期按局部22sp层级显示，成功为浅绿选中，另外两项为未选。",
+        "局部视觉约束：备注与双时间提示：三行时间及不可修改说明保持换行、层级与按钮上方间距。",
+        "样例参数：计划名、历史日期、备注、时间文字；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图07，本页的日期面板、时间说明块与保存文案独立；不由样例日期本身拆出更多状态。",
+        "分析边界：不追加可补记日期域、锁定实现或保存成功状态。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-Y8mJyU",
+          "frameId": "Y8mJyU",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "补记"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "Y8mJyU",
+          "region": "历史日期和结果；定位文字：历史日期、补记说明、✓ 成功、× 失败、— 跳过",
+          "stateLabel": "历史日期和结果",
+          "nodeIds": [
+            "tJQhy",
+            "m1uvd",
+            "Xdq12",
+            "oMgrv",
+            "TtSvF"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "Y8mJyU",
+          "region": "备注与双时间提示；定位文字：文字备注（可选）字段名、两个时间、保存补记",
+          "stateLabel": "备注与双时间提示",
+          "nodeIds": [
+            "mZq5P",
+            "w9aqE0",
+            "P1YwV",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-Y8mJyU",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V11",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "全局日历视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图11的全局日历：整月、已选日期、今日、日期下标、全部状态筛选及五项明细样例同屏存在。",
+        "月份标题及左右箭头位于七列星期和日期格上方。",
+        "样例9日有浅银灰底和加粗且无下标；8日有独立选中边框；5日有绿色勾；6／7／8日有金色分数；跨月日期为弱色。",
+        "日期明细区含全部状态（5）筛选框及成功、失败、跳过、未记录的彩色行；底部日历导航强调。",
+        "局部视觉约束：月历与日期格样例：星期与日期列居中对应；日期12sp、分数10sp／600、分数色#866500。；今日底色和加粗、选中边框、绿色勾、无下标日期、跨月弱色分别核对，保留已有组合。；月份栏有效左右16、日期容器左右2、列间2按节点核对；箭头位置与图标按稿。",
+        "局部视觉约束：筛选与彩色明细：保留日期·项数标题、筛选图标／下拉箭头、计数排版和整块明细层级。；成功绿、失败红、跳过橙、未记录灰，文字与符号并用；不增加稿外解释行。；逻辑高度1100保持比例，完整对照下部明细和导航。",
+        "样例参数：月份及日号、选中日／今日样例、完成分数、计数、计划名及备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对详情记录列表，本页新增整月七列网格与选日视觉；日期格样式是局部属性样例，不拆成多张整页或推导任意属性组合。",
+        "分析边界：不推导完成分数算法、筛选展开面板、切月路由或日期点击效果。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-c6Yye",
+          "frameId": "c6Yye",
+          "region": "画板整体，逻辑尺寸393×1100",
+          "stateLabel": "全局日历"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "c6Yye",
+          "region": "月历与日期格样例；定位文字：月份名称、一、二、三、四、五、六、日、日号、日期全部完成、日期完成汇总 0/1、10月8日完成汇总",
+          "stateLabel": "月历与日期格样例",
+          "nodeIds": [
+            "cz87g",
+            "bT4ul",
+            "xDt1t",
+            "s6ZFJ6",
+            "LGPyL",
+            "EZe3z",
+            "CH4BB",
+            "G4nXip",
+            "ZMHBW",
+            "ZMcsf",
+            "eZoFu",
+            "Dfgvn",
+            "DBs3V",
+            "zCno8",
+            "edB97",
+            "rCa1M",
+            "K8DZjI",
+            "zAF3Z",
+            "fgmBz",
+            "T5e7Sg",
+            "u9uTnf",
+            "y5YPi",
+            "kfiMM",
+            "UVg2j",
+            "aHUES",
+            "U3YloB",
+            "GLTFA",
+            "or3Zw",
+            "D6vCl0",
+            "W4x35",
+            "EK3Ql",
+            "fBOZR",
+            "wcf0s",
+            "TZ07Q",
+            "Bg18h",
+            "bzNDk",
+            "oXRVZ",
+            "EnoeA",
+            "h0qro6",
+            "ExjnN",
+            "j6DGyi",
+            "kWLlh",
+            "dgjX5",
+            "BnO2r",
+            "Bm4UC",
+            "YR3La",
+            "H4r2H"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "c6Yye",
+          "region": "筛选与彩色明细；定位文字：选中日期标题、当前筛选全部、晨间阅读结果、运动结果、不要吸烟结果、晚间拉伸结果、喝水结果、三入口导航",
+          "stateLabel": "筛选与彩色明细",
+          "nodeIds": [
+            "cFWnp",
+            "SxYQG",
+            "zQvJv",
+            "BSOVm",
+            "pZCZn",
+            "L5O1Gl",
+            "ZQQoG",
+            "oPknT"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-c6Yye",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V12",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "固定详情视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图12的固定详情：金属统计面板、三种最近记录样例、编辑计划按钮及底部说明可见。",
+        "主统计为75%大字号，下面是历史范围、完成次数、跳过／未记录及两个统计列。",
+        "记录列表有成功、跳过、未记录三种表达，其中跳过备注含已修改字样。",
+        "局部视觉约束：固定计划统计面板：百分比按局部36sp核对；斜向反光带、历史口径多行文字与两列统计对齐保持。",
+        "局部视觉约束：最近记录及编辑区：成功、跳过、未记录的符号与色彩分别核对；保留已修改和可补记的辅助文案。；次按钮与底部说明的留白符合画板。",
+        "样例参数：计划名／方向说明／时区、百分比与次数、起止日期、连续值、记录日期与备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图13，统计面板以历史百分比及日连续信息为主；相对图14，不使用逾期与截止状态面板。",
+        "分析边界：不由75%与6/8推导完成率、连续或统计分母规则。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-acN0e",
+          "frameId": "acN0e",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "固定详情"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "acN0e",
+          "region": "固定计划统计面板；定位文字：比率、口径、连续、成功",
+          "stateLabel": "固定计划统计面板",
+          "nodeIds": [
+            "R9ZpQN",
+            "CetOG",
+            "i4zfin",
+            "t28HdX"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "acN0e",
+          "region": "最近记录及编辑区；定位文字：最近记录标题、10月8日结果、10月7日结果、10月6日结果、10月7日备注、编辑计划文字、今天口径",
+          "stateLabel": "最近记录及编辑区",
+          "nodeIds": [
+            "K0Fk31",
+            "c8Z1yT",
+            "maxxK",
+            "u0tEq",
+            "xVadP",
+            "VASmP",
+            "IoILM"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-acN0e",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V13",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "周目标详情视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图13周目标详情，顶部显示2/3天金属进度面板，下面为周统计与最近记录。",
+        "进度面板含大数字、剩余说明、深色进度条和记录今天按钮。",
+        "周统计卡片与当前周进度分离，最近记录含成功、跳过与空白三个样例。",
+        "局部视觉约束：金属周进度面板：2/3天按局部32sp核对，进度轨道、已填段、按钮与反光带的相对位置按稿。",
+        "局部视觉约束：周统计和部分周说明：周统计为17sp多行强调信息，部分周说明为12sp辅助文字；核对换行和层级，不计算比率与连续。",
+        "局部视觉约束：最近记录的空白样例：保留成功绿、跳过橙、空白灰的符号与文案；空白不能在视觉文案上替换为未记录。",
+        "样例参数：名称／方向、周目标和已完成数字、历史日期、达标比率与连续值、备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图12以历史完成率为主的面板，本页新增当前周进度条与独立完整周统计卡片；空白记录使用稿中专门文案。",
+        "分析边界：不推导整周暂停、部分周、达标率或连续中断算法。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-i0tdn",
+          "frameId": "i0tdn",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "周目标详情"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "i0tdn",
+          "region": "金属周进度面板；定位文字：进度、剩余、记录今天",
+          "stateLabel": "金属周进度面板",
+          "nodeIds": [
+            "w5ywvb",
+            "eWov1",
+            "T6zcp",
+            "vufPs"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "i0tdn",
+          "region": "周统计和部分周说明；定位文字：周统计、部分周",
+          "stateLabel": "周统计和部分周说明",
+          "nodeIds": [
+            "sVXEC",
+            "INQcs"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "i0tdn",
+          "region": "最近记录的空白样例；定位文字：最近记录标题、10月8日结果、10月7日结果、10月6日结果、10月6日备注",
+          "stateLabel": "最近记录的空白样例",
+          "nodeIds": [
+            "zghDt",
+            "I86Z8",
+            "hVpdD",
+            "JdfgR",
+            "hzcu5"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-i0tdn",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V14",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "一次性详情视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图14的一次性详情逾期样例：逾期标签、截止面板、三个操作按钮与时间线均可见。",
+        "逾期标签使用警示色，截止日期为大字，面板下方有现在完成主按钮。",
+        "标记失败与取消任务为并列次操作，后面是任务时间线和辅助说明。",
+        "局部视觉约束：逾期截止信息：核对警示标签、截止日期22sp和辅助说明的层级；标签具体底色以本画板节点为准。",
+        "局部视觉约束：操作与任务时间线：现在完成保留银色金属样式；标记失败为红字红边、取消任务为次样式，二者并列。；时间线多行文字和底部说明按稿排版。",
+        "样例参数：任务名、逾期天数、截止日、时间线日期；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对固定／周目标详情，本页无统计百分比或周进度，使用逾期信息、截止日期、操作行与时间线。",
+        "分析边界：此逾期样例与其他画板同名任务不强行串成同一时间线。；不追加完成、失败或取消后的页面及统计逻辑。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-o7qx2G",
+          "frameId": "o7qx2G",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "一次性详情"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "o7qx2G",
+          "region": "逾期截止信息；定位文字：逾期 2 天、任务截止、任务说明",
+          "stateLabel": "逾期截止信息",
+          "nodeIds": [
+            "CeTVy",
+            "QI4g5",
+            "aXFHC"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "o7qx2G",
+          "region": "操作与任务时间线；定位文字：现在完成、标记失败文字、取消任务文字、任务时间线标题、时间线、一次性说明",
+          "stateLabel": "操作与任务时间线",
+          "nodeIds": [
+            "rFWAe",
+            "vufPs",
+            "FB6vH",
+            "pigKN",
+            "e2pz3X",
+            "I4Imq4",
+            "KJ8iH"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-o7qx2G",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V15",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "编辑计划视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图15的编辑计划表单，每天选中，指定星期未选，下面为结束日期与生效说明。",
+        "名称与说明为已填输入框，执行规则仅展示每天／指定星期两个选项。",
+        "生效说明面板及不可变说明位于保存修改按钮之前。",
+        "局部视觉约束：已填字段与执行规则：名称、说明、两项规则及结束日期的顺序、选中表现与输入框内边距符合画板。",
+        "局部视觉约束：生效提示与保存区：保留生效面板的强调标题、历史说明和面板外不可变说明；不由文案追加规则版本功能。",
+        "样例参数：名称、说明内容、结束日期展示；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图04创建表单，本页没有方向与三类型选择，增加修改生效说明；不把当前／待生效文字拆为两张新页面。",
+        "分析边界：不追加指定星期展开态、不同生效时间算法或暂停／归档编辑资格。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-s1Nbh",
+          "frameId": "s1Nbh",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "编辑计划"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "s1Nbh",
+          "region": "已填字段与执行规则；定位文字：名称字段名、说明字段名、执行规则标题、每天、指定星期、结束日期字段名",
+          "stateLabel": "已填字段与执行规则",
+          "nodeIds": [
+            "kAiYx",
+            "oGWRM",
+            "j6pyJw",
+            "j3dz7",
+            "QJEPG",
+            "rNJLd"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "s1Nbh",
+          "region": "生效提示与保存区；定位文字：固定星期生效说明、历史、不可变说明、保存修改",
+          "stateLabel": "生效提示与保存区",
+          "nodeIds": [
+            "b0nudo",
+            "cfbTe",
+            "kQP4X",
+            "UxJiG",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-s1Nbh",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V16",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "暂停与恢复确认视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图16提供的组合参考画板：上方暂停确认卡片、中间恢复说明和下方待生效申请卡片分别保留。",
+        "确认卡片含暂时停一下标题、说明、确认暂停主按钮和继续执行次按钮。",
+        "恢复样例只有一段辅助文字；下方待生效卡片含已申请标题、说明与取消申请按钮。",
+        "局部视觉约束：暂停确认样例：核对卡片内标题、说明、主次按钮与间距；暂停标题局部23sp。",
+        "局部视觉约束：恢复说明样例：只对齐中间辅助文字区域及换行；不补恢复按钮、确认弹窗或完整恢复页面。",
+        "局部视觉约束：待生效申请样例：保留下方独立卡片、强调状态标题及取消申请金属按钮。；不通过隐藏／移动上方区域来拼出资料未定义的新整页布局。",
+        "样例参数：计划名称、说明中的日期展示；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图17／18的单一确认卡片相比，该画板并列多个视觉样例；它们是局部对照目标，不表示同一业务时刻或多张完整页面。",
+        "分析边界：不追加暂停、恢复、取消申请的切换链路或生效业务。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-QpNMQ",
+          "frameId": "QpNMQ",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "暂停与恢复确认"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "QpNMQ",
+          "region": "暂停确认样例；定位文字：暂停计划标题、暂停标题、暂停内容、确认暂停、继续执行文字",
+          "stateLabel": "暂停确认样例",
+          "nodeIds": [
+            "wY0hS",
+            "VQfXl",
+            "ivA8k",
+            "EejMq",
+            "vufPs",
+            "ExzJE"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "QpNMQ",
+          "region": "恢复说明样例；定位文字：恢复状态",
+          "stateLabel": "恢复说明样例",
+          "nodeIds": [
+            "NL6Ft"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "QpNMQ",
+          "region": "待生效申请样例；定位文字：申请状态标题、取消申请说明、取消申请",
+          "stateLabel": "待生效申请样例",
+          "nodeIds": [
+            "Nk8HH",
+            "V7AIP",
+            "i8Dl4",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-QpNMQ",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V17",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "删除并保留历史视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图17删除并保留历史确认，包含归档图标、主说明卡片、确认／取消按钮和卡片外提示。",
+        "确认卡片使用线性归档图标与23sp主标题。",
+        "确认移入归档为金属主按钮，取消为浅表面次按钮。",
+        "局部视觉约束：归档确认卡片：归档图标、标题、说明及两按钮的位置和留白按图；图标线宽、尺寸以对应节点为准。",
+        "局部视觉约束：卡片外辅助提示：保留确认后说明的单独辅助行及其换行，不把文案变成归档数据处理验收。",
+        "样例参数：计划名；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图18，本页以保留历史的中性色提示和归档图标为主，非红色永久删除强调。",
+        "分析边界：不执行删除、归档、历史保留或不可恢复逻辑验收。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-lsJHj",
+          "frameId": "lsJHj",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "删除并保留历史"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "lsJHj",
+          "region": "归档确认卡片；定位文字：归档标题、归档说明、确认移入归档、取消文字",
+          "stateLabel": "归档确认卡片",
+          "nodeIds": [
+            "de7pn",
+            "zn35y",
+            "vufPs",
+            "OWMgC"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "lsJHj",
+          "region": "卡片外辅助提示；定位文字：归档位置",
+          "stateLabel": "卡片外辅助提示",
+          "nodeIds": [
+            "bzMoK"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-lsJHj",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V18",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "归档后永久删除视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图18归档后永久删除确认，红色标题与红色描边操作构成危险提示层级。",
+        "副标题含已归档样例，卡片内为红色23sp标题、正文说明和辅助说明。",
+        "永久删除计划为红色描边与红字，取消为中性色次按钮。",
+        "局部视觉约束：危险说明与确认按钮：红色标题、正文与辅助说明字号分层，核对多行换行及卡片内纵向留白。；永久删除按钮保留红色边框、浅底与红色文字；取消按钮保持中性样式。；图形仅按本画板已有内容核对，不追加未画出的图标。",
+        "样例参数：计划名称；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图17，本页使用危险操作的红色强调与不同说明层级；不由图17的归档图标补画本页未出现的危险图标。",
+        "分析边界：不追加永久删除范围、不可撤销或取消后数据保留的实际业务验证。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-IlUYa",
+          "frameId": "IlUYa",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "归档后永久删除"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "IlUYa",
+          "region": "危险说明与确认按钮；定位文字：删除标题、删除范围、归档替代、永久删除计划文字、取消文字",
+          "stateLabel": "危险说明与确认按钮",
+          "nodeIds": [
+            "Avoyx",
+            "Jxw1j",
+            "HqlgD",
+            "vVao9",
+            "BKwuo"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-IlUYa",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V19",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "本机设置视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图19本机设置，存储介绍、数据说明、时区说明与版本面板依次显示。",
+        "银色反光面板内含手机图标、保存标题和多行说明。",
+        "数据说明与日期时区为面板外独立分组，版本信息位于底部浅色卡片。",
+        "局部视觉约束：本机保存介绍：手机线性图标、22sp局部标题、14sp说明与斜向反光带的相对位置符合稿。",
+        "局部视觉约束：数据、时区和版本分组：保留面板外分组标题及说明换行，版本卡片内主次文字层级和大段下部留白按稿。",
+        "样例参数：版本文字及数值；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图01引导卡片，本页没有创建按钮，包含设备、数据、时区和版本信息的独立分组。",
+        "分析边界：可见离线、备份与时区说明仅作为展示文案，不新增对应实现或验证任务。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-l0Vci",
+          "frameId": "l0Vci",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "本机设置"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "l0Vci",
+          "region": "本机保存介绍；定位文字：保存标题、保存说明、本机图标",
+          "stateLabel": "本机保存介绍",
+          "nodeIds": [
+            "sy9FD",
+            "IweAo",
+            "C82P5b"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "l0Vci",
+          "region": "数据、时区和版本分组；定位文字：数据说明标题、卸载说明、日期与时区标题、时区说明、产品名称、版本号",
+          "stateLabel": "数据、时区和版本分组",
+          "nodeIds": [
+            "y7dsN",
+            "a1G3lc",
+            "mpedJ",
+            "G7vTP",
+            "YAFf8",
+            "nJQuX"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-l0Vci",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V20",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "存储异常视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图20存储异常视觉：红色警示图标、未保存说明、主次按钮与已填写内容摘要均可见。",
+        "上方卡片为浅色表面，图标用失败红，标题为正文深色。",
+        "保留输入面板位于下方，已选成功文字使用主色而非绿色结果样式。",
+        "局部视觉约束：保存异常提示卡片：红色圆圈感叹号、23sp深色标题、辅助说明和主次按钮按图排列；不改成整块黄色警示面板。",
+        "局部视觉约束：已填写内容展示：保留内容框的边框、姓名日期强调行、主色结果行与辅助备注层级分别核对。",
+        "样例参数：计划名、日期、备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图23同属警示类，但本页卡片为中性浅色、红色图标，按钮文案与保留结果色彩不同，不能仅以相似结构合并。",
+        "分析边界：不触发真实写入失败、不验证重试、清库或数据保留机制。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-B46K5",
+          "frameId": "B46K5",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "存储异常"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "B46K5",
+          "region": "保存异常提示卡片；定位文字：异常图标、错误标题、错误说明、重试保存、返回继续编辑文字",
+          "stateLabel": "保存异常提示卡片",
+          "nodeIds": [
+            "zHSQy",
+            "F31h3",
+            "SnzCA",
+            "sVBFL",
+            "vufPs",
+            "O8FUG"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "B46K5",
+          "region": "已填写内容展示；定位文字：已填写内容标题、保留计划、保留结果、保留备注",
+          "stateLabel": "已填写内容展示",
+          "nodeIds": [
+            "DjkGG",
+            "P8wCR",
+            "isE0f",
+            "PfO7f"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-B46K5",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V21",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "一次性实际完成日视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图21登记完成，任务摘要、实际完成日期输入、可选备注、说明及保存按钮均可见。",
+        "任务摘要有19sp名称与13sp截止文字，页面主标题局部23sp。",
+        "实际完成日期输入后有辅助解释；备注区之后另有提交时间说明。",
+        "局部视觉约束：任务摘要与实际完成日期：核对任务摘要卡片、日期字段名、已填日期框及说明的字号差与间距；不自行画日期选择弹层。",
+        "局部视觉约束：备注和提交时间说明：备注框、两类时间说明及底部金属保存按钮按图定位。",
+        "样例参数：任务名、截止日期、实际完成日期、备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图06一次性创建表单相比，本页无类型选择与截止日期编辑，而是任务摘要和实际完成日期；与图10也有不同字段结构。",
+        "分析边界：不追加按时／迟完成判定、日期合法域或保存后归档逻辑。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-L47R3V",
+          "frameId": "L47R3V",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "一次性实际完成日"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "L47R3V",
+          "region": "任务摘要与实际完成日期；定位文字：任务标题、任务截止、实际完成日期字段名、实际完成日期内容、实际完成日期说明",
+          "stateLabel": "任务摘要与实际完成日期",
+          "nodeIds": [
+            "IXKXS",
+            "lrh5x",
+            "vZBYM",
+            "PRw9i",
+            "H4oHnv"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "L47R3V",
+          "region": "备注和提交时间说明；定位文字：文字备注（可选）字段名、文字备注（可选）内容、提交时间说明、保存完成记录",
+          "stateLabel": "备注和提交时间说明",
+          "nodeIds": [
+            "wYuSe",
+            "RjtXJ",
+            "dNXSu",
+            "MH4FG",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-L47R3V",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V22",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "历史记录只读视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图22历史记录只读：结果摘要、日期时区提交时间、备注、只读说明与返回按钮均以展示方式呈现。",
+        "成功结果为绿色大字，业务日期为正文，时区与提交时间为辅助文字。",
+        "备注以内容卡片展示，没有图09的结果选择与保存修改表单。",
+        "局部视觉约束：结果与时间摘要：22sp绿色成功结果、15sp业务日期与12sp时区／提交时间分层排布。",
+        "局部视觉约束：备注、只读说明与返回：备注展示卡片与只读说明卡片分开；返回按钮保留金属样式。；核对无图稿外编辑控件的只读呈现，不声称验证底层修改拦截。",
+        "样例参数：计划名、日期、时区、提交时间、备注；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：与图09相比，使用静态结果和备注卡片及只读说明，操作区为返回日历而非修改表单。",
+        "分析边界：不据静态只读外观推导修改资格、锁定实现或返回路由。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-N7Gnu",
+          "frameId": "N7Gnu",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "历史记录只读"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "N7Gnu",
+          "region": "结果与时间摘要；定位文字：历史成功、业务日期、计划时区、原始提交",
+          "stateLabel": "结果与时间摘要",
+          "nodeIds": [
+            "UQPGq",
+            "fXZfr",
+            "DiLUS",
+            "Rc3kI"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "N7Gnu",
+          "region": "备注、只读说明与返回；定位文字：文字备注标题、历史备注、只读标题、只读规则、返回日历",
+          "stateLabel": "备注、只读说明与返回",
+          "nodeIds": [
+            "BhsyY",
+            "aV1Uc",
+            "Y92VX9",
+            "tynel",
+            "wpDJX",
+            "vufPs"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-N7Gnu",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    },
+    {
+      "id": "V23",
+      "featureIds": [
+        "F-UI"
+      ],
+      "title": "跨日重新确认视觉状态",
+      "facts": [
+        "视觉纳入边界：呈现图23跨日重新确认视觉：日期变化副标题、黄色警示面板、两个按钮及尚未保存的内容摘要。",
+        "警示面板使用浅黄底和警示色边框／图标，标题仍为深色。",
+        "已填写内容标题含尚未保存字样，摘要中的已选成功为绿色并带勾。",
+        "局部视觉约束：日期变化警示与按钮：警示底#F7EBCF、警示色#88500D及23sp标题按相应节点核对。；进入补记确认和返回日历按钮的主次层级与面板内间距保留。",
+        "局部视觉约束：尚未保存的内容摘要：标题、名称日期、绿色勾与已选成功行、备注按稿排布，不与图20的主色结果行互换。",
+        "样例参数：当前／记录日期、计划名、备注、系统时间；按对应视觉目标核对，不扩为全部取值组合。",
+        "同层级区分：相对图20，整块警示底色、边框、图标颜色、主次按钮文案和保留结果行均不同，需独立对照。",
+        "分析边界：不模拟午夜跨日、阻止提交、恢复输入或补记保存的实际业务。"
+      ],
+      "uiRefs": [
+        {
+          "sourceId": "UI-HEOev",
+          "frameId": "HEOev",
+          "region": "画板整体，逻辑尺寸393×852",
+          "stateLabel": "跨日重新确认"
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "HEOev",
+          "region": "日期变化警示与按钮；定位文字：页面辅助说明、异常图标、错误标题、错误说明、进入补记确认、返回继续编辑文字",
+          "stateLabel": "日期变化警示与按钮",
+          "nodeIds": [
+            "Bhtut",
+            "QEFXL",
+            "DmLZk",
+            "JQ5JZ",
+            "qtC8r",
+            "vufPs",
+            "LzvY2"
+          ]
+        },
+        {
+          "sourceId": "TREE",
+          "frameId": "HEOev",
+          "region": "尚未保存的内容摘要；定位文字：已填写内容标题、保留计划、保留结果、保留备注",
+          "stateLabel": "尚未保存的内容摘要",
+          "nodeIds": [
+            "kSV6m",
+            "R7L0yo",
+            "msxDC",
+            "BgbRA"
+          ]
+        }
+      ],
+      "sourceIds": [
+        "PRD",
+        "UI-HEOev",
+        "TREE",
+        "TOKENS"
+      ],
+      "status": "draft"
+    }
+  ],
+  "edges": [],
+  "transitionValidation": {
+    "method": "symbolic_backward_astar",
+    "scope": "declared_finite_domains",
+    "inputDigest": "31dce44ab3b9525d013281c0347882c0a7e535c69b073571ab5e3a0a2a6d0c01",
+    "status": "passed",
+    "counts": {},
+    "transitions": {},
+    "caseCounts": {},
+    "caseResults": {}
+  }
+}
