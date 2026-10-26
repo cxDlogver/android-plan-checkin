@@ -4,6 +4,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'.cache/font-tools'))
 import fontTools
+if fontTools.__version__ != "4.61.1":raise RuntimeError("Install the pinned fonttools==4.61.1 into .cache/font-tools")
 from fontTools.ttLib import TTFont
 from fontTools.varLib.instancer import instantiateVariableFont
 p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);args=p.parse_args()
