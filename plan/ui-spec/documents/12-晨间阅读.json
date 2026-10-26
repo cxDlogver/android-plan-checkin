@@ -1527,9 +1527,13 @@
                   "maxLines": null,
                   "scaleWithSystem": true,
                   "binding": {
-                    "template": "每天 · 要做 · {{plan.timeZone}}",
+                    "template": "{{plan.scheduleLabel}} · 要做 · {{plan.timeZone}}",
                     "parameters": {
                       "plan.timeZone": {
+                        "type": "string",
+                        "format": "plain"
+                      },
+                      "plan.scheduleLabel": {
                         "type": "string",
                         "format": "plain"
                       }

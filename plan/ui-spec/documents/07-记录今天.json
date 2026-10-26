@@ -1713,11 +1713,20 @@
                     "styleRef": "s-cbab4e8142571aef",
                     "content": {
                       "type": "text",
-                      "value": "每天 · 要做",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{plan.scheduleLabel}} · 要做",
+                        "parameters": {
+                          "plan.scheduleLabel": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1751,7 +1760,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {

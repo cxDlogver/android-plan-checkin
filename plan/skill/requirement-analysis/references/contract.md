@@ -241,6 +241,6 @@ operation={label,actor,input?}，没有id。label明确动作，actor明确执�
 
 原文或图的含义变化后重新审查相关部分。已登记实体全部有source，不等于PRD全文已完整覆盖；覆盖审查逐项对照本轮要求及UI清单完成。
 
-HTML内嵌同版JSON及哈希，使用Canvas展示图；状态详情展示视觉/功能事实与直接来源，视觉状态显示原截图；迁移详情展示GIVEN—WHEN—THEN，有condition时显示分支；概览只显示全局约束。支持键盘选择、平移缩放和状态聚焦。
+HTML内嵌同版JSON及哈希，使用Canvas展示图。页面内容、默认布局、拖拽与选中层级、聚焦范围、侧栏切换和验收按[HTML设计规范](html-design-spec.md)执行。展示位置与可见性属于HTML的临时视图状态，不加入最终JSON；数据字段及来源要求仍按本契约处理。
 
 交付仅state-transitions.json与state-transitions.html。按独立工作记录约束完成分析、澄清及定稿检查，finalize校验后清理工作副本；正式需求与UI资料、Skill中的两份Schema保留。结构检查通过与应用功能、视觉验收分别报告。

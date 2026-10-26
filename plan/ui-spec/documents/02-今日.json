@@ -2120,11 +2120,20 @@
                             "styleRef": "s-5b0109b88a7540df",
                             "content": {
                               "type": "text",
-                              "value": "固定日期 · 每天",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "固定日期 · {{today.doScheduleLabel}}",
+                                "parameters": {
+                                  "today.doScheduleLabel": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -2158,7 +2167,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -3499,11 +3509,20 @@
                             "styleRef": "s-5b0109b88a7540df",
                             "content": {
                               "type": "text",
-                              "value": "固定日期 · 每天",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "固定日期 · {{today.avoidScheduleLabel}}",
+                                "parameters": {
+                                  "today.avoidScheduleLabel": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -3537,7 +3556,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
