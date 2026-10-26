@@ -102,12 +102,13 @@ def action_key(edge):
     op=edge["operation"]
     return (edge["from"]," ".join(op["actor"].split()).casefold()," ".join(op["label"].split()).casefold(),canonical(op.get("input",{})))
 
-def html_text(model):
+def html_text(model,state_model=None):
     template=(SKILL_DIR/"assets"/"graph.template.html").read_text(encoding="utf-8")
     embedded=canonical(model).replace("<","\\u003c").replace("\u2028","\\u2028").replace("\u2029","\\u2029")
-    return template.replace("__MODEL_SHA__",digest(model)).replace("__MODEL_JSON__",embedded)
+    state_embedded=canonical(state_model).replace("<","\\u003c").replace("\u2028","\\u2028").replace("\u2029","\\u2029")
+    return template.replace("__MODEL_SHA__",digest(model)).replace("__MODEL_JSON__",embedded).replace("__STATE_MODEL_JSON__",state_embedded)
 
-def check_html(model,path):
+def check_html(model,path,state_model=None):
     file=path.with_suffix(".html")
     if not file.is_file(): return ["HTML not generated"]
     text=file.read_text(encoding="utf-8")
@@ -118,6 +119,7 @@ def check_html(model,path):
     except ValueError: return ["Invalid embedded JSON"]
     if canonical(embedded)!=canonical(model) or marker.group(1)!=digest(model): return ["HTML and graph JSON differ"]
     if "<canvas" not in text or "function selectState" not in text or "function selectEdge" not in text: return ["Canvas selection code missing"]
+    if text!=html_text(model,state_model): return ["HTML differs from the current shared template or embedded state graph"]
     return []
 
 def evaluate(model,path,workspace,with_html=False):

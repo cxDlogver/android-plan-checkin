@@ -1,0 +1,422 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "testCasesPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "taskPlanPath": {
+      "type": "string",
+      "minLength": 1
+    },
+    "caseContract": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "planContract": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "tasks": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "implementation": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "startedAt": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "completedAt": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "startedAt",
+                  "completedAt"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "implementation",
+          "resources"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "taskIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "script": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          },
+          "authoredAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "cwd": {
+            "type": "string",
+            "minLength": 1
+          },
+          "startedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finishedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "exitCode": {
+            "type": "integer"
+          },
+          "environment": {
+            "enum": [
+              "runtime",
+              "native"
+            ]
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "path",
+                "sha256"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1
+          },
+          "context": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            },
+            "required": [
+              "path",
+              "sha256"
+            ],
+            "additionalProperties": false
+          },
+          "visits": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "visitIndex": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "entry": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "givenObserved": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "operationObserved": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "targetObserved": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outcome": {
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "blocked",
+                    "deferred"
+                  ]
+                },
+                "checks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "aspect": {
+                        "enum": [
+                          "visual",
+                          "functional"
+                        ]
+                      },
+                      "checkIndex": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "status": {
+                        "enum": [
+                          "passed",
+                          "failed",
+                          "blocked"
+                        ]
+                      },
+                      "actual": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "evidence": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "form": {
+                              "enum": [
+                                "screenshot",
+                                "dom",
+                                "native-tree",
+                                "component-tree",
+                                "layout-measurement",
+                                "assertion-report",
+                                "state-snapshot",
+                                "call-trace",
+                                "data-snapshot"
+                              ]
+                            },
+                            "path": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "sha256": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{64}$"
+                            },
+                            "description": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "form",
+                            "path",
+                            "sha256",
+                            "description"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1
+                      }
+                    },
+                    "required": [
+                      "aspect",
+                      "checkIndex",
+                      "status",
+                      "actual",
+                      "evidence"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 0
+                }
+              },
+              "required": [
+                "visitIndex",
+                "entry",
+                "givenObserved",
+                "operationObserved",
+                "targetObserved",
+                "outcome",
+                "checks"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "taskResults": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "taskId": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "checkIndex": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "doneIndices": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "minItems": 0
+                },
+                "status": {
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "blocked"
+                  ]
+                },
+                "actual": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "form": {
+                        "enum": [
+                          "screenshot",
+                          "dom",
+                          "native-tree",
+                          "component-tree",
+                          "layout-measurement",
+                          "assertion-report",
+                          "state-snapshot",
+                          "call-trace",
+                          "data-snapshot"
+                        ]
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "description": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "form",
+                      "path",
+                      "sha256",
+                      "description"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "taskId",
+                "checkIndex",
+                "doneIndices",
+                "status",
+                "actual",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "id",
+          "taskIds",
+          "script",
+          "authoredAt",
+          "command",
+          "cwd",
+          "startedAt",
+          "finishedAt",
+          "exitCode",
+          "environment",
+          "files",
+          "context",
+          "visits",
+          "taskResults"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "testCasesPath",
+    "taskPlanPath",
+    "caseContract",
+    "planContract",
+    "tasks",
+    "runs"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

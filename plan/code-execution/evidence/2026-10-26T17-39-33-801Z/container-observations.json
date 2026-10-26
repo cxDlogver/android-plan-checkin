@@ -1,0 +1,353 @@
+[
+  {
+    "name": "today",
+    "report": {
+      "kind": "native-container",
+      "fixture": "today",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 320.7272644042969,
+          "height": 249.09091186523438
+        }
+      },
+      "trace": [
+        {
+          "name": "query.today",
+          "args": []
+        }
+      ],
+      "sequence": 1,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  },
+  {
+    "name": "today-open",
+    "report": {
+      "kind": "native-container",
+      "fixture": "today",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 320.7272644042969,
+          "height": 249.09091186523438
+        }
+      },
+      "trace": [
+        {
+          "name": "query.today",
+          "args": []
+        },
+        {
+          "name": "query.today",
+          "args": []
+        },
+        {
+          "name": "router.push",
+          "args": [
+            {
+              "pathname": "/plans/[planId]",
+              "params": {
+                "planId": "e0c38fe3-0000-4000-8000-000000000001"
+              }
+            }
+          ]
+        },
+        {
+          "name": "query.today",
+          "args": []
+        }
+      ],
+      "sequence": 3,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  },
+  {
+    "name": "plans",
+    "report": {
+      "kind": "native-container",
+      "fixture": "plans",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 320.7272644042969,
+          "height": 249.09091186523438
+        }
+      },
+      "trace": [
+        {
+          "name": "query.plans",
+          "args": [
+            "running",
+            null
+          ]
+        }
+      ],
+      "sequence": 4,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  },
+  {
+    "name": "plans-paused",
+    "report": {
+      "kind": "native-container",
+      "fixture": "plans",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 320.7272644042969,
+          "height": 249.09091186523438
+        }
+      },
+      "trace": [
+        {
+          "name": "query.plans",
+          "args": [
+            "running",
+            null
+          ]
+        },
+        {
+          "name": "query.plans",
+          "args": [
+            "running",
+            null
+          ]
+        },
+        {
+          "name": "query.plans",
+          "args": [
+            "paused",
+            null
+          ]
+        }
+      ],
+      "sequence": 5,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  },
+  {
+    "name": "calendar",
+    "report": {
+      "kind": "native-container",
+      "fixture": "calendar",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 320.7272644042969,
+          "height": 249.09091186523438
+        }
+      },
+      "trace": [
+        {
+          "name": "query.calendar",
+          "args": [
+            "2026-10",
+            "2026-10-27",
+            null
+          ]
+        }
+      ],
+      "sequence": 6,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  },
+  {
+    "name": "calendar-next",
+    "report": {
+      "kind": "native-container",
+      "fixture": "calendar",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 320.7272644042969,
+          "height": 249.09091186523438
+        }
+      },
+      "trace": [
+        {
+          "name": "query.calendar",
+          "args": [
+            "2026-10",
+            "2026-10-27",
+            null
+          ]
+        },
+        {
+          "name": "query.calendar",
+          "args": [
+            "2026-10",
+            "2026-10-27",
+            null
+          ]
+        },
+        {
+          "name": "query.calendar",
+          "args": [
+            "2026-11",
+            "2026-10-27",
+            null
+          ]
+        }
+      ],
+      "sequence": 7,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  }
+]

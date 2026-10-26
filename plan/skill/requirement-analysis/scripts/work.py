@@ -6,6 +6,8 @@ import re
 from pathlib import Path
 from analyze import SKILL_DIR, action_key, all_ids, canonical, evaluate, load_json, pointer, raw_hash, resolve_file, schema_errors
 
+from atomic import check_package
+
 REVIEW_NAMES=("scope","facts","operations","inheritance","branches","coverage")
 
 def initial_value(definition,schema):
@@ -236,6 +238,12 @@ def execute(command,graph,workspace):
         print(json.dumps({"status":"created","work":str(work_path)},ensure_ascii=False));return 0
     work=load_json(work_path)
     report=check_work(work,graph,workspace,with_html=command=="finalize")
+    if command=="finalize": report["scope"]="analysis-work-and-final-artifacts"
+    if command=="finalize" and report["status"]!="passed": report["checks"].append({"id":"atomic-package","status":"not-tested","findings":["Complete state-model analysis before final artifact checks"]})
+    if command=="finalize" and report["status"]=="passed":
+        atomic_report=check_package(graph,workspace)
+        report["checks"].append({"id":"atomic-package","status":atomic_report["status"],"findings":[] if atomic_report["status"]=="passed" else [atomic_report]})
+        if atomic_report["status"]!="passed": report["status"]="failed"
     if command=="finalize" and report["status"]=="passed":
         if set(work_path.parent.iterdir())!={work_path}:
             report={"status":"failed","error":"Additional work files exist; review their ownership and clean them before finalizing"}

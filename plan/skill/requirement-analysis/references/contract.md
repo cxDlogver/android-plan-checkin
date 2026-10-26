@@ -235,7 +235,7 @@ operation={label,actor,input?}，没有id。label明确动作，actor明确执�
 
 ## 校验与交付
 
-校验包括Schema、直接来源文件与哈希、节点与事实、动作字段、真实分支与确定性、可达性、重复约束及HTML同步。分项通过标准及执行流程见[SKILL.md审查与校验](../SKILL.md#6-审查与校验)。脚本输出到终端，不修改JSON或留下报告。
+校验包括Schema、直接来源文件与哈希、节点与事实、动作字段、真实分支与确定性、可达性、重复约束及HTML同步。分项通过标准及执行流程见[SKILL.md审查与校验](../SKILL.md#7-审查与校验)。脚本输出到终端，不修改JSON或留下报告。
 
 常见状态与迁移问题的修复图见[常见问题与修复示例](state-transition-examples.md)。语义审查覆盖范围、事实、动作及结果、前提与规则、分支确定性和完整覆盖。每项依据真实来源判断：脚本可确认引用有效和结构一致，自然语言范围、动作必要性、分支是否完整及等价规则去重需要阅读原文。检查失败、证据缺失或需求未确认时，处理受影响内容后再定稿。
 
@@ -243,4 +243,4 @@ operation={label,actor,input?}，没有id。label明确动作，actor明确执�
 
 HTML内嵌同版JSON及哈希，使用Canvas展示图。页面内容、默认布局、拖拽与选中层级、聚焦范围、侧栏切换和验收按[HTML设计规范](html-design-spec.md)执行。展示位置与可见性属于HTML的临时视图状态，不加入最终JSON；数据字段及来源要求仍按本契约处理。
 
-交付仅state-transitions.json与state-transitions.html。按独立工作记录约束完成分析、澄清及定稿检查，finalize校验后清理工作副本；正式需求与UI资料、Skill中的两份Schema保留。结构检查通过与应用功能、视觉验收分别报告。
+交付state-transitions.json、state-transitions.html、atomic-requirements.json与atomic-requirements.html。原子图按[原子需求图规范](atomic-requirements.md)引用状态图并确定性派生，不改变本契约对状态、迁移及全局约束的限定。按独立工作记录约束完成分析、澄清及定稿检查，finalize检查工作记录及两张图后清理工作副本；正式需求与UI资料、Skill中的各份Schema保留。结构检查通过与应用功能、视觉验收分别报告。

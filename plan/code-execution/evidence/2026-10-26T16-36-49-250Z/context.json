@@ -1,0 +1,73 @@
+{
+  "environment": "native",
+  "host": "emulator-5562",
+  "build": {
+    "uiManifest": "12a18cbdd0988e0d76608757eecad4cacf1dfc4521d47bd13399b3893d52af81",
+    "nativeHost": "com.xiang.plancheckin.dev",
+    "code": "start-time run.files; current Metro rich container host confirmed"
+  },
+  "inputs": {
+    "identity": {
+      "serial": "emulator-5562",
+      "avd": "plancheckin_api36",
+      "api": 36,
+      "package": "com.xiang.plancheckin.dev",
+      "display": "Physical size: 1080x2340",
+      "density": "Physical density: 440",
+      "fontScale": "1",
+      "timezone": "GMT"
+    },
+    "controls": {
+      "kind": "native-controls",
+      "fixture": "controls",
+      "choice": "b",
+      "value": "实际控件输入",
+      "calls": [
+        {
+          "name": "enabled"
+        },
+        {
+          "name": "choice",
+          "value": "b"
+        },
+        {
+          "name": "input",
+          "value": "实际控件输入"
+        }
+      ],
+      "layouts": {
+        "controls": {
+          "x": 17.090909957885742,
+          "y": 17.090909957885742,
+          "width": 318.5454406738281,
+          "height": 250.18182373046875
+        }
+      },
+      "trace": [],
+      "sequence": 0,
+      "inputs": {
+        "today": "2026-10-27",
+        "zone": "Asia/Shanghai",
+        "planId": "e0c38fe3-0000-4000-8000-000000000001",
+        "planName": "F01 fixed"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false
+      }
+    }
+  },
+  "mocks": [
+    {
+      "boundary": "AppScope execute/router/confirm",
+      "purpose": "independent in-memory container fixture",
+      "observedBusinessExecuteCalls": 0
+    }
+  ],
+  "readyPrerequisites": [
+    "READY-INTER",
+    "READY-NATIVE-HOST",
+    "READY-UI-HARNESS"
+  ]
+}

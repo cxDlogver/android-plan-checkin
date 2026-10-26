@@ -1,7 +1,12 @@
-import { Tabs } from 'expo-router';
-import { useWindowDimensions } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Svg, { Path } from 'react-native-svg';
-import { useApp } from '../../src/state/AppProvider';
-const icons={today:'M3 10L12 3l9 7v11h-6v-7H9v7H3z',calendar:'M4 5h16v16H4z M8 2v6 M16 2v6 M4 10h16 M8 14h2 M14 14h2 M8 18h2 M14 18h2',plans:'M3 6l2 2 3-4 M11 6h10 M3 14l2 2 3-4 M11 14h10 M3 21h5 M11 21h10'};
-export default function TabLayout(){const {clearPins}=useApp(),insets=useSafeAreaInsets(),{fontScale}=useWindowDimensions();const contentHeight=Math.max(64,24+Math.ceil(18*fontScale)+16);return <Tabs screenOptions={{headerShown:false,tabBarActiveTintColor:'#263440',tabBarInactiveTintColor:'#84919C',tabBarAllowFontScaling:true,tabBarLabelStyle:{fontFamily:'NotoSC600',fontSize:12,lineHeight:18},tabBarStyle:{backgroundColor:'#FAFBFC',borderTopColor:'#ABB6C1',height:contentHeight+insets.bottom,paddingTop:8,paddingBottom:insets.bottom+8}}}>{(['today','calendar','plans'] as const).map(name=><Tabs.Screen key={name} name={name} listeners={{tabPress:()=>clearPins()}} options={{title:{today:'今日',calendar:'日历',plans:'计划'}[name],tabBarButtonTestID:`tab.${name}`,tabBarAccessibilityLabel:{today:'今日',calendar:'日历',plans:'计划'}[name],tabBarIcon:({color})=><Svg width={24} height={24} viewBox="0 0 24 24"><Path d={icons[name]} fill="none" stroke={color} strokeWidth={1.8} strokeLinejoin="round"/></Svg>}}/>)}</Tabs>;}
+import {Tabs} from 'expo-router';
+import {View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import type {ComponentProps} from 'react';
+type BottomTabBarProps=Parameters<Exclude<ComponentProps<typeof Tabs>['tabBar'],undefined>>[0];
+import {useApp} from '../../src/state/AppProvider';
+import {documentByTitle} from '../../src/ui/spec-documents';
+import {SpecFragment} from '../../src/ui/spec-renderer';
+import type {SpecNode,NodeAction} from '../../src/ui/spec-types';
+const flatten=(n:SpecNode):SpecNode[]=>[n,...n.children.flatMap(flatten)];
+function Navigation({state,navigation,descriptors}:BottomTabBarProps){const {clearPins}=useApp(),insets=useSafeAreaInsets();const active=state.routes[state.index]!.name;const doc=documentByTitle(active==='today'?'02-':active==='calendar'?'11-':'03-');const nav=flatten(doc.tree).find(n=>n.name==='三入口导航')!;const actions:Record<string,NodeAction>={};for(const child of nav.children){const name=child.name.startsWith('今日')?'today':child.name.startsWith('日历')?'calendar':'plans',route=state.routes.find(r=>r.name===name)!;actions[child.id]={testID:'tab.'+name,label:descriptors[route.key]?.options.title??name,selected:name===active,onPress:()=>{const event=navigation.emit({type:'tabPress',target:route.key,canPreventDefault:true});if(!event.defaultPrevented){clearPins();navigation.navigate(route.name);}}};}return <View style={{backgroundColor:'#E8ECF0',paddingBottom:insets.bottom,alignItems:'center'}}><View style={{width:'100%',maxWidth:480}}><SpecFragment node={nav} inputs={{}} actions={actions}/></View></View>;}
+export default function TabLayout(){return <Tabs tabBar={props=><Navigation {...props}/>} screenOptions={{headerShown:false}}>{(['today','calendar','plans'] as const).map(name=><Tabs.Screen key={name} name={name} options={{title:{today:'今日',calendar:'日历',plans:'计划'}[name]}}/>)}</Tabs>;}

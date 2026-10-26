@@ -1,0 +1,11 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+module.exports=function(adapter,directory){const observations=[],assertions=[];const write=()=>{fs.writeFileSync(path.join(directory,'task-assertions.json'),JSON.stringify({assertions},null,2));fs.writeFileSync(path.join(directory,'container-observations.json'),JSON.stringify(observations,null,2));};
+ const record=(target,label,expected,actual)=>{assertions.push({target,label,expected,actual,verdict:require('node:util').isDeepStrictEqual(expected,actual)?'passed':'failed'});write();assert.deepEqual(actual,expected,label);};
+ const waitReport=async predicate=>{let last;await adapter.device.waitSource(x=>{const t=x.match(/<[^>]*resource-id="ui-test.report"[^>]*>/)?.[0],raw=t?.match(/content-desc=(["'])(.*?)\1/)?.[2];try{last=JSON.parse(require('../../../scripts/device-driver.cjs').decode(raw));return predicate(last);}catch{return false;}});return last;};
+ const controls=async()=>{let source=await adapter.device.source();if(source.includes('resource-id="native.ui-tests"')){await adapter.device.click('native.ui-tests');await adapter.device.waitSource(x=>x.includes('resource-id="ui-test.close"'));return;}if(source.includes('resource-id="ui-test.menu"')){await adapter.device.click('ui-test.menu');await adapter.device.waitSource(x=>x.includes('resource-id="ui-test.close"'));}};
+ const config=async({confirm=true,reject=false,hold=false,code='STORAGE_IO'}={})=>{await controls();for(const id of ['ui-test.confirm.'+(confirm?'yes':'no'),'ui-test.response.'+(reject?'reject':'success'),'ui-test.delay.'+(hold?'hold':'immediate'),...(reject?['ui-test.reject-code.'+code]:[])])await adapter.device.clickVisible(id);};
+ const observe=async name=>{const before=await adapter.report();await adapter.device.click('ui-test.observe');const report=await waitReport(r=>r.sequence>before.sequence),evidence=await adapter.capture(name);observations.push({name,report});write();return {report,evidence};};
+ const mount=async name=>{await controls();await adapter.device.clickVisible('ui-test.open.'+name);await waitReport(r=>r.fixture===name);return observe(name+'-'+observations.length);};
+ return {record,waitReport,controls,config,observe,mount,observations};
+};

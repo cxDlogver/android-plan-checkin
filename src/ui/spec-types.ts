@@ -1,0 +1,14 @@
+export type Inputs = Readonly<Record<string, string | number>>;
+export type Dimension = {mode:string;value:number|null;min:number|null;max:number|null;binding?:{path:string;type:string;min:number;max:number}};
+export type Binding = {template:string;parameters:Record<string,{type:string;format?:string}>};
+export type Content = {type:string;value?:string|null;binding?:Binding;assetRef?:string;wrap?:string;overflow?:string;maxLines?:number|null;scaleWithSystem?:boolean};
+export type Layout = {type:string;direction?:string;wrap?:string;justify?:string;align?:string;gap?:number;rowGap?:number;columnGap?:number;columns?:{mode:string;value:number}[];padding:number[]};
+export type SpecNode = {id:string;parentId:string|null;name:string;kind:string;ownership:string;componentRef:string|null;layout:Layout|null;sizing:{width:Dimension;height:Dimension};placement:{mode:string;insets:Record<string,number|null>;zIndex:number;grow:number;shrink:number;basis:number|string};overflow:{x:string;y:string};styleRef:string;content:Content|null;extensions?:{environmentRegion?:{edge:string;referenceExtent:number;rendering:string}};children:SpecNode[]};
+export type SpecDocument = {id:string;title:string;kind:string;tree:SpecNode};
+export type Geometry = {center:number[];size:number[];rotationCCW:number};
+export type Paint = {type:string;color?:string;angle?:number;stops?:{position:number;color:string}[]};
+export type Stroke = {widths:number[];color?:string;alignment:string;paints?:Paint[];geometry?:Geometry[]};
+export type Recipe = {fills:Paint[];stroke:Stroke|null;radii:number[];effects:{type:string;parameters:{shadowType:string;offset:{x:number;y:number};blur:number;color:string}}[];opacity:number;typography:{fontFamilies:string[];fontSize:number;fontWeight:number;fontStyle:string;lineHeight:{mode:string;value:number|null};letterSpacing:number;align:string}|null;extensions:{fontAssetRef?:string;fillGeometry?:Geometry[];strokePaint?:Stroke}};
+export type NodeAction = {onPress?:()=>void;input?:{value:string;onChange:(value:string)=>void;multiline?:boolean;editable?:boolean;label?:string};disabled?:boolean;selected?:boolean;accessible?:boolean;testID?:string;label?:string};
+export type Box = {x:number;y:number;width:number;height:number};
+export type MeasuredNode = {id:string;parentId:string|null;box:Box;text?:string;styleRef:string;contentSize?:{width:number;height:number};scrollOffset?:{x:number;y:number};props?:Record<string,unknown>;lines?:readonly unknown[]};

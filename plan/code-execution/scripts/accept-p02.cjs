@@ -1,0 +1,29 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+module.exports=async function({root,directory,mode,args,taskIds}){const assertions=[];const record=(target,label,expected,actual)=>{const verdict=require('node:util').isDeepStrictEqual(expected,actual)?'passed':'failed';assertions.push({target,label,expected,actual,verdict});fs.writeFileSync(path.join(directory,'task-assertions.json'),JSON.stringify({assertions},null,2));assert.deepEqual(actual,expected,label);};
+ if(taskIds.includes('P02')){
+  if(mode==='unit'){
+   const {documents}=require(path.join(root,'.cache/ui-tests/src/ui/spec-documents.js')),{recipes}=require(path.join(root,'.cache/ui-tests/src/ui/spec-tokens.js')),{resolveText,resolvePercent}=require(path.join(root,'.cache/ui-tests/src/ui/bindings.js'));
+   const base=path.join(root,'plan/ui-spec'),manifest=JSON.parse(fs.readFileSync(path.join(base,'manifest.json'))),library=JSON.parse(fs.readFileSync(path.join(base,'library.json'))),all=n=>[n,...n.children.flatMap(all)];
+   const strip=n=>Object.fromEntries(['id','parentId','name','kind','ownership','componentRef','layout','sizing','placement','overflow','styleRef','content','extensions'].map(k=>[k,n[k]]).concat([['children',n.children.map(strip)]]));
+   for(const entry of manifest.documents){const d=JSON.parse(fs.readFileSync(path.join(base,entry.file))),actual=documents.find(x=>x.id===d.id);record('task:P02:0',d.title+' 节点与布局忠实编译',strip(d.tree),actual.tree);}
+   record('task:P02:0','全部视觉配方',library.styles,recipes);
+   for(const [asset,file] of [['font-noto-sans-sc','NotoSansSC-VF.ttf'],['font-inter','Inter.ttf']])record('task:P02:0','正式字体 '+file,library.assets[asset].sha256,crypto.createHash('sha256').update(fs.readFileSync(path.join(root,'assets/fonts',file))).digest('hex'));
+   const fontManifest=JSON.parse(fs.readFileSync(path.join(root,'assets/fonts/generated/manifest.json')));for(const face of fontManifest.instances){const file=path.join(root,'assets/fonts/generated',face.file),data=fs.readFileSync(file),tables={};for(let i=0;i<data.readUInt16BE(4);i++){const offset=12+i*16;tables[data.toString('ascii',offset,offset+4)]=data.readUInt32BE(offset+8);}record('task:P02:0','静态字体实际字重 '+face.family,face.weight,data.readUInt16BE(tables['OS/2']+4));record('task:P02:0','字体由正式资源派生 '+face.family,library.assets[face.assetRef].sha256,face.source.sha256);record('task:P02:0','字体实际文件摘要 '+face.family,face.sha256,crypto.createHash('sha256').update(data).digest('hex'));record('task:P02:0','完整静态实例 '+face.family,false,Object.hasOwn(tables,'fvar'));}
+   const dynamic=documents.flatMap(d=>all(d.tree)).filter(n=>n.content?.binding&&n.ownership==='application');const parameters=Object.assign({},...dynamic.map(n=>n.content.binding.parameters));
+   for(const seed of [1,2]){const inputs=Object.fromEntries(Object.entries(parameters).map(([key,d])=>[key,d.type==='date'?'2031-03-0'+seed:d.type==='datetime'?'2031-03-0'+seed+'T08:21:00Z':d.type==='time'?'08:2'+seed:d.type==='integer'?seed+2:d.type==='number'?.25*seed:'动态输入'+seed]));for(const n of dynamic)record('task:P02:0','独立格式化 '+n.id,require(path.join(root,'.cache/ui-tests/tests/ui/oracle.js')).expectedText(n.content,inputs),resolveText(n.content,inputs));}
+   record('task:P02:0','缺值明确报错',true,(()=>{try{resolveText(dynamic[0].content,{});return false;}catch{return true;}})());
+   for(const ratio of [0,.5,1])record('task:P02:0','进度边界 '+ratio,ratio,resolvePercent({mode:'percent',value:null,min:null,max:null,binding:{path:'progress',type:'number',min:0,max:1}},{progress:ratio}));
+   console.log('P02 canonical recipes, nodes, fonts and bindings passed');return;
+  }
+  const {NativeAdapter}=require(path.join(root,'tests/ui/native-adapter.cjs')),adapter=new NativeAdapter(directory);
+  try{const identity=await adapter.open();fs.writeFileSync(path.join(directory,'identity.json'),JSON.stringify(identity,null,2));const actual=await adapter.controlsSmoke();fs.writeFileSync(path.join(directory,'controls-actual.json'),JSON.stringify(actual,null,2));
+   const target='task:P02:'+(mode==='native'?2:1),r=actual.report;
+   record(target,'启用只触发一次',1,r.calls.filter(c=>c.name==='enabled').length);record(target,'禁用不触发',0,r.calls.filter(c=>c.name==='disabled').length);record(target,'选择值','b',r.choice);record(target,'受控输入','实际控件输入',r.value);
+   record(target,'原生输入和错误提示可读',true,actual.evidence.source.includes('可观察的错误说明')&&actual.evidence.source.includes('实际控件输入'));record(target,'控件真实尺寸',true,r.layouts.controls.width>0&&r.layouts.controls.height>0);
+   if(mode==='native'){await adapter.device.clickVisible('ui-test.close');adapter.device.deepLink(adapter.scheme+':///today');await adapter.device.waitSource(x=>x.includes('tab.today'));const e=await adapter.capture('navigation');const ids=['tab.today','tab.calendar','tab.plans'];const bounds=ids.map(id=>{const tag=e.source.match(new RegExp('<[^>]*resource-id="'+id+'"[^>]*>'))?.[0];const b=tag?.match(/bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/);assert.ok(b,'实际导航节点 '+id);return b.slice(1).map(Number);});record(target,'三个入口等权同排',true,bounds.every(b=>Math.abs((b[2]-b[0])-(bounds[0][2]-bounds[0][0]))<=1&&b[1]===bounds[0][1]));record(target,'顺序保持今日日历计划',true,bounds[0][0]<bounds[1][0]&&bounds[1][0]<bounds[2][0]);fs.writeFileSync(path.join(directory,'navigation-bounds.json'),JSON.stringify(bounds,null,2));}
+   console.log('P02 native public contract/layout passed');
+  }finally{await adapter.close();}return;
+ }
+ throw Error('Task acceptance not implemented: '+taskIds.join(','));
+};

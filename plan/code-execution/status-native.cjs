@@ -1,0 +1,1 @@
+const {execFileSync}=require('node:child_process');const net=execFileSync('netstat',['-ano','-p','tcp'],{encoding:'utf8',windowsHide:true}).split(/\r?\n/).filter(x=>/:8081\s|:4723\s/.test(x));console.log(net.join('\n'));for(const pid of [39852,64412]){console.log(execFileSync('tasklist',['/FI','PID eq '+pid,'/FO','CSV'],{encoding:'utf8',windowsHide:true}));}

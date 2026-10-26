@@ -163,6 +163,11 @@ class Contracts(unittest.TestCase):
         self.assertNotIn("</script><script>unsafe()",text);self.assertEqual(check_html(self.model,self.path),[])
         html.write_text(text.replace('id="model"','id="wrong"'),encoding="utf-8")
         self.assertTrue(check_html(self.model,self.path))
+    def test_html_template_drift_detected_even_when_embedded_model_matches(self):
+        self.command("render");file=self.path.with_suffix(".html");text=file.read_text(encoding="utf-8")
+        file.write_text(text.replace("function toggleSidebar", "function staleSidebar"),encoding="utf-8")
+        self.assertTrue(check_html(self.model,self.path))
+
     @unittest.skipUnless(shutil.which("node"),"Node needed for Canvas simulation")
     def test_canvas_interaction_and_process_removal(self):
         self.command("render")

@@ -10,6 +10,7 @@ import unittest
 from pathlib import Path
 from analyze import SKILL_DIR, raw_hash, execute as graph_execute, load_json, schema_errors
 from work import REVIEW_NAMES, check_work, execute, work_file
+from atomic import build as build_atomic, output_path
 from test_analyze import model_fixture
 
 TEMP_ROOT=None
@@ -45,7 +46,9 @@ class WorkContracts(unittest.TestCase):
     def command(self,name):
         with contextlib.redirect_stdout(io.StringIO()): return execute(name,self.graph,self.base)
     def render(self):
-        with contextlib.redirect_stdout(io.StringIO()): return graph_execute("render",self.graph,self.base)
+        with contextlib.redirect_stdout(io.StringIO()):
+            status=graph_execute("render",self.graph,self.base)
+        return status if status else 0 if build_atomic(self.graph,self.base)["status"]=="passed" else 1
     def question(self):
         return {"question":"失败时是否保留草稿？","impact":"影响终态事实","status":"open","answer":None,"resolution":None}
     def test_separate_schemas_keep_work_out_of_final_graph(self):
@@ -115,8 +118,16 @@ class WorkContracts(unittest.TestCase):
         self.assertEqual(self.command("finalize"),1);self.assertTrue(work_file(self.graph).is_file())
         self.assertEqual(self.render(),0);self.assertEqual(self.command("finalize"),0)
         self.assertEqual(self.graph.read_bytes(),before);self.assertFalse(work_file(self.graph).parent.exists())
-        self.assertEqual({f.name for f in self.graph.parent.iterdir()},{"state-transitions.json","state-transitions.html"})
+        self.assertEqual({f.name for f in self.graph.parent.iterdir()},{"state-transitions.json","state-transitions.html","atomic-requirements.json","atomic-requirements.html"})
         self.assertTrue((self.base/"prd.md").is_file());self.assertTrue((self.base/"design.png").is_file())
+    def test_finalize_preserves_work_when_atomic_package_is_missing(self):
+        self.save_work();self.render();output_path(self.graph).unlink()
+        self.assertEqual(self.command("finalize"),1);self.assertTrue(work_file(self.graph).is_file())
+    def test_finalize_preserves_work_when_atomic_html_is_stale(self):
+        self.save_work();self.render();file=output_path(self.graph).with_suffix(".html")
+        file.write_text(file.read_text(encoding="utf-8").replace("function toggleSidebar", "function brokenToggle"),encoding="utf-8")
+        self.assertEqual(self.command("finalize"),1);self.assertTrue(work_file(self.graph).is_file())
+
     def test_unresolved_question_is_not_deleted(self):
         self.work["clarifications"]=[self.question()];self.save_work();self.render()
         self.assertEqual(self.command("finalize"),2);self.assertTrue(work_file(self.graph).exists())

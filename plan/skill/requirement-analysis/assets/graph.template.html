@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="model-sha256" content="__MODEL_SHA__">
-<title>状态迁移需求分析</title>
+<title>需求分析图</title>
 <style>
 :root{font-family:system-ui,"Noto Sans SC",sans-serif;color:#172b3a;background:#f2f5f8;font-size:15px;line-height:1.65}
 *{box-sizing:border-box}body{margin:0;height:100dvh;display:flex;flex-direction:column;overflow:hidden}button{font:inherit;cursor:pointer;border:1px solid #c3ced9;background:white;color:inherit;border-radius:7px;padding:6px 12px}button:hover,button:focus-visible{border-color:#226fd1;background:#edf4ff;outline:2px solid transparent}header{padding:19px 24px;background:#fff;border-bottom:1px solid #dce3eb}h1{font-size:23px;margin:0 0 4px}select{font:inherit;max-width:240px;padding:5px;border:1px solid #c3ced9;border-radius:6px}h2{font-size:18px;margin:0 0 12px}h3{font-size:16px;margin:21px 0 8px}p{margin:7px 0}code,pre{font-family:ui-monospace,monospace;font-size:12px}pre{background:#f2f5f9;padding:12px;overflow:auto;border-radius:6px;white-space:pre-wrap;overflow-wrap:anywhere}a{color:#185ca3;overflow-wrap:anywhere}.muted{color:#596d7e}.status{display:inline-block;padding:2px 9px;border-radius:12px;background:#fff0cc;color:#765000;font-weight:600}.passed{background:#e1f4e9;color:#1a6543}.failed{background:#ffeaed;color:#a42c3b}.small{font-size:12px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 38px 410px;flex:1;min-height:0}.layout.sidebar-collapsed{grid-template-columns:minmax(0,1fr) 38px}.detail[hidden]{display:none}.sidebar-toggle-rail{display:flex;align-items:flex-start;justify-content:center;padding-top:14px;border-left:1px solid #dce3eb;border-right:1px solid #dce3eb;background:#edf2f7;min-width:0}.sidebar-toggle{display:flex;align-items:center;flex-direction:column;gap:6px;width:30px;min-height:112px;padding:7px 2px;border-color:#99acc0;background:#fff;color:#185ca3;box-shadow:0 1px 3px #17344d14}.sidebar-toggle-icon{font-size:27px;line-height:1}.sidebar-toggle-text{writing-mode:vertical-rl;font-size:13px;letter-spacing:2px;line-height:1.4}.left{display:flex;min-height:0;flex-direction:column}.toolbar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#f8fafc;flex-wrap:wrap}.toolbar span{margin-left:auto}.canvas-area{position:relative;flex:1;min-height:300px;background:#f7fafc;overflow:hidden}canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}canvas:active{cursor:grabbing}canvas:focus-visible{outline:2px solid #2274cd;outline-offset:-3px}.hint{position:absolute;left:14px;bottom:9px;padding:3px 8px;background:#ffffffde;border-radius:6px;pointer-events:none;font-size:12px;color:#64768a}.notice{padding:12px 18px;border-bottom:1px solid #dce3eb;background:#fff8e8;max-height:170px;overflow:auto}.notice strong{display:block}.detail{background:#fff;border-left:1px solid #dce3eb;padding:22px;overflow:auto;overflow-wrap:anywhere}.lead{font-size:17px;font-weight:650;line-height:1.8}.fact{border-left:3px solid #81a7d0;padding:7px 12px;margin:12px 0;background:#f8fafc}.fact strong{font-size:16px}.fact img{width:100%;height:auto;max-height:600px;object-fit:contain;object-position:top;margin-top:10px;border:1px solid #dce3eb;background:#f2f5f8}.empty{color:#687d90;padding:12px 0}.source{font-size:12px;color:#63768a;margin:7px 0}.gwt{padding:12px 14px;border-radius:8px;background:#edf4fc;margin:13px 0}.gwt b{font-size:12px;color:#2363a0;display:block;letter-spacing:.03em}.gate{padding:9px 0;border-bottom:1px solid #e4eaf0}details{margin:14px 0}summary{cursor:pointer;font-weight:600}
 @media(max-width:850px){body{height:auto;min-height:100dvh;overflow:auto}.layout{display:flex;flex:none;flex-direction:column;height:auto}.left{height:68vh;min-height:420px}.detail{border-left:0;border-top:1px solid #dce3eb;min-height:350px}.sidebar-toggle-rail{padding:8px 16px;justify-content:flex-end;border-top:1px solid #dce3eb;border-left:0;border-right:0}.sidebar-toggle{width:auto;min-height:36px;flex-direction:row;padding:4px 12px}.sidebar-toggle-text{writing-mode:horizontal-tb;letter-spacing:0}header{padding:14px 16px}.toolbar span{display:none}}
+.arrival-path{padding:12px;border:1px solid #c8daed;border-radius:8px;background:#f2f7fd;margin:12px 0}.arrival-path h3{margin:0 0 6px}.arrival-path ol{padding-left:24px;max-height:230px;overflow:auto}.arrival-path li{padding:3px 0;overflow-wrap:anywhere}.arrival-path .current{color:#145a9f;font-weight:650}
 </style>
 </head>
 <body>
@@ -22,26 +23,57 @@
 <aside id="detail" class="detail" aria-live="polite"></aside>
 </main>
 <script id="model" type="application/json">__MODEL_JSON__</script>
+<script id="stateModel" type="application/json">__STATE_MODEL_JSON__</script>
 <script>
 'use strict';
-const model=JSON.parse(document.getElementById('model').textContent);
+const artifact=JSON.parse(document.getElementById('model').textContent);
+const isAtomic=Array.isArray(artifact.requirements);
+const stateModel=isAtomic?JSON.parse(document.getElementById('stateModel').textContent):artifact;
+const businessStates=new Map(stateModel.states.map(s=>[s.id,s]));
+const businessTransitions=new Map(stateModel.transitions.map(t=>[t.id,t]));
+const requirementsById=new Map((artifact.requirements||[]).map(r=>[r.id,r]));
+const words=isAtomic?{node:'原子需求',edge:'路线边',nodes:'个原子需求',edges:'条路线边'}:{node:'状态',edge:'迁移',nodes:'个状态',edges:'条迁移'};
+// This is a view projection. Facts, operations and sources are read from the embedded state graph.
+const model=isAtomic?{title:artifact.title,revision:artifact.revision,constraints:stateModel.constraints,
+  states:artifact.requirements.map(r=>{const t=businessTransitions.get(r.transitionId),from=businessStates.get(t.from),to=businessStates.get(t.to);return {id:r.id,title:t.operation.label+(t.condition?' / '+t.condition.statement:''),statement:from.title+' → '+to.title,isInitial:from.isInitial};}),
+  transitions:artifact.edges.map(e=>({id:e.id,from:e.from,to:e.to,restart:e.kind==='restart',operation:{label:e.kind==='restart'?'重新进入起点 '+e.to:'经 '+e.viaStateId+' · '+businessStates.get(e.viaStateId).title}}))}:artifact;
+
 const byState=new Map(model.states.map(s=>[s.id,s]));
 const graph=document.getElementById('graph'),ctx=graph.getContext('2d'),detail=document.getElementById('detail');
 let scale=1,offsetX=30,offsetY=35,selected=null,drag=null,width=0,height=0,nodeBoxes=[],allNodeBoxes=[],edgePaths=[],focusId="",visibleStates=model.states,visibleEdges=model.transitions;
 const edgeAdjustments=new Map();
+let allEdgeGeometry=null,selectedArrivalIndex=-1;
+const routeEdgeByPair=new Map((artifact.edges||[]).map(e=>[JSON.stringify([e.from,e.to]),e]));
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function pretty(v){return esc(JSON.stringify(v,null,2));}
-function safePath(v){return /^[a-z][a-z0-9+.-]*:/i.test(v)||String(v).startsWith('//')?'#':esc(v);}
+function safePath(v){const raw=String(v??'');if(/^[a-z][a-z0-9+.-]*:/i.test(raw)||raw.startsWith('//'))return '#';const base=isAtomic?artifact.stateGraph.path.replace(/[^/]*$/,''):'';return esc(base+raw);}
 function sourceBlock(refs){return (refs||[]).map(s=>s.kind==='ui'?'<article class="fact"><p><a href="'+safePath(s.structurePath)+'" target="_blank" rel="noopener">UI结构：'+esc(s.documentId)+'</a><br><span class="small">节点：'+esc(s.nodeIds.join('、'))+'</span></p><a href="'+safePath(s.screenshotPath)+'" target="_blank" rel="noopener"><img loading="eager" src="'+safePath(s.screenshotPath)+'" alt="原截图 '+esc(s.documentId)+'"></a><p class="small muted">原截图用于定位来源；动态数据按JSON绑定与场景输入验收。</p></article>':'<article class="source"><a href="'+safePath(s.path)+'" target="_blank" rel="noopener">'+esc(s.path)+'</a> · '+esc(s.locator)+(s.quote?'<p>'+esc(s.quote)+'</p>':'')+'</article>').join('');}
 function observed(o){return '<p class="small muted">观察：'+esc(o.method)+' · '+esc(o.locator)+'</p>';}
 function factBlock(f){return '<article class="fact"><strong>'+esc(f.statement)+'</strong>'+observed(f.observation)+'<details class="small"><summary>验收断言</summary><pre>'+pretty(f.assertion)+'</pre></details></article>';}
-function selectState(id){const s=byState.get(id);if(!s)return;selected={type:'state',id};detail.innerHTML='<span class="muted small">状态 '+esc(s.id)+(s.isInitial?' · 起点':'')+'</span><h2>'+esc(s.title)+'</h2><p class="lead">'+esc(s.statement)+'</p>'+(s.visualFacts.length?'<h3>视觉事实</h3>'+s.visualFacts.map(factBlock).join(''):'')+(s.source.some(x=>x.kind==='ui')?'<h3>UI结构与原截图</h3>'+sourceBlock(s.source.filter(x=>x.kind==='ui')):'')+(s.functionalFacts.length?'<h3>功能事实</h3>'+s.functionalFacts.map(factBlock).join(''):'')+'<h3>直接来源</h3>'+sourceBlock(s.source.filter(x=>x.kind!=='ui'));draw();}
-function selectEdge(id){const e=model.transitions.find(e=>e.id===id);if(!e)return;selected={type:'edge',id};const from=byState.get(e.from),to=byState.get(e.to),op=e.operation;
+function stateFacts(s){return '<h3>'+esc(s.id)+' · '+esc(s.title)+'</h3><p class="lead">'+esc(s.statement)+'</p>'+(s.visualFacts.length?'<h3>视觉事实</h3>'+s.visualFacts.map(factBlock).join(''):'')+(s.source.some(x=>x.kind==='ui')?'<h3>UI结构与原截图</h3>'+sourceBlock(s.source.filter(x=>x.kind==='ui')):'')+(s.functionalFacts.length?'<h3>功能事实</h3>'+s.functionalFacts.map(factBlock).join(''):'')+'<h3>直接来源</h3>'+sourceBlock(s.source.filter(x=>x.kind!=='ui'));}
+function operationExtras(t){return (t.operation.input?'<h3>动作输入</h3><pre>'+pretty(t.operation.input)+'</pre>':'')+(t.condition?'<h3>分支结果样例</h3><pre>'+pretty(t.condition.sampleOutcome)+'</pre>':'')+(t.effects?'<h3>结果关系</h3>'+t.effects.map(f=>'<article class="fact"><strong>'+esc(f.statement)+'</strong><pre>'+pretty(f.assertion)+'</pre></article>').join(''):'');}
+function arrivalPath(id){
+  if(!isAtomic)return null;const sequence=artifact.coverage.sequence;
+  const end=selectedArrivalIndex>=0&&sequence[selectedArrivalIndex]===id?selectedArrivalIndex:sequence.indexOf(id);if(end<0)return {ids:[],edges:[],start:0,end:-1};
+  let start=0;for(let i=end;i>=0;i--)if(byState.get(sequence[i])?.isInitial){start=i;break;}
+  const ids=sequence.slice(start,end+1),edges=[];for(let i=1;i<ids.length;i++){const edge=routeEdgeByPair.get(JSON.stringify([ids[i-1],ids[i]]));if(edge)edges.push(edge.id);}
+  return {ids,edges,start,end};
+}
+function arrivalPathHTML(id){
+  const route=arrivalPath(id),sequence=artifact.coverage.sequence,occurrences=sequence.flatMap((value,index)=>value===id?[index]:[]);
+  return '<section class="arrival-path"><h3>到达路径</h3><p class="small muted">最优覆盖共 '+artifact.coverage.visitCount+' 次需求访问；当前显示本段起始需求至覆盖序列第 '+(route.end+1)+' 步的路径。</p>'+(occurrences.length>1?'<label class="small">到达次数 <select id="arrivalOccurrence" aria-label="选择当前需求的到达次数">'+occurrences.map((index,k)=>'<option value="'+index+'"'+(index===route.end?' selected':'')+'>第 '+(k+1)+' 次 · 总序列第 '+(index+1)+' 步</option>').join('')+'</select></label>':'')+'<ol>'+route.ids.map((value,k)=>{const req=requirementsById.get(value),t=businessTransitions.get(req.transitionId);return '<li'+(k===route.ids.length-1?' class="current"':'')+'><strong>'+esc(value)+'</strong> · '+esc(t.operation.label)+(t.condition?' / '+esc(t.condition.statement):'')+'<span class="small muted">（总序列第 '+(route.start+k+1)+' 步）</span></li>';}).join('')+'</ol></section>';
+}
+function bindArrivalSelector(id){const control=document.getElementById('arrivalOccurrence');if(control)control.onchange=e=>{const index=Number(e.target.value);if(artifact.coverage.sequence[index]!==id)return;selectedArrivalIndex=index;focusGraph(id);selectRequirement(id);};}
+function selectRequirement(id){const r=requirementsById.get(id);if(!r)return;if(artifact.coverage.sequence[selectedArrivalIndex]!==id)selectedArrivalIndex=artifact.coverage.sequence.indexOf(id);const t=businessTransitions.get(r.transitionId),from=businessStates.get(t.from),to=businessStates.get(t.to);selected={type:'state',id};detail.innerHTML='<span class="muted small">原子需求 '+esc(r.id)+' · 迁移 '+esc(t.id)+(from.isInitial?' · 起点':'')+'</span><h2>'+esc(t.operation.label)+'</h2>'+arrivalPathHTML(id)+'<p class="lead">'+esc(from.title)+' → '+esc(to.title)+'</p><div class="gwt"><b>GIVEN · 初态</b>'+esc(from.statement)+'</div>'+stateFacts(from)+'<div class="gwt"><b>WHEN · 动作</b>'+esc(t.operation.actor)+'：'+esc(t.operation.label)+'</div>'+(t.condition?'<div class="gwt"><b>事后分支条件</b>'+esc(t.condition.statement)+observed(t.condition.observation)+'</div>':'')+'<div class="gwt"><b>THEN · 终态</b>'+esc(to.statement)+'</div>'+stateFacts(to)+operationExtras(t);bindArrivalSelector(id);draw();}
+function selectHandoff(id){const e=artifact.edges.find(e=>e.id===id);if(!e)return;const a=requirementsById.get(e.from),b=requirementsById.get(e.to),ta=businessTransitions.get(a.transitionId),tb=businessTransitions.get(b.transitionId);selected={type:'edge',id};detail.innerHTML='<span class="muted small">路线边 '+esc(e.id)+'</span><h2>'+esc(e.from)+' → '+esc(e.to)+'</h2><p class="lead">'+esc(ta.operation.label)+' → '+esc(tb.operation.label)+'</p>'+(e.kind==='restart'?'<div class="gwt"><b>重新进入起始需求</b>'+esc(e.to)+'</div><p>当前段结束后，按已授权的起点准备方式重新进入 '+esc(tb.from)+'，再执行 '+esc(e.to)+'。该连接只表达覆盖路线的重入。</p>'+stateFacts(businessStates.get(tb.from)):'<div class="gwt"><b>前项终态 = 后项初态</b>'+esc(e.viaStateId)+' · '+esc(businessStates.get(e.viaStateId).title)+'</div>'+stateFacts(businessStates.get(e.viaStateId)));draw();}
+function selectState(id){if(isAtomic){selectRequirement(id);return;}const s=byState.get(id);if(!s)return;selected={type:'state',id};detail.innerHTML='<span class="muted small">状态 '+esc(s.id)+(s.isInitial?' · 起点':'')+'</span><h2>'+esc(s.title)+'</h2><p class="lead">'+esc(s.statement)+'</p>'+(s.visualFacts.length?'<h3>视觉事实</h3>'+s.visualFacts.map(factBlock).join(''):'')+(s.source.some(x=>x.kind==='ui')?'<h3>UI结构与原截图</h3>'+sourceBlock(s.source.filter(x=>x.kind==='ui')):'')+(s.functionalFacts.length?'<h3>功能事实</h3>'+s.functionalFacts.map(factBlock).join(''):'')+'<h3>直接来源</h3>'+sourceBlock(s.source.filter(x=>x.kind!=='ui'));draw();}
+function selectEdge(id){if(isAtomic){selectHandoff(id);return;}const e=model.transitions.find(e=>e.id===id);if(!e)return;selected={type:'edge',id};const from=byState.get(e.from),to=byState.get(e.to),op=e.operation;
 detail.innerHTML='<span class="muted small">迁移 '+esc(e.id)+'</span><h2>'+esc(op.label)+'</h2><p class="lead">'+esc(from.title)+' → '+esc(to.title)+'</p><div class="gwt"><b>GIVEN · 初态</b>'+esc(from.statement)+'</div><div class="gwt"><b>WHEN · 动作</b>'+esc(op.actor)+'：'+esc(op.label)+'</div>'+(e.condition?'<div class="gwt"><b>事后分支条件</b>'+esc(e.condition.statement)+observed(e.condition.observation)+'</div>':'')+'<div class="gwt"><b>THEN · 终态</b>'+esc(to.statement)+'</div>'+(op.input?'<h3>动作输入</h3><pre>'+pretty(op.input)+'</pre>':'')+(e.condition?'<h3>分支结果样例</h3><pre>'+pretty(e.condition.sampleOutcome)+'</pre>':'')+(e.effects?'<h3>结果关系</h3>'+e.effects.map(f=>'<article class="fact"><strong>'+esc(f.statement)+'</strong><pre>'+pretty(f.assertion)+'</pre></article>').join(''):'')+'<h3>直接来源</h3>'+sourceBlock(e.source);draw();}
-function showOverview(){selected=null;detail.innerHTML='<h2>全局约束</h2><p class="muted">以下规则对全部状态与迁移生效。</p>'+(model.constraints.length?model.constraints.map(c=>'<article class="fact"><strong>'+esc(c.statement)+'</strong>'+sourceBlock(c.source)+'</article>').join(''):'<p class="empty">无额外全局约束。</p>');draw();}
+function showOverview(){selected=null;detail.innerHTML='<h2>全局约束</h2><p class="muted">'+(isAtomic?'以下规则沿用来源状态图，对全部原子需求生效。':'以下规则对全部状态与迁移生效。')+'</p>'+(model.constraints.length?model.constraints.map(c=>'<article class="fact"><strong>'+esc(c.statement)+'</strong>'+sourceBlock(c.source)+'</article>').join(''):'<p class="empty">无额外全局约束。</p>');draw();}
 // Multi-source BFS assigns the minimum number of transitions from any initial state.
 // Focus filters this complete layout; only resetLayout explicitly rebuilds coordinates.
 function buildLayout(){
+  allEdgeGeometry=null;
   const levels=new Map(),queue=[],outgoing=new Map(model.states.map(s=>[s.id,[]]));
   for(const e of model.transitions)outgoing.get(e.from)?.push(e.to);
   for(const s of model.states)if(s.isInitial){levels.set(s.id,0);queue.push(s.id);}
@@ -54,18 +86,25 @@ function buildLayout(){
   updateVisibility();
 }
 function updateVisibility(){
-  const ids=focusId?new Set([focusId,...model.transitions.filter(e=>e.from===focusId||e.to===focusId).flatMap(e=>[e.from,e.to])]):new Set(model.states.map(s=>s.id));
+  const route=isAtomic&&focusId?arrivalPath(focusId):null;
+  const ids=route?new Set(route.ids):focusId?new Set([focusId,...model.transitions.filter(e=>e.from===focusId||e.to===focusId).flatMap(e=>[e.from,e.to])]):new Set(model.states.map(s=>s.id));
   visibleStates=model.states.filter(s=>ids.has(s.id));
-  visibleEdges=focusId?model.transitions.filter(e=>e.from===focusId||e.to===focusId):model.transitions;
+  const routeEdges=route?new Set(route.edges):null;
+  visibleEdges=route?model.transitions.filter(e=>routeEdges.has(e.id)):focusId?model.transitions.filter(e=>e.from===focusId||e.to===focusId):model.transitions;
   nodeBoxes=allNodeBoxes.filter(n=>ids.has(n.id));
 }
 function textLines(text,x,y,maxWidth,maxLines,font,lineHeight){ctx.font=font;let line='',lineNo=0;for(const char of String(text)){if(ctx.measureText(line+char).width>maxWidth&&line){ctx.fillText(line,x,y+lineNo*lineHeight);lineNo++;line='';if(lineNo>=maxLines)return;}line+=char;}if(lineNo<maxLines)ctx.fillText(line,x,y+lineNo*lineHeight);}
 function cubic(a,b,c,d,t){const u=1-t;return {x:u*u*u*a.x+3*u*u*t*b.x+3*u*t*t*c.x+t*t*t*d.x,y:u*u*u*a.y+3*u*u*t*b.y+3*u*t*t*c.y+t*t*t*d.y};}
 function intersects(a,b,pad=0){return a.x<b.x+b.w+pad&&a.x+a.w>b.x-pad&&a.y<b.y+b.h+pad&&a.y+a.h>b.y-pad;}
+function obstacleIndex(){
+  const cells=new Map();
+  function visit(box,callback){for(let x=Math.floor(box.x/256);x<=Math.floor((box.x+box.w)/256);x++)for(let y=Math.floor(box.y/128);y<=Math.floor((box.y+box.h)/128);y++)if(callback(x+':'+y))return true;return false;}
+  return {add(box,pad){const expanded={x:box.x-pad,y:box.y-pad,w:box.w+pad*2,h:box.h+pad*2};visit(expanded,key=>{if(!cells.has(key))cells.set(key,[]);cells.get(key).push(expanded);return false;});},overlaps(box){return visit(box,key=>(cells.get(key)||[]).some(other=>intersects(box,other)));}};
+}
 function placeEdgeLabel(points,labelWidth,used){
   for(const radius of [0,28,56,84,112,140])for(const index of [20,16,24,12,28])for(const dx of radius?[0,-radius,radius]:[0])for(const dy of radius?[-radius,radius,0]:[0]){
     const p=points[index],box={x:p.x-labelWidth/2+dx,y:p.y-22+dy,w:labelWidth,h:25};
-    if(allNodeBoxes.some(n=>intersects(box,n,5))||used.some(b=>intersects(box,b,4)))continue;
+    if(used.overlaps(box))continue;
     return {...box,anchor:p};
   }
   const p=points[20];return {x:p.x-labelWidth/2,y:p.y-22,w:labelWidth,h:25,anchor:p};
@@ -83,8 +122,8 @@ function edgeGeometry(e,boxes){
   return Array.from({length:41},(_,i)=>cubic(p0,p1,p2,p3,i/40));
 }
 function paintEdge(e,active){
-  ctx.strokeStyle=active?'#1769bc':'#8094aa';ctx.lineWidth=active?3:1.8;
-  ctx.beginPath();ctx.moveTo(e.points[0].x,e.points[0].y);for(const p of e.points.slice(1))ctx.lineTo(p.x,p.y);ctx.stroke();
+  ctx.strokeStyle=active?'#1769bc':e.restart?'#a66a20':'#8094aa';ctx.lineWidth=active?3:1.8;ctx.setLineDash(e.restart?[7,5]:[]);
+  ctx.beginPath();ctx.moveTo(e.points[0].x,e.points[0].y);for(const p of e.points.slice(1))ctx.lineTo(p.x,p.y);ctx.stroke();ctx.setLineDash([]);
   const end=e.points.at(-1),prev=e.points.at(-3),angle=Math.atan2(end.y-prev.y,end.x-prev.x);
   ctx.fillStyle=ctx.strokeStyle;ctx.beginPath();ctx.moveTo(end.x,end.y);ctx.lineTo(end.x-11*Math.cos(angle-.45),end.y-11*Math.sin(angle-.45));ctx.lineTo(end.x-11*Math.cos(angle+.45),end.y-11*Math.sin(angle+.45));ctx.closePath();ctx.fill();
   const box=e.label,anchor=box.anchor;
@@ -95,14 +134,19 @@ function draw(){
   if(!width||!height)return;
   const ratio=window.devicePixelRatio||1;ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(scale,scale);
   // Compute labels from the whole layout, then filter. Focus never moves nodes, curves or labels.
-  const boxes=new Map(allNodeBoxes.map(n=>[n.id,n])),visibleIds=new Set(visibleEdges.map(e=>e.id)),used=[],paths=[];
+  const visibleIds=new Set(visibleEdges.map(e=>e.id));
+  if(!allEdgeGeometry){
+  const boxes=new Map(allNodeBoxes.map(n=>[n.id,n])),used=obstacleIndex(),paths=[];
+  for(const n of allNodeBoxes)used.add(n,5);
   for(const e of model.transitions){
     const points=edgeGeometry(e,boxes);if(!points)continue;
     const fullLabel=e.id+' '+e.operation.label+(e.condition?' / '+e.condition.statement:'');ctx.font='12px system-ui';let label=fullLabel;
     while(ctx.measureText(label).width>235&&label.length>1)label=label.slice(0,-2)+'…';
-    const box=placeEdgeLabel(points,ctx.measureText(label).width+12,used);used.push(box);if(visibleIds.has(e.id))paths.push({id:e.id,points,label:box,text:label});
+    const box=placeEdgeLabel(points,ctx.measureText(label).width+12,used);used.add(box,4);paths.push({id:e.id,points,label:box,text:label,restart:!!e.restart});
   }
-  edgePaths=paths;
+  allEdgeGeometry=paths;
+  }
+  edgePaths=allEdgeGeometry.filter(e=>visibleIds.has(e.id));
   const activeEdge=selected?.type==='edge'?edgePaths.find(e=>e.id===selected.id):null;
   for(const e of edgePaths)if(e!==activeEdge)paintEdge(e,false);
   for(const n of nodeBoxes){
@@ -113,7 +157,7 @@ function draw(){
   }
   // Draw the selected edge after every node and other edge, matching hit-test priority.
   if(activeEdge)paintEdge(activeEdge,true);
-  if(!nodeBoxes.length){ctx.fillStyle='#5d7288';ctx.font='600 20px system-ui';ctx.fillText('本范围无状态',20,70);textLines('全局要求见右侧约束。',20,100,Math.max(260,(width-80)/scale),4,'14px system-ui',25);}
+  if(!nodeBoxes.length){ctx.fillStyle='#5d7288';ctx.font='600 20px system-ui';ctx.fillText('本范围无'+words.node,20,70);textLines('全局要求见右侧约束。',20,100,Math.max(260,(width-80)/scale),4,'14px system-ui',25);}
   ctx.restore();
 }
 function resize(){const r=graph.getBoundingClientRect();width=r.width;height=r.height;const d=window.devicePixelRatio||1;graph.width=Math.round(width*d);graph.height=Math.round(height*d);draw();}
@@ -135,8 +179,8 @@ function hitTest(x,y){
   const n=nodeBoxes.slice().reverse().find(n=>p.x>=n.x&&p.x<=n.x+n.w&&p.y>=n.y&&p.y<=n.y+n.h);if(n)return {type:'state',id:n.id};
   const e=edgePaths.slice().reverse().find(e=>e!==active&&edgeContains(e,p));return e?{type:'edge',id:e.id}:null;
 }
-function focusGraph(id){focusId=byState.has(id)?id:'';document.getElementById('focusState').value=focusId;updateVisibility();if(selected&&!nodeBoxes.some(n=>selected.type==='state'&&n.id===selected.id)&&!visibleEdges.some(e=>selected.type==='edge'&&e.id===selected.id))selected=null;draw();}
-function activateState(id){focusGraph(focusId===id?'':id);selectState(id);}
+function focusGraph(id){focusId=byState.has(id)?id:'';if(isAtomic&&focusId&&artifact.coverage.sequence[selectedArrivalIndex]!==focusId)selectedArrivalIndex=artifact.coverage.sequence.indexOf(focusId);document.getElementById('focusState').value=focusId;updateVisibility();if(selected&&!nodeBoxes.some(n=>selected.type==='state'&&n.id===selected.id)&&!visibleEdges.some(e=>selected.type==='edge'&&e.id===selected.id))selected=null;draw();}
+function activateState(id){if(isAtomic&&focusId!==id)selectedArrivalIndex=artifact.coverage.sequence.indexOf(id);focusGraph(focusId===id?'':id);selectState(id);}
 function activate(hit){if(hit?.type==='state')activateState(hit.id);else if(hit?.type==='edge')selectEdge(hit.id);}
 function selectAt(x,y){activate(hitTest(x,y));}
 function pointerPosition(e){const r=graph.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top};}
@@ -150,7 +194,7 @@ graph.addEventListener('pointermove',e=>{
   if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)>4)drag.moved=true;if(!drag.moved)return;
   if(drag.node){drag.node.x=drag.nx+dx/drag.scale;drag.node.y=drag.ny+dy/drag.scale;}
   else if(drag.hit?.type==='edge')edgeAdjustments.set(drag.hit.id,{dx:drag.dx+dx/drag.scale,dy:drag.dy+dy/drag.scale});
-  else{offsetX=drag.ox+dx;offsetY=drag.oy+dy;}draw();
+  else{offsetX=drag.ox+dx;offsetY=drag.oy+dy;}if(drag.hit)allEdgeGeometry=null;draw();
 });
 graph.addEventListener('pointerup',()=>{if(drag&&!drag.moved)activate(drag.hit);drag=null;});
 graph.addEventListener('pointercancel',()=>drag=null);
@@ -172,11 +216,12 @@ function toggleSidebar(){
   document.getElementById('sidebarToggleIcon').textContent=collapsed?'‹':'›';
   document.getElementById('sidebarToggleText').textContent=label;resize();
 }
-function resetLayout(){edgeAdjustments.clear();focusId='';document.getElementById('focusState').value='';buildLayout();draw();fit();}
-const focusControl=document.getElementById('focusState');focusControl.innerHTML='<option value="">全图</option>'+model.states.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>').join('');focusControl.onchange=()=>{focusGraph(focusControl.value);if(focusId)selectState(focusId);};
+function resetLayout(){selectedArrivalIndex=-1;edgeAdjustments.clear();focusId='';document.getElementById('focusState').value='';buildLayout();draw();fit();}
+const focusControl=document.getElementById('focusState');focusControl.innerHTML='<option value="">全图</option>'+model.states.map(s=>'<option value="'+esc(s.id)+'">'+esc(s.title)+'</option>').join('');focusControl.onchange=()=>{if(isAtomic)selectedArrivalIndex=artifact.coverage.sequence.indexOf(focusControl.value);focusGraph(focusControl.value);if(focusId)selectState(focusId);};
 document.getElementById('fit').onclick=fit;document.getElementById('zoomIn').onclick=()=>zoom(1.2);document.getElementById('zoomOut').onclick=()=>zoom(1/1.2);document.getElementById('overview').onclick=showOverview;document.getElementById('toggleSidebar').onclick=toggleSidebar;document.getElementById('resetLayout').onclick=resetLayout;
 document.getElementById('title').textContent=model.title;document.title=model.title;
-document.getElementById('meta').textContent='修订 '+model.revision+' · '+model.states.length+' 个状态 · '+model.transitions.length+' 条迁移 · '+model.constraints.length+' 项全局约束';
+if(isAtomic){document.querySelector('.left').setAttribute('aria-label','原子需求衔接图');graph.setAttribute('aria-label','原子需求图：方向键选择原子需求，Shift加方向键选择路线边，Enter显示到达路径，Escape恢复全图');const label=document.querySelector('label.small');label.firstChild.textContent='需求到达路径 ';focusControl.setAttribute('aria-label','选择显示从起始需求到当前需求的到达路径');document.querySelector('.toolbar span').textContent='圆点标记起点 · 点击需求显示到达路径 · 虚线表示重新进入起点';}
+document.getElementById('meta').textContent='修订 '+model.revision+' · '+model.states.length+' '+words.nodes+' · '+model.transitions.length+' '+words.edges+' · '+model.constraints.length+' 项全局约束'+(isAtomic?' · 最少 '+artifact.coverage.visitCount+' 次访问（重复 '+artifact.coverage.additionalVisitCount+' 次）':'');
 buildLayout();showOverview();new ResizeObserver(resize).observe(graph.parentElement);resize();fit();
 </script>
 </body>

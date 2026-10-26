@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:requirement-analysis:atomic-requirements",
+  "title": "原子需求衔接图",
+  "description": "由状态图确定性派生一迁移一原子需求，精确求得可重入起点且覆盖全部需求的最少访问路线，仅保留路线使用的边。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "title",
+    "revision",
+    "stateGraph",
+    "requirements",
+    "edges",
+    "coverage"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stateGraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "transitionId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "transitionId": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "from",
+          "to",
+          "kind"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "from": {
+            "type": "string",
+            "minLength": 1
+          },
+          "to": {
+            "type": "string",
+            "minLength": 1
+          },
+          "viaStateId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "handoff",
+              "restart"
+            ]
+          }
+        },
+        "anyOf": [
+          {
+            "properties": {
+              "kind": {
+                "const": "handoff"
+              }
+            },
+            "required": [
+              "viaStateId"
+            ]
+          },
+          {
+            "properties": {
+              "kind": {
+                "const": "restart"
+              },
+              "viaStateId": false
+            }
+          }
+        ]
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "optimality",
+        "sequence",
+        "visitCount",
+        "minimumVisitCount",
+        "additionalVisitCount"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "min-cost-circulation-with-free-restarts"
+        },
+        "optimality": {
+          "const": "proven"
+        },
+        "sequence": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "visitCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "minimumVisitCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "additionalVisitCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

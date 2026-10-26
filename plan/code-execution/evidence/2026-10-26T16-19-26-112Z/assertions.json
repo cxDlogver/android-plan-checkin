@@ -1,0 +1,39 @@
+{
+  "assertions": [
+    {
+      "target": "task:P01:2",
+      "label": "Current native container fixture available",
+      "expected": "ui-test.open.today is present in the current host",
+      "actual": {
+        "error": "Error: Product control unavailable: ui-test.open.today\n    at DeviceDriver.seek (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\scripts\\device-driver.cjs:26:652)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async DeviceDriver.clickVisible (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\scripts\\device-driver.cjs:27:124)\n    at async NativeAdapter.controlsSmoke (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\tests\\ui\\native-adapter.cjs:13:185)\n    at async F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\scripts\\ui-test.cjs:19:244",
+        "hostReport": {
+          "kind": "native-controls",
+          "choice": "b",
+          "value": "实际控件输入",
+          "calls": [
+            {
+              "name": "enabled"
+            },
+            {
+              "name": "choice",
+              "value": "b"
+            },
+            {
+              "name": "input",
+              "value": "实际控件输入"
+            }
+          ],
+          "layouts": {
+            "controls": {
+              "x": 17.090909957885742,
+              "y": 17.090909957885742,
+              "width": 318.5454406738281,
+              "height": 250.18182373046875
+            }
+          }
+        }
+      },
+      "verdict": "failed"
+    }
+  ]
+}

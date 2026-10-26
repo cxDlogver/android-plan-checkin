@@ -5,13 +5,17 @@
   "main": "expo-router/entry",
   "description": "计划打卡 Android V1",
   "packageManager": "pnpm@10.28.2",
-  "engines": { "node": ">=24.3.0 <25", "pnpm": "10.28.2" },
+  "engines": {
+    "node": ">=24.3.0 <25",
+    "pnpm": "10.28.2"
+  },
   "scripts": {
     "start": "expo start --dev-client",
     "typecheck": "tsc --noEmit",
     "test:domain": "tsc -p tsconfig.node.json && node --test .artifacts/tests/tests/domain/*.test.js",
     "verify": "node scripts/p1.cjs",
-    "progress": "node scripts/progress.cjs"
+    "progress": "node scripts/progress.cjs",
+    "test:ui": "node scripts/ui-test.cjs"
   },
   "dependencies": {
     "expo": "57.0.27",

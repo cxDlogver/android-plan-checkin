@@ -1,0 +1,2 @@
+'use strict';
+const {spawn}=require('node:child_process'),path=require('node:path'),{env}=require('../../../scripts/task-env.cjs');const root=path.resolve(__dirname,'../../..');const taskIds=process.argv[2],args=process.argv.slice(3);const child=spawn(process.execPath,[path.join(root,'scripts/ui-test.cjs'),...args],{cwd:root,env:{...env,UI_TASK_IDS:taskIds},stdio:'inherit',windowsHide:true});child.on('exit',code=>process.exitCode=code??1);

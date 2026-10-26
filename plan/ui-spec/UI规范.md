@@ -130,7 +130,7 @@
 
 扩展只补充基础Schema不能完整表达的视觉与环境信息，不存候选布局。
 
-- style.extensions.fontAssetRef：关联字体资源，fontFamilies仍为准确家族名称。Noto Sans SC文件随包保存；Inter目前missing，不能静默替换家族并宣称还原完成。
+- style.extensions.fontAssetRef：关联字体资源，fontFamilies仍为准确家族名称。Noto Sans SC文件随包保存；Inter 4.1可变字体及OFL许可随包保存，准确版本和摘要登记在manifest与library中。
 - style.extensions.strokePaint：渐变描边的唯一配方；保存widths、alignment、有序paints及geometry。出现该扩展时style.stroke=null，避免绘制两道边框。
 - style.extensions.fillGeometry：按layer对应fills中的渐变层，保存归一化center、size与rotationCCW；用于保持源渐变在不同宽高比下的方向、长度和stop位置。
 - node.extensions.textFlow：breakPolicy=grapheme表示按字素边界换行；maxWidth=allocated-parent-content表示内容宽度不超过父级给出的可用区域。原稿auto文本在空间足够时保持自然宽度，空间不足时按此规则重排。
@@ -147,7 +147,7 @@
 
 | 问题 | 本次处理 | 对交付的影响 |
 | --- | --- | --- |
-| FONT-INTER | 当前规范中Inter资源仍为missing；此前本地检索及远程读取未取得可用文件。本轮保留准确家族，不扩展下载任务 | 关键缺失，manifest保持draft、readiness=blocked；日历日期及汇总的字形尚无法自足 |
+| FONT-INTER | 官方Inter 4.1可变字体、许可、来源与文件摘要已登记 | 资源缺失已解决；实际字形仍须在宿主验收 |
 | PROGRESS-LABEL-GEOMETRY | 原文案与几何均已改为动态占位 | 已解决；按本次场景提供的计数和比例验收，不固定原稿数值 |
 | DESKTOP-NOT-PROVIDED | 不生成desktop profile | 桌面端未覆盖；不能把768测试为“手机稿继续正常显示” |
 | 未执行的视觉检查 | baselineVisual与responsiveVisual均为not-tested | 结构通过不代表页面已达到视觉还原或适配验收 |
@@ -166,7 +166,7 @@
 python plan/skill/ui-spec-normalizer/scripts/validate_spec.py plan/ui-spec --report plan/ui-spec/validation-report.json
 ```
 
-日常修改documents/rules/library后更新manifest哈希并复验。补齐Inter后登记文件哈希、解决FONT-INTER，再检查发布就绪度；不能只改authority隐藏缺失。
+日常修改documents/rules/library后更新manifest哈希并复验。字体来源与许可在manifest登记；变更资源时核对文件摘要并重新检查发布就绪度。
 
 最终交付保留UI规范、manifest/rules/library、documents、Schema、校验报告及直接依赖的资源。原始节点快照副本、临时转换／审计脚本和过程记录在收尾时删除；来源与检查结论保存在最终字段和报告中。新增设计版本另行读取授权来源并明确迁移范围。
 

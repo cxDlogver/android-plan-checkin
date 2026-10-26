@@ -1,11 +1,11 @@
 ---
 name: requirement-analysis
-description: 根据PRD和授权UI资料，将可观察可验收的视觉事实与功能事实建成状态迁移图，澄清歧义，输出仅含状态、内嵌动作的迁移和全局约束的JSON与Canvas HTML。用于需求事实和必要动作建模；不实现应用。
+description: 根据PRD和授权UI资料澄清需求，以可观察可验收的视觉事实和功能事实建立状态迁移图，再以一迁移一原子需求和可重入起点规则精确求解最少访问路线，交付两组JSON与共用Canvas模板生成的HTML。用于需求事实、必要动作及原子需求建模；不实现应用。
 ---
 
-# 状态迁移需求分析
+# 状态迁移与原子需求分析
 
-先读[数据契约](references/contract.md)，使用[JSON Schema](assets/state-transitions.schema.json)。
+先读[状态图数据契约](references/contract.md)，使用[状态图Schema](assets/state-transitions.schema.json)；派生原子图时读取[原子需求图规范](references/atomic-requirements.md)，使用[原子图Schema](assets/atomic-requirements.schema.json)。
 
 本Skill定义通用的需求状态建模方法。业务实体、页面结构、文案、端型、断点、尺寸和资源取值均以输入的PRD及授权UI资料为准。下文示例仅说明判定方法，实际纳入内容由正式需求来源确定。
 
@@ -16,8 +16,9 @@ description: 根据PRD和授权UI资料，将可观察可验收的视觉事实�
 - 每条迁移内嵌自己的operation。动作属于明示要求或到达目标事实的必要步骤。
 - condition仅用于动作后存在不同结果的真实分支。同组分支互斥，初态—动作—条件确定唯一结果。
 - 已确定的前提和全局规则持续适用，只登记新增或发生变化的事实。
-- 最终图只包含states、transitions、constraints三类内容及必要文件元数据。
-- JSON和HTML同版；分析、澄清与校验过程资料在完成后清理。
+- 最终状态图只包含states、transitions、constraints三类内容及必要文件元数据。
+- 每条迁移恰对应一个原子需求；普通进入须前项终态等于后项初态，起始需求可随时重入。精确求得覆盖全部需求且总访问次数最少的序列，仅保留该序列使用的边。
+- 两张图各自的JSON和HTML同步，原子图绑定同版状态图；分析、澄清与校验过程资料在完成后清理。
 
 ## 1. 确定需求与澄清
 
@@ -29,7 +30,7 @@ description: 根据PRD和授权UI资料，将可观察可验收的视觉事实�
 python <skill-dir>/scripts/work.py init <output-dir>/state-transitions.json --workspace <project-root>
 ~~~
 
-初始化程序依据analysis-work.schema.json的const、default和字段类型建立工作记录，不读取独立template文件。.work中的记录在任务完成后删除；analysis-work.schema.json作为规范保留。最终JSON及HTML只包含状态、迁移和全局约束及文件元数据。
+初始化程序依据analysis-work.schema.json的const、default和字段类型建立工作记录，不读取独立template文件。.work中的记录在任务完成后删除；analysis-work.schema.json作为规范保留。最终状态JSON及HTML只包含状态、迁移和全局约束及文件元数据；原子图引用该正式状态图，不增加过程字段。
 
 | 执行步骤 | 工作记录字段 | 与最终图的联系 |
 | --- | --- | --- |
@@ -38,8 +39,8 @@ python <skill-dir>/scripts/work.py init <output-dir>/state-transitions.json --wo
 | 1.3 澄清触发 | clarifications，status=open | 对应未确定内容暂不定稿 |
 | 1.4 澄清处理 | answer、resolution及必要的resolutionSource | 用实际回答更新事实和动作；需求改变时定位已更新的正式来源 |
 | 2.5 确定起点 | entries | 逐个核对起点的进入或准备依据，无边状态说明独立验收依据 |
-| 6.1 语义审查 | reviews、graphSha256 | 结合逐项依据核对本版图的范围、覆盖和判断 |
-| 第7节收尾 | 完成校验后删除工作副本 | 最终仅交付状态迁移JSON和HTML |
+| 7.1 语义审查 | reviews、graphSha256 | 结合逐项依据核对本版图的范围、覆盖和判断 |
+| 第8节收尾 | 完成双图校验后删除工作副本 | 最终交付状态图与原子图各自的JSON和HTML |
 
 ### 1.1 资料登记
 
@@ -89,7 +90,7 @@ PRD确定验收目标和范围；授权UI资料具体化可见内容、结构及
 
 已确定部分可以继续分析；影响当前模型的问题得到回答后，相关部分才可定稿。用户回答改变正式需求时，将确认内容落实到原文档或正式补充需求中，在resolutionSource中记录该正式位置，供最终source直接引用。
 
-本节的资料、分类和澄清统一保存在工作副本中，用于持续分析及断点续做。open问题、未完成审查或失效引用由工作校验报告提示；处理完成后按第7节删除副本，保留正式需求与最终图。
+本节的资料、分类和澄清统一保存在工作副本中，用于持续分析及断点续做。open问题、未完成审查或失效引用由工作校验报告提示；处理完成后按第8节删除副本，保留正式需求与最终图。
 
 ## 2. 建立状态
 
@@ -244,15 +245,23 @@ constraints只记录全图统一适用的规则，每项包含id、规则陈述�
 
 同一规则只登记一次。状态事实、动作输入、已知前提和终态结果分别保留在所属位置。下游状态和迁移沿用有效规则，不重复附加相同约束。
 
-## 5. 常见问题与修复示例
+## 5. 建立原子需求图
+
+完成状态、迁移和全局约束建模后，按[原子需求图规范](references/atomic-requirements.md)生成原子需求JSON及HTML。每条迁移恰对应一个“初态—迁移—终态”的原子需求。普通进入要求前项终态和后项初态引用同一状态ID；初态为正式起点的需求可随时重新进入。
+
+使用最小费用流精确求解覆盖全部需求且访问节点总次数最少的序列，首个和重复进入均计数。原子图只保存所选序列实际使用的普通衔接和重入边；访问序列保留完整顺序及重复次数。算法、最优性依据、字段和确定性规则统一见该规范。
+
+原子需求通过transitionId读取正式迁移，事实、内嵌operation、实际分支、直接来源及全局约束仍维护在状态图。重入是需求遍历的进入方式，不在状态图中增加业务动作。点击需求时显示从本段起点到当前到达位置的路径，侧栏省略迁移直接来源；其他HTML交互复用共用规范。
+
+## 6. 常见问题与修复示例
 
 审查前阅读[常见问题与修复示例](references/state-transition-examples.md)，对照修复前后的Mermaid图核对当前模型。
 
-## 6. 审查与校验
+## 7. 审查与校验
 
-### 6.1 语义审查
+### 7.1 语义审查
 
-先完成第5节的示例核对，再逐项对照实际来源完成下列审查，在独立工作记录reviews中对应填写scope、facts、operations、inheritance、branches、coverage。每项status为pending、passed或failed；通过时evidence写明实际审查依据和结论。
+先完成第6节的示例核对，再逐项对照实际来源完成下列审查，在独立工作记录reviews中对应填写scope、facts、operations、inheritance、branches、coverage。每项status为pending、passed或failed；通过时evidence写明实际审查依据和结论。
 
 | 审查项 | 通过标准 |
 | --- | --- |
@@ -267,7 +276,7 @@ reviews记录六项审查结论，entries和actionAnalysis提供其中的逐项�
 
 完成审查后，将实际图文件的SHA-256写入工作记录graphSha256，绑定被审查的这一版图。文件变化后核对影响，重新审查相关部分并更新哈希。未解决的歧义、缺失证据和失败检查保持未完成，处理后再定稿。
 
-### 6.2 可执行校验
+### 7.2 可执行校验
 
 先运行独立工作校验，检查资料登记、范围映射、实际回答、审查完成度及本版图：
 
@@ -288,34 +297,41 @@ python <skill-dir>/scripts/work.py check <output-dir>/state-transitions.json --w
 | 动作覆盖 | 纳入项的动作分析已完成；每个候选动作有处理结论；已建动作与迁移的初态、operation、输入、来源及预期终态一致；每条迁移有动作依据 |
 | 可达性 | 按起点标记计算图路径，各非起点状态可达；入口合理性由起点依据及语义审查核对 |
 | 重复约束 | 完全重复的全局规则或状态事实 |
-| HTML同步 | 内嵌模型及哈希与JSON一致 |
+| 原子需求映射 | 每条迁移恰对应一个原子需求，无遗漏、重复或失效引用 |
+| 合法覆盖 | 首次进入起始需求；后续普通衔接或重新进入起点均合法，全部需求覆盖，重复访问计数完整 |
+| 最少访问 | 精确最小费用求解得到全局最少访问次数，序列、下界和固定选择规则一致 |
+| 路线边 | 仅保留所选序列实际相邻访问对，普通衔接和重入类型及共享状态正确 |
+| 双图版本 | 原子图的来源摘要、修订及引用对应当前状态图 |
+| HTML同步 | 两张图的内嵌模型、哈希及共用模板内容与当前JSON一致 |
 
 ~~~text
 python <skill-dir>/scripts/analyze.py validate <output-dir>/state-transitions.json --workspace <project-root>
 python <skill-dir>/scripts/analyze.py render <output-dir>/state-transitions.json --workspace <project-root>
 python <skill-dir>/scripts/analyze.py check <output-dir>/state-transitions.json --workspace <project-root>
+python <skill-dir>/scripts/atomic.py build <output-dir>/state-transitions.json --workspace <project-root>
+python <skill-dir>/scripts/atomic.py check <output-dir>/atomic-requirements.json --workspace <project-root>
 ~~~
 
-校验命令只读取JSON，检查结果输出到终端；render生成同目录HTML。analyze检查图的结构与引用，work同时核对独立工作记录及其与图的一致性；输出scope标明各自检查范围。脚本检查记录齐全、引用有效和实体匹配；语义审查判断原文是否支持这些结论，两者共同用于定稿。自测通过及页面交互正常均不代替语义审查。语义审查与澄清过程不写入最终图。脚本检查与应用实际验收分别报告；未执行视觉验收时说明未执行。
+校验命令只读取JSON，检查结果输出到终端；render生成状态图HTML，atomic build生成同目录原子JSON及HTML。analyze检查状态图的结构与引用，atomic检查一一映射、合法覆盖、全局最少访问、路线边裁剪与版本同步，work核对独立工作记录及其与状态图的一致性，并在finalize检查双图；输出scope标明各自检查范围。脚本检查记录齐全、引用有效和实体匹配；语义审查判断原文是否支持这些结论，两者共同用于定稿。自测通过及页面交互正常均不代替语义审查。语义审查与澄清过程不写入最终图。脚本检查与应用实际验收分别报告；未执行视觉验收时说明未执行。
 
-### 6.3 可视化审查
+### 7.3 可视化审查
 
-生成、修改或审查状态迁移HTML前，读取[HTML设计规范](references/html-design-spec.md)，使用[Canvas页面模板](assets/graph.template.html)。页面组成、最短迁移次数分列、拖拽与置顶、聚焦可见范围、侧栏切换、详情内容及可视化验收均按该文档执行。
+生成、修改或审查状态图或原子需求图HTML前，读取[HTML设计规范](references/html-design-spec.md)，使用[Canvas页面模板](assets/graph.template.html)。页面组成、最短迁移次数分列、拖拽与置顶、聚焦可见范围、侧栏切换、详情内容及可视化验收均按该文档执行。
 
 实际浏览器检查、模拟交互测试和模型同步检查分别报告。结构校验、文件存在或模拟测试不代表应用已实现或通过视觉验收。
 
-## 7. 最终产物与清理
+## 8. 最终产物与清理
 
-默认输出到plan/requirement-analysis，用户指定位置优先。项目最终产物为state-transitions.json和state-transitions.html。UI结构、原截图和正式需求文档引用已有文件。
+默认输出到plan/requirement-analysis，用户指定位置优先。项目最终产物为state-transitions.json、state-transitions.html、atomic-requirements.json和atomic-requirements.html。UI结构、原截图和正式需求文档引用已有文件。
 
-JSON与HTML生成并校验后，使用以下收尾入口：
+两张图的JSON与HTML生成并校验后，使用以下收尾入口：
 
 ~~~text
 python <skill-dir>/scripts/work.py finalize <output-dir>/state-transitions.json --workspace <project-root>
 ~~~
 
-finalize重新校验工作记录、本版图及HTML同步；全部通过后，删除本次analysis-work.json及空.work目录。未通过时保留记录继续处理。目录内有其他文件时先核对归属并清理本次过程资料，收尾命令不会删除未知文件。
+finalize重新校验工作记录、本版状态图、原子图映射、最优覆盖及路线边，以及两张图的HTML同步；全部通过后，删除本次analysis-work.json及空.work目录。未通过时保留记录继续处理。目录内有其他文件时先核对归属并清理本次过程资料，收尾命令不会删除未知文件。
 
 本次需求摘录、澄清、范围分类及语义审查以工作副本为唯一过程记录，不另存并行报告。临时快照和调试输出也在完成后清理。原始资料、正式来源文档、最终图及Skill中的Schema均保留。
 
-Skill自身的Schema、Canvas页面模板、脚本和测试属于通用能力文件。修改脚本后运行[图契约自测](scripts/test_analyze.py)及[工作记录自测](scripts/test_work.py)；自测不代替浏览器视觉检查。
+Skill自身的Schema、Canvas页面模板、脚本和测试属于通用能力文件。修改脚本后运行[状态图自测](scripts/test_analyze.py)、[原子图自测](scripts/test_atomic.py)、[覆盖算法自测](scripts/test_coverage_route.py)及[工作记录自测](scripts/test_work.py)，两张页面使用[共用Canvas模拟测试](scripts/test_canvas.js)；自测不代替浏览器视觉检查。
