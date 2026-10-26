@@ -1,0 +1,586 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:requirement-analysis-work:1.0.0",
+  "title": "独立需求分析与澄清工作记录",
+  "description": "单独约束需求分析、范围分类、澄清与定稿审查。记录保存在最终图之外，任务完成后删除；本Schema作为长期规范保留。",
+  "type": "object",
+  "properties": {
+    "workSchemaVersion": {
+      "const": "1.0.0",
+      "description": "工作记录格式版本。"
+    },
+    "graphSha256": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      ],
+      "default": null,
+      "description": "完成语义审查时绑定的图文件哈希；待审查时为null。"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/analysisDocument"
+      },
+      "minItems": 1,
+      "description": "第1.1节的资料登记，含直接来源、角色、授权依据及版本。"
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/analysisRequirement"
+      },
+      "minItems": 1,
+      "description": "第1.2节的范围分类及纳入要求到图内实体的映射。"
+    },
+    "clarifications": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/clarification"
+      },
+      "minItems": 0,
+      "description": "第1.3和1.4节的问题、实际回答及处理结论；不进入最终图。"
+    },
+    "reviews": {
+      "type": "object",
+      "properties": {
+        "scope": {
+          "$ref": "#/$defs/analysisReview"
+        },
+        "facts": {
+          "$ref": "#/$defs/analysisReview"
+        },
+        "operations": {
+          "$ref": "#/$defs/analysisReview"
+        },
+        "inheritance": {
+          "$ref": "#/$defs/analysisReview"
+        },
+        "branches": {
+          "$ref": "#/$defs/analysisReview"
+        },
+        "coverage": {
+          "$ref": "#/$defs/analysisReview"
+        }
+      },
+      "required": [
+        "scope",
+        "facts",
+        "operations",
+        "inheritance",
+        "branches",
+        "coverage"
+      ],
+      "additionalProperties": false,
+      "description": "定稿前六项语义审查；未完成时保持pending。"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entryEvidence"
+      },
+      "default": [],
+      "description": "逐个起点的进入/准备依据；孤立起点另说明独立验收理由。任务完成后删除。"
+    }
+  },
+  "required": [
+    "workSchemaVersion",
+    "graphSha256",
+    "documents",
+    "requirements",
+    "clarifications",
+    "entries",
+    "reviews"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "source": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "document"
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1
+            },
+            "locator": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 1
+            },
+            "version": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "kind",
+            "path",
+            "locator",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "ui"
+            },
+            "structurePath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "documentId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "nodeIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "structureSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "screenshotPath": {
+              "type": "string",
+              "minLength": 1
+            },
+            "screenshotSha256": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "kind",
+            "structurePath",
+            "documentId",
+            "nodeIds",
+            "structureSha256",
+            "screenshotPath",
+            "screenshotSha256"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "analysisDocument": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "role": {
+          "enum": [
+            "prd",
+            "ui",
+            "supplement"
+          ]
+        },
+        "authorization": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "source",
+        "role",
+        "authorization",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "analysisRequirement": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "classification": {
+          "enum": [
+            "included",
+            "excluded",
+            "context"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "collection": {
+                "enum": [
+                  "states",
+                  "transitions",
+                  "constraints"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "collection",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "uniqueItems": true
+        },
+        "actionAnalysis": {
+          "$ref": "#/$defs/actionAnalysis"
+        }
+      },
+      "required": [
+        "source",
+        "classification",
+        "reason",
+        "targets"
+      ],
+      "additionalProperties": false,
+      "anyOf": [
+        {
+          "properties": {
+            "classification": {
+              "const": "included"
+            }
+          },
+          "required": [
+            "actionAnalysis"
+          ]
+        },
+        {
+          "properties": {
+            "classification": {
+              "enum": [
+                "excluded",
+                "context"
+              ]
+            },
+            "actionAnalysis": false
+          }
+        }
+      ]
+    },
+    "clarification": {
+      "type": "object",
+      "properties": {
+        "question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "proposal": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved"
+          ]
+        },
+        "answer": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "conversationRef": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "text",
+                "conversationRef"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        },
+        "resolution": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "resolutionSource": {
+          "$ref": "#/$defs/source"
+        }
+      },
+      "required": [
+        "question",
+        "impact",
+        "status",
+        "answer",
+        "resolution"
+      ],
+      "additionalProperties": false
+    },
+    "analysisReview": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed"
+          ],
+          "default": "pending"
+        },
+        "evidence": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "required": [
+        "status",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "evidenceSource": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "document"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!\\$$).+"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "kind",
+        "path",
+        "locator",
+        "sha256",
+        "quote"
+      ],
+      "additionalProperties": false
+    },
+    "entryEvidence": {
+      "type": "object",
+      "properties": {
+        "stateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "direct",
+            "prepared"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/evidenceSource"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1
+        },
+        "isolationReason": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "stateId",
+        "kind",
+        "source",
+        "method"
+      ],
+      "additionalProperties": false
+    },
+    "workOperation": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input": {
+          "type": "object",
+          "minProperties": 1
+        }
+      },
+      "required": [
+        "label",
+        "actor"
+      ],
+      "additionalProperties": false
+    },
+    "actionCandidate": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "operation": {
+          "$ref": "#/$defs/workOperation"
+        },
+        "basis": {
+          "enum": [
+            "explicit",
+            "necessary"
+          ]
+        },
+        "change": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "modeled",
+            "excluded",
+            "constraint",
+            "open"
+          ]
+        },
+        "expectedTargets": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "transitionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "default": []
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "resolutionSource": {
+          "$ref": "#/$defs/evidenceSource"
+        },
+        "constraintIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "default": []
+        }
+      },
+      "required": [
+        "from",
+        "operation",
+        "basis",
+        "change",
+        "disposition",
+        "expectedTargets",
+        "transitionIds",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "actionAnalysis": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "pending",
+            "passed",
+            "failed"
+          ],
+          "default": "pending"
+        },
+        "evidence": {
+          "type": "string",
+          "default": ""
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/actionCandidate"
+          },
+          "default": []
+        }
+      },
+      "required": [
+        "status",
+        "evidence",
+        "actions"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -149,6 +149,35 @@ def apply_override(base, override):
             result[key] = copy.deepcopy(item)
     return result
 
+FIELD_PATH = r"[A-Za-z][A-Za-z0-9]*(?:\.[A-Za-z][A-Za-z0-9]*)*"
+PLACEHOLDER = re.compile(r"\{\{(" + FIELD_PATH + r")\}\}")
+TEXT_FORMATS = {
+    "string": {"plain"}, "integer": {"0"}, "number": {"0.##", "0%"},
+    "date": {"yyyy-MM-dd", "yyyy年M月d日", "M月d日", "yyyy年M月", "M月d日 EEEE"},
+    "datetime": {"yyyy-MM-dd HH:mm", "M月d日 HH:mm"}, "time": {"HH:mm"}
+}
+
+def text_binding_errors(content):
+    """Validate the display contract; no fixture values or rendering are inferred."""
+    binding = content.get("binding")
+    if binding is None:
+        value = content.get("value")
+        return ["placeholder text requires binding"] if isinstance(value, str) and ("{{" in value or "}}" in value) else []
+    template = binding["template"]
+    used = set(PLACEHOLDER.findall(template))
+    errors = []
+    if not used or "{" in PLACEHOLDER.sub("", template) or "}" in PLACEHOLDER.sub("", template):
+        errors.append("invalid or missing placeholder in template")
+    declared = binding["parameters"]
+    if used != set(declared):
+        errors.append("placeholder parameters must match template exactly")
+    for key, parameter in declared.items():
+        if re.fullmatch(FIELD_PATH, key) is None:
+            errors.append("invalid display field path: " + key)
+        if parameter["format"] not in TEXT_FORMATS.get(parameter["type"], set()):
+            errors.append("format does not match parameter type: " + key)
+    return errors
+
 def validate_package(directory, schema_path=None):
     base = Path(directory).resolve()
     errors, readiness, warnings = [], [], []
@@ -303,7 +332,10 @@ def validate_package(directory, schema_path=None):
                         errors.append(ident+": missing decision "+decision)
                 for axis,dimension in n["sizing"].items():
                     mode,value,lo,hi = (dimension[k] for k in ("mode","value","min","max"))
-                    if mode in ("fixed","fraction","percent") and value is None:
+                    binding = dimension.get("binding")
+                    if binding is not None and (mode != "percent" or value is not None):
+                        errors.append(ident+": only percent may bind data; literal value must be null")
+                    if mode in ("fixed","fraction","percent") and value is None and binding is None:
                         errors.append(ident+": size value required")
                     if mode not in ("fixed","fraction","percent") and value is not None:
                         errors.append(ident+": competing size value")
@@ -319,6 +351,8 @@ def validate_package(directory, schema_path=None):
                             errors.append(ident+": invalid grid track")
                 if n["content"] and n["content"]["type"] in ("image","vector"):
                     require_asset(n["content"]["assetRef"],ident)
+                if n["kind"] == "text":
+                    errors.extend(ident+": "+message for message in text_binding_errors(n["content"]))
                 if n["kind"] == "text" and n["styleRef"] in library["styles"] and library["styles"][n["styleRef"]]["typography"] is None:
                     errors.append(ident+": text without typography")
                 position = n["placement"]

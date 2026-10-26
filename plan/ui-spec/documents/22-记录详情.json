@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1300,11 +1310,20 @@
                 "styleRef": "s-a6e70b4902400930",
                 "content": {
                   "type": "text",
-                  "value": "晨间阅读 · 历史记录",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "{{plan.name}} · 历史记录",
+                    "parameters": {
+                      "plan.name": {
+                        "type": "string",
+                        "format": "plain"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -1338,7 +1357,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -1689,11 +1709,20 @@
                     "styleRef": "s-36dce24d07300a84",
                     "content": {
                       "type": "text",
-                      "value": "记录日期：2026年10月8日",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "记录日期：{{record.date}}",
+                        "parameters": {
+                          "record.date": {
+                            "type": "date",
+                            "format": "yyyy年M月d日"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1727,7 +1756,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1786,11 +1816,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "计划时区：Asia/Shanghai",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "计划时区：{{plan.timeZone}}",
+                        "parameters": {
+                          "plan.timeZone": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1824,7 +1863,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1883,11 +1923,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "提交时间：10月8日 21:10",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "提交时间：{{record.submittedAt}}",
+                        "parameters": {
+                          "record.submittedAt": {
+                            "type": "datetime",
+                            "format": "M月d日 HH:mm"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1921,7 +1970,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2175,11 +2225,20 @@
                     "styleRef": "s-36dce24d07300a84",
                     "content": {
                       "type": "text",
-                      "value": "读了两章，记录当天的实际情况。",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{record.note}}",
+                        "parameters": {
+                          "record.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2213,7 +2272,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {

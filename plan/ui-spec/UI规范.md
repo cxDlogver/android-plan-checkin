@@ -1,6 +1,6 @@
 # 当前项目UI分析与JSON对齐规范
 
-版本：2.0.0；分析日期：2026-10-24；适用Skill：[ui-spec-normalizer](../skill/ui-spec-normalizer/SKILL.md)。
+版本：2.0.0；分析日期：2026-10-26；适用Skill：[ui-spec-normalizer](../skill/ui-spec-normalizer/SKILL.md)。
 
 当前交付为draft：结构校验通过，Inter字体尚缺，基准视觉与响应式视觉均未执行。完整问题与状态以[manifest.json](manifest.json)和[validation-report.json](validation-report.json)为准。草稿可用于结构评审；补齐关键字体并复验后才能作为正式视觉基准发布。
 
@@ -10,12 +10,12 @@
 - 2个组件分别为353×48和393×70，继承mobile。1860×220的方案概览属于reference，其宽度不参与端型判断。
 - 读取984个原生节点：435个frame、405个text、119个icon、25个rectangle。全部原生容器为一维流；当前参考布局未报告裁剪问题。
 - 规范化后为1003个节点：新增23个窗口容器，月历将5个周行合并为1个日期Grid，其余节点保留。容器最终为452个Flex、2个Grid、0个Overlay，普通布局定位全部使用flow。
-- 405条文字完整保留，119个图标使用26份去重SVG，视觉值归并为92套style。组件实例保留25处componentRef，采用展开快照。
+- 405个文字节点保留：239处固定文案，166处数据内容转换为动态占位；119个图标使用26份去重SVG，视觉值归并为92套style。组件实例保留25处componentRef，采用展开快照。
 - 本次主要读取plan/source-resource/ui/ui.pen，且仅通过pen.dev MCP读取；HTML用于核对节点顺序与提取SVG。逐页原生节点名称及顺序与对应HTML全部一致。
 - PNG只审阅了02、04、11、17四份代表样例；未执行JSON渲染结果与原图的视觉差异测试。PNG的2倍导出尺寸不用于分类。
-- resource/**历史目录未作为分析输入。旧需求文档引用的plan/ui-spec此前不存在，本轮在该位置建立新包。
+- 已复读26个画板并保留来源身份；当前JSON在来源结构上将示例数据归一化为动态占位。分析范围限定在plan/source-resource/ui。
 
-原始读取快照位于[provenance/节点](provenance/节点)，仅用于审计；后续实现读取documents、rules和library。来源快照、HTML、PNG中的坐标均不能覆盖规范JSON。
+来源身份、观测时间和节点内容指纹保存在manifest.sources；逐节点来源映射保存在source字段。最终对齐使用documents、rules和library，原始观测坐标不参与布局。
 
 ## 2. 页面与结构清单
 
@@ -67,7 +67,7 @@
 | 文字 | Noto Sans SC为主；日期等使用Inter；字重、字号逐节点不同 | styleRef保存基准字体和字重。业务文字按分配宽度换行，横向文字允许shrink=1，高度content。fontScale放大时重排；宽度变化不缩放字号 |
 | 图标 | 状态图标14、导航20、页头22，另有提示图标 | 精确尺寸保存在各节点fixed宽高；SVG保存完整几何和颜色。图标不随画布等比缩放 |
 | 环境区域 | 上部36、底部24，底部手势条100×4 | 标为环境托管；参考环境使用上述值，实际宿主只处理一次insets。样例系统时间、信号图标和手势条不由业务重复绘制 |
-| 进度条 | 02、13页轨道321、填充203.333333 | 高6；填充宽percent=0.6334371754932502，随父轨道计算。保留参考视觉比例，不擅自改成业务文案的2/3 |
+| 进度条 | 02、13页轨道321、填充203.333333 | 高6；填充宽percent使用weekly.progressRatio数值占位（0到1），按传入比例乘父轨道内容宽度。不固定为原稿203.333333/321 |
 
 画布宽B=min(W,480)。正文可用宽度=B-40；普通padding=16的卡片内部宽度=B-72。等权横向组先扣除padding、固定项与gap，再按fraction分配剩余宽度。
 
@@ -83,15 +83,25 @@
 - 星期与日期均为7个fraction=1的列，列距2。
 - 日期Grid行距12；日期格高度content、min=48，字体放大可增高。
 - 393宽时，月历内部宽349，每列宽=(349-6×2)/7≈48.143。
-- 日期显示、选中描边、今天底色和进度下标逐节点保留；不能仅根据颜色重新推断业务状态。
+- 日期、月份和进度计数使用动态占位；选中描边、今天底色和各进度下标的视觉模式逐节点保留。场景输入须与这些展示角色匹配，不能根据原稿数字或颜色补出业务算法。
 
-对应节点为n-MVcOd、n-ypuLU、n-MVcOd-dates，来源周行的合并映射记录在[转换摘要](provenance/转换摘要.json)。
+对应节点为n-MVcOd、n-ypuLU、n-MVcOd-dates，5个来源周行的ID与合并依据记录在rules.decisions.calendar-grid。
 
 ### 严格保留的视觉内容
 
 颜色、渐变各stop、圆角、描边、阴影顺序、字体家族、基准字号和字重，全部取library.styles；不能按“整体看起来相近”统一为一个按钮或卡片样式。
 
-背景主色#E8ECF0、文字#17212B、主色#263440、边框#ABB6C1等源变量见[画板清单](provenance/画板清单.json)。节点仍以自身styleRef为准，不能仅凭变量名覆盖具体状态颜色。本次保留了金属渐变及渐变描边，没有把它们降级为纯色。
+背景主色#E8ECF0、文字#17212B、主色#263440、边框#ABB6C1等视觉值保存在library.styles。节点仍以自身styleRef为准，不能仅凭变量名覆盖具体状态颜色。本次保留了金属渐变及渐变描边，没有把它们降级为纯色。
+
+### 固定文案与动态数据
+
+固定的页面功能标题、标签、按钮、结果选项、状态说明及视觉配方按JSON严格对齐。任务名称、计划名称、日期、时间、备注、计数、统计比例与版本号使用动态占位；名称出现在页头时也不例外。原截图中的实际字符仅作来源留档。
+
+文本节点的content.value=null时，binding.template使用{{字段路径}}，parameters声明每个字段的type和format。例如“截止日期：{{task.deadline}}”，task.deadline为date、格式yyyy年M月d日。参数不保存设计稿默认值。该字段是展示输入，不要求存在同名接口或存储字段。完整类型、格式及解析规则以[节点契约8.1](../skill/ui-spec-normalizer/references/node-contract.md#81-固定文案与动态占位)为准。
+
+本包166个文字节点使用文本绑定，另有2个进度填充使用sizing.width.binding={path:weekly.progressRatio,type:number,min:0,max:1}和value=null。不同模板可以使用同一字段的不同格式；同一对象跨页浏览时，由同一场景数据传入名称、日期等值，不再加载各原图的具体示例数值。原图数据差异不作为迁移冲突，也不自动豁免真实数据连续性。
+
+视觉验收先固定本次数据，再用同一输入解析预期界面与实际界面；比较固定文字、字段格式、布局、换行、样式及选中状态。动态值不与原图逐字匹配，不要求日期、数量、名称或进度回到原图示例。缺值或类型不符时输入未就绪；禁止把占位表达式直接显示到应用、以原图值兜底或缩小字体填入原文字宽度。长文案和边界值按现有适配规则验收。
 
 ## 4. JSON入口与节点解释
 
@@ -105,11 +115,11 @@
 | componentRef | 原生组件身份关联；本版展开快照完整保存当前实例，不运行时二次继承 |
 | variant | 已捕获视觉样例的state及属性；不代表额外业务需求 |
 | layout | 该容器唯一Flex／Grid结构；不存在候选列表 |
-| sizing | 每轴一种{mode,value,min,max}；fixed固定，fill填充，content撑开，fraction等权，percent按父内容尺寸，viewport取窗口 |
+| sizing | 每轴一种{mode,value,min,max}；percent可使用value=null与binding传入数据比例，其余尺寸策略按节点确定 |
 | placement | flow及Flex主轴grow/shrink/basis；本包无业务绝对定位，source坐标不参与布局 |
 | overflow | 指定裁剪和滚动归属；23个页面的正文都是scroll |
-| styleRef、content | 完整视觉配方引用，以及文字或矢量资源；文字wrap与scaleWithSystem明确记录 |
-| policy、responsive | 当前规则均锁定，adaptive与responsive为空；fill和content仍按固定计算方式响应环境 |
+| styleRef、content | 视觉配方及内容；固定文字使用value，动态文字使用value=null和binding，文字策略继续按wrap等字段执行 |
+| policy、responsive | 当前规则锁定、adaptive与responsive为空；锁定模板和计算规则，不锁定binding的外部传入值 |
 | ownership | application表示应用绘制；platform表示环境托管区域，不记录操作系统或运行平台类型 |
 | semantics | 当前没有来源证明的业务动作与读屏语义为null，不猜测actionRef |
 | source、decisionRefs | 审计来源及制定依据。source可为null的新增窗口/Grid使用normalized决策说明 |
@@ -137,16 +147,16 @@
 
 | 问题 | 本次处理 | 对交付的影响 |
 | --- | --- | --- |
-| FONT-INTER | 本地未找到Inter；读取HTML引用的远程字体时DNS解析失败。保留准确家族和missing资源，不换字体 | 关键缺失，manifest保持draft、readiness=blocked；日历日期及汇总的字形尚无法自足 |
-| PROGRESS-LABEL-GEOMETRY | 两处“2/3”文案与63.34%几何不一致；按源几何保留当前样例 | 已知设计差异；后续明确修改JSON，不能回读旧图形成第二套比例 |
+| FONT-INTER | 当前规范中Inter资源仍为missing；此前本地检索及远程读取未取得可用文件。本轮保留准确家族，不扩展下载任务 | 关键缺失，manifest保持draft、readiness=blocked；日历日期及汇总的字形尚无法自足 |
+| PROGRESS-LABEL-GEOMETRY | 原文案与几何均已改为动态占位 | 已解决；按本次场景提供的计数和比例验收，不固定原稿数值 |
 | DESKTOP-NOT-PROVIDED | 不生成desktop profile | 桌面端未覆盖；不能把768测试为“手机稿继续正常显示” |
 | 未执行的视觉检查 | baselineVisual与responsiveVisual均为not-tested | 结构通过不代表页面已达到视觉还原或适配验收 |
 
-当前原生布局快照没有裁剪告警，仅证明原稿在其参考尺寸下的结构状态；不证明窄屏、长文案、键盘或字体放大后无溢出。
+本轮复核的原生布局在各参考尺寸下未报告裁剪；窄屏、长文案、键盘或字体放大后的视觉结果仍未验证。
 
 ## 7. 校验、验收与维护
 
-已执行的结构检查：Schema与文件哈希、26份文档、1003个节点的ID/父子/引用、组件关联、样式与资源、单一布局、滚动和定位。[独立覆盖审计](provenance/覆盖审计.json)确认405条文字及字体家族逐项保留，26份SVG可解析，35个日期完整；完成时复读26个画板与快照一致。校验器仅读取规范包，不读取.pen、旧HTML或PNG。
+已执行的结构检查：Schema与文件哈希、26份文档、1003个节点的ID/父子/引用、组件关联、样式与资源、单一布局、滚动和定位。覆盖检查确认405个文字节点及字体家族保留，26份SVG可解析，35个日期格完整；166个文本绑定与2个比例绑定通过占位契约检查。结论汇总在[校验报告](validation-report.json)。校验器仅读取规范包，不读取.pen、旧HTML或PNG。
 
 待执行的视觉矩阵：宽320/360/393/480/767；高600/852及键盘压缩样例500；fontScale=1/1.3。参考图对照使用每页referenceSize；统一运行视口393×852另测长页滚动。767应选择mobile，768应判为未提供的desktop。长文案和字体放大应增加行数、增高内容并通过正文滚动，禁止整体缩放页面。
 
@@ -158,6 +168,6 @@ python plan/skill/ui-spec-normalizer/scripts/validate_spec.py plan/ui-spec --rep
 
 日常修改documents/rules/library后更新manifest哈希并复验。补齐Inter后登记文件哈希、解决FONT-INTER，再检查发布就绪度；不能只改authority隐藏缺失。
 
-tools/build_ui_spec.py只用于已授权的重新导入：它读取本次MCP快照及当前plan HTML，会重建JSON，不能用于日常覆盖人工修订。新增设计版本需先重新取得MCP快照并明确迁移范围；不能扫描resource历史目录补值。
+最终交付保留UI规范、manifest/rules/library、documents、Schema、校验报告及直接依赖的资源。原始节点快照副本、临时转换／审计脚本和过程记录在收尾时删除；来源与检查结论保存在最终字段和报告中。新增设计版本另行读取授权来源并明确迁移范围。
 
 本次未修改应用实现、未生成业务实现计划、未执行实际应用视觉验收。

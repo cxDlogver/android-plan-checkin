@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1300,11 +1310,20 @@
                 "styleRef": "s-a6e70b4902400930",
                 "content": {
                   "type": "text",
-                  "value": "每周目标 N 天",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "每周目标 {{weekly.targetDays}} 天",
+                    "parameters": {
+                      "weekly.targetDays": {
+                        "type": "integer",
+                        "format": "0"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -1338,7 +1357,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -1689,11 +1709,20 @@
                     "styleRef": "s-36dce24d07300a84",
                     "content": {
                       "type": "text",
-                      "value": "运动",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{plan.name}}",
+                        "parameters": {
+                          "plan.name": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1727,7 +1756,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -3546,11 +3576,20 @@
                             "styleRef": "s-b5cc5aad4d6bfa47",
                             "content": {
                               "type": "text",
-                              "value": "3 天",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{weekly.targetDays}} 天",
+                                "parameters": {
+                                  "weekly.targetDays": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -3584,7 +3623,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -3843,11 +3883,20 @@
                     "styleRef": "s-cbab4e8142571aef",
                     "content": {
                       "type": "text",
-                      "value": "周一至周日任选 3 天，不要求每天完成。",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "周一至周日任选 {{weekly.targetDays}} 天，不要求每天完成。",
+                        "parameters": {
+                          "weekly.targetDays": {
+                            "type": "integer",
+                            "format": "0"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -3881,7 +3930,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -4524,11 +4574,20 @@
                     "styleRef": "s-36dce24d07300a84",
                     "content": {
                       "type": "text",
-                      "value": "给自己留一句提醒",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{plan.description}}",
+                        "parameters": {
+                          "plan.description": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -4562,7 +4621,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -4623,11 +4683,20 @@
                 "styleRef": "s-a6e70b4902400930",
                 "content": {
                   "type": "text",
-                  "value": "计划时区：Asia/Shanghai · 创建后固定",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "计划时区：{{plan.timeZone}} · 创建后固定",
+                    "parameters": {
+                      "plan.timeZone": {
+                        "type": "string",
+                        "format": "plain"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -4661,7 +4730,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {

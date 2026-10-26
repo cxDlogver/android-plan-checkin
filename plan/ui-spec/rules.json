@@ -9,7 +9,7 @@
   },
   "decisions": {
     "source-visual": {
-      "statement": "原生节点取值、样例文字和视觉配方严格保存；矢量从当前plan导出的同名同库SVG取得，逐页核对全部节点名称与顺序。",
+      "statement": "原生节点层级、固定文案及视觉配方按当前来源保存；示例数据按dynamic-content转换为占位。矢量来自当前plan导出的SVG，来源内容用于审计。",
       "origin": "source",
       "evidence": "26份MCP节点快照及对应plan HTML"
     },
@@ -34,9 +34,9 @@
       "evidence": "当前23屏宽393；plan中既有阅读限宽约定480；本次按两端独立规则修正适用范围"
     },
     "calendar-grid": {
-      "statement": "月历日期统一为7等权列、5行Grid，列距2、行距12；星期同样7等权列。去除5个冗余周行，日期顺序、填充、描边与内容全部保留。",
+      "statement": "月历日期统一为7等权列、5行Grid，列距2、行距12；星期同样7等权列。去除冗余周行，保留顺序、填充、描边及状态外观，日号、月份和计数按动态占位传入。",
       "origin": "normalized",
-      "evidence": "11-日历：星期+第0至4周，35日期格，原周距12、格距2"
+      "evidence": "11-日历：星期+第0至4周，35日期格，原周距12、格距2；合并来源节点ID：jhFLP、Y7zGr、z13iq9、APS0m、jwVzf；归一后日期容器n-MVcOd-dates"
     },
     "environment-regions": {
       "statement": "系统状态/手势示例归环境所有；参考图使用36/24，实际只由宿主处理一次对应insets，样例子节点不在业务层重复绘制。",
@@ -46,17 +46,17 @@
     "text-flow": {
       "statement": "业务文字保留基准字体，宽度不足按字素换行，content宽不超过父级分配区域，横向文本可收缩且高度按内容增加；环境样例不随业务字体缩放。",
       "origin": "normalized",
-      "evidence": "窄屏与fontScale检查需要明确文字溢出策略；源文字及参考边界完整保留"
-    },
-    "progress-proportion": {
-      "statement": "两处进度填充宽度按203.33333333333331/321=0.6334371754932502计算父轨道百分比，保持源393宽时的几何，不解释为业务完成比例。",
-      "origin": "normalized",
-      "evidence": "02、13页已完成进度及进度条的原生bounds；文案2/3单独保留为已知设计差异"
+      "evidence": "窄屏与fontScale检查需明确溢出策略；固定文案和动态模板均按解析后的实际内容测量。"
     },
     "continuous-mobile": {
       "statement": "当前稿件无需类内布局断点，modes为空。保持单列、等权按钮与7列日期；主文案换行与content撑高，字号图标不随宽度缩放。",
       "origin": "normalized",
       "evidence": "当前所有页面仅有393宽样例，未提供可据以切换结构的另一组设计"
+    },
+    "dynamic-content": {
+      "statement": "固定标签、按钮、状态语义及说明文案使用value；名称、日期、时间、计数、备注、版本等数据使用value=null和typed binding。模板固定句式，传入值不要求等于原设计值；进度percent尺寸由0到1的数据比例绑定，结构、轨道高度与样式仍确定。",
+      "origin": "user",
+      "evidence": "2026-10-26用户要求：示例数据不应严格对齐UI设计稿，需要用动态占位表示。字段为展示输入契约，不推导存储、统计或跨日算法。"
     }
   },
   "profiles": {

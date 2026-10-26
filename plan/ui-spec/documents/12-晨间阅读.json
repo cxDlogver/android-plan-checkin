@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1201,11 +1211,20 @@
                     "styleRef": "s-77e972e7b4adf35b",
                     "content": {
                       "type": "text",
-                      "value": "晨间阅读",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{plan.name}}",
+                        "parameters": {
+                          "plan.name": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1239,7 +1258,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1501,11 +1521,20 @@
                 "styleRef": "s-a6e70b4902400930",
                 "content": {
                   "type": "text",
-                  "value": "每天 · 要做 · Asia/Shanghai",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "每天 · 要做 · {{plan.timeZone}}",
+                    "parameters": {
+                      "plan.timeZone": {
+                        "type": "string",
+                        "format": "plain"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -1539,7 +1568,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -1793,11 +1823,20 @@
                     "styleRef": "s-251f7d150dbd92ac",
                     "content": {
                       "type": "text",
-                      "value": "75%",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{stats.completionRate}}",
+                        "parameters": {
+                          "stats.completionRate": {
+                            "type": "number",
+                            "format": "0%"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1831,7 +1870,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1890,11 +1930,40 @@
                     "styleRef": "s-cbab4e8142571aef",
                     "content": {
                       "type": "text",
-                      "value": "全部历史 · 完成率 6 / 8 次\n开始：9月30日 · 截至：10月9日\n跳过 1 次 · 未记录 1 次",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "全部历史 · 完成率 {{stats.successCount}} / {{stats.totalCount}} 次\n开始：{{plan.startDate}} · 截至：{{stats.asOfDate}}\n跳过 {{stats.skippedCount}} 次 · 未记录 {{stats.missingCount}} 次",
+                        "parameters": {
+                          "stats.successCount": {
+                            "type": "integer",
+                            "format": "0"
+                          },
+                          "stats.totalCount": {
+                            "type": "integer",
+                            "format": "0"
+                          },
+                          "plan.startDate": {
+                            "type": "date",
+                            "format": "M月d日"
+                          },
+                          "stats.asOfDate": {
+                            "type": "date",
+                            "format": "M月d日"
+                          },
+                          "stats.skippedCount": {
+                            "type": "integer",
+                            "format": "0"
+                          },
+                          "stats.missingCount": {
+                            "type": "integer",
+                            "format": "0"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1928,7 +1997,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2083,11 +2153,20 @@
                         "styleRef": "s-36dce24d07300a84",
                         "content": {
                           "type": "text",
-                          "value": "连续成功\n1 天",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "连续成功\n{{stats.streakDays}} 天",
+                            "parameters": {
+                              "stats.streakDays": {
+                                "type": "integer",
+                                "format": "0"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -2121,7 +2200,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -2180,11 +2260,20 @@
                         "styleRef": "s-36dce24d07300a84",
                         "content": {
                           "type": "text",
-                          "value": "成功\n6 次",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "成功\n{{stats.successCount}} 次",
+                            "parameters": {
+                              "stats.successCount": {
+                                "type": "integer",
+                                "format": "0"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -2218,7 +2307,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -2570,11 +2660,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "10月8日",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{history.success.date}}",
+                            "parameters": {
+                              "history.success.date": {
+                                "type": "date",
+                                "format": "M月d日"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -2608,7 +2707,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -2766,11 +2866,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "阅读了两章",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{history.success.note}}",
+                        "parameters": {
+                          "history.success.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2804,7 +2913,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2959,11 +3069,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "10月7日",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{history.skipped.date}}",
+                            "parameters": {
+                              "history.skipped.date": {
+                                "type": "date",
+                                "format": "M月d日"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -2997,7 +3116,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -3155,11 +3275,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "出差调整 · 已修改",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{history.skipped.note}} · 已修改",
+                        "parameters": {
+                          "history.skipped.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -3193,7 +3322,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -3348,11 +3478,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "10月6日",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{history.missing.date}}",
+                            "parameters": {
+                              "history.missing.date": {
+                                "type": "date",
+                                "format": "M月d日"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -3386,7 +3525,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {

@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1201,11 +1211,20 @@
                     "styleRef": "s-77e972e7b4adf35b",
                     "content": {
                       "type": "text",
-                      "value": "提交报名材料",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{task.name}}",
+                        "parameters": {
+                          "task.name": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1239,7 +1258,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1889,11 +1909,20 @@
                         "styleRef": "s-b21a182a654107af",
                         "content": {
                           "type": "text",
-                          "value": "逾期 2 天",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "逾期 {{task.overdueDays}} 天",
+                            "parameters": {
+                              "task.overdueDays": {
+                                "type": "integer",
+                                "format": "0"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -1927,7 +1956,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -1988,11 +2018,20 @@
                     "styleRef": "s-77e972e7b4adf35b",
                     "content": {
                       "type": "text",
-                      "value": "截止于 10月7日",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "截止于 {{task.deadline}}",
+                        "parameters": {
+                          "task.deadline": {
+                            "type": "date",
+                            "format": "M月d日"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2026,7 +2065,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2967,11 +3007,28 @@
                 "styleRef": "s-e4f477d9a19a9ebf",
                 "content": {
                   "type": "text",
-                  "value": "10月1日  创建任务\n10月7日  截止日期\n10月9日  尚未提交结果",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "{{task.createdDate}}  创建任务\n{{task.deadline}}  截止日期\n{{context.today}}  尚未提交结果",
+                    "parameters": {
+                      "task.createdDate": {
+                        "type": "date",
+                        "format": "M月d日"
+                      },
+                      "task.deadline": {
+                        "type": "date",
+                        "format": "M月d日"
+                      },
+                      "context.today": {
+                        "type": "date",
+                        "format": "M月d日"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -3005,7 +3062,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {

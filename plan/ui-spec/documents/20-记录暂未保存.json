@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -2465,11 +2475,24 @@
                     "styleRef": "s-607b914eb9d236c2",
                     "content": {
                       "type": "text",
-                      "value": "晨间阅读 · 10月9日",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{plan.name}} · {{record.date}}",
+                        "parameters": {
+                          "plan.name": {
+                            "type": "string",
+                            "format": "plain"
+                          },
+                          "record.date": {
+                            "type": "date",
+                            "format": "M月d日"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2503,7 +2526,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2659,11 +2683,20 @@
                     "styleRef": "s-e4f477d9a19a9ebf",
                     "content": {
                       "type": "text",
-                      "value": "今天读了两章，感觉很专注。",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{record.note}}",
+                        "parameters": {
+                          "record.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2697,7 +2730,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {

@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1300,11 +1310,24 @@
                 "styleRef": "s-a6e70b4902400930",
                 "content": {
                   "type": "text",
-                  "value": "不喝奶茶 · 10月9日",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "{{plan.name}} · {{record.date}}",
+                    "parameters": {
+                      "plan.name": {
+                        "type": "string",
+                        "format": "plain"
+                      },
+                      "record.date": {
+                        "type": "date",
+                        "format": "M月d日"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -1338,7 +1361,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -1592,11 +1616,20 @@
                     "styleRef": "s-77e972e7b4adf35b",
                     "content": {
                       "type": "text",
-                      "value": "今天有没有喝奶茶？",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "今天有没有{{plan.behaviorName}}？",
+                        "parameters": {
+                          "plan.behaviorName": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1630,7 +1663,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2474,11 +2508,20 @@
                 "styleRef": "s-7b5ecc4d83c0ecab",
                 "content": {
                   "type": "text",
-                  "value": "已选择：今天做到了，没有喝奶茶。",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "已选择：今天做到了，没有{{plan.behaviorName}}。",
+                    "parameters": {
+                      "plan.behaviorName": {
+                        "type": "string",
+                        "format": "plain"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -2512,7 +2555,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -2764,11 +2808,20 @@
                     "styleRef": "s-36dce24d07300a84",
                     "content": {
                       "type": "text",
-                      "value": "选择了无糖茶",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{record.note}}",
+                        "parameters": {
+                          "record.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2802,7 +2855,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {

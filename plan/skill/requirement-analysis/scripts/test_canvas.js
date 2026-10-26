@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+"use strict";
+const fs=require("node:fs"),vm=require("node:vm"),assert=require("node:assert/strict");
+const html=fs.readFileSync(process.argv[2],"utf8");
+const embedded=html.match(/<script id="model" type="application\/json">([\s\S]*?)<\/script>/)[1];
+const model=JSON.parse(embedded),script=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].at(-1)[1];
+const elements=new Map();
+function element(id){if(!elements.has(id))elements.set(id,{id,innerHTML:"",textContent:"",hidden:true,dataset:{},listeners:{},addEventListener(n,f){this.listeners[n]=f;},getBoundingClientRect(){return {width:900,height:600,left:0,top:0};},setPointerCapture(){},parentElement:{}});return elements.get(id);}
+element("model").textContent=embedded;
+const ctx=new Proxy({measureText(t){return {width:[...String(t)].length*7};}},{get:(t,k)=>k in t?t[k]:()=>{}});
+element("graph").getContext=()=>ctx;
+const sandbox={document:{getElementById:element,title:""},window:{devicePixelRatio:1},ResizeObserver:class{constructor(f){this.f=f;}observe(){this.f();}}};
+vm.createContext(sandbox);vm.runInContext(script,sandbox,{timeout:2500});
+const visual=model.states.find(s=>s.visualFacts.length);
+assert.ok(visual,"Fixture has visual facts");
+vm.runInContext("selectState("+JSON.stringify(visual.id)+")",sandbox);
+assert.ok(element("detail").innerHTML.includes(visual.visualFacts[0].statement));
+assert.ok(element("detail").innerHTML.includes("<img"));
+assert.ok(element("detail").innerHTML.includes(visual.source.find(s=>s.kind==="ui").structurePath));
+const target=model.states.find(s=>s.id!==visual.id);
+vm.runInContext("focusGraph('');(()=>{const n=nodeBoxes.find(n=>n.id==="+JSON.stringify(target.id)+");selectAt((n.x+n.w/2)*scale+offsetX,(n.y+n.h/2)*scale+offsetY);})()",sandbox);
+assert.ok(element("detail").innerHTML.includes(target.statement),"Canvas node selection");
+const edge=model.transitions[0];
+vm.runInContext("(()=>{const e=edgePaths.find(e=>e.id==="+JSON.stringify(edge.id)+");selectAt((e.label.x+e.label.w/2)*scale+offsetX,(e.label.y+e.label.h/2)*scale+offsetY);})()",sandbox);
+for(const t of ["GIVEN","WHEN","THEN","直接来源"])assert.ok(element("detail").innerHTML.includes(t),t);
+assert.equal(element("detail").innerHTML.includes("事后分支条件"),!!edge.condition,"No placeholder condition");
+assert.equal(element("detail").innerHTML.includes("分支结果样例"),!!edge.condition,"Mock only with branch");
+assert.ok(element("entityList").innerHTML.includes("data-state"));
+vm.runInContext("focusGraph("+JSON.stringify(target.id)+");zoom(1.2);showOverview();",sandbox);
+assert.ok(element("detail").innerHTML.includes("全局约束"));
+for(const p of ["需求澄清","检查结果","范围与门禁"])assert.ok(!element("detail").innerHTML.includes(p),"No process panel: "+p);
+for(const p of ["clauses","clarifications","operations","gates","semanticReviews"])assert.ok(!(p in model),"No process field: "+p);
+console.log("Canvas node/edge selection, direct UI sources, branch omission and global constraints passed in a simulation; browser rendering not tested.");

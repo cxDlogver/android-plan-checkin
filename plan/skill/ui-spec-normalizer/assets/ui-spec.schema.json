@@ -1349,6 +1349,16 @@
                     "number",
                     "null"
                   ]
+                },
+                "binding": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/percentBinding"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 }
               },
               "required": [
@@ -1357,7 +1367,31 @@
                 "min",
                 "max"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "required": [
+                      "binding"
+                    ],
+                    "properties": {
+                      "binding": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "mode": {
+                        "const": "percent"
+                      },
+                      "value": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                }
+              ]
             },
             "height": {
               "type": "object",
@@ -1389,6 +1423,16 @@
                     "number",
                     "null"
                   ]
+                },
+                "binding": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/$defs/percentBinding"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
                 }
               },
               "required": [
@@ -1397,7 +1441,31 @@
                 "min",
                 "max"
               ],
-              "additionalProperties": false
+              "additionalProperties": false,
+              "allOf": [
+                {
+                  "if": {
+                    "required": [
+                      "binding"
+                    ],
+                    "properties": {
+                      "binding": {
+                        "type": "object"
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "mode": {
+                        "const": "percent"
+                      },
+                      "value": {
+                        "type": "null"
+                      }
+                    }
+                  }
+                }
+              ]
             }
           },
           "required": [
@@ -1559,47 +1627,7 @@
         "content": {
           "oneOf": [
             {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "text"
-                },
-                "value": {
-                  "type": "string"
-                },
-                "wrap": {
-                  "enum": [
-                    "wrap",
-                    "nowrap"
-                  ]
-                },
-                "overflow": {
-                  "enum": [
-                    "visible",
-                    "truncate",
-                    "scroll"
-                  ]
-                },
-                "maxLines": {
-                  "type": [
-                    "integer",
-                    "null"
-                  ],
-                  "minimum": 1
-                },
-                "scaleWithSystem": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "type",
-                "value",
-                "wrap",
-                "overflow",
-                "maxLines",
-                "scaleWithSystem"
-              ],
-              "additionalProperties": false
+              "$ref": "#/$defs/textContent"
             },
             {
               "type": "object",
@@ -1889,10 +1917,44 @@
                               "number",
                               "null"
                             ]
+                          },
+                          "binding": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/$defs/percentBindingOverride"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           }
                         },
                         "required": [],
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "allOf": [
+                          {
+                            "if": {
+                              "required": [
+                                "binding"
+                              ],
+                              "properties": {
+                                "binding": {
+                                  "type": "object"
+                                }
+                              }
+                            },
+                            "then": {
+                              "properties": {
+                                "mode": {
+                                  "const": "percent"
+                                },
+                                "value": {
+                                  "type": "null"
+                                }
+                              }
+                            }
+                          }
+                        ]
                       },
                       "height": {
                         "type": "object",
@@ -1924,10 +1986,44 @@
                               "number",
                               "null"
                             ]
+                          },
+                          "binding": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/$defs/percentBindingOverride"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           }
                         },
                         "required": [],
-                        "additionalProperties": false
+                        "additionalProperties": false,
+                        "allOf": [
+                          {
+                            "if": {
+                              "required": [
+                                "binding"
+                              ],
+                              "properties": {
+                                "binding": {
+                                  "type": "object"
+                                }
+                              }
+                            },
+                            "then": {
+                              "properties": {
+                                "mode": {
+                                  "const": "percent"
+                                },
+                                "value": {
+                                  "type": "null"
+                                }
+                              }
+                            }
+                          }
+                        ]
                       }
                     },
                     "required": [],
@@ -2070,7 +2166,10 @@
                             "const": "text"
                           },
                           "value": {
-                            "type": "string"
+                            "type": [
+                              "string",
+                              "null"
+                            ]
                           },
                           "wrap": {
                             "enum": [
@@ -2094,6 +2193,16 @@
                           },
                           "scaleWithSystem": {
                             "type": "boolean"
+                          },
+                          "binding": {
+                            "anyOf": [
+                              {
+                                "$ref": "#/$defs/textBindingOverride"
+                              },
+                              {
+                                "type": "null"
+                              }
+                            ]
                           }
                         },
                         "required": [],
@@ -2472,47 +2581,7 @@
                 "type": "null"
               },
               "content": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "const": "text"
-                  },
-                  "value": {
-                    "type": "string"
-                  },
-                  "wrap": {
-                    "enum": [
-                      "wrap",
-                      "nowrap"
-                    ]
-                  },
-                  "overflow": {
-                    "enum": [
-                      "visible",
-                      "truncate",
-                      "scroll"
-                    ]
-                  },
-                  "maxLines": {
-                    "type": [
-                      "integer",
-                      "null"
-                    ],
-                    "minimum": 1
-                  },
-                  "scaleWithSystem": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "type",
-                  "value",
-                  "wrap",
-                  "overflow",
-                  "maxLines",
-                  "scaleWithSystem"
-                ],
-                "additionalProperties": false
+                "$ref": "#/$defs/textContent"
               },
               "children": {
                 "maxItems": 0
@@ -2632,6 +2701,213 @@
           }
         }
       ]
+    },
+    "textBinding": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parameters": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "string",
+                  "integer",
+                  "number",
+                  "date",
+                  "datetime",
+                  "time"
+                ]
+              },
+              "format": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "type",
+              "format"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "template",
+        "parameters"
+      ],
+      "additionalProperties": false
+    },
+    "percentBinding": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+        },
+        "type": {
+          "const": "number"
+        },
+        "min": {
+          "const": 0,
+          "type": "number"
+        },
+        "max": {
+          "const": 1,
+          "type": "number"
+        }
+      },
+      "required": [
+        "path",
+        "type",
+        "min",
+        "max"
+      ],
+      "additionalProperties": false
+    },
+    "textContent": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "text"
+        },
+        "value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wrap": {
+          "enum": [
+            "wrap",
+            "nowrap"
+          ]
+        },
+        "overflow": {
+          "enum": [
+            "visible",
+            "truncate",
+            "scroll"
+          ]
+        },
+        "maxLines": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "scaleWithSystem": {
+          "type": "boolean"
+        },
+        "binding": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/textBinding"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "type",
+        "value",
+        "wrap",
+        "overflow",
+        "maxLines",
+        "scaleWithSystem"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "value": {
+              "type": "string"
+            },
+            "binding": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "type": "null"
+            },
+            "binding": {
+              "$ref": "#/$defs/textBinding"
+            }
+          },
+          "required": [
+            "binding"
+          ]
+        }
+      ]
+    },
+    "textBindingOverride": {
+      "type": "object",
+      "properties": {
+        "template": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "enum": [
+                  "string",
+                  "integer",
+                  "number",
+                  "date",
+                  "datetime",
+                  "time"
+                ]
+              },
+              "format": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [],
+      "additionalProperties": false
+    },
+    "percentBindingOverride": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*$"
+        },
+        "type": {
+          "const": "number"
+        },
+        "min": {
+          "const": 0,
+          "type": "number"
+        },
+        "max": {
+          "const": 1,
+          "type": "number"
+        }
+      },
+      "required": [],
+      "additionalProperties": false
     }
   }
 }

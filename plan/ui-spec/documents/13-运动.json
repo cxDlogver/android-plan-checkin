@@ -351,11 +351,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -388,7 +397,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1202,11 +1212,20 @@
                     "styleRef": "s-77e972e7b4adf35b",
                     "content": {
                       "type": "text",
-                      "value": "运动",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{plan.name}}",
+                        "parameters": {
+                          "plan.name": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1240,7 +1259,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1502,11 +1522,20 @@
                 "styleRef": "s-a6e70b4902400930",
                 "content": {
                   "type": "text",
-                  "value": "每周 3 天 · 要做",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "每周 {{weekly.targetDays}} 天 · 要做",
+                    "parameters": {
+                      "weekly.targetDays": {
+                        "type": "integer",
+                        "format": "0"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -1540,7 +1569,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -1794,11 +1824,24 @@
                     "styleRef": "s-548a05a56771a4e5",
                     "content": {
                       "type": "text",
-                      "value": "2 / 3 天",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{weekly.completedDays}} / {{weekly.targetDays}} 天",
+                        "parameters": {
+                          "weekly.completedDays": {
+                            "type": "integer",
+                            "format": "0"
+                          },
+                          "weekly.targetDays": {
+                            "type": "integer",
+                            "format": "0"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1832,7 +1875,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -1891,11 +1935,20 @@
                     "styleRef": "s-cbab4e8142571aef",
                     "content": {
                       "type": "text",
-                      "value": "本周任选，还差 1 天",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "本周任选，还差 {{weekly.remainingDays}} 天",
+                        "parameters": {
+                          "weekly.remainingDays": {
+                            "type": "integer",
+                            "format": "0"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -1929,7 +1982,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2052,9 +2106,15 @@
                         "sizing": {
                           "width": {
                             "mode": "percent",
-                            "value": 0.6334371754932502,
+                            "value": null,
                             "min": null,
-                            "max": null
+                            "max": null,
+                            "binding": {
+                              "path": "weekly.progressRatio",
+                              "type": "number",
+                              "min": 0,
+                              "max": 1
+                            }
                           },
                           "height": {
                             "mode": "fixed",
@@ -2116,7 +2176,7 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "progress-proportion"
+                          "dynamic-content"
                         ],
                         "extensions": {},
                         "children": []
@@ -2466,11 +2526,40 @@
                     "styleRef": "s-41f4970683f8913c",
                     "content": {
                       "type": "text",
-                      "value": "完整周达标率 75% · 3 / 4\n全部历史：9月7日—10月9日\n连续达标 2 周（截至上一完整周）",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "完整周达标率 {{stats.weekCompletionRate}} · {{stats.completedWeeks}} / {{stats.totalWeeks}}\n全部历史：{{plan.startDate}}—{{stats.asOfDate}}\n连续达标 {{stats.streakWeeks}} 周（截至上一完整周）",
+                        "parameters": {
+                          "stats.weekCompletionRate": {
+                            "type": "number",
+                            "format": "0%"
+                          },
+                          "stats.completedWeeks": {
+                            "type": "integer",
+                            "format": "0"
+                          },
+                          "stats.totalWeeks": {
+                            "type": "integer",
+                            "format": "0"
+                          },
+                          "plan.startDate": {
+                            "type": "date",
+                            "format": "M月d日"
+                          },
+                          "stats.asOfDate": {
+                            "type": "date",
+                            "format": "M月d日"
+                          },
+                          "stats.streakWeeks": {
+                            "type": "integer",
+                            "format": "0"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2504,7 +2593,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2563,11 +2653,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "本周因10月9日到期为部分周，周结束时中断连续。整周暂停不计达标率，也在周结束时中断。",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "本周因{{plan.endDate}}到期为部分周，周结束时中断连续。整周暂停不计达标率，也在周结束时中断。",
+                        "parameters": {
+                          "plan.endDate": {
+                            "type": "date",
+                            "format": "M月d日"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -2601,7 +2700,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -2951,11 +3051,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "10月8日",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{history.success.date}}",
+                            "parameters": {
+                              "history.success.date": {
+                                "type": "date",
+                                "format": "M月d日"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -2989,7 +3098,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -3147,11 +3257,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "完成了户外运动",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{history.success.note}}",
+                        "parameters": {
+                          "history.success.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -3185,7 +3304,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -3340,11 +3460,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "10月7日",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{history.skipped.date}}",
+                            "parameters": {
+                              "history.skipped.date": {
+                                "type": "date",
+                                "format": "M月d日"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -3378,7 +3507,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -3536,11 +3666,20 @@
                     "styleRef": "s-4c67bc9e11624fe3",
                     "content": {
                       "type": "text",
-                      "value": "出差调整 · 已修改",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "{{history.skipped.note}} · 已修改",
+                        "parameters": {
+                          "history.skipped.note": {
+                            "type": "string",
+                            "format": "plain"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -3574,7 +3713,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -3729,11 +3869,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "10月6日",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{history.missing.date}}",
+                            "parameters": {
+                              "history.missing.date": {
+                                "type": "date",
+                                "format": "M月d日"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -3767,7 +3916,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {

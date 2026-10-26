@@ -116,6 +116,94 @@ class ContractTests(unittest.TestCase):
         self.assertEqual(report["structure"]["status"],"passed",report)
         self.assertEqual(report["baselineVisual"],"not-tested")
         self.assertFalse(report["sourceFilesRead"])
+    def bound_text(self, template="截止日期：{{task.deadline}}", parameters=None):
+        data = fixture("mobile")
+        text = data["document"]["tree"]["children"][0]
+        text["content"]["value"] = None
+        text["content"]["binding"] = {"template": template, "parameters": parameters or {"task.deadline": {"type": "date", "format": "yyyy年M月d日"}}}
+        return data
+
+    def test_dynamic_text_contract(self):
+        self.assert_valid(self.bound_text())
+
+    def test_dynamic_text_all_supported_types(self):
+        fields = {"label": {"type": "string", "format": "plain"}, "count": {"type": "integer", "format": "0"},
+                  "rate": {"type": "number", "format": "0%"}, "date": {"type": "date", "format": "M月d日"},
+                  "submitted": {"type": "datetime", "format": "M月d日 HH:mm"}, "clock": {"type": "time", "format": "HH:mm"}}
+        self.assert_valid(self.bound_text(" ".join("{{" + key + "}}" for key in fields), fields))
+
+    def test_repeated_placeholder_needs_one_declaration(self):
+        self.assert_valid(self.bound_text("{{task.deadline}} / {{task.deadline}}"))
+
+    def test_dynamic_text_cannot_keep_literal_sample(self):
+        data = self.bound_text(); data["document"]["tree"]["children"][0]["content"]["value"] = "2026年10月10日"
+        self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_static_placeholder_without_binding_rejected(self):
+        data = fixture(); data["document"]["tree"]["children"][0]["content"]["value"] = "{{task.name}}"
+        self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_missing_unused_or_malformed_parameters_rejected(self):
+        for template, params in [("{{task.name}}", {"task.deadline": {"type": "date", "format": "M月d日"}}),
+                                 ("{{task.deadline}}", {"task.deadline": {"type": "date", "format": "M月d日"}, "extra": {"type": "string", "format": "plain"}}),
+                                 ("{{task.deadline} + {{task.deadline}}", None),
+                                 ("fixed text only", None), ("{{task.deadline + 1}}", None)]:
+            with self.subTest(template=template):
+                self.assertEqual(self.evaluate(self.bound_text(template, params))["structure"]["status"], "failed")
+
+    def test_format_must_match_type(self):
+        data = self.bound_text(parameters={"task.deadline": {"type": "integer", "format": "yyyy年M月d日"}})
+        self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_empty_dynamic_parameters_rejected(self):
+        data = self.bound_text(); data["document"]["tree"]["children"][0]["content"]["binding"]["parameters"] = {}
+        self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_percent_data_binding(self):
+        data = fixture(); dim = data["document"]["tree"]["sizing"]["width"]
+        dim.update(mode="percent", value=None, binding={"path": "weekly.progressRatio", "type": "number", "min": 0, "max": 1})
+        self.assert_valid(data)
+
+    def test_percent_binding_rejects_conflicting_literal_or_fixed_mode(self):
+        for mode, value in [("percent", 0.63), ("fixed", None), ("fill", None)]:
+            with self.subTest(mode=mode):
+                data = fixture(); data["document"]["tree"]["sizing"]["width"].update(mode=mode, value=value, binding={"path": "weekly.progressRatio", "type": "number", "min": 0, "max": 1})
+                self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_percent_binding_rejects_invalid_range_or_path(self):
+        for binding in [{"path": "x", "type": "number", "min": 0, "max": 2}, {"path": "x[0]", "type": "number", "min": 0, "max": 1}, {"path": "x", "type": "number", "min": 0, "max": True}]:
+            with self.subTest(binding=binding):
+                data = fixture(); data["document"]["tree"]["sizing"]["width"].update(mode="percent", value=None, binding=binding)
+                self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_responsive_text_binding_resolved_and_checked(self):
+        data = self.bound_text(); text = data["document"]["tree"]["children"][0]
+        data["rules"]["profiles"]["mobile"]["modes"] = [{"id": "dark", "when": {"theme": "dark"}}]
+        text["policy"]["adaptive"].append("content")
+        text["responsive"] = [{"modeId": "dark", "overrides": {"content": {"binding": {"template": "{{missing}}"}}}}]
+        self.assertEqual(self.evaluate(data)["structure"]["status"], "failed")
+
+    def test_partial_responsive_binding_keeps_parameters(self):
+        data = self.bound_text(); text = data["document"]["tree"]["children"][0]
+        data["rules"]["profiles"]["mobile"]["modes"] = [{"id": "dark", "when": {"theme": "dark"}}]
+        text["policy"]["adaptive"].append("content")
+        text["responsive"] = [{"modeId": "dark", "overrides": {"content": {"binding": {"template": "计划截止：{{task.deadline}}"}}}}]
+        self.assert_valid(data)
+
+    def test_partial_responsive_percent_binding_keeps_range(self):
+        data = fixture(); root = data["document"]["tree"]
+        root["sizing"]["width"].update(mode="percent", value=None, binding={"path": "weekly.progressRatio", "type": "number", "min": 0, "max": 1})
+        data["rules"]["profiles"]["desktop"]["modes"] = [{"id": "dark", "when": {"theme": "dark"}}]
+        root["responsive"] = [{"modeId": "dark", "overrides": {"sizing": {"width": {"binding": {"path": "preview.progressRatio"}}}}}]
+        self.assert_valid(data)
+
+    def test_responsive_can_explicitly_clear_binding(self):
+        data = self.bound_text(); text = data["document"]["tree"]["children"][0]
+        data["rules"]["profiles"]["mobile"]["modes"] = [{"id": "dark", "when": {"theme": "dark"}}]
+        text["policy"]["adaptive"].append("content")
+        text["responsive"] = [{"modeId": "dark", "overrides": {"content": {"value": "Fixed label", "binding": None}}}]
+        self.assert_valid(data)
+
     def test_desktop_grid(self):
         self.assert_valid(fixture())
     def test_mobile_flex(self):

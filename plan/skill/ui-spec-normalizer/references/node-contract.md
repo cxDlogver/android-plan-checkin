@@ -132,7 +132,7 @@ library.assets中每项包含kind=image/vector/font、file或embedded、sha256�
 
 content按kind对应：
 
-- text：value、wrap=wrap/nowrap、overflow=visible/truncate/scroll、maxLines或null、scaleWithSystem。
+- text：固定文案使用value字符串；动态内容使用value=null及binding。两者共享wrap=wrap/nowrap、overflow=visible/truncate/scroll、maxLines或null、scaleWithSystem，按下节解释。
 - image：assetRef、fit=contain/cover/stretch、focus两个0到1数值。
 - vector：assetRef；图形内部节点不参与页面布局。
 - container/shape：content=null，shape由视觉配方绘制。
@@ -141,9 +141,63 @@ source包含sourceId、nodeId或null、evidence=extracted/authored/inferred、re
 
 semantics可以明确缺失；visual-only规范不因缺少业务动作而自动补需求。影响本次目标的关键缺失才进入critical issue。
 
+### 8.1 固定文案与动态占位
+
+先按内容用途区分，不按是否包含数字判定：
+
+| 内容 | JSON表达 | 对齐标准 |
+| --- | --- | --- |
+| 页面功能标题、字段标签、按钮、选项、状态标签及说明文案 | content.value保存固定文字，binding省略或为null | 核对固定文字、视觉样式及结构 |
+| 名称、用户输入、日期、时间、计数、金额、比例等示例数据 | content.value=null；binding保存展示模板及参数 | 核对绑定含义、格式和传入数据的呈现，不核对设计稿示例值 |
+| 固定句式中的动态部分 | template保留固定文字，仅参数使用占位 | 同时核对固定部分与参数解析结果 |
+| 图形呈现的数据量，例如进度填充比例 | 对应percent尺寸使用value=null和数值binding | 按传入比例计算尺寸，轨道、颜色、高度等仍按样式规范 |
+
+静态的“截止日期”标签不能占位化；示例任务名称即使出现在页头，也使用占位。选中、只读、错误等已捕获视觉状态仍需严格验收，不能整段替换为任意文字而丢失状态语义。原稿中的具体值保留于来源留档，不作为binding默认值或回退值。节点name、document.title和来源元数据只用于识别，不是显示数据的备份。
+
+文本示例：
+
+~~~json
+{
+  "type": "text",
+  "value": null,
+  "binding": {
+    "template": "截止日期：{{task.deadline}}",
+    "parameters": {
+      "task.deadline": {"type": "date", "format": "yyyy年M月d日"}
+    }
+  },
+  "wrap": "wrap",
+  "overflow": "visible",
+  "maxLines": null,
+  "scaleWithSystem": true
+}
+~~~
+
+- binding.template中的占位写作{{字段路径}}；路径由英文字母开头的字母数字段组成，段之间用点连接。字段是展示输入契约，不据此推断接口、存储模型或业务算法。
+- parameters逐一声明所有占位的type和format；重复使用同一占位只声明一次。未声明、未使用、空模板、残缺花括号及可执行表达式均不通过。
+- string使用plain；integer使用0；number使用0.##或0%；date使用yyyy-MM-dd、yyyy年M月d日、M月d日、yyyy年M月、M月d日 EEEE；datetime使用yyyy-MM-dd HH:mm或M月d日 HH:mm；time使用HH:mm。0%将0到1的比例显示为百分数，0.##最多两位小数；EEEE按当前locale显示星期全名。日期、时间输入和时区由场景明确，不从图片中猜测运行时间。
+- 解析后再测量文字。传入值可以改变换行和内容高度；不能将{{...}}本身作为应用最终显示文字。缺少参数、类型或格式不匹配时，验收输入未就绪，不能偷偷使用设计稿值通过验收。
+- policy.locked锁定模板、格式和样式规则，不锁定外部传入值；数据替换不需要responsive mode。改变模板或视觉结构则修改正式JSON。
+
+数值占位示例：
+
+~~~json
+{
+  "mode": "percent",
+  "value": null,
+  "min": null,
+  "max": null,
+  "binding": {"path": "weekly.progressRatio", "type": "number", "min": 0, "max": 1}
+}
+~~~
+
+本契约仅允许percent尺寸使用该数值binding。输入是0到1的比例，乘以父级内容尺寸；value与有效binding互斥。颜色、固定图标及普通布局尺寸不能仅因存在示例数据而占位化。binding=null可用于显式移除覆盖前的绑定。
+
+基准视觉检查记录实际传入数据，以同一组数据生成预期与实际画面；动态文本及图形按解析结果比较。同一数量的文字与图形使用语义一致的数据；计算口径由正式需求或场景输入约定，不从原稿示例推断业务算法。适配检查另使用短文本、长文本及允许的边界值。若需跨页跟踪同一对象，场景给出同一输入或字段映射，不用设计稿中恰好相同或不同的值证明业务连续性。列表节点用于描述已捕获的行样式与状态组合，不能由示例计数推断正式业务数量或另造增删规则。
+
 ## 9. 校验边界
 
-校验器检查：Schema子集、文件范围、清单hash、ID/父子/引用、组件/样式/资源、mode互斥、响应式覆盖、单一layout、定位锚点、尺寸与关键issue。它不会计算真实Flex/Grid布局，不会证明没有视觉溢出，也不会替代图形渲染或字体可用性检查。
+校验器检查：Schema子集、文件范围、清单hash、ID/父子/引用、组件/样式/资源、mode互斥、响应式覆盖、单一layout、定位锚点、尺寸、动态占位完整性与关键issue。它不会计算真实Flex/Grid布局，不会证明没有视觉溢出，也不会替代图形渲染或字体可用性检查。
 
 结构通过与canonical就绪度分别报告。draft允许保留未解决问题；canonical遇到critical open issue、缺少可分类页面或关键缺失资源时发布就绪度为blocked，CLI以非零退出；结构结果仍独立报告。视觉not-tested不能升级为passed。
 

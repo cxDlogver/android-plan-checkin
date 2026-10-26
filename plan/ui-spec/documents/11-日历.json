@@ -350,11 +350,20 @@
                 "styleRef": "s-49760c214bda2663",
                 "content": {
                   "type": "text",
-                  "value": "09:41",
+                  "value": null,
                   "wrap": "nowrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": false
+                  "scaleWithSystem": false,
+                  "binding": {
+                    "template": "{{environment.time}}",
+                    "parameters": {
+                      "environment.time": {
+                        "type": "time",
+                        "format": "HH:mm"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -387,7 +396,8 @@
                 },
                 "decisionRefs": [
                   "source-visual",
-                  "flow-layout"
+                  "flow-layout",
+                  "dynamic-content"
                 ],
                 "extensions": {},
                 "children": []
@@ -1689,11 +1699,20 @@
                         "styleRef": "s-a6244d08658aa12b",
                         "content": {
                           "type": "text",
-                          "value": "2026年10月",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{calendar.month}}",
+                            "parameters": {
+                              "calendar.month": {
+                                "type": "date",
+                                "format": "yyyy年M月"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -1727,7 +1746,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -3283,11 +3303,20 @@
                             "styleRef": "s-2deee30a4070f3c3",
                             "content": {
                               "type": "text",
-                              "value": "28",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c01.day}}",
+                                "parameters": {
+                                  "calendar.cells.c01.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -3321,7 +3350,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -3479,11 +3509,20 @@
                             "styleRef": "s-2deee30a4070f3c3",
                             "content": {
                               "type": "text",
-                              "value": "29",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c02.day}}",
+                                "parameters": {
+                                  "calendar.cells.c02.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -3517,7 +3556,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -3675,11 +3715,20 @@
                             "styleRef": "s-2deee30a4070f3c3",
                             "content": {
                               "type": "text",
-                              "value": "30",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c03.day}}",
+                                "parameters": {
+                                  "calendar.cells.c03.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -3713,7 +3762,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -3871,11 +3921,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "1",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c04.day}}",
+                                "parameters": {
+                                  "calendar.cells.c04.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -3909,7 +3968,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -4067,11 +4127,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "2",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c05.day}}",
+                                "parameters": {
+                                  "calendar.cells.c05.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -4105,7 +4174,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -4263,11 +4333,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "3",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c06.day}}",
+                                "parameters": {
+                                  "calendar.cells.c06.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -4301,7 +4380,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -4459,11 +4539,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "4",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c07.day}}",
+                                "parameters": {
+                                  "calendar.cells.c07.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -4497,7 +4586,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -4655,11 +4745,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "5",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c08.day}}",
+                                "parameters": {
+                                  "calendar.cells.c08.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -4693,7 +4792,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -4948,11 +5048,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "6",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c09.day}}",
+                                "parameters": {
+                                  "calendar.cells.c09.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -4986,7 +5095,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -5045,11 +5155,24 @@
                             "styleRef": "s-2e76e5c1bde66be3",
                             "content": {
                               "type": "text",
-                              "value": "0/1",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c09.completed}}/{{calendar.cells.c09.total}}",
+                                "parameters": {
+                                  "calendar.cells.c09.completed": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  },
+                                  "calendar.cells.c09.total": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -5083,7 +5206,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -5241,11 +5365,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "7",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c10.day}}",
+                                "parameters": {
+                                  "calendar.cells.c10.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -5279,7 +5412,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -5338,11 +5472,24 @@
                             "styleRef": "s-2e76e5c1bde66be3",
                             "content": {
                               "type": "text",
-                              "value": "0/1",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c10.completed}}/{{calendar.cells.c10.total}}",
+                                "parameters": {
+                                  "calendar.cells.c10.completed": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  },
+                                  "calendar.cells.c10.total": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -5376,7 +5523,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -5534,11 +5682,20 @@
                             "styleRef": "s-3a3dc38178e1d61b",
                             "content": {
                               "type": "text",
-                              "value": "8",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c11.day}}",
+                                "parameters": {
+                                  "calendar.cells.c11.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -5572,7 +5729,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -5631,11 +5789,24 @@
                             "styleRef": "s-2e76e5c1bde66be3",
                             "content": {
                               "type": "text",
-                              "value": "2/5",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c11.completed}}/{{calendar.cells.c11.total}}",
+                                "parameters": {
+                                  "calendar.cells.c11.completed": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  },
+                                  "calendar.cells.c11.total": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -5669,7 +5840,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -5827,11 +5999,20 @@
                             "styleRef": "s-3a3dc38178e1d61b",
                             "content": {
                               "type": "text",
-                              "value": "9",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c12.day}}",
+                                "parameters": {
+                                  "calendar.cells.c12.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -5865,7 +6046,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -6023,11 +6205,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "10",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c13.day}}",
+                                "parameters": {
+                                  "calendar.cells.c13.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -6061,7 +6252,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -6219,11 +6411,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "11",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c14.day}}",
+                                "parameters": {
+                                  "calendar.cells.c14.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -6257,7 +6458,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -6415,11 +6617,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "12",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c15.day}}",
+                                "parameters": {
+                                  "calendar.cells.c15.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -6453,7 +6664,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -6611,11 +6823,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "13",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c16.day}}",
+                                "parameters": {
+                                  "calendar.cells.c16.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -6649,7 +6870,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -6807,11 +7029,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "14",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c17.day}}",
+                                "parameters": {
+                                  "calendar.cells.c17.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -6845,7 +7076,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -7003,11 +7235,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "15",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c18.day}}",
+                                "parameters": {
+                                  "calendar.cells.c18.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -7041,7 +7282,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -7199,11 +7441,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "16",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c19.day}}",
+                                "parameters": {
+                                  "calendar.cells.c19.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -7237,7 +7488,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -7395,11 +7647,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "17",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c20.day}}",
+                                "parameters": {
+                                  "calendar.cells.c20.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -7433,7 +7694,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -7591,11 +7853,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "18",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c21.day}}",
+                                "parameters": {
+                                  "calendar.cells.c21.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -7629,7 +7900,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -7787,11 +8059,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "19",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c22.day}}",
+                                "parameters": {
+                                  "calendar.cells.c22.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -7825,7 +8106,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -7983,11 +8265,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "20",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c23.day}}",
+                                "parameters": {
+                                  "calendar.cells.c23.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -8021,7 +8312,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -8179,11 +8471,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "21",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c24.day}}",
+                                "parameters": {
+                                  "calendar.cells.c24.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -8217,7 +8518,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -8375,11 +8677,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "22",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c25.day}}",
+                                "parameters": {
+                                  "calendar.cells.c25.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -8413,7 +8724,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -8571,11 +8883,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "23",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c26.day}}",
+                                "parameters": {
+                                  "calendar.cells.c26.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -8609,7 +8930,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -8767,11 +9089,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "24",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c27.day}}",
+                                "parameters": {
+                                  "calendar.cells.c27.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -8805,7 +9136,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -8963,11 +9295,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "25",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c28.day}}",
+                                "parameters": {
+                                  "calendar.cells.c28.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -9001,7 +9342,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -9159,11 +9501,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "26",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c29.day}}",
+                                "parameters": {
+                                  "calendar.cells.c29.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -9197,7 +9548,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -9355,11 +9707,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "27",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c30.day}}",
+                                "parameters": {
+                                  "calendar.cells.c30.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -9393,7 +9754,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -9551,11 +9913,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "28",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c31.day}}",
+                                "parameters": {
+                                  "calendar.cells.c31.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -9589,7 +9960,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -9747,11 +10119,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "29",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c32.day}}",
+                                "parameters": {
+                                  "calendar.cells.c32.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -9785,7 +10166,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -9943,11 +10325,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "30",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c33.day}}",
+                                "parameters": {
+                                  "calendar.cells.c33.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -9981,7 +10372,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -10139,11 +10531,20 @@
                             "styleRef": "s-0be87415c20af00c",
                             "content": {
                               "type": "text",
-                              "value": "31",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c34.day}}",
+                                "parameters": {
+                                  "calendar.cells.c34.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -10177,7 +10578,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -10335,11 +10737,20 @@
                             "styleRef": "s-2deee30a4070f3c3",
                             "content": {
                               "type": "text",
-                              "value": "1",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.cells.c35.day}}",
+                                "parameters": {
+                                  "calendar.cells.c35.day": {
+                                    "type": "integer",
+                                    "format": "0"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -10373,7 +10784,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -10438,11 +10850,24 @@
                 "styleRef": "s-96b7de369a20fada",
                 "content": {
                   "type": "text",
-                  "value": "10月8日 · 5项计划",
+                  "value": null,
                   "wrap": "wrap",
                   "overflow": "visible",
                   "maxLines": null,
-                  "scaleWithSystem": true
+                  "scaleWithSystem": true,
+                  "binding": {
+                    "template": "{{calendar.selectedDate}} · {{calendar.selectedPlanCount}}项计划",
+                    "parameters": {
+                      "calendar.selectedDate": {
+                        "type": "date",
+                        "format": "M月d日"
+                      },
+                      "calendar.selectedPlanCount": {
+                        "type": "integer",
+                        "format": "0"
+                      }
+                    }
+                  }
                 },
                 "semantics": {
                   "role": null,
@@ -10476,7 +10901,8 @@
                 "decisionRefs": [
                   "source-visual",
                   "flow-layout",
-                  "text-flow"
+                  "text-flow",
+                  "dynamic-content"
                 ],
                 "extensions": {
                   "textFlow": {
@@ -10724,11 +11150,20 @@
                     "styleRef": "s-abe38e0e0eae2ee9",
                     "content": {
                       "type": "text",
-                      "value": "全部状态（5）",
+                      "value": null,
                       "wrap": "wrap",
                       "overflow": "visible",
                       "maxLines": null,
-                      "scaleWithSystem": true
+                      "scaleWithSystem": true,
+                      "binding": {
+                        "template": "全部状态（{{calendar.filteredPlanCount}}）",
+                        "parameters": {
+                          "calendar.filteredPlanCount": {
+                            "type": "integer",
+                            "format": "0"
+                          }
+                        }
+                      }
                     },
                     "semantics": {
                       "role": null,
@@ -10762,7 +11197,8 @@
                     "decisionRefs": [
                       "source-visual",
                       "flow-layout",
-                      "text-flow"
+                      "text-flow",
+                      "dynamic-content"
                     ],
                     "extensions": {
                       "textFlow": {
@@ -11203,11 +11639,20 @@
                             "styleRef": "s-7eb29a098b34b073",
                             "content": {
                               "type": "text",
-                              "value": "晨间阅读",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.rows.successA.planName}}",
+                                "parameters": {
+                                  "calendar.rows.successA.planName": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -11241,7 +11686,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -11399,11 +11845,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "阅读两章 · 历史只读",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{calendar.rows.successA.note}} · 历史只读",
+                            "parameters": {
+                              "calendar.rows.successA.note": {
+                                "type": "string",
+                                "format": "plain"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -11437,7 +11892,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -11690,11 +12146,20 @@
                             "styleRef": "s-7eb29a098b34b073",
                             "content": {
                               "type": "text",
-                              "value": "运动",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.rows.successB.planName}}",
+                                "parameters": {
+                                  "calendar.rows.successB.planName": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -11728,7 +12193,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -11886,11 +12352,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "户外运动 · 历史只读",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{calendar.rows.successB.note}} · 历史只读",
+                            "parameters": {
+                              "calendar.rows.successB.note": {
+                                "type": "string",
+                                "format": "plain"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -11924,7 +12399,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -12177,11 +12653,20 @@
                             "styleRef": "s-7eb29a098b34b073",
                             "content": {
                               "type": "text",
-                              "value": "不要吸烟",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.rows.failed.planName}}",
+                                "parameters": {
+                                  "calendar.rows.failed.planName": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -12215,7 +12700,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -12664,11 +13150,20 @@
                             "styleRef": "s-7eb29a098b34b073",
                             "content": {
                               "type": "text",
-                              "value": "晚间拉伸",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.rows.skipped.planName}}",
+                                "parameters": {
+                                  "calendar.rows.skipped.planName": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -12702,7 +13197,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
@@ -12860,11 +13356,20 @@
                         "styleRef": "s-4c67bc9e11624fe3",
                         "content": {
                           "type": "text",
-                          "value": "临时调整 · 历史只读",
+                          "value": null,
                           "wrap": "wrap",
                           "overflow": "visible",
                           "maxLines": null,
-                          "scaleWithSystem": true
+                          "scaleWithSystem": true,
+                          "binding": {
+                            "template": "{{calendar.rows.skipped.note}} · 历史只读",
+                            "parameters": {
+                              "calendar.rows.skipped.note": {
+                                "type": "string",
+                                "format": "plain"
+                              }
+                            }
+                          }
                         },
                         "semantics": {
                           "role": null,
@@ -12898,7 +13403,8 @@
                         "decisionRefs": [
                           "source-visual",
                           "flow-layout",
-                          "text-flow"
+                          "text-flow",
+                          "dynamic-content"
                         ],
                         "extensions": {
                           "textFlow": {
@@ -13151,11 +13657,20 @@
                             "styleRef": "s-7eb29a098b34b073",
                             "content": {
                               "type": "text",
-                              "value": "喝水",
+                              "value": null,
                               "wrap": "wrap",
                               "overflow": "visible",
                               "maxLines": null,
-                              "scaleWithSystem": true
+                              "scaleWithSystem": true,
+                              "binding": {
+                                "template": "{{calendar.rows.missing.planName}}",
+                                "parameters": {
+                                  "calendar.rows.missing.planName": {
+                                    "type": "string",
+                                    "format": "plain"
+                                  }
+                                }
+                              }
                             },
                             "semantics": {
                               "role": null,
@@ -13189,7 +13704,8 @@
                             "decisionRefs": [
                               "source-visual",
                               "flow-layout",
-                              "text-flow"
+                              "text-flow",
+                              "dynamic-content"
                             ],
                             "extensions": {
                               "textFlow": {
