@@ -1,6 +1,6 @@
 # UI-001 设计还原 · 文件级任务计划
 
-执行状态：任务 通过 3、证据已失效 2、待实施 3；用例 未执行 135。本文由 task-plan.json 生成。
+执行状态：任务 证据已失效 8；用例 部分完成 37、未执行 96、证据已失效 1、通过 1。本文由 task-plan.json 生成。
 
 原子需求 129 项；补充用例 6 项；最少 211 次逻辑用例访问，其中重复 76 次。
 
@@ -121,11 +121,11 @@ Test Case：TC-G-EVIDENCE、TC-G-LAYOUT、TC-G-SCOPE、TC-G-VISUAL、TC-REG-CONT
 - Node入口可运行纯逻辑/协议测试；原生组件宿主可触发实际事件并返回原生树及测量。
 - oracle与被测实现独立，证据含版本、节点、环境、输入、截图和差异；模拟结果与宿主结果明确区分。
 
-任务状态：通过；计划检查：
+任务状态：证据已失效；计划检查：
 
 - pnpm typecheck；前置任务：无；通过
 - node scripts/ui-test.cjs unit --case TC-G-EVIDENCE；前置任务：P01；通过
-- node scripts/ui-test.cjs integration --smoke；前置任务：P01；通过
+- node scripts/ui-test.cjs integration --smoke；前置任务：P01；证据已失效
 
 ## P02 · 还原共享视觉配方、字体与页面骨架
 
@@ -165,11 +165,11 @@ Test Case：TC-G-EVIDENCE、TC-G-LAYOUT、TC-G-SCOPE、TC-G-VISUAL、TC-REG-CONT
 - 公共视觉配方与组件实例可逐节点对照正式JSON；每个容器只有一种布局。
 - 直接受损控件契约的TC-REG-CONTROLS通过，字体资源未就绪时视觉项不通过。
 
-任务状态：通过；计划检查：
+任务状态：证据已失效；计划检查：
 
 - node scripts/ui-test.cjs unit --case TC-G-VISUAL；前置任务：P01、P02；通过
-- node scripts/ui-test.cjs integration --case TC-REG-CONTROLS；前置任务：P01、P02；通过
-- node scripts/ui-test.cjs native --case TC-G-LAYOUT；前置任务：P01、P02；通过
+- node scripts/ui-test.cjs integration --case TC-REG-CONTROLS；前置任务：P01、P02；证据已失效
+- node scripts/ui-test.cjs native --case TC-G-LAYOUT；前置任务：P01、P02；证据已失效
 
 ## P03 · 还原今日、计划与日历呈现视图
 
@@ -272,10 +272,10 @@ Test Case：TC-G-LAYOUT、TC-REG-CONTAINERS、TC-T011～TC-T015（连续ID）、
 - 六个条件迁移均有正确UI响应准备；不提前跳到终态，不丢输入。
 - 只读和错误说明可见，容器原提交/返回/草稿功能通过回归。
 
-任务状态：通过；计划检查：
+任务状态：证据已失效；计划检查：
 
-- node scripts/ui-test.cjs integration --local-task P05；前置任务：P01、P05；通过
-- node scripts/ui-test.cjs native --local-task P05；前置任务：P01、P05；通过
+- node scripts/ui-test.cjs integration --local-task P05；前置任务：P01、P05；证据已失效
+- node scripts/ui-test.cjs native --local-task P05；前置任务：P01、P05；证据已失效
 
 ## P06 · 还原计划详情、管理、删除确认和设置
 
@@ -307,10 +307,10 @@ Test Case：TC-G-VISUAL、TC-REG-CONTAINERS、TC-T004、TC-T007～TC-T011（连�
 - 固定/每周/一次性详情、管理、两种确认和设置均能用输入对齐JSON。
 - 生产容器取消确认不发命令、busy防重及成功路由等原事件契约保留。
 
-任务状态：待实施；计划检查：
+任务状态：证据已失效；计划检查：
 
-- node scripts/ui-test.cjs integration --local-task P06；前置任务：P01、P06；未执行
-- node scripts/ui-test.cjs native --local-task P06；前置任务：P01、P06；未执行
+- node scripts/ui-test.cjs integration --local-task P06；前置任务：P01、P06；证据已失效
+- node scripts/ui-test.cjs native --local-task P06；前置任务：P01、P06；证据已失效
 
 ## P07 · 连接独立UI浏览宿主与完整视觉路线
 
@@ -345,11 +345,11 @@ Test Case：TC-G-SCOPE、TC-T001～TC-T129（连续ID）
 - 129个主用例的事件入口可触发真实呈现组件，沿既有最优路线合法可达。
 - 写入/execute调用数为0；同对象动态输入一致，不将场景保存当实际业务成功。
 
-任务状态：待实施；计划检查：
+任务状态：证据已失效；计划检查：
 
-- node scripts/ui-test.cjs integration --primary-route；前置任务：P01、P07；未执行
-- node scripts/ui-test.cjs integration --case TC-G-SCOPE；前置任务：P01、P07；未执行
-- node scripts/ui-test.cjs native --primary-route；前置任务：P01、P07；未执行
+- node scripts/ui-test.cjs integration --primary-route；前置任务：P01、P07；通过
+- node scripts/ui-test.cjs integration --case TC-G-SCOPE；前置任务：P01、P07；证据已失效
+- node scripts/ui-test.cjs native --primary-route；前置任务：P01、P07；证据已失效
 
 ## P08 · 建立直接影响回归并完成验收记录
 
@@ -384,8 +384,8 @@ Test Case：TC-G-EVIDENCE、TC-G-LAYOUT、TC-G-SCOPE、TC-G-VISUAL、TC-REG-CONT
 - 本轮要求的每条实际验收均有记录，无未观察即通过；未执行项如实保持未执行。
 - 仅在实施范围一致且所有适用断言通过后结束验收；本任务规划当前不执行这些检查。
 
-任务状态：待实施；计划检查：
+任务状态：证据已失效；计划检查：
 
-- node scripts/ui-test.cjs unit；前置任务：P01、P08；未执行
+- node scripts/ui-test.cjs unit；前置任务：P01、P08；通过
 - node scripts/ui-test.cjs integration --case TC-REG-CONTROLS --case TC-REG-CONTAINERS；前置任务：P01、P08；未执行
-- node scripts/ui-test.cjs acceptance-route --model plan/task-planning/test-cases.json；前置任务：P01、P08；未执行
+- node scripts/ui-test.cjs acceptance-route --model plan/task-planning/test-cases.json；前置任务：P01、P08；证据已失效

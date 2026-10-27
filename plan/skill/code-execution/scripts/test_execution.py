@@ -7,9 +7,10 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 from execution import (execute, inspect, load_json, digest, raw_hash, ready,
-                       case_contract, plan_contract, conflict, assertion_evidence)
+                       case_contract, plan_contract, conflict, assertion_evidence, pending_file)
 from test_plan import fixture, write
 from plan import execute as plan_execute, evaluate, html_text, derive_route
 from atomic import derive
@@ -376,9 +377,174 @@ class ExecutionContracts(unittest.TestCase):
         self.path.with_suffix('.html').write_text('stale',encoding='utf-8')
         with self.assertRaisesRegex(ValueError,'Stale execution projection'):
             execute('check',self.record_path,self.base)
-
         execute('sync',self.record_path,self.base)
         self.assertEqual(execute('check',self.record_path,self.base)['status'],'passed')
+
+    def pending_run(self, run):
+        # The adapter has emitted a run, but has not appended it to the ledger.
+        self.record['runs'].remove(run)
+        self.save()
+        file = self.base/'execution'/'run-input.json'
+        write(file, run)
+        return file.relative_to(self.base).as_posix()
+
+    def test_ready_refuses_unsynchronized_batch_results(self):
+        self.add_run()
+        with self.assertRaisesRegex(ValueError, 'Stale execution projection'):
+            execute('ready', self.record_path, self.base)
+        execute('sync', self.record_path, self.base)
+        self.assertEqual(execute('ready', self.record_path, self.base)['batches'], [])
+
+    def test_submit_records_case_checks_and_closes_all_views(self):
+        file = self.pending_run(self.add_run())
+        result = execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(result['status'], 'passed')
+        self.assertTrue(result['recorded'] and result['synced'] and result['checked'])
+        self.assertEqual(set(load_json(self.path)['cases'][0]['execution']), {'status','actual','evidence','checks'})
+        self.assertEqual(execute('finish', self.record_path, self.base)['status'], 'passed')
+
+    def test_case_submit_cannot_use_only_local_task_results(self):
+        run = self.add_run()
+        run['visits'] = []
+        file = self.pending_run(run)
+        with self.assertRaisesRegex(ValueError, 'per-visit Test Case results'):
+            execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(load_json(self.record_path)['runs'], [])
+        result = execute('submit', self.record_path, self.base, run=file, local_only=True)
+        self.assertEqual(result['scope'], 'local-batch')
+        self.assertEqual(result['caseCounts'], {'not_run':len(self.model['cases'])})
+
+    def test_submit_rejects_environment_mapping_without_mutating_ledger(self):
+        run = self.add_run()
+        run['environment'] = 'native'
+        context = self.base/run['context']['path']
+        value = load_json(context)
+        value.update(environment='native', host='contract-fixture-only')
+        write(context, value)
+        run['context'] = self.ref(context)
+        file = self.pending_run(run)
+        old_views = {p:p.read_bytes() for p in (self.path, self.path.with_suffix('.html'))}
+        with self.assertRaisesRegex(ValueError, 'check environment mismatch'):
+            execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(load_json(self.record_path)['runs'], [])
+        self.assertTrue(all(p.read_bytes() == content for p,content in old_views.items()))
+
+    def test_submit_failure_is_synchronized_but_cannot_report_batch_passed(self):
+        run = self.add_run()
+        run['exitCode'] = 1
+        file = self.pending_run(run)
+        result = execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(result['status'], 'failed')
+        self.assertTrue(result['recorded'] and result['synced'])
+        self.assertEqual(execute('check', self.record_path, self.base)['status'], 'passed')
+        self.assertEqual({c['execution']['status'] for c in load_json(self.path)['cases']}, {'failed'})
+
+    def test_submit_partial_checks_preserve_partial_case_status(self):
+        file = self.pending_run(self.add_run(aspects=('functional',)))
+        result = execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(result['status'], 'passed')
+        self.assertEqual(result['caseCounts'], {'partial':len(self.model['cases'])})
+        with self.assertRaisesRegex(ValueError, 'Unaccepted script check'):
+            execute('finish', self.record_path, self.base)
+
+    def test_submit_stale_evidence_records_stale_and_returns_failure(self):
+        file = self.pending_run(self.add_run())
+        (self.base/'source.py').write_text('changed', encoding='utf-8')
+        result = execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(result['status'], 'failed')
+        self.assertEqual(result['caseCounts'], {'stale':len(self.model['cases'])})
+
+    def test_interrupted_submit_can_resume_without_duplicate_run(self):
+        file = self.pending_run(self.add_run())
+        import execution
+        replace = execution.os.replace
+        def interrupted(source, target):
+            if target == self.path.with_suffix('.html'):
+                raise OSError('fixture interruption after ledger commit')
+            return replace(source, target)
+        with patch('execution.os.replace', side_effect=interrupted):
+            with self.assertRaisesRegex(OSError, 'fixture interruption'):
+                execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(len(load_json(self.record_path)['runs']), 1)
+        with self.assertRaisesRegex(ValueError, 'Stale execution projection'):
+            execute('ready', self.record_path, self.base)
+        self.assertEqual(execute('submit', self.record_path, self.base, run=file)['status'], 'passed')
+        self.assertEqual(len(load_json(self.record_path)['runs']), 1)
+
+    def test_same_run_identity_cannot_replace_existing_evidence(self):
+        file = self.pending_run(self.add_run())
+        execute('submit', self.record_path, self.base, run=file)
+        value = load_json(self.base/file)
+        value['visits'][0]['targetObserved'] = 'rewritten observation'
+        write(self.base/file, value)
+        with self.assertRaisesRegex(ValueError, 'immutable evidence'):
+            execute('submit', self.record_path, self.base, run=file)
+
+    def test_finish_rejects_stale_visit_even_if_old_checks_passed(self):
+        self.add_run()
+        run = self.add_run('entry-retry', start=5, indices=[0])
+        run['taskResults'] = []
+        run['visits'][0].update(checks=[], outcome='deferred')
+        (self.base/run['script']['path']).write_text('changed', encoding='utf-8')
+        self.save()
+        result = execute('sync', self.record_path, self.base)
+        self.assertEqual(result['tasks']['P'], 'passed')
+        self.assertEqual(result['cases'][self.model['coverage']['sequence'][0]], 'stale')
+        with self.assertRaisesRegex(ValueError, 'Unaccepted'):
+            execute('finish', self.record_path, self.base)
+
+    def test_submit_cli_returns_nonzero_after_recording_failed_batch(self):
+        run = self.add_run()
+        run['exitCode'] = 1
+        file = self.pending_run(run)
+        import execution
+        result = subprocess.run([sys.executable, '-B', execution.__file__, 'submit', str(self.record_path),
+                                 '--workspace', str(self.base), '--run', file], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 1)
+        self.assertTrue(json.loads(result.stdout)['recorded'])
+        self.assertEqual(load_json(self.path)['cases'][0]['execution']['status'], 'failed')
+
+    def test_submit_obeys_the_same_single_writer_lock(self):
+        file = self.pending_run(self.add_run())
+        lock = self.record_path.with_suffix('.lock')
+        lock.write_text('another-writer', encoding='utf-8')
+        with self.assertRaises(FileExistsError):
+            execute('submit', self.record_path, self.base, run=file)
+        self.assertEqual(load_json(self.record_path)['runs'], [])
+        self.assertEqual(lock.read_text(encoding='utf-8'), 'another-writer')
+
+    def test_pending_batch_blocks_readiness_even_without_a_registered_run(self):
+        marker = pending_file(self.record_path, 'unfinished')
+        write(marker, {'runId':'unfinished', 'evidencePath':'execution/unfinished'})
+        with self.assertRaisesRegex(ValueError, 'Unclosed acceptance batch'):
+            execute('ready', self.record_path, self.base)
+
+    def test_pending_batch_blocks_finish_even_with_old_passing_results(self):
+        self.add_run()
+        execute('sync', self.record_path, self.base)
+        write(pending_file(self.record_path, 'unfinished'), {'runId':'unfinished'})
+        with self.assertRaisesRegex(ValueError, 'Unclosed acceptance batch'):
+            execute('finish', self.record_path, self.base)
+
+    def test_successful_submission_closes_only_its_own_pending_marker(self):
+        run = self.add_run()
+        own, other = pending_file(self.record_path, run['id']), pending_file(self.record_path, 'other')
+        write(own, {'runId':run['id']})
+        write(other, {'runId':'other'})
+        file = self.pending_run(run)
+        self.assertEqual(execute('submit', self.record_path, self.base, run=file)['status'], 'passed')
+        self.assertFalse(own.exists())
+        self.assertTrue(other.exists())
+
+    def test_rejected_submission_preserves_pending_marker(self):
+        run = self.add_run()
+        run['visits'] = []
+        marker = pending_file(self.record_path, run['id'])
+        write(marker, {'runId':run['id']})
+        file = self.pending_run(run)
+        with self.assertRaisesRegex(ValueError, 'per-visit Test Case results'):
+            execute('submit', self.record_path, self.base, run=file)
+        self.assertTrue(marker.exists())
 
     def test_planning_builder_refuses_execution_results(self):
         self.add_run();self.save();execute('sync',self.record_path,self.base)

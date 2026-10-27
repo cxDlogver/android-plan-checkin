@@ -1,0 +1,1 @@
+(async()=>{for(let i=0;i<20;i++){try{const r=await fetch('http://127.0.0.1:4723/status',{signal:AbortSignal.timeout(2000)});const j=await r.json();if(j.value?.ready){console.log('Appium ready');return;}}catch{}await new Promise(r=>setTimeout(r,1000));}throw Error('Appium initialization incomplete');})().catch(e=>{console.error(e.message);process.exitCode=1;});

@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),util=require('node:util');
+module.exports=function(directory){const file=path.join(directory,'task-assertions.json'),assertions=fs.existsSync(file)?JSON.parse(fs.readFileSync(file)).assertions:[],visits=[],tasks=[];const flush=()=>{fs.writeFileSync(file,JSON.stringify({assertions}));fs.writeFileSync(path.join(directory,'results.json'),JSON.stringify({visits,taskResults:tasks},null,2));};
+ const check=(target,label,expected,actual)=>{const ok=util.isDeepStrictEqual(expected,actual);assertions.push({target,label,expected,actual,verdict:ok?'passed':'failed'});flush();assert.deepEqual(actual,expected,label);};
+ const evidence=(name,form,description)=>({file:name,form,description});
+ const visit=(index,c,checks=[],notes={})=>{visits.push({visitIndex:index,entry:notes.entry??(c.kind==='primary'?'沿用上一已观察终态；仅在S01重新进入':'独立准备当前约束或直接影响回归'),givenObserved:notes.given??(checks.length?'本步前提已由实际输入和进入记录核对':'本环境无对应检查'),operationObserved:notes.operation??(checks.length?c.operation.label:'本环境不执行此项'),targetObserved:notes.target??(checks.length?checks.map(x=>x.actual).join('；'):'保留给对应运行环境'),outcome:checks.length?'passed':'deferred',checks});flush();};
+ const task=(taskId,checkIndex,doneIndices,actual,items)=>{const observed=assertions.filter(a=>a.target==='task:'+taskId+':'+checkIndex);assert.ok(observed.length&&observed.every(a=>a.verdict==='passed'),'Task result requires actual matching assertions');tasks.push({taskId,checkIndex,doneIndices,status:'passed',actual,evidence:items});flush();};
+ const result=(aspect,checkIndex,actual,items)=>({aspect,checkIndex,status:'passed',actual,evidence:items});
+ return {assertions,visits,tasks,flush,check,evidence,visit,task,result};
+};

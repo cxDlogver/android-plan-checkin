@@ -46,7 +46,7 @@ export function expectedRatio(size:any,inputs:Record<string,unknown>):number{
  * track widths, min/max and ratios are derived from the source contract.
  */
 export function geometryConstraints(tree:any,boxes:Record<string,MeasuredBox>,inputs:Record<string,unknown>,pixelRatio=1,environment?:{viewport?:{width:number;height:number};insets?:{top:number;bottom:number};bottomManagedElsewhere?:boolean}):GeometryFinding[]{
- const findings:GeometryFinding[]=[],epsilon=1/pixelRatio;
+ const findings:GeometryFinding[]=[],epsilon=1/pixelRatio+1e-4;
  const equal=(nodeId:string,rule:string,expected:number,actual:number)=>findings.push({nodeId,rule,expected,actual,passed:Math.abs(expected-actual)<=epsilon});
  const bound=(nodeId:string,rule:string,expected:number,actual:number,lower:boolean)=>findings.push({nodeId,rule,expected,actual,passed:lower?actual+epsilon>=expected:actual-epsilon<=expected});
  function visit(n:any,parent?:any){

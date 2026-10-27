@@ -1,0 +1,1 @@
+const fs=require('node:fs');(async()=>{for(const route of ['/status','/appium/sessions']){try{const r=await fetch('http://127.0.0.1:4723'+route,{signal:AbortSignal.timeout(3000)});console.log(route,r.status,JSON.stringify(await r.json()).slice(0,1800));}catch(e){console.log(route,e.message);}}})().catch(console.error);

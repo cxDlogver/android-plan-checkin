@@ -6,6 +6,7 @@ import argparse
 import copy
 import json
 import os
+import re
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -385,7 +386,74 @@ def views(data):
             (data['planPath'].with_suffix('.md'), md_text(data['plan'], data['model']))]
 
 
-def execute(command, record_path, workspace, cases=None, plan=None):
+def write_views(data):
+    for file, content in views(data):
+        temp = file.with_suffix(file.suffix + '.execution.tmp')
+        temp.write_text(content, encoding='utf-8')
+        os.replace(temp, file)
+
+
+def check_views(data):
+    for file, content in views(data):
+        require(file.is_file() and file.read_text(encoding='utf-8') == content,
+                'Stale execution projection: ' + file.name + '; run sync')
+
+
+def pending_file(record_path, run_id):
+    name = run_id if re.fullmatch(r'[A-Za-z0-9_.-]{1,160}', run_id) else raw_hash(run_id.encode('utf-8'))
+    return record_path.with_name(record_path.stem + '.batch.' + name + '.pending.json')
+
+
+def check_pending(record_path):
+    pending = sorted(record_path.parent.glob(record_path.stem + '.batch.*.pending.json'))
+    require(not pending, 'Unclosed acceptance batch: ' + ', '.join(p.name for p in pending))
+
+
+def submit(record_path, workspace, run_path, local_only=False):
+    """Record one real run and close its batch under the projection writer lock."""
+    run = load_json(run_path)
+    require(isinstance(run, dict), 'Batch input must be one execution run')
+    if local_only:
+        require(not run.get('visits'), 'Local-only batch cannot substitute for case visits')
+        require(run.get('taskResults'), 'Local-only batch needs task acceptance results')
+    else:
+        require(any(v.get('checks') for v in run.get('visits', [])),
+                'Case batch needs per-visit Test Case results; taskResults alone are insufficient')
+    lock = record_path.with_suffix('.lock')
+    with lock.open('x', encoding='utf-8') as stream:
+        stream.write(str(os.getpid()))
+    try:
+        record = load_json(record_path)
+        previous = next((r for r in record['runs'] if r['id'] == run['id']), None)
+        require(previous is None or previous == run, 'Run identity already has different immutable evidence')
+        if previous is None:
+            record['runs'].append(run)
+        # Rejected candidates never replace the canonical ledger or its views.
+        data = inspect(record, workspace)
+        temp = record_path.with_suffix('.json.execution.tmp')
+        temp.write_text(json.dumps(record, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+        os.replace(temp, record_path)
+        write_views(data)
+        # Reinspect the saved ledger against the actual files before closing.
+        data = inspect(load_json(record_path), workspace)
+        check_views(data)
+        pending_file(record_path, run['id']).unlink(missing_ok=True)
+        results = run['taskResults'] + [r for v in run['visits'] for r in v['checks']]
+        accepted = (run['exitCode'] == 0 and run['id'] not in data['staleRuns']
+                    and all(r['status'] == 'passed' for r in results)
+                    and all(v['outcome'] not in ('failed', 'blocked') for v in run['visits']))
+        counts = {}
+        for case in data['model']['cases']:
+            status = case['execution']['status']
+            counts[status] = counts.get(status, 0) + 1
+        return {'status':'passed' if accepted else 'failed', 'scope':'local-batch' if local_only else 'case-batch',
+                'recorded':True, 'synced':True, 'checked':True, 'runId':run['id'],
+                'caseCounts':counts, 'tasks':data['taskStatuses']}
+    finally:
+        lock.unlink(missing_ok=True)
+
+
+def execute(command, record_path, workspace, cases=None, plan=None, run=None, local_only=False):
     workspace = workspace.resolve()
     record_path = record_path.resolve()
     record_path.relative_to(workspace)
@@ -404,12 +472,13 @@ def execute(command, record_path, workspace, cases=None, plan=None):
         with record_path.open('x', encoding='utf-8') as stream:
             stream.write(json.dumps(record, ensure_ascii=False, indent=2)+'\n')
         return {'status':'passed', 'scope':'execution-initialization', 'tasks':len(record['tasks'])}
+    if command == 'submit':
+        require(run is not None, 'submit requires --run with an actual execution run')
+        return submit(record_path, workspace, target(run, workspace), local_only)
+    if command in ('ready', 'finish'):
+        check_pending(record_path)
     record = load_json(record_path)
     data = inspect(record, workspace)
-    if command == 'ready':
-        return {'status':'passed', 'scope':'dependency-and-resource-readiness', 'batches':ready(data, record, workspace),
-                'tasks':data['taskStatuses']}
-    projected = views(data)
     if command == 'sync':
         lock = record_path.with_suffix('.lock')
         # A leftover lock is an interruption signal. Confirm no writer is active
@@ -420,15 +489,14 @@ def execute(command, record_path, workspace, cases=None, plan=None):
             # Inspect under lock as well; the projection must correspond to
             # the exact ledger and current files visible to this writer.
             data = inspect(load_json(record_path), workspace)
-            for file, content in views(data):
-                temp = file.with_suffix(file.suffix + '.execution.tmp')
-                temp.write_text(content, encoding='utf-8')
-                os.replace(temp, file)
+            write_views(data)
         finally:
             lock.unlink(missing_ok=True)
     else:
-        for file, content in projected:
-            require(file.is_file() and file.read_text(encoding='utf-8') == content, 'Stale execution projection: ' + file.name + '; run sync')
+        check_views(data)
+    if command == 'ready':
+        return {'status':'passed', 'scope':'dependency-and-resource-readiness', 'batches':ready(data, record, workspace),
+                'tasks':data['taskStatuses']}
     pending_browser = [c['id'] for c in data['model']['cases'] if any(d['testType']=='browser' for a,i,d in required_checks(c))]
     if command == 'finish':
         require(all(v == 'passed' for v in data['taskStatuses'].values()), 'Some tasks lack passing script acceptance')
@@ -439,6 +507,9 @@ def execute(command, record_path, workspace, cases=None, plan=None):
                     continue
                 require(any(r['visitIndex']==i and r['aspect']==aspect and r['checkIndex']==ci and r['status']=='passed'
                             for r in case['execution'].get('checks',[])), 'Unaccepted script check: '+cid+' / visit '+str(i))
+        for case in data['model']['cases']:
+            allowed = ('passed', 'partial', 'not_run') if case['id'] in pending_browser else ('passed',)
+            require(case['execution']['status'] in allowed, 'Unaccepted Test Case status: '+case['id'])
     return {'status':'passed', 'scope':'script-execution-artifacts', 'tasks':data['taskStatuses'],
             'cases':{c['id']:c['execution']['status'] for c in data['model']['cases']},
             'staleRuns':data['staleRuns'], 'browserPending':pending_browser}
@@ -446,14 +517,16 @@ def execute(command, record_path, workspace, cases=None, plan=None):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('command', choices=('init','ready','sync','check','finish'))
+    parser.add_argument('command', choices=('init','ready','submit','sync','check','finish'))
     parser.add_argument('record', type=Path)
     parser.add_argument('--workspace', type=Path, required=True)
     parser.add_argument('--cases')
     parser.add_argument('--plan')
+    parser.add_argument('--run', help='Workspace-relative JSON containing one actual execution run')
+    parser.add_argument('--local-only', action='store_true', help='Explicitly record only local task acceptance')
     args = parser.parse_args()
     try:
-        result = execute(args.command, args.record, args.workspace, args.cases, args.plan)
+        result = execute(args.command, args.record, args.workspace, args.cases, args.plan, args.run, args.local_only)
     except (OSError, ValueError, KeyError, TypeError, IndexError) as exc:
         result = {'status':'failed','error':str(exc)}
     print(json.dumps(result, ensure_ascii=False, indent=2))
