@@ -1,0 +1,1328 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "caseId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "definitionHash": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "definitionHash"
+      ],
+      "additionalProperties": false
+    },
+    "definition": {
+      "$ref": "#/$defs/caseDefinition"
+    },
+    "stateGraph": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "givenState": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "expectedState": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "requiredVisits": {
+      "type": "array",
+      "items": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "minItems": 1
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "enum": [
+            "not_run",
+            "running",
+            "passed",
+            "failed",
+            "partial",
+            "blocked",
+            "stale"
+          ]
+        },
+        "actual": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "runId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "form": {
+                "enum": [
+                  "screenshot",
+                  "dom",
+                  "native-tree",
+                  "component-tree",
+                  "layout-measurement",
+                  "assertion-report",
+                  "state-snapshot",
+                  "call-trace",
+                  "data-snapshot"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "runId",
+              "form",
+              "path",
+              "sha256",
+              "description"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "runId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "visitIndex": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "aspect": {
+                "enum": [
+                  "visual",
+                  "functional"
+                ]
+              },
+              "checkIndex": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "status": {
+                "enum": [
+                  "not_run",
+                  "running",
+                  "passed",
+                  "failed",
+                  "partial",
+                  "blocked",
+                  "stale"
+                ]
+              },
+              "actual": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "form": {
+                      "enum": [
+                        "screenshot",
+                        "dom",
+                        "native-tree",
+                        "component-tree",
+                        "layout-measurement",
+                        "assertion-report",
+                        "state-snapshot",
+                        "call-trace",
+                        "data-snapshot"
+                      ]
+                    },
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}$"
+                    },
+                    "description": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "form",
+                    "path",
+                    "sha256",
+                    "description"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "runId",
+              "visitIndex",
+              "aspect",
+              "checkIndex",
+              "status",
+              "actual",
+              "evidence"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "status",
+        "actual",
+        "evidence"
+      ],
+      "additionalProperties": false
+    },
+    "attempts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "visitIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "definitionHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "definition": {
+            "$ref": "#/$defs/caseDefinition"
+          },
+          "givenObserved": {
+            "type": "string",
+            "minLength": 1
+          },
+          "operationObserved": {
+            "type": "string",
+            "minLength": 1
+          },
+          "targetObserved": {
+            "type": "string",
+            "minLength": 1
+          },
+          "outcome": {
+            "enum": [
+              "passed",
+              "failed",
+              "blocked"
+            ]
+          },
+          "startedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finishedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "definitionCurrent": {
+            "type": "boolean"
+          },
+          "checks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "aspect": {
+                  "enum": [
+                    "visual",
+                    "functional"
+                  ]
+                },
+                "checkIndex": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "status": {
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "blocked"
+                  ]
+                },
+                "observation": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "comparisons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "expected": {},
+                      "actual": {},
+                      "verdict": {
+                        "enum": [
+                          "passed",
+                          "failed",
+                          "blocked"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "expected",
+                      "actual",
+                      "verdict"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 0
+                },
+                "evidence": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "form": {
+                        "enum": [
+                          "screenshot",
+                          "dom",
+                          "native-tree",
+                          "component-tree",
+                          "layout-measurement",
+                          "assertion-report",
+                          "state-snapshot",
+                          "call-trace",
+                          "data-snapshot"
+                        ]
+                      },
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[a-f0-9]{64}$"
+                      },
+                      "description": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "form",
+                      "path",
+                      "sha256",
+                      "description"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 0
+                }
+              },
+              "required": [
+                "aspect",
+                "checkIndex",
+                "status",
+                "observation",
+                "comparisons",
+                "evidence"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "blockage": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "form": {
+                          "enum": [
+                            "screenshot",
+                            "dom",
+                            "native-tree",
+                            "component-tree",
+                            "layout-measurement",
+                            "assertion-report",
+                            "state-snapshot",
+                            "call-trace",
+                            "data-snapshot"
+                          ]
+                        },
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        },
+                        "description": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "form",
+                        "path",
+                        "sha256",
+                        "description"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "reason",
+                  "evidence"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "required": [
+          "attemptId",
+          "visitIndex",
+          "definitionHash",
+          "definition",
+          "givenObserved",
+          "operationObserved",
+          "targetObserved",
+          "outcome",
+          "startedAt",
+          "finishedAt",
+          "definitionCurrent",
+          "checks",
+          "blockage"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    },
+    "repairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string",
+            "minLength": 1
+          },
+          "visitIndex": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "affectedCaseIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "category": {
+            "enum": [
+              "undetermined",
+              "code",
+              "test-case",
+              "harness",
+              "environment"
+            ]
+          },
+          "status": {
+            "enum": [
+              "diagnosing",
+              "repairing",
+              "resolved"
+            ]
+          },
+          "diagnosis": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "form": {
+                          "enum": [
+                            "screenshot",
+                            "dom",
+                            "native-tree",
+                            "component-tree",
+                            "layout-measurement",
+                            "assertion-report",
+                            "state-snapshot",
+                            "call-trace",
+                            "data-snapshot"
+                          ]
+                        },
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        },
+                        "description": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "form",
+                        "path",
+                        "sha256",
+                        "description"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  },
+                  "standardSources": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        },
+                        "locator": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "sha256",
+                        "locator"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "reason",
+                  "evidence",
+                  "standardSources"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "resolution": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "observation": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "evidence": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "form": {
+                          "enum": [
+                            "screenshot",
+                            "dom",
+                            "native-tree",
+                            "component-tree",
+                            "layout-measurement",
+                            "assertion-report",
+                            "state-snapshot",
+                            "call-trace",
+                            "data-snapshot"
+                          ]
+                        },
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        },
+                        "description": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "form",
+                        "path",
+                        "sha256",
+                        "description"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1
+                  },
+                  "changedFiles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{64}$"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "sha256"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  },
+                  "harnessArchive": {
+                    "type": "object",
+                    "properties": {
+                      "original": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sha256": {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "sha256"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "archive": {
+                        "type": "object",
+                        "properties": {
+                          "path": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "sha256": {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{64}$"
+                          }
+                        },
+                        "required": [
+                          "path",
+                          "sha256"
+                        ],
+                        "additionalProperties": false
+                      },
+                      "unaffectedCaseIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "uniqueItems": true
+                      }
+                    },
+                    "required": [
+                      "original",
+                      "archive",
+                      "unaffectedCaseIds"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "observation",
+                  "evidence",
+                  "changedFiles"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "openedAt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "closedAt": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              }
+            ]
+          }
+        },
+        "required": [
+          "attemptId",
+          "visitIndex",
+          "affectedCaseIds",
+          "category",
+          "status",
+          "diagnosis",
+          "resolution",
+          "openedAt",
+          "closedAt"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "caseId",
+    "title",
+    "source",
+    "definition",
+    "stateGraph",
+    "givenState",
+    "expectedState",
+    "requiredVisits",
+    "execution",
+    "attempts",
+    "repairs"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "source": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "locator"
+      ],
+      "additionalProperties": false
+    },
+    "binding": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "literal",
+            "context"
+          ]
+        },
+        "source": {
+          "$ref": "#/$defs/source"
+        },
+        "value": {},
+        "resolve": {
+          "type": "string",
+          "minLength": 1
+        },
+        "oracle": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "name",
+        "type",
+        "mode",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "literal",
+            "context"
+          ]
+        },
+        "value": {},
+        "resolve": {
+          "type": "string",
+          "minLength": 1
+        },
+        "oracle": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "caseDefinition": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "primary",
+            "constraint",
+            "regression"
+          ]
+        },
+        "requirementId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "given": {
+          "type": "object",
+          "properties": {
+            "stateId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "setup": {
+              "type": "string",
+              "minLength": 1
+            },
+            "verify": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "stateId",
+            "setup",
+            "verify"
+          ],
+          "additionalProperties": false
+        },
+        "operation": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "actor": {
+              "type": "string",
+              "minLength": 1
+            },
+            "input": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "label",
+            "actor"
+          ],
+          "additionalProperties": false
+        },
+        "expected": {
+          "type": "object",
+          "properties": {
+            "stateId": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "conclusion": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": [
+            "stateId",
+            "conclusion"
+          ],
+          "additionalProperties": false
+        },
+        "dataProfileId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mocks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "boundary": {
+                "type": "string",
+                "minLength": 1
+              },
+              "purpose": {
+                "type": "string",
+                "minLength": 1
+              },
+              "trigger": {
+                "type": "string",
+                "minLength": 1
+              },
+              "lifetime": {
+                "type": "string",
+                "minLength": 1
+              },
+              "response": {
+                "$ref": "#/$defs/response"
+              },
+              "matches": {
+                "type": "object"
+              },
+              "verification": {
+                "type": "string",
+                "minLength": 1
+              },
+              "restore": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "boundary",
+              "purpose",
+              "trigger",
+              "lifetime",
+              "response",
+              "verification",
+              "restore"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "acceptance": {
+          "type": "object",
+          "properties": {
+            "visual": {
+              "type": "object",
+              "properties": {
+                "applicable": {
+                  "type": "boolean"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "checks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "testType": {
+                        "enum": [
+                          "script",
+                          "browser"
+                        ]
+                      },
+                      "environment": {
+                        "enum": [
+                          "runtime",
+                          "browser",
+                          "native"
+                        ]
+                      },
+                      "criterion": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "oracle": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "procedure": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "evidence": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "form": {
+                              "enum": [
+                                "screenshot",
+                                "dom",
+                                "native-tree",
+                                "component-tree",
+                                "layout-measurement",
+                                "assertion-report",
+                                "state-snapshot",
+                                "call-trace",
+                                "data-snapshot"
+                              ]
+                            },
+                            "description": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "form",
+                            "description"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      "sufficiency": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "testType",
+                      "environment",
+                      "criterion",
+                      "oracle",
+                      "procedure",
+                      "evidence",
+                      "sufficiency"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "applicable",
+                "reason",
+                "checks"
+              ],
+              "additionalProperties": false
+            },
+            "functional": {
+              "type": "object",
+              "properties": {
+                "applicable": {
+                  "type": "boolean"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "checks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "testType": {
+                        "enum": [
+                          "script",
+                          "browser"
+                        ]
+                      },
+                      "environment": {
+                        "enum": [
+                          "runtime",
+                          "browser",
+                          "native"
+                        ]
+                      },
+                      "criterion": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "oracle": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "procedure": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "evidence": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "form": {
+                              "enum": [
+                                "screenshot",
+                                "dom",
+                                "native-tree",
+                                "component-tree",
+                                "layout-measurement",
+                                "assertion-report",
+                                "state-snapshot",
+                                "call-trace",
+                                "data-snapshot"
+                              ]
+                            },
+                            "description": {
+                              "type": "string",
+                              "minLength": 1
+                            }
+                          },
+                          "required": [
+                            "form",
+                            "description"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "minItems": 1,
+                        "uniqueItems": true
+                      },
+                      "sufficiency": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "testType",
+                      "environment",
+                      "criterion",
+                      "oracle",
+                      "procedure",
+                      "evidence",
+                      "sufficiency"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "applicable",
+                "reason",
+                "checks"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "visual",
+            "functional"
+          ],
+          "additionalProperties": false
+        },
+        "constraintIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "impactId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dataProfile": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "scope": {
+              "enum": [
+                "route",
+                "case"
+              ]
+            },
+            "preparation": {
+              "type": "string",
+              "minLength": 1
+            },
+            "continuity": {
+              "type": "string",
+              "minLength": 1
+            },
+            "fields": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/binding"
+              },
+              "minItems": 1
+            }
+          },
+          "required": [
+            "id",
+            "scope",
+            "preparation",
+            "continuity",
+            "fields"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "kind",
+        "requirementId",
+        "given",
+        "operation",
+        "expected",
+        "dataProfileId",
+        "mocks",
+        "acceptance",
+        "constraintIds",
+        "impactId",
+        "dataProfile"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,571 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "TC-G-SCOPE",
+  "title": "UI浏览与真实功能执行隔离",
+  "source": {
+    "path": "plan/acceptance/test-cases.json",
+    "definitionHash": "1deb7713e0217c9d00260d85069ac9844b264d39f973a1c17d5cfe1fe73bd171"
+  },
+  "definition": {
+    "id": "TC-G-SCOPE",
+    "title": "UI浏览与真实功能执行隔离",
+    "kind": "constraint",
+    "requirementId": null,
+    "given": {
+      "stateId": null,
+      "setup": "隔离开发环境完成启动后，开启只使用内存数据的界面浏览，记录浏览期间的业务提交和存储调用。",
+      "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+    },
+    "operation": {
+      "label": "验证浏览动作仅产生呈现输入",
+      "actor": "验收者"
+    },
+    "expected": {
+      "stateId": null,
+      "conclusion": "浏览、保存提示、管理和删除确认只改变展示画面；浏览动作不发出真实业务提交、不写入实际数据，也不修改真实时钟。"
+    },
+    "dataProfileId": "isolated-checks",
+    "mocks": [],
+    "acceptance": {
+      "visual": {
+        "applicable": false,
+        "reason": "画面外观由视觉用例检查，本例只核对执行边界。",
+        "checks": []
+      },
+      "functional": {
+        "applicable": true,
+        "reason": "验收界面浏览不得触发真实业务执行的边界约束。",
+        "checks": [
+          {
+            "criterion": "本轮界面浏览与真实业务执行隔离，业务提交和存储写入次数为零。",
+            "oracle": "PRD L16、L20-L26、L43及G-scope；预期execute/write调用数=0",
+            "procedure": "在既有宿主初始化结束后挂接动作窗口的execute/write拒绝spy，加载UI浏览组合；覆盖新建、记录、管理、删除、日期变化动作，检查只改变内存呈现状态/上下文。既有宿主启动不计作浏览动作，生产入口不导入该场景模块。",
+            "evidence": [
+              {
+                "form": "call-trace",
+                "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+              },
+              {
+                "form": "assertion-report",
+                "description": "浏览路线可达且没有真实业务副作用的检查结果。"
+              }
+            ],
+            "sufficiency": "集成与构建依赖边界检查可充分证明范围隔离，无需浏览器或真实SQLite破坏性操作。",
+            "testType": "script",
+            "environment": "runtime"
+          }
+        ]
+      }
+    },
+    "constraintIds": [
+      "G-scope"
+    ],
+    "impactId": null,
+    "dataProfile": {
+      "id": "isolated-checks",
+      "scope": "case",
+      "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+      "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+      "fields": [
+        {
+          "name": "responsiveCases",
+          "type": "array",
+          "mode": "context",
+          "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+          "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+          "source": {
+            "path": "../ui-spec/rules.json",
+            "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+            "locator": "/profiles/mobile"
+          }
+        },
+        {
+          "name": "longName",
+          "type": "string",
+          "mode": "literal",
+          "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+          "source": {
+            "path": "../source-resource/prd/设计还原需求文档.md",
+            "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+            "locator": "L47-L51"
+          }
+        },
+        {
+          "name": "progressInputs",
+          "type": "array",
+          "mode": "literal",
+          "value": [
+            0,
+            0.5,
+            1
+          ],
+          "source": {
+            "path": "../ui-spec/documents/02-今日.json",
+            "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+            "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+          }
+        }
+      ]
+    }
+  },
+  "stateGraph": {
+    "path": "../requirement-analysis/state-transitions.json",
+    "sha256": "38b76bcf0790fade4121d97ed947351a2cafb6d6f07aeb70410b48a0090618c5"
+  },
+  "givenState": null,
+  "expectedState": null,
+  "requiredVisits": [
+    207
+  ],
+  "execution": {
+    "status": "passed",
+    "actual": "全部必要访问与检查已经通过并登记。",
+    "evidence": [
+      {
+        "runId": "207-0862613e-9551-49da-830a-2710307bb28a",
+        "form": "assertion-report",
+        "path": "evidence/207-0862613e-9551-49da-830a-2710307bb28a/assertions.json",
+        "sha256": "2dca87e2da2f51017ec2ea85dee3e879c6ae95ab1bb2f95a145ea219346ab85f",
+        "description": "Independent expected/actual comparisons for this visit."
+      },
+      {
+        "runId": "207-0862613e-9551-49da-830a-2710307bb28a",
+        "form": "call-trace",
+        "path": "evidence/207-0862613e-9551-49da-830a-2710307bb28a/scope-call-trace.json",
+        "sha256": "770345732b7ceef603a8e1a20b94db25ca2798870825805bed6aa2c444e62cd2",
+        "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+      },
+      {
+        "runId": "207-0862613e-9551-49da-830a-2710307bb28a",
+        "form": "call-trace",
+        "path": "evidence/207-0862613e-9551-49da-830a-2710307bb28a/scope-selection-summary.json",
+        "sha256": "b616c6c46a09e70e73764b7fd326e814773efe57e522735f26290304016d26c1",
+        "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+      }
+    ],
+    "checks": [
+      {
+        "runId": "207-0862613e-9551-49da-830a-2710307bb28a",
+        "visitIndex": 207,
+        "aspect": "functional",
+        "checkIndex": 0,
+        "status": "passed",
+        "actual": "Executed the declared isolated fixture and retained its independent comparisons.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "evidence/207-0862613e-9551-49da-830a-2710307bb28a/assertions.json",
+            "sha256": "2dca87e2da2f51017ec2ea85dee3e879c6ae95ab1bb2f95a145ea219346ab85f",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/207-0862613e-9551-49da-830a-2710307bb28a/scope-call-trace.json",
+            "sha256": "770345732b7ceef603a8e1a20b94db25ca2798870825805bed6aa2c444e62cd2",
+            "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/207-0862613e-9551-49da-830a-2710307bb28a/scope-selection-summary.json",
+            "sha256": "b616c6c46a09e70e73764b7fd326e814773efe57e522735f26290304016d26c1",
+            "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+          }
+        ]
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "attemptId": "207-0862613e-9551-49da-830a-2710307bb28a",
+      "visitIndex": 207,
+      "definitionHash": "1deb7713e0217c9d00260d85069ac9844b264d39f973a1c17d5cfe1fe73bd171",
+      "definition": {
+        "id": "TC-G-SCOPE",
+        "title": "UI浏览与真实功能执行隔离",
+        "kind": "constraint",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "隔离开发环境完成启动后，开启只使用内存数据的界面浏览，记录浏览期间的业务提交和存储调用。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "验证浏览动作仅产生呈现输入",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "浏览、保存提示、管理和删除确认只改变展示画面；浏览动作不发出真实业务提交、不写入实际数据，也不修改真实时钟。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [],
+        "acceptance": {
+          "visual": {
+            "applicable": false,
+            "reason": "画面外观由视觉用例检查，本例只核对执行边界。",
+            "checks": []
+          },
+          "functional": {
+            "applicable": true,
+            "reason": "验收界面浏览不得触发真实业务执行的边界约束。",
+            "checks": [
+              {
+                "criterion": "本轮界面浏览与真实业务执行隔离，业务提交和存储写入次数为零。",
+                "oracle": "PRD L16、L20-L26、L43及G-scope；预期execute/write调用数=0",
+                "procedure": "在既有宿主初始化结束后挂接动作窗口的execute/write拒绝spy，加载UI浏览组合；覆盖新建、记录、管理、删除、日期变化动作，检查只改变内存呈现状态/上下文。既有宿主启动不计作浏览动作，生产入口不导入该场景模块。",
+                "evidence": [
+                  {
+                    "form": "call-trace",
+                    "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "浏览路线可达且没有真实业务副作用的检查结果。"
+                  }
+                ],
+                "sufficiency": "集成与构建依赖边界检查可充分证明范围隔离，无需浏览器或真实SQLite破坏性操作。",
+                "testType": "script",
+                "environment": "runtime"
+              }
+            ]
+          }
+        },
+        "constraintIds": [
+          "G-scope"
+        ],
+        "impactId": null,
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 隔离开发环境完成启动后，开启只使用内存数据的界面浏览，记录浏览期间的业务提交和存储调用。",
+      "operationObserved": "验证浏览动作仅产生呈现输入",
+      "targetObserved": "Recorded results for the actual independent fixture TC-G-SCOPE.",
+      "outcome": "passed",
+      "startedAt": "2026-10-30T04:54:53.005Z",
+      "finishedAt": "2026-10-30T04:55:09.156Z",
+      "definitionCurrent": true,
+      "checks": [
+        {
+          "aspect": "functional",
+          "checkIndex": 0,
+          "status": "passed",
+          "observation": "Executed the declared isolated fixture and retained its independent comparisons.",
+          "comparisons": [
+            {
+              "expected": {
+                "visits": 205,
+                "businessCalls": 0,
+                "pendingResponses": 0
+              },
+              "actual": {
+                "visits": 205,
+                "businessCalls": 0,
+                "pendingResponses": 0
+              },
+              "verdict": "passed"
+            }
+          ],
+          "evidence": [
+            {
+              "form": "assertion-report",
+              "path": "plan/acceptance/evidence/207-0862613e-9551-49da-830a-2710307bb28a/assertions.json",
+              "sha256": "2dca87e2da2f51017ec2ea85dee3e879c6ae95ab1bb2f95a145ea219346ab85f",
+              "description": "Independent expected/actual comparisons for this visit."
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/207-0862613e-9551-49da-830a-2710307bb28a/scope-call-trace.json",
+              "sha256": "770345732b7ceef603a8e1a20b94db25ca2798870825805bed6aa2c444e62cd2",
+              "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/207-0862613e-9551-49da-830a-2710307bb28a/scope-selection-summary.json",
+              "sha256": "b616c6c46a09e70e73764b7fd326e814773efe57e522735f26290304016d26c1",
+              "description": "浏览动作期间的业务提交、存储写入和场景响应调用记录。"
+            }
+          ]
+        }
+      ],
+      "blockage": null
+    }
+  ],
+  "repairs": [
+    {
+      "attemptId": "206-5a852f3d-e956-4c39-8115-43e621088e96",
+      "visitIndex": 206,
+      "affectedCaseIds": [
+        "TC-G-LAYOUT",
+        "TC-G-VISUAL",
+        "TC-G-SCOPE"
+      ],
+      "category": "harness",
+      "status": "resolved",
+      "diagnosis": {
+        "reason": "The retained native trace contains no n-P69atC return event after the matrix scrolled the header into view; four stable bounds observations followed by one real click emitted exactly one return event and reached S12. The fixture driver accepted element existence before scroll settlement. Add visible stable-bound synchronization only to isolated layout/visual fixture seeks. Review of the same entry script also found that the later scope collector receives 210 historical primary attempts for 205 required visits, including 3 aborted attempts without layout reports; select the latest closed passed attempt per required visit only for that future fixture. Preserve all original attempts and all independent product assertions/expectations.",
+        "evidence": [
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/diagnostic-observations.json",
+            "sha256": "dfb3f8da28f0a39ff08d502d3920f6c7e055df24e0c95d950de6c92ff6c6f112",
+            "description": "Actual retained state, absent first return event, stable bounds and successful single native return click."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/review-baseline.json",
+            "sha256": "7c4278d3351d2dc714af7657d1d323f879b885dcf430f85bb65668107b1f09b6",
+            "description": "Canonical valid visits, source hashes and future collector history discrepancy; no future Test Case was executed."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/retained-before.png",
+            "sha256": "ba4bf00967110e62e7c526148db002d9b9314de8963aaba2b86d9a9141c7c5a0",
+            "description": "Actual retained failure screen."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/settled-return-after.png",
+            "sha256": "50601f58d74a1053f10fa6ed4bb4dd77e8d828a642a06d79d6409de0653ff42a",
+            "description": "Actual target reached after one stable native return click."
+          }
+        ],
+        "standardSources": []
+      },
+      "resolution": {
+        "observation": "Only the isolated layout/visual fixture seeks wait for four consecutive visible native bounds samples before the original native click. The future scope fixture receives the latest closed passed attempt for each of the 205 required primary visit indices; canonical history and repeated visits remain intact. Actual long-text/IME/scroll return and seven harness boundary checks passed. All independent product assertions, Test Case definitions, product sources and other bound files are unchanged. Explicitly reviewed all 206 prior valid visits as unaffected; the blocked layout case still requires real reacceptance.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/repair-assertions.json",
+            "sha256": "6ae5df04ac7d0385d193284ee3373b1e96d07ffe5717c2882bbd0ffdd13ceef6",
+            "description": "Independent scope, native click and harness boundary review."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/native-guard/native-guard-verification.json",
+            "sha256": "bcacff6a5be5c6d88a970562074ea762a1da46c8fa98fc1861fd7215a98b94c5",
+            "description": "Actual long-text form, actual IME dismissal, native scroll and exactly one guarded return event."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/harness-verification.json",
+            "sha256": "b44d6a27be14dfbf14cd81bd211ea481c2fb5a37c3ef4df35cf861970d8c302e",
+            "description": "Seven collector/readiness boundary checks; not product Test Case passes."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/source-provenance.json",
+            "sha256": "c57ef9417b158030d77541a0e24618cebcb70c88e74de7a9d90373825732f8c8",
+            "description": "Exact source versions; all bytes outside the reviewed insertions unchanged."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/verify-native-guard.cjs",
+            "sha256": "389843ef78df4b41ef5f160b9260b038578b3fa84efd89c0d53c4d6d5c6be353",
+            "description": "Actual native repair verification source."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/verify-harness.cjs",
+            "sha256": "a3eb1f9cd891f83aa4efef6414121751e9e751f93c271778f3d540bcbea3237a",
+            "description": "Executed actual helper source boundary verification."
+          }
+        ],
+        "changedFiles": [
+          {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "5fc2d44f19584897475e5be2a2e79f33dd4026550b9a360eac737159a1b801a7"
+          }
+        ],
+        "harnessArchive": {
+          "original": {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "c02a1c65164871728486b7304b7868a00765f05ce7ba24739a64861fcfe7ec66"
+          },
+          "archive": {
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/run-session.before.cjs",
+            "sha256": "c02a1c65164871728486b7304b7868a00765f05ce7ba24739a64861fcfe7ec66"
+          },
+          "unaffectedCaseIds": [
+            "TC-G-EVIDENCE",
+            "TC-T001",
+            "TC-T002",
+            "TC-T003",
+            "TC-T004",
+            "TC-T005",
+            "TC-T006",
+            "TC-T007",
+            "TC-T008",
+            "TC-T009",
+            "TC-T010",
+            "TC-T011",
+            "TC-T012",
+            "TC-T013",
+            "TC-T014",
+            "TC-T015",
+            "TC-T016",
+            "TC-T017",
+            "TC-T018",
+            "TC-T019",
+            "TC-T020",
+            "TC-T021",
+            "TC-T022",
+            "TC-T023",
+            "TC-T024",
+            "TC-T025",
+            "TC-T026",
+            "TC-T027",
+            "TC-T028",
+            "TC-T029",
+            "TC-T030",
+            "TC-T031",
+            "TC-T032",
+            "TC-T033",
+            "TC-T034",
+            "TC-T035",
+            "TC-T036",
+            "TC-T037",
+            "TC-T038",
+            "TC-T039",
+            "TC-T040",
+            "TC-T041",
+            "TC-T042",
+            "TC-T043",
+            "TC-T044",
+            "TC-T045",
+            "TC-T046",
+            "TC-T047",
+            "TC-T048",
+            "TC-T049",
+            "TC-T050",
+            "TC-T051",
+            "TC-T052",
+            "TC-T053",
+            "TC-T054",
+            "TC-T055",
+            "TC-T056",
+            "TC-T057",
+            "TC-T058",
+            "TC-T059",
+            "TC-T060",
+            "TC-T061",
+            "TC-T062",
+            "TC-T063",
+            "TC-T064",
+            "TC-T065",
+            "TC-T066",
+            "TC-T067",
+            "TC-T068",
+            "TC-T069",
+            "TC-T070",
+            "TC-T071",
+            "TC-T072",
+            "TC-T073",
+            "TC-T074",
+            "TC-T075",
+            "TC-T076",
+            "TC-T077",
+            "TC-T078",
+            "TC-T079",
+            "TC-T080",
+            "TC-T081",
+            "TC-T082",
+            "TC-T083",
+            "TC-T084",
+            "TC-T085",
+            "TC-T086",
+            "TC-T087",
+            "TC-T088",
+            "TC-T089",
+            "TC-T090",
+            "TC-T091",
+            "TC-T092",
+            "TC-T093",
+            "TC-T094",
+            "TC-T095",
+            "TC-T096",
+            "TC-T097",
+            "TC-T098",
+            "TC-T099",
+            "TC-T100",
+            "TC-T101",
+            "TC-T102",
+            "TC-T103",
+            "TC-T104",
+            "TC-T105",
+            "TC-T106",
+            "TC-T107",
+            "TC-T108",
+            "TC-T109",
+            "TC-T110",
+            "TC-T111",
+            "TC-T112",
+            "TC-T113",
+            "TC-T114",
+            "TC-T115",
+            "TC-T116",
+            "TC-T117",
+            "TC-T118",
+            "TC-T119",
+            "TC-T120",
+            "TC-T121",
+            "TC-T122",
+            "TC-T123",
+            "TC-T124",
+            "TC-T125",
+            "TC-T126",
+            "TC-T127",
+            "TC-T128",
+            "TC-T129"
+          ]
+        }
+      },
+      "openedAt": "2026-10-29T18:05:25.594193+00:00",
+      "closedAt": "2026-10-29T18:23:40.646953+00:00"
+    }
+  ]
+}

@@ -1,0 +1,839 @@
+[
+  {
+    "name": "new-plan-0",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [],
+      "sequence": 1,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": true,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "create-busy",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "envelope",
+          "args": [
+            {
+              "commandId": "e9d71a5f-22dc-44db-a94d-a5e8365f9fde",
+              "issuedAtMs": 1793337087271,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "fb9b96a0-d616-4c55-9ee5-1f8ef8b9a94b",
+                "name": "P04 新计划",
+                "description": "",
+                "type": "fixed",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weekdayMask": 1
+              }
+            }
+          ]
+        },
+        {
+          "name": "execute",
+          "args": [
+            {
+              "commandId": "e9d71a5f-22dc-44db-a94d-a5e8365f9fde",
+              "issuedAtMs": 1793337087271,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "fb9b96a0-d616-4c55-9ee5-1f8ef8b9a94b",
+                "name": "P04 新计划",
+                "description": "",
+                "type": "fixed",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weekdayMask": 1
+              }
+            }
+          ]
+        }
+      ],
+      "sequence": 4,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": true,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "create-success",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "envelope",
+          "args": [
+            {
+              "commandId": "e9d71a5f-22dc-44db-a94d-a5e8365f9fde",
+              "issuedAtMs": 1793337087271,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "fb9b96a0-d616-4c55-9ee5-1f8ef8b9a94b",
+                "name": "P04 新计划",
+                "description": "",
+                "type": "fixed",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weekdayMask": 1
+              }
+            }
+          ]
+        },
+        {
+          "name": "execute",
+          "args": [
+            {
+              "commandId": "e9d71a5f-22dc-44db-a94d-a5e8365f9fde",
+              "issuedAtMs": 1793337087271,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "fb9b96a0-d616-4c55-9ee5-1f8ef8b9a94b",
+                "name": "P04 新计划",
+                "description": "",
+                "type": "fixed",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weekdayMask": 1
+              }
+            }
+          ]
+        },
+        {
+          "name": "router.replace",
+          "args": [
+            {
+              "pathname": "/plans/[planId]",
+              "params": {
+                "planId": "fb9b96a0-d616-4c55-9ee5-1f8ef8b9a94b"
+              }
+            }
+          ]
+        }
+      ],
+      "sequence": 6,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": true,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "new-plan-3",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [],
+      "sequence": 7,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": true,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "create-rejected",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "envelope",
+          "args": [
+            {
+              "commandId": "4e64e7f2-0868-4195-bd98-916bd02f4806",
+              "issuedAtMs": 1793337114695,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "6c57cdc1-9956-41a8-aab3-18291f9e3e27",
+                "name": "P04 拒绝后保留",
+                "description": "",
+                "type": "fixed",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weekdayMask": 1
+              }
+            }
+          ]
+        },
+        {
+          "name": "execute",
+          "args": [
+            {
+              "commandId": "4e64e7f2-0868-4195-bd98-916bd02f4806",
+              "issuedAtMs": 1793337114695,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "6c57cdc1-9956-41a8-aab3-18291f9e3e27",
+                "name": "P04 拒绝后保留",
+                "description": "",
+                "type": "fixed",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weekdayMask": 1
+              }
+            }
+          ]
+        }
+      ],
+      "sequence": 10,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": true,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "new-plan-5",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [],
+      "sequence": 11,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": false,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "type-cancelled",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "confirm",
+          "args": [
+            "切换计划类型",
+            "切换后将清除不适用的星期、目标和日期输入；名称与说明会保留。"
+          ]
+        }
+      ],
+      "sequence": 13,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": false,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "dirty-back-cancelled",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "confirm",
+          "args": [
+            "切换计划类型",
+            "切换后将清除不适用的星期、目标和日期输入；名称与说明会保留。"
+          ]
+        },
+        {
+          "name": "confirm",
+          "args": [
+            "放弃未保存内容？",
+            "返回会丢弃本页草稿，已保存的数据不会改变。"
+          ]
+        }
+      ],
+      "sequence": 15,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": false,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "new-plan-8",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [],
+      "sequence": 16,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "weekly-type",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "confirm",
+          "args": [
+            "切换计划类型",
+            "切换后将清除不适用的星期、目标和日期输入；名称与说明会保留。"
+          ]
+        }
+      ],
+      "sequence": 18,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "weekly-saved",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "new-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "confirm",
+          "args": [
+            "切换计划类型",
+            "切换后将清除不适用的星期、目标和日期输入；名称与说明会保留。"
+          ]
+        },
+        {
+          "name": "envelope",
+          "args": [
+            {
+              "commandId": "360151f8-9922-4350-965e-dc59a4ba16a7",
+              "issuedAtMs": 1793337162745,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "83d8f369-8098-4a2d-9c1a-69080fff3e6c",
+                "name": "P04 周计划",
+                "description": "",
+                "type": "weekly",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weeklyTarget": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "execute",
+          "args": [
+            {
+              "commandId": "360151f8-9922-4350-965e-dc59a4ba16a7",
+              "issuedAtMs": 1793337162745,
+              "kind": "CreatePlan",
+              "payload": {
+                "planId": "83d8f369-8098-4a2d-9c1a-69080fff3e6c",
+                "name": "P04 周计划",
+                "description": "",
+                "type": "weekly",
+                "direction": "do",
+                "startsOn": "2026-10-30",
+                "endOn": null,
+                "weeklyTarget": 3
+              }
+            }
+          ]
+        },
+        {
+          "name": "router.replace",
+          "args": [
+            {
+              "pathname": "/plans/[planId]",
+              "params": {
+                "planId": "83d8f369-8098-4a2d-9c1a-69080fff3e6c"
+              }
+            }
+          ]
+        }
+      ],
+      "sequence": 22,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "edit-plan-11",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "edit-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [],
+      "sequence": 23,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  },
+  {
+    "name": "edit-saved",
+    "report": {
+      "fonts": {
+        "NotoSC400": true,
+        "NotoSC600": true,
+        "NotoSC700": true,
+        "Inter400": true,
+        "Inter600": true,
+        "Inter700": true
+      },
+      "kind": "native-container",
+      "fixture": "edit-plan",
+      "choice": "a",
+      "value": "",
+      "calls": [],
+      "layouts": {
+        "controls": {
+          "x": 16,
+          "y": 16,
+          "width": 321,
+          "height": 248
+        }
+      },
+      "trace": [
+        {
+          "name": "envelope",
+          "args": [
+            {
+              "commandId": "8828ae6c-202e-49ba-b66e-6fcce455b62b",
+              "issuedAtMs": 1793337183762,
+              "kind": "EditPlan",
+              "payload": {
+                "planId": "1a28f193-0000-4000-8000-000000000001",
+                "expectedPlanRevision": 1,
+                "changes": {
+                  "name": "P04 编辑名称"
+                },
+                "ruleConfirmations": []
+              }
+            }
+          ]
+        },
+        {
+          "name": "execute",
+          "args": [
+            {
+              "commandId": "8828ae6c-202e-49ba-b66e-6fcce455b62b",
+              "issuedAtMs": 1793337183762,
+              "kind": "EditPlan",
+              "payload": {
+                "planId": "1a28f193-0000-4000-8000-000000000001",
+                "expectedPlanRevision": 1,
+                "changes": {
+                  "name": "P04 编辑名称"
+                },
+                "ruleConfirmations": []
+              }
+            }
+          ]
+        },
+        {
+          "name": "router.back",
+          "args": []
+        }
+      ],
+      "sequence": 27,
+      "inputs": {
+        "today": "2026-10-30",
+        "zone": "Asia/Shanghai",
+        "planId": "1a28f193-0000-4000-8000-000000000001",
+        "planName": "F01 fixed",
+        "avoidPlanId": "1a28f193-0000-4000-8000-00000000000c",
+        "taskId": "1a28f193-0000-4000-8000-000000000009",
+        "weeklyPlanId": "1a28f193-0000-4000-8000-000000000005",
+        "backfillDate": "2026-10-29"
+      },
+      "ports": {
+        "confirm": true,
+        "reject": false,
+        "hold": false,
+        "rejectCode": "STORAGE_IO"
+      }
+    }
+  }
+]

@@ -1,1 +1,0 @@
-const fs=require('node:fs');for(const file of process.argv.slice(2)){const s=JSON.parse(fs.readFileSync(file,'utf8')).snapshot;console.log(JSON.stringify({file,today:s.today,records:s.facts.one_time_results,originals:s.facts.one_time_result_originals}));}

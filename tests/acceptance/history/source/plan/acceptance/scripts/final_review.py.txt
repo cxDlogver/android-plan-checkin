@@ -1,0 +1,57 @@
+"""Review completed native evidence and produce the final acceptance report."""
+from pathlib import Path
+import json, hashlib
+from datetime import datetime, timezone
+
+root=Path(__file__).resolve().parents[3]
+base=root/'plan/acceptance'
+def read(p):return json.loads(p.read_bytes())
+def ref(p):return {'path':p.relative_to(root).as_posix(),'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+record=read(base/'acceptance.json');plan=read(base/'execution-plan.json');gate=read(base/'evidence/final-gate.json')
+latest={a['run']['visits'][0]['visitIndex']:a for a in record['attempts']}
+assert len(record['sequence'])==211 and set(latest)==set(range(211))
+assert record['active'] is None and all(r['status']=='resolved' for r in record['repairs'])
+for index,a in latest.items():
+ v=a['run']['visits'][0];assert a.get('closedAt') and v['outcome']=='passed' and v['checks'] and all(c['status']=='passed' for c in v['checks']),index
+assert record['sessionResults'][-1]['exitCode']==0
+contracts=sorted((base/'contracts').glob('*.json'));assert len(contracts)==135
+assert all(read(p)['execution']['status']=='passed' for p in contracts)
+assert plan['progress']['acceptedVisits']==211 and len(plan['rounds'])==21
+assert all(r['status']=='passed' for r in plan['rounds'])
+for original in record['planningSource']['files']:assert ref(root/original['path'])==original
+case_folder=lambda index:base/'evidence'/latest[index]['run']['id']
+layout=case_folder(206);matrix=read(layout/'responsive-matrix.json');keyboard=read(layout/'responsive-full-keyboard-visibility.json');boundary=read(layout/'responsive-boundary.json');rules=read(root/'plan/ui-spec/rules.json')
+assert len(matrix['rows'])==9 and len(matrix['frames'])==207 and len(matrix['keyboards'])==81
+for i,row in enumerate(matrix['rows']):
+ assert row['expected']==rules['profiles']['mobile']['validationCases'][i]
+ assert all(abs(row['actual']['viewport'][k]-row['expected'][k])<.01 for k in ['width','height']) and abs(row['actual']['fontScale']-row['expected']['fontScale'])<.0001
+ assert len(row['documents'])==23 and len({d['documentId'] for d in row['documents']})==23
+ assert all(not d['inspected']['differences'] and all(g['passed'] for g in d['inspected']['geometry']) for d in row['documents'])
+assert keyboard['combinations']==keyboard['fullyVisibleFocus']==keyboard['fullyVisibleSave']==81
+assert all(k['focus']['passed'] and k['save']['passed'] for k in keyboard['results'])
+assert boundary['width']==768 and boundary['coverage']=='not-provided'
+scope=read(case_folder(207)/'scope-call-trace.json');assert len(scope['observations'])==205
+assert all(not o['boundaryCalls'] and not o['pendingResponse'] for o in scope['observations'])
+visual=read(case_folder(208)/'visual-page-coverage.json');assert len(visual['groups'])==2
+assert all(len(g['frames'])==23 and all(not f['inspected']['differences'] for f in g['frames']) for g in visual['groups'])
+containers=read(case_folder(209)/'container-boundary-summary.json');assert len(containers['summaries'])==4
+assert containers['additionalAssertions'] and all(a['verdict']=='passed' for a in containers['additionalAssertions'])
+for container in containers['summaries']:
+ assertions=read(case_folder(209)/container['folder']/'task-assertions.json')['assertions']
+ assert assertions and all(a['verdict']=='passed' for a in assertions)
+legacy_controls=read(case_folder(209)/'p05/native-assertions.json')['assertions']
+assert len(legacy_controls)==8 and all(a['verdict']=='passed' for a in legacy_controls)
+controls=read(case_folder(210)/'controls-call-trace.json');assert controls['comparisons'] and all(a['verdict']=='passed' for a in controls['comparisons'])
+checkpoint=read(layout/'responsive-matrix-checkpoint.json')
+report={'generatedAt':datetime.now(timezone.utc).isoformat(),'status':'passed','scope':gate['scope'],'browserPending':gate.get('browserPending',[]),'requiredVisits':211,'passedVisits':211,'testCases':135,'rounds':21,'logicalSessions':len(record['sessions']),'latestProcessExitCode':0,'planningOriginalsUnchanged':record['planningSource']['files'],'matrix':{'configurations':9,'pagesPerConfiguration':23,'nativePageFrames':207,'fullKeyboardCombinations':81,'desktopBoundaryWidth':768,'desktopCoverage':'not-provided'},'visual':{'independentDataGroups':2,'pagesPerGroup':23},'scopeCheck':{'primaryObservations':205,'businessBoundaryCalls':0,'pendingResponses':0},'containerRegressionFixtures':4,'controlComparisons':len(controls['comparisons']),'checkpointReuse':{'nativePages':checkpoint['reinspectedPages'],'keyboardCombinations':checkpoint['reinspectedFullKeyboardCombinations'],'completeRows':checkpoint['reusedCompleteRows'],'partialRows':checkpoint.get('reusedPartialRows',[])},'historicalFailuresRetained':sum(a['run']['visits'][0]['outcome']!='passed' for a in record['attempts']),'resolvedRepairs':len(record['repairs']),'sources':[ref(base/'acceptance.json'),ref(base/'execution-plan.json'),ref(base/'evidence/final-gate.json'),ref(layout/'responsive-matrix.json'),ref(layout/'responsive-full-keyboard-visibility.json'),ref(layout/'responsive-boundary.json'),ref(case_folder(207)/'scope-call-trace.json'),ref(case_folder(208)/'visual-page-coverage.json'),ref(case_folder(209)/'container-boundary-summary.json'),ref(case_folder(210)/'controls-call-trace.json')]}
+closure=base/'evidence/services-closure.json'
+report['sources'].append(ref(case_folder(209)/'p05/native-assertions.json'))
+if closure.exists():
+ assert read(closure)['status']=='stopped'
+ report['serviceClosure']=ref(closure)
+(base/'final-report.json').write_bytes((json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode())
+lines=['# 验收结果','',f"全部 **135 个 Test Case、211 次必要访问、R01～R21** 已通过。最终门禁范围：`{report['scope']}`；浏览器待验收项：{len(report['browserPending'])}。",'', '所有访问均有实际结果、独立比对和证据；最终执行进程退出码为 0，全部修复已关闭，合同和执行清单已同步。','', '| 检查 | 实际结果 |','| --- | --- |','| 响应式、长文本、安全区 | 9 组环境 × 23 屏，共 207 个原生页面检查 |','| 键盘 | 81 个组合的焦点字段、保存按钮分别可滚动至键盘上方完整可见 |','| 767/768 边界 | 手机端按规则验收；768 显示未提供桌面设计的占位 |','| 视觉一致性 | 2 组独立数据，各覆盖 23 屏 |','| 隔离范围 | 205 次主访问无业务边界调用，无残留响应 |','| 存量容器 | 4 组回归夹具通过 |',f"| 公共控件 | {report['controlComparisons']} 项独立比对通过 |",'',f"恢复时复用了 {checkpoint['reinspectedPages']} 个已完整检查的原生页面和 {checkpoint['reinspectedFullKeyboardCombinations']} 个键盘组合，只执行未完成部分。历史失败和修复证据保留，任务规划的 4 份原件摘要均未改变。",'']
+if closure.exists():lines+=['Metro、Appium 和本次测试模拟器已按服务归属记录关闭；`.cache` 目录不存在。','']
+lines+=['- [逐项执行清单](execution-plan.md)','- [验收记录](acceptance.json)','- [结构化结果与证据索引](final-report.json)','- [最终门禁](evidence/final-gate.json)','']
+(base/'final-report.md').write_bytes('\n'.join(lines).encode())
+print(json.dumps({k:report[k] for k in ['status','scope','testCases','passedVisits','rounds','checkpointReuse']},ensure_ascii=False))

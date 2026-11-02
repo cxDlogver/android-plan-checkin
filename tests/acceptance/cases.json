@@ -1,0 +1,2691 @@
+{
+  "source": {
+    "path": "plan/acceptance/test-cases.json",
+    "sha256": "bb19c82710ec3ad3e53673adcf935c2a618d3ee1e81640de22a5a53d0b7ddcad"
+  },
+  "coverageVisits": 211,
+  "cases": [
+    {
+      "caseId": "TC-T001",
+      "title": "今日 · 空计划 — 点击底部“计划” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        0,
+        72,
+        78,
+        84,
+        87,
+        108,
+        143
+      ],
+      "entry": [],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T002",
+      "title": "今日 · 空计划 — 点击底部“日历” → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        179
+      ],
+      "entry": [],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T003",
+      "title": "今日 · 空计划 — 点击“创建第一个计划” → 新建 · 固定日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        181,
+        189,
+        193,
+        196,
+        199,
+        201
+      ],
+      "entry": [],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T004",
+      "title": "今日 · 空计划 — 点击本机设置 → 本机设置 · 说明",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        203
+      ],
+      "entry": [],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T005",
+      "title": "计划 · 运行中列表 — 点击底部“日历” → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        1
+      ],
+      "entry": [
+        "TC-T001"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T006",
+      "title": "日历 · 选中日期 — 点击底部“计划” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        2,
+        21,
+        34
+      ],
+      "entry": [
+        "TC-T002"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T007",
+      "title": "计划 · 运行中列表 — 点击固定日期要做计划项 → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        3,
+        22,
+        24,
+        27
+      ],
+      "entry": [
+        "TC-T001"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T008",
+      "title": "计划 · 运行中列表 — 点击每周目标计划项 → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        35,
+        37,
+        48,
+        73,
+        79,
+        85
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T097",
+        "TC-T099",
+        "TC-T006"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T009",
+      "title": "固定日期计划 · 历史概览 — 点击“编辑计划” → 编辑计划 · 每天执行",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        4,
+        6
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T010",
+      "title": "固定日期计划 · 历史概览 — 打开更多并选择计划管理 → 计划管理 · 说明与申请",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        8,
+        10,
+        12,
+        14
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T011",
+      "title": "固定日期计划 · 历史概览 — 打开可补记的历史记录 → 补记 · 历史日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        16,
+        18
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T012",
+      "title": "日历 · 选中日期 — 打开成功只读历史记录 → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        77
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113",
+        "TC-T119"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T013",
+      "title": "记录详情 · 历史只读 — 点击“返回日历” → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        20
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T011",
+        "TC-T121"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T014",
+      "title": "今日 · 计划与记录 — 点击要做计划的“完成” → 记录今天 · 要做",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        89,
+        91,
+        93,
+        100
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T015",
+      "title": "今日 · 计划与记录 — 点击不要做计划的“做到了” → 记录今天 · 不要做",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        121,
+        123
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T016",
+      "title": "今日 · 计划与记录 — 点击底部“计划” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        125
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T017",
+      "title": "今日 · 计划与记录 — 点击底部“日历” → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        132
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037",
+        "TC-T047"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T018",
+      "title": "今日 · 计划与记录 — 点击本机设置 → 本机设置 · 说明 · 从有计划今日进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        134
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037",
+        "TC-T047"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T019",
+      "title": "计划 · 运行中列表 — 点击底部“今日” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        88
+      ],
+      "entry": [
+        "TC-T001"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T020",
+      "title": "日历 · 选中日期 — 点击底部“今日” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        133
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037",
+        "TC-T047",
+        "TC-T017"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T021",
+      "title": "计划 · 运行中列表 — 点击创建计划 → 新建 · 固定日期 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        109,
+        117,
+        126,
+        129,
+        144,
+        173
+      ],
+      "entry": [
+        "TC-T001"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T022",
+      "title": "计划 · 运行中列表 — 点击一次性任务计划项 → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        146,
+        148
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T023",
+      "title": "计划 · 运行中列表 — 选择归档计划并打开永久删除确认 → 永久删除 · 确认画面",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        167,
+        169,
+        171
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T024",
+      "title": "新建 · 固定日期 — 选择“每周目标” → 新建 · 每周目标",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        182,
+        184,
+        187
+      ],
+      "entry": [
+        "TC-T003"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T025",
+      "title": "新建 · 固定日期 — 选择“一次性” → 新建 · 一次性任务",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        190,
+        194,
+        197
+      ],
+      "entry": [
+        "TC-T003"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T026",
+      "title": "新建 · 固定日期 — 点击页头返回 → 今日 · 空计划",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        200
+      ],
+      "entry": [
+        "TC-T003"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T027",
+      "title": "新建 · 固定日期 — 点击“保存计划” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        202
+      ],
+      "entry": [
+        "TC-T003"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T028",
+      "title": "新建 · 每周目标 — 选择“固定日期” → 新建 · 固定日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        183
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T024"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T029",
+      "title": "新建 · 每周目标 — 选择“一次性” → 新建 · 一次性任务",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        185
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T024"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T030",
+      "title": "新建 · 每周目标 — 点击页头返回 → 今日 · 空计划",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        188
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T024"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T031",
+      "title": "新建 · 每周目标 — 点击“保存计划” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        192
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T024"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T032",
+      "title": "新建 · 一次性任务 — 选择“固定日期” → 新建 · 固定日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        186
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T025"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T033",
+      "title": "新建 · 一次性任务 — 选择“每周目标” → 新建 · 每周目标",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        191
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T025"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T034",
+      "title": "新建 · 一次性任务 — 点击页头返回 → 今日 · 空计划",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        195
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T025"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T035",
+      "title": "新建 · 一次性任务 — 点击“保存任务” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        198
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T025"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T036",
+      "title": "新建 · 固定日期 · 从计划进入 — 选择“每周目标” → 新建 · 每周目标 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        110,
+        112,
+        115
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T037",
+      "title": "新建 · 固定日期 · 从计划进入 — 选择“一次性” → 新建 · 一次性任务 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        118,
+        127,
+        130
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T038",
+      "title": "新建 · 固定日期 · 从计划进入 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        145
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T039",
+      "title": "新建 · 固定日期 · 从计划进入 — 点击“保存计划” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        174
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023",
+        "TC-T085",
+        "TC-T021"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T040",
+      "title": "新建 · 每周目标 · 从计划进入 — 选择“固定日期” → 新建 · 固定日期 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        111
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T036"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T041",
+      "title": "新建 · 每周目标 · 从计划进入 — 选择“一次性” → 新建 · 一次性任务 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        113
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T036"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T042",
+      "title": "新建 · 每周目标 · 从计划进入 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        116
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T036"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T043",
+      "title": "新建 · 每周目标 · 从计划进入 — 点击“保存计划” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        120
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T036"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T044",
+      "title": "新建 · 一次性任务 · 从计划进入 — 选择“固定日期” → 新建 · 固定日期 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        114
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T037"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T045",
+      "title": "新建 · 一次性任务 · 从计划进入 — 选择“每周目标” → 新建 · 每周目标 · 从计划进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        119
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T037"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T046",
+      "title": "新建 · 一次性任务 · 从计划进入 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        128
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T047",
+      "title": "新建 · 一次性任务 · 从计划进入 — 点击“保存任务” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        131
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T048",
+      "title": "本机设置 · 说明 — 点击页头返回 → 今日 · 空计划",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        204
+      ],
+      "entry": [
+        "TC-T004"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T049",
+      "title": "本机设置 · 说明 · 从有计划今日进入 — 点击页头返回 → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        135
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037",
+        "TC-T047",
+        "TC-T018"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T050",
+      "title": "今日 · 计划与记录 — 点击每周计划的“记录今天” → 记录今天 · 要做",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        136
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037",
+        "TC-T047"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T051",
+      "title": "今日 · 计划与记录 — 点击“查看或修改记录” → 修改记录 · 失败已选",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        175,
+        177
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023",
+        "TC-T085",
+        "TC-T021",
+        "TC-T039"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T052",
+      "title": "记录今天 · 不要做 — 点击页头返回 → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        122
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T053",
+      "title": "记录今天 · 不要做 — 点击“保存记录” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        124
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T054",
+      "title": "修改记录 · 失败已选 — 点击页头返回 → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        176
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023",
+        "TC-T085",
+        "TC-T021",
+        "TC-T039",
+        "TC-T051"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T055",
+      "title": "修改记录 · 失败已选 — 点击“保存修改” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        178
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023",
+        "TC-T085",
+        "TC-T021",
+        "TC-T039",
+        "TC-T051"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T056",
+      "title": "固定日期计划 · 历史概览 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        23
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T057",
+      "title": "固定日期计划 · 历史概览 — 打开更多并选择删除保留历史 → 归档 · 确认画面",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        25,
+        28,
+        30
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T058",
+      "title": "计划管理 · 说明与申请 — 点击“确认暂停” → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        9
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T010"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T059",
+      "title": "计划管理 · 说明与申请 — 点击“继续执行” → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        11
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T010"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T060",
+      "title": "计划管理 · 说明与申请 — 点击“取消申请” → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        13
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T010"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T061",
+      "title": "计划管理 · 说明与申请 — 点击页头返回 → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        15
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T010"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T062",
+      "title": "归档 · 确认画面 — 点击“确认移入归档” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        26
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T057"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T063",
+      "title": "归档 · 确认画面 — 点击“取消” → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        29
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T057"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T064",
+      "title": "归档 · 确认画面 — 点击页头返回 → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        31
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T057"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T065",
+      "title": "每周目标计划 · 概览 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        36
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T066",
+      "title": "每周目标计划 · 概览 — 打开更多并选择计划管理 → 计划管理 · 说明与申请 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        38,
+        40,
+        42,
+        44
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T067",
+      "title": "每周目标计划 · 概览 — 打开更多并选择删除保留历史 → 归档 · 确认画面 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        46,
+        49,
+        51
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T068",
+      "title": "计划管理 · 说明与申请 · 从每周详情进入 — 点击“确认暂停” → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        39
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T066"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T069",
+      "title": "计划管理 · 说明与申请 · 从每周详情进入 — 点击“继续执行” → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        41
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T066"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T070",
+      "title": "计划管理 · 说明与申请 · 从每周详情进入 — 点击“取消申请” → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        43
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T066"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T071",
+      "title": "计划管理 · 说明与申请 · 从每周详情进入 — 点击页头返回 → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        45
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T066"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T072",
+      "title": "归档 · 确认画面 · 从每周详情进入 — 点击“确认移入归档” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        47
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T067"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T073",
+      "title": "归档 · 确认画面 · 从每周详情进入 — 点击“取消” → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        50
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T067"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T074",
+      "title": "归档 · 确认画面 · 从每周详情进入 — 点击页头返回 → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        52
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T067"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T075",
+      "title": "一次性任务 · 逾期提示 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        147
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T076",
+      "title": "一次性任务 · 逾期提示 — 打开更多并选择计划管理 → 计划管理 · 说明与申请 · 从任务详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        149,
+        151,
+        153,
+        155
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T077",
+      "title": "一次性任务 · 逾期提示 — 打开更多并选择删除保留历史 → 归档 · 确认画面 · 从任务详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        157,
+        159,
+        165
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T078",
+      "title": "计划管理 · 说明与申请 · 从任务详情进入 — 点击“确认暂停” → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        150
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T076"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T079",
+      "title": "计划管理 · 说明与申请 · 从任务详情进入 — 点击“继续执行” → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        152
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T076"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T080",
+      "title": "计划管理 · 说明与申请 · 从任务详情进入 — 点击“取消申请” → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        154
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T076"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T081",
+      "title": "计划管理 · 说明与申请 · 从任务详情进入 — 点击页头返回 → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        156
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T076"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T082",
+      "title": "归档 · 确认画面 · 从任务详情进入 — 点击“确认移入归档” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        166
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T077"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T083",
+      "title": "归档 · 确认画面 · 从任务详情进入 — 点击“取消” → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        158
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T077"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T084",
+      "title": "归档 · 确认画面 · 从任务详情进入 — 点击页头返回 → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        160
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T077"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T085",
+      "title": "永久删除 · 确认画面 — 点击“永久删除计划” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        168
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T086",
+      "title": "永久删除 · 确认画面 — 点击“取消” → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        170
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T087",
+      "title": "永久删除 · 确认画面 — 点击页头返回 → 计划 · 运行中列表",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        172
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T075",
+        "TC-T023"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T088",
+      "title": "编辑计划 · 每天执行 — 点击页头返回 → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        5
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T009"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T089",
+      "title": "编辑计划 · 每天执行 — 点击“保存修改” → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        7
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T009"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T090",
+      "title": "每周目标计划 · 概览 — 点击“记录今天” → 记录今天 · 要做 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        53,
+        55,
+        57,
+        64,
+        74
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T091",
+      "title": "一次性任务 · 逾期提示 — 点击“现在完成” → 登记完成 · 日期表单",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        161,
+        163
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T092",
+      "title": "登记完成 · 日期表单 — 点击页头返回 → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        162
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T091"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T093",
+      "title": "登记完成 · 日期表单 — 点击“保存完成记录” → 一次性任务 · 逾期提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        164
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T021",
+        "TC-T038",
+        "TC-T022",
+        "TC-T091"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T094",
+      "title": "每周目标计划 · 概览 — 打开可补记的历史记录 → 补记 · 历史日期 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        80,
+        82
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T095",
+      "title": "日历 · 选中日期 — 打开可补记的历史记录 → 补记 · 历史日期 · 从日历进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        139,
+        141
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113",
+        "TC-T119"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T096",
+      "title": "日历 · 选中日期 — 打开成功只读历史记录 → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        180
+      ],
+      "entry": [
+        "TC-T002"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T097",
+      "title": "固定日期计划 · 历史概览 — 打开成功只读历史记录 → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        32
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T098",
+      "title": "每周目标计划 · 概览 — 打开成功只读历史记录 → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        86
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T099",
+      "title": "记录详情 · 历史只读 — 点击页头返回 → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        33
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T097"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-T100",
+      "title": "记录今天 · 要做 — 点击页头返回 → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        90
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T101",
+      "title": "记录今天 · 要做 — 点击“保存记录”（UI响应为普通返回） → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        92
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T102",
+      "title": "记录今天 · 要做 — 点击“保存记录”（UI响应为暂未保存） → 保存异常 · 输入仍可见",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        94,
+        96,
+        98
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T103",
+      "title": "记录今天 · 要做 — 点击“保存记录”（UI响应为日期变化） → 日期变化 · 补记提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        101,
+        103,
+        137
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T104",
+      "title": "保存异常 · 输入仍可见 — 点击页头返回 → 记录今天 · 要做",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        95
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T102"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T105",
+      "title": "保存异常 · 输入仍可见 — 点击“返回继续编辑” → 记录今天 · 要做",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        97
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T102"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T106",
+      "title": "保存异常 · 输入仍可见 — 点击“重试保存” → 今日 · 计划与记录",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        99
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T102"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T107",
+      "title": "日期变化 · 补记提示 — 点击页头返回 → 记录今天 · 要做",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        102
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T103"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T108",
+      "title": "日期变化 · 补记提示 — 点击“进入补记确认” → 补记 · 历史日期 · 从日期变化进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        104,
+        106
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T103"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T109",
+      "title": "日期变化 · 补记提示 — 点击“返回日历” → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        138
+      ],
+      "entry": [
+        "TC-T003",
+        "TC-T027",
+        "TC-T015",
+        "TC-T052",
+        "TC-T016",
+        "TC-T021",
+        "TC-T037",
+        "TC-T047",
+        "TC-T050",
+        "TC-T103"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T110",
+      "title": "记录今天 · 要做 · 从每周详情进入 — 点击页头返回 → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        54
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T111",
+      "title": "记录今天 · 要做 · 从每周详情进入 — 点击“保存记录”（UI响应为普通返回） → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        56
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T112",
+      "title": "记录今天 · 要做 · 从每周详情进入 — 点击“保存记录”（UI响应为暂未保存） → 保存异常 · 输入仍可见 · 每周记录分支",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        58,
+        60,
+        62
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T113",
+      "title": "记录今天 · 要做 · 从每周详情进入 — 点击“保存记录”（UI响应为日期变化） → 日期变化 · 补记提示 · 每周记录分支",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        65,
+        67,
+        75
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T114",
+      "title": "保存异常 · 输入仍可见 · 每周记录分支 — 点击页头返回 → 记录今天 · 要做 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        59
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T112"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T115",
+      "title": "保存异常 · 输入仍可见 · 每周记录分支 — 点击“返回继续编辑” → 记录今天 · 要做 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        61
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T112"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T116",
+      "title": "保存异常 · 输入仍可见 · 每周记录分支 — 点击“重试保存” → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        63
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T112"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T117",
+      "title": "日期变化 · 补记提示 · 每周记录分支 — 点击页头返回 → 记录今天 · 要做 · 从每周详情进入",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        66
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T118",
+      "title": "日期变化 · 补记提示 · 每周记录分支 — 点击“进入补记确认” → 补记 · 历史日期 · 每周分支日期变化",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        68,
+        70
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T119",
+      "title": "日期变化 · 补记提示 · 每周记录分支 — 点击“返回日历” → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        76
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T120",
+      "title": "补记 · 历史日期 — 点击页头返回 → 固定日期计划 · 历史概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        17
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T011"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T121",
+      "title": "补记 · 历史日期 — 点击“保存补记” → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        19
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T007",
+        "TC-T011"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T122",
+      "title": "补记 · 历史日期 · 从每周详情进入 — 点击页头返回 → 每周目标计划 · 概览",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        81
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T094"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T123",
+      "title": "补记 · 历史日期 · 从每周详情进入 — 点击“保存补记” → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        83
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T094"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T124",
+      "title": "补记 · 历史日期 · 从日历进入 — 点击页头返回 → 日历 · 选中日期",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        140
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113",
+        "TC-T119",
+        "TC-T095"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T125",
+      "title": "补记 · 历史日期 · 从日历进入 — 点击“保存补记” → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        142
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113",
+        "TC-T119",
+        "TC-T095"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T126",
+      "title": "补记 · 历史日期 · 从日期变化进入 — 点击页头返回 → 日期变化 · 补记提示",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        105
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T103",
+        "TC-T108"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T127",
+      "title": "补记 · 历史日期 · 从日期变化进入 — 点击“保存补记” → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        107
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T019",
+        "TC-T014",
+        "TC-T103",
+        "TC-T108"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T128",
+      "title": "补记 · 历史日期 · 每周分支日期变化 — 点击页头返回 → 日期变化 · 补记提示 · 每周记录分支",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        69
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113",
+        "TC-T118"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-T129",
+      "title": "补记 · 历史日期 · 每周分支日期变化 — 点击“保存补记” → 记录详情 · 历史只读",
+      "kind": "primary",
+      "driver": "run-case.cjs",
+      "requiredVisitIndices": [
+        71
+      ],
+      "entry": [
+        "TC-T001",
+        "TC-T008",
+        "TC-T090",
+        "TC-T113",
+        "TC-T118"
+      ],
+      "entryRule": "Shortest path in the reviewed route context graph; complete scene and prepared data context must match.",
+      "environments": [
+        "native",
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-G-VISUAL",
+      "title": "UI清单、动态绑定与公共组件配方",
+      "kind": "constraint",
+      "driver": "collect-pages.cjs",
+      "requiredVisitIndices": [
+        208
+      ],
+      "entry": [],
+      "entryRule": "Independent fixture",
+      "environments": [
+        "runtime",
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-G-LAYOUT",
+      "title": "连续适配、长文本、安全区与键盘",
+      "kind": "constraint",
+      "driver": "fresh-layout.cjs",
+      "requiredVisitIndices": [
+        206
+      ],
+      "entry": [],
+      "entryRule": "Independent fixture",
+      "environments": [
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-G-SCOPE",
+      "title": "UI浏览与真实功能执行隔离",
+      "kind": "constraint",
+      "driver": "supplementary.cjs",
+      "requiredVisitIndices": [
+        207
+      ],
+      "entry": [],
+      "entryRule": "Independent fixture",
+      "environments": [
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-G-EVIDENCE",
+      "title": "视觉验收证据完整性",
+      "kind": "constraint",
+      "driver": "supplementary.cjs",
+      "requiredVisitIndices": [
+        205
+      ],
+      "entry": [],
+      "entryRule": "Independent fixture",
+      "environments": [
+        "runtime"
+      ]
+    },
+    {
+      "caseId": "TC-REG-CONTROLS",
+      "title": "公共控件的禁用、选择、输入及可访问契约",
+      "kind": "regression",
+      "driver": "controls-oracle.cjs",
+      "requiredVisitIndices": [
+        210
+      ],
+      "entry": [],
+      "entryRule": "Independent fixture",
+      "environments": [
+        "native"
+      ]
+    },
+    {
+      "caseId": "TC-REG-CONTAINERS",
+      "title": "呈现提取保留提交、返回和草稿保护",
+      "kind": "regression",
+      "driver": "container-boundary.cjs",
+      "requiredVisitIndices": [
+        209
+      ],
+      "entry": [],
+      "entryRule": "Independent fixture",
+      "environments": [
+        "native"
+      ]
+    }
+  ]
+}

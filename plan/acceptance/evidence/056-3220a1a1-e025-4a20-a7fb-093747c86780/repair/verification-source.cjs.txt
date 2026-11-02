@@ -1,0 +1,28 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),vm=require('node:vm'),assert=require('node:assert/strict'),{createRequire}=require('node:module');
+const root=path.resolve(__dirname,'../../..'),read=file=>JSON.parse(fs.readFileSync(file,'utf8')),hash=data=>crypto.createHash('sha256').update(data).digest('hex');
+const record=read(path.join(root,'plan/acceptance/acceptance.json')),repair=record.repairs.find(r=>r.visitIndex===56&&r.status!=='resolved'),attempt=record.attempts.find(a=>a.run.id===repair.attemptId),folder=path.resolve(root,path.dirname(attempt.run.context.path)),repairDirectory=path.join(folder,'repair');
+const driver=path.join(root,attempt.run.script.path),archive=path.join(repairDirectory,'run-session.before.cjs'),old=fs.readFileSync(archive,'utf8'),current=fs.readFileSync(driver,'utf8');
+const checkBlock=source=>{const from=source.indexOf('     const captureCheck=');assert.ok(from>0);return source.slice(from,source.indexOf('    }else{',from));};
+assert.equal(hash(checkBlock(old)),hash(checkBlock(current)),'The actual acceptance assertion block must remain identical');
+const sandbox={require:createRequire(driver),module:{exports:{}},__filename:driver,__dirname:path.dirname(driver),process,console};
+vm.runInNewContext(current.slice(0,current.indexOf('async function worker(){'))+'\nmodule.exports={exportTrace,evidence};',sandbox,{filename:driver});
+const proof=path.join(repairDirectory,'trace-verification-'+Date.now());fs.mkdirSync(proof);
+for(const name of ['runtime-frame.json','native-frame.json','given-state.json'])fs.copyFileSync(path.join(folder,name),path.join(proof,name));
+const frames=read(path.join(proof,'runtime-frame.json')),native=read(path.join(proof,'native-frame.json')),givenNative=read(path.join(proof,'given-state.json'));
+const file=sandbox.module.exports.exportTrace(proof,frames.before,frames.after,givenNative,native),trace=read(file);
+const selected=sandbox.module.exports.evidence(proof,{criterion:'Actual response call trace',evidence:[{form:'call-trace',description:'Actual controller and native response deltas.'}]});
+const model=read(path.join(root,record.testCasesPath)),seed=read(path.join(root,'plan/acceptance/evidence/preparation/environment/inputs.json')),{UIBrowseModel}=require(path.join(root,'plan/acceptance/.work/runtime/src/verification/ui-browse-model.js')),runtime=new UIBrowseModel(structuredClone(seed));
+for(const id of ['TC-T001','TC-T008','TC-T090']){const c=model.cases.find(c=>c.id===id);runtime.dispatch(c.operation.input.controlNodeId,c.operation.input.selection);}
+assert.deepEqual(runtime.scene,frames.before.scene);assert.deepEqual(runtime.inputs,frames.before.inputs);assert.deepEqual(runtime.activeIdentity,frames.before.activeIdentity);
+const untouched=[...new Set(record.sequence.slice(0,56))].filter(id=>!repair.affectedCaseIds.includes(id));
+assert.ok(record.sequence.slice(0,56).every(id=>untouched.includes(id)),'All earlier visits must be outside the diagnosed trace-evidence scope');
+const unchanged=attempt.run.files.filter(f=>f.path!==attempt.run.script.path).every(f=>hash(fs.readFileSync(path.join(root,f.path)))===f.sha256);
+const expected={traceSelected:true,runtimeResponseCalls:1,nativeResponseCalls:1,responsesRestored:true,assertionBlockUnchanged:true,otherBoundFilesUnchanged:true,replayInputAndIdentityMatch:true,replaySteps:3,archivedDriverHash:attempt.run.script.sha256};
+const actual={traceSelected:selected.some(e=>e.form==='call-trace'&&e.path.endsWith('call-trace.json')),runtimeResponseCalls:trace.runtime.filter(e=>e.name==='record-response').length,nativeResponseCalls:trace.native.filter(e=>e.name==='record-response').length,responsesRestored:Object.values(trace.responseRestored).every(Boolean),assertionBlockUnchanged:hash(checkBlock(old))===hash(checkBlock(current)),otherBoundFilesUnchanged:unchanged,replayInputAndIdentityMatch:true,replaySteps:3,archivedDriverHash:hash(fs.readFileSync(archive))};
+assert.deepEqual(actual,expected);
+const ref=file=>({path:path.relative(root,file).replaceAll('\\','/'),sha256:hash(fs.readFileSync(file))});
+const report=path.join(proof,'repair-assertions.json');fs.writeFileSync(report,JSON.stringify({assertions:[{target:'repair:'+attempt.run.id,expected,actual,verdict:'passed'}],review:{unchangedCheckBlockSha256:hash(checkBlock(current)),preservedVisitIndices:[0,55],unaffectedCaseIds:untouched,nativeEntryReplay:'Must still execute and verify the three real native controls at retry; this offline review is not a product acceptance result.'}},null,2));
+const resolution={observation:'The exporter now writes actual Node/native trace deltas. Reviewed exact unchanged acceptance assertion code and all other bound files. Frozen the actual prior driver bytes; only earlier, explicitly unaffected visits may retain that historical version. The same identity and all inputs are restored by the reviewed three-step Node path; native replay and TC-T111 still require actual reacceptance.',evidence:[{form:'assertion-report',...ref(report),description:'Executed exporter, preserved-scope and replay-input comparisons.'},{form:'call-trace',...ref(file),description:'Actual trace deltas extracted from the original blocked visit frames for collector verification.'}],changedFiles:[ref(driver)],harnessArchive:{original:attempt.run.script,archive:ref(archive),unaffectedCaseIds:untouched}};
+const resolutionFile=path.join(repairDirectory,'resolution.json');fs.writeFileSync(resolutionFile,JSON.stringify(resolution,null,2)+'\n');
+console.log(JSON.stringify({status:'verified',expected,actual,unaffectedPriorVisits:56,resolution:path.relative(root,resolutionFile)}));

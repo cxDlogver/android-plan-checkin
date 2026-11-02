@@ -1,0 +1,21 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-G-LAYOUT"
+  ],
+  "reason": "The driver used a 0.02 outer-gutter gesture while exposing the save button. Native readiness then directly observed SDK IME false and keyboard null; full-height/save assertions correctly blocked. Repair the too-short physical gesture to remain a continuous drag, verify actual IME remains shown and complete native bounds, and retain only independently rechecked completed page checkpoints from the partial row. No product code, expectations, planning artifacts or prior results are rewritten.",
+  "evidence": [
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-37b3d74e-b0f2-4761-b80e-89705e465306/responsive-keyboard-target-readiness.json",
+      "sha256": "fa3e45bea3104872d6a9905a275b44de41d5938cec5bb1e5891c95bfb0bd04b9",
+      "description": "SDK IME changes from true to false following the very short gesture."
+    },
+    {
+      "form": "screenshot",
+      "path": "plan/acceptance/evidence/206-37b3d74e-b0f2-4761-b80e-89705e465306/failure-state.png",
+      "sha256": "8a7b77f793ae85b23acc77defee8bef46d67390a39549b952650329791694c5d",
+      "description": "Actual retained blocked scene."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-G-LAYOUT",
+    "TC-G-VISUAL"
+  ],
+  "reason": "The first row-3 edit-record capture had a real root in native XML but no root measurement in the application report. Reading the same retained page again without navigation supplied the root and passed all unchanged independent native geometry assertions. Wait only for complete actual application measurement records/props before visual assertions; preserve incomplete raw observations. Reuse the three fully completed configuration checkpoints only after exact source/input/evidence hashes and independent visual reinspection, then execute configurations 3..8. Do not reuse partial configuration 3, alter expectations, fabricate measurements, or accept the prior blocked attempt.",
+  "evidence": [
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/fresh-layout-observation.json",
+      "sha256": "0b6cadfde23d4bf4c72a2a3162e67571c2ba1f919fbb25591964cf922c3b9dfb",
+      "description": "Fresh read of the same retained UI with full root measurement and all independent geometry checks passed."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/review-baseline.json",
+      "sha256": "e7867c0787337f4c14adde22792d64460116ae6631170483837ddee3f9ba408d",
+      "description": "206 valid visits retained; three complete configurations may be resumed after verification."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/matrix-checkpoint.json",
+      "sha256": "3d097df1e59273f5e98a3ce491a5aac24367f91365e162c3ddf4ddf0d99557e2",
+      "description": "Exact source, context and real screenshot/native-tree/measurement references for completed configurations only."
+    },
+    {
+      "form": "native-tree",
+      "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/failure-state.xml",
+      "sha256": "4bb38516d1ac12e3c878ca15516c201dbf1d05ace455af1bdbd9a006daa4eeca",
+      "description": "Original actual root exists with physical native bounds."
+    }
+  ]
+}

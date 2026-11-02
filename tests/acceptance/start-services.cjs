@@ -1,0 +1,31 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os');
+const {spawn,spawnSync}=require('node:child_process');
+const root=path.resolve(__dirname,'../..');
+const {env,node,toolRoot}=require(path.join(root,'tests/support/task-env.cjs'));
+const directory=path.join(root,'.artifacts/acceptance/services');
+fs.mkdirSync(directory,{recursive:true});
+function start(name,executable,args,extra={}){
+ const out=fs.openSync(path.join(directory,name+'.out.log'),'a'),err=fs.openSync(path.join(directory,name+'.err.log'),'a');
+ const child=spawn(executable,args,{cwd:root,env:{...env,...extra},detached:true,windowsHide:true,stdio:['ignore',out,err]});
+ child.unref();fs.closeSync(out);fs.closeSync(err);
+ return {name,pid:child.pid,executable,args,startedAt:new Date().toISOString(),stdout:path.relative(root,path.join(directory,name+'.out.log')).replaceAll('\\','/'),stderr:path.relative(root,path.join(directory,name+'.err.log')).replaceAll('\\','/')};
+}
+async function healthy(url){try{return (await fetch(url,{signal:AbortSignal.timeout(2000)})).ok;}catch{return false;}}
+async function main(){
+ const report={startedAt:new Date().toISOString(),services:[]};
+ const adb=path.join(toolRoot,'sdk/platform-tools/adb.exe'),devices=spawnSync(adb,['devices'],{env,encoding:'utf8',windowsHide:true});
+ if(devices.status!==0)throw Error(devices.stderr||'adb devices failed');
+ if(!/^emulator-5562\s+device$/m.test(devices.stdout)){
+  if(os.freemem()<6*1024**3)throw Error('At least 6 GiB free host memory is required for the project AVD.');
+  report.services.push(start('emulator',path.join(toolRoot,'sdk/emulator/emulator.exe'),['-avd','plancheckin_api36','-port','5562','-no-window','-no-audio','-no-snapshot','-read-only','-gpu','host','-feature','-Vulkan']));
+ }else report.services.push({name:'emulator',reused:true,serial:'emulator-5562'});
+ if(!await healthy('http://127.0.0.1:4723/status'))report.services.push(start('appium',node,['--require',path.join(root,'tests/support/hidden-processes.cjs'),path.join(toolRoot,'appium/node_modules/appium/index.js'),'--address','127.0.0.1','--port','4723','--log-level','error']));
+ else report.services.push({name:'appium',reused:true,url:'http://127.0.0.1:4723/status'});
+ if(!await healthy('http://127.0.0.1:8081/status')){
+  const temporary=path.join(root,'.artifacts/acceptance/metro-temp');fs.mkdirSync(temporary,{recursive:true});
+  report.services.push(start('metro',node,['node_modules/expo/bin/cli','start','--dev-client','--host','localhost','--port','8081','--max-workers','4'],{APP_VARIANT:'development',TEMP:temporary,TMP:temporary}));
+ }else report.services.push({name:'metro',reused:true,url:'http://127.0.0.1:8081/status'});
+ report.finishedAt=new Date().toISOString();fs.writeFileSync(path.join(directory,'services.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
+}
+main().catch(error=>{console.error(error.stack);process.exitCode=1;});

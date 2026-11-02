@@ -1,0 +1,27 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-REG-CONTAINERS"
+  ],
+  "reason": "P05 imports the entire legacy tests/ui/harness.test.cjs merely to call assertNativeSmoke. Its unrelated top-level unit-test imports still require the deleted .cache tree, so the real controls were observed but assertion loading failed. Preserve the exact original exported eight-assertion function, load only that export with explicit current evidence directory, and keep all P05/container assertions byte identical. Independently retain complete native P03/P04 fixtures (10+12 passed assertions), then execute only P05/P06 and all original additional callbacks. Do not recreate .cache or modify product/requirements/planning originals.",
+  "evidence": [
+    {
+      "form": "assertion-report",
+      "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/assertions.json",
+      "sha256": "48850c88a95f5806f73bf3732e38587522cb78e565a1188dbb852aa1b567390b",
+      "description": "Actual missing-cache require stack."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/container-checkpoint.json",
+      "sha256": "85c978b801023608244e9c783e7dcabfa1638d58c36347934782fbc0ada09186",
+      "description": "Exact completed P03/P04 native evidence and unchanged dependency hashes."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "tests/ui/harness.test.cjs",
+      "sha256": "90e1f261f00ace7583a49fa25f2cf49f60ce0102e3c7e1b81a869ca6d3e92eab",
+      "description": "Eight independent native smoke assertions and unrelated top-level cache imports."
+    }
+  ]
+}

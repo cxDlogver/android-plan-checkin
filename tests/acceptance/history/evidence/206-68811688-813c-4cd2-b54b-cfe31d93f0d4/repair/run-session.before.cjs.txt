@@ -1,0 +1,229 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{spawn,spawnSync}=require('node:child_process');
+const root=path.resolve(__dirname,'../../..'),recordFile=path.join(root,'plan/acceptance/acceptance.json');
+const python=process.env.ACCEPTANCE_PYTHON||'D:/xiang/CX_application/Anconda3/python.exe',routeFile='.agents/skills/acceptance/scripts/route.py';
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8')),relative=file=>path.relative(root,file).replaceAll('\\','/');
+const ref=file=>({path:relative(file),sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')});
+const write=(file,value)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+function planner(command,extra=[]){const r=spawnSync(python,['-X','utf8','-B','.agents/skills/acceptance/scripts/execution_plan.py',command,'--workspace','.',...extra],{cwd:root,encoding:'utf8',windowsHide:true,maxBuffer:8*1024*1024});let value;try{value=JSON.parse(r.stdout);}catch{throw Error('Planner returned no valid JSON: '+r.stderr+r.stdout);}if(r.status!==0)throw Error('Planner '+command+' refused: '+JSON.stringify(value));return value;}
+// execution_plan.write_outputs performs check_outputs before sync can succeed.
+function refreshPlan(){assert.equal(planner('sync').status,'synchronized');return read(path.join(root,'plan/acceptance/execution-plan.json'));}
+function verifiedNext(){let plan=read(path.join(root,'plan/acceptance/execution-plan.json'));if(plan.sourceRecord.sha256!==ref(recordFile).sha256)plan=refreshPlan();return plan.next;}
+function gate(command,extra=[]){
+ for(let attempt=0;attempt<16;attempt++){
+  const r=spawnSync(python,['-X','utf8','-B',routeFile,command,'plan/acceptance/acceptance.json','--workspace','.',...extra],{cwd:root,encoding:'utf8',windowsHide:true,maxBuffer:4*1024*1024});let value;
+  try{value=JSON.parse(r.stdout);}catch{throw Error('Gate returned no valid JSON: '+r.stderr+r.stdout);}
+  if(r.status!==0&&value.error?.includes('File exists')&&value.error.includes('acceptance.lock')&&attempt<15){Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,1000);continue;}
+  if(r.status!==0&&!(command==='close-session'&&value.sessionId&&value.status==='failed')&&!(command==='submit'&&value.recorded&&value.synced&&value.checked))throw Error('Gate '+command+' refused: '+JSON.stringify(value));
+  if(['begin','submit','close-session'].includes(command))refreshPlan();return value;
+ }
+ throw Error('The canonical writer did not release its lock');
+}
+function filesBelow(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(e=>e.isDirectory()?filesBelow(path.join(directory,e.name)):[path.join(directory,e.name)]);}
+function frameOf(model){return {documentId:model.document.id,scene:structuredClone(model.scene),inputs:structuredClone(model.inputs),activeIdentity:structuredClone(model.activeIdentity),trace:structuredClone(model.trace),context:structuredClone(model.context),pendingResponse:model.pendingResponse};}
+function evidence(folder,definition){
+ const files=filesBelow(folder),items=[];
+ for(const required of definition.evidence){let selected;
+  if(required.form==='assertion-report')continue;
+  if(required.form==='screenshot')selected=files.filter(f=>f.endsWith('.png'));
+  else if(required.form==='native-tree')selected=files.filter(f=>f.endsWith('.xml'));
+  else if(required.form==='layout-measurement')selected=files.filter(f=>/native-frame|responsive-matrix|keyboard/.test(path.basename(f))&&f.endsWith('.json'));
+  else if(required.form==='call-trace')selected=files.filter(f=>/trace|observations|summary/.test(path.basename(f))&&f.endsWith('.json'));
+  else selected=files.filter(f=>/runtime-frame|contract-tests|task-assertions|page-coverage|inputs|summary/.test(path.basename(f))&&f.endsWith('.json'));
+  if(!selected?.length)throw Error('Missing actual '+required.form+' for '+definition.criterion);
+  for(const file of selected)items.push({form:required.form,...ref(file),description:required.description});
+ }
+ return items;
+}
+function exportTrace(folder,beforeRuntime,actualRuntime,beforeNative,actualNative){
+ const file=path.join(folder,'call-trace.json');
+ write(file,{sources:['runtime-frame.json','native-frame.json','given-state.json'].map(name=>ref(path.join(folder,name))),
+  runtime:actualRuntime.trace.slice(beforeRuntime.trace.length),native:actualNative.trace.slice(beforeNative.trace.length),
+  responseRestored:{runtime:!actualRuntime.pendingResponse,native:!actualNative.pendingResponse}});
+ return file;
+}
+function settledFixtureSeeking(adapter){
+ const device=adapter.device,original=device.seek,observations=[];
+ device.seek=async function(testID,...args){
+  const startedAt=new Date().toISOString();await original.call(this,testID,...args);let last=null,stable=0;const samples=[];
+  for(let attempt=0;attempt<40;attempt++){
+   const source=await this.source(),tag=source.split('>').find(t=>t.includes('resource-id="'+testID+'"'))||'',match=tag.match(/bounds="\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]"/),bounds=match?.slice(1).map(Number);
+   const visible=bounds&&bounds[2]>bounds[0]&&bounds[3]>bounds[1]&&!tag.includes('displayed="false"')&&!tag.includes('enabled="false"'),key=visible?JSON.stringify(bounds):null;
+   stable=key&&key===last?stable+1:key?1:0;last=key;samples.push({at:new Date().toISOString(),bounds:bounds??null,visible:Boolean(visible),stable});
+   if(stable>=4){const element=await this.id(testID);observations.push({testID,startedAt,samples,element});return element;}
+   await new Promise(resolve=>setTimeout(resolve,150));
+  }
+  observations.push({testID,startedAt,samples,blocked:true});throw Error('Fixture control did not settle at visible native bounds: '+testID);
+ };
+ return()=>{device.seek=original;write(path.join(adapter.directory,'responsive-matrix-navigation.json'),{minimumConsecutiveStableVisibleSamples:4,sampleIntervalMs:150,operation:'Readiness only; original native click and independent product assertions remain in force.',observations});};
+}
+function requiredScopeRecord(record,model){
+ const cases=new Map(model.cases.map(c=>[c.id,c])),latest=new Map();
+ for(const attempt of record.attempts){assert.equal(attempt.run.visits.length,1);latest.set(attempt.run.visits[0].visitIndex,attempt);}
+ const selected=[],audit=[];
+ record.sequence.forEach((caseId,visitIndex)=>{if(cases.get(caseId).kind!=='primary')return;const attempt=latest.get(visitIndex),visit=attempt?.run.visits[0];assert.ok(attempt?.closedAt&&visit?.outcome==='passed'&&[null,0].includes(attempt.run.exitCode)&&visit.checks.length&&visit.checks.every(c=>c.status==='passed'),'Scope requires the latest closed passed primary visit '+visitIndex);selected.push(attempt);audit.push({visitIndex,caseId,runId:attempt.run.id});});
+ const ids=new Set(selected.map(a=>a.run.id)),historical=record.attempts.filter(a=>cases.get(record.sequence[a.run.visits[0].visitIndex]).kind==='primary');
+ return {record:{...record,attempts:selected},audit:{requiredPrimaryVisits:selected.length,historicalPrimaryAttempts:historical.length,selected:audit,excludedHistoricalPrimaryAttemptIds:historical.filter(a=>!ids.has(a.run.id)).map(a=>a.run.id),selectionRule:'Latest closed passed attempt for each required visitIndex in the unchanged sequence; failures and prior attempts remain in the canonical record.'}};
+}
+
+function completeFixtureObservations(adapter,root){
+ const original=adapter.observe,manifest=read(path.join(root,'plan/ui-spec/manifest.json')),documents=new Map(manifest.documents.filter(d=>d.kind==='screen').map(d=>{const doc=read(path.join(root,'plan/ui-spec',d.file));return [doc.id,doc];})),pending=[];
+ const flatten=n=>[n,...n.children.flatMap(flatten)];
+ adapter.observe=async function(name,options={}){
+  const deadline=Date.now()+15000;
+  for(let attempt=0;;attempt++){
+   const shot=await original.call(this,name,options),frame=shot.report,document=documents.get(frame.documentId);assert.ok(document,'Known native document before layout readiness');
+   const missing=frame.environment.viewport.width>=768?[]:flatten(document.tree).filter(n=>n.ownership==='application').filter(n=>!frame.measurements[n.id]?.box||!frame.measurements[n.id]?.props).map(n=>n.id);
+   if(!missing.length)return shot;
+   const item={name,attempt,nonce:frame.nonce,navigationSerial:frame.navigationSerial,documentId:frame.documentId,missing};
+   if(options.save!==false){item.preserved=[];for(const ext of ['.json','.xml','.png']){const from=path.join(this.directory,name+ext),to=path.join(this.directory,name+'.layout-pending-'+attempt+ext);fs.renameSync(from,to);item.preserved.push(ref(to));}}else item.rawReport=frame;
+   pending.push(item);if(Date.now()>=deadline)throw Error('Actual native layout measurements did not become complete: '+missing.join(','));
+   await new Promise(resolve=>setTimeout(resolve,150));
+  }
+ };
+ return()=>{adapter.observe=original;write(path.join(adapter.directory,'responsive-matrix-layout-readiness.json'),{scope:'Presence of actual measurement records and applied props only; independent geometry and content assertions are unchanged.',pendingObservations:pending});};
+}
+function prepareMatrixCheckpoint(root,directory,record,model,seed){
+ const checkpointRef={path:'plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/matrix-checkpoint.json',sha256:'3d097df1e59273f5e98a3ce491a5aac24367f91365e162c3ddf4ddf0d99557e2'};
+ const checked=reference=>{const file=path.resolve(root,reference.path),relative=path.relative(root,file);assert.ok(relative&&!relative.startsWith('..')&&!path.isAbsolute(relative),'Checkpoint stays in workspace');const bytes=fs.readFileSync(file);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),reference.sha256,'Exact checkpoint bytes '+reference.path);return {file,bytes};};
+ const manifest=JSON.parse(checked(checkpointRef).bytes),summary=JSON.parse(checked(manifest.summary).bytes),rules=read(path.join(root,'plan/ui-spec/rules.json'));
+ assert.equal(manifest.caseContract,record.caseContract);assert.equal(manifest.planContract,record.planContract);assert.equal(manifest.scheduleContract,record.scheduleContract);assert.equal(manifest.totalRows,rules.profiles.mobile.validationCases.length);assert.ok(manifest.completedRows>0&&manifest.completedRows<manifest.totalRows);assert.equal(summary.rows.length,manifest.completedRows);assert.equal(summary.frames.length,manifest.completedRows*23);assert.equal(summary.keyboards.length,manifest.completedRows*9);assert.equal(JSON.stringify(JSON.parse(checked(manifest.inputs).bytes)),JSON.stringify(seed),'Same captured route inputs');
+ const inputs=[checkpointRef,manifest.summary,manifest.inputs,manifest.nativeCaptureLog,manifest.originalMatrixModule,...manifest.otherBoundFiles,...manifest.files];for(const reference of inputs)checked(reference);
+ summary.rows.forEach((row,index)=>{assert.equal(row.row,index);assert.deepEqual(row.expected,rules.profiles.mobile.validationCases[index]);assert.equal(row.documents.length,23);assert.ok(row.documents.every(d=>!d.inspected.differences.length&&d.inspected.geometry.every(f=>f.passed)));});
+ const documents=new Map(read(path.join(root,'plan/ui-spec/manifest.json')).documents.filter(d=>d.kind==='screen').map(d=>{const doc=read(path.join(root,'plan/ui-spec',d.file));return [doc.id,doc];})),visual=require('./native-visual.cjs')(root),copies=[];
+ for(const frame of summary.frames){const file=path.join(path.dirname(checked(manifest.summary).file),frame.snapshot),xml=path.join(path.dirname(file),frame.tree);visual.inspect(documents.get(frame.documentId),read(file),{xml:fs.readFileSync(xml,'utf8')});}
+ for(const reference of manifest.files){const source=checked(reference),name=path.basename(source.file);assert.ok(new RegExp('^matrix-('+summary.rows.map(r=>r.row).join('|')+')-').test(name));const destination=path.join(directory,name);fs.copyFileSync(source.file,destination,fs.constants.COPYFILE_EXCL);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(destination)).digest('hex'),reference.sha256);copies.push({path:relative(destination),sha256:reference.sha256});}
+ const originalSource=checked(manifest.originalMatrixModule).bytes.toString('utf8'),from="ratios=[0,.5,1],results=[],keyboardResults=[],frames=[];",to="ratios=[0,.5,1],results=structuredClone(primaryFrames.rows),keyboardResults=structuredClone(primaryFrames.keyboards),frames=structuredClone(primaryFrames.frames);",loop='for(let row=0;row<rules.profiles.mobile.validationCases.length;row++){',resume='for(let row=results.length;row<rules.profiles.mobile.validationCases.length;row++){';
+ assert.equal(originalSource.split(from).length,2);assert.equal(originalSource.split(loop).length,2);const executedSource=originalSource.replace(from,to).replace(loop,resume);assert.equal(executedSource.replace(to,from).replace(resume,loop),originalSource,'All matrix assertions and actions remain byte identical');
+ const generated=path.join(directory,'responsive-matrix-driver.cjs');fs.writeFileSync(generated,executedSource,{flag:'wx'});const actualModule={exports:{}},originalFile=checked(manifest.originalMatrixModule).file;new Function('require','module','exports','__filename','__dirname',executedSource)(require('node:module').createRequire(originalFile),actualModule,actualModule.exports,generated,path.dirname(originalFile));assert.equal(typeof actualModule.exports,'function');
+ for(const reference of inputs)checked(reference);
+ write(path.join(directory,'responsive-matrix-checkpoint.json'),{checkpoint:checkpointRef,sourceAttemptId:manifest.originalAttemptId,reusedCompleteRows:summary.rows.map(r=>r.row),reinspectedPages:summary.frames.length,remainingRows:rules.profiles.mobile.validationCases.slice(summary.rows.length),sourceAssertionsByteIdentical:true,generatedDriver:ref(generated),copiedActualEvidence:copies,note:'Actual earlier captures retain their original report contents; the prior blocked attempt stays blocked and partial row 3 is not reused.'});
+ return {execute:actualModule.exports,summary,sources:[...inputs,...copies,ref(generated)],reusedRows:summary.rows.length};
+}
+async function executeCheckpointedLayout(options){
+ const {root,directory,adapter,model,graph,record,seed}=options,checkpoint=prepareMatrixCheckpoint(root,directory,record,model,seed),supplementary=require('./supplementary.cjs');await supplementary.ensureBrowse(adapter,seed);
+ const result=await checkpoint.execute({root,directory,adapter,model,graph,primaryFrames:checkpoint.summary,visual:require('./native-visual.cjs')(root),seed});supplementary.baseline(adapter);await adapter.restart(seed);
+ return {results:{visual:[{expected:{rows:9,screensPerRow:23},actual:{rows:result.rows.length,screensPerRow:Math.min(...result.rows.map(row=>row.documents.length))}}]},sources:checkpoint.sources,reusedRows:checkpoint.reusedRows};
+}
+
+async function worker(){
+ const {BrowseAdapter}=require('./browse-adapter.cjs'),oracle=require('./browse-oracle.cjs'),supplementary=require('./supplementary.cjs');
+ const {UIBrowseModel}=require(path.join(root,'plan/acceptance/.work/runtime/src/verification/ui-browse-model.js'));
+ const record=read(recordFile),model=read(path.join(root,record.testCasesPath)),plan=read(path.join(root,record.taskPlanPath)),implementation=read(path.join(root,record.implementationPath));
+ const graphFile=path.resolve(path.dirname(path.join(root,record.testCasesPath)),model.stateGraph.path),graph=read(graphFile);
+ const seed=read(path.join(root,'plan/acceptance/evidence/preparation/environment/inputs.json'));
+ const session=record.sessions.find(s=>s.id===process.env.ACCEPTANCE_SESSION_ID),support=[...filesBelow(__dirname).filter(f=>f.endsWith('.cjs')),path.join(root,'plan/acceptance/service-hooks/hidden-processes.cjs')];
+ assert.ok(session,'A reviewed session must be selected by the supervisor');
+ let runtime=new UIBrowseModel(structuredClone(seed)),previous=null,replayEntry=null;
+ const roundControl=require('./round-control.cjs');
+ let selectedRound=process.env.ACCEPTANCE_ROUND?roundControl.select(refreshPlan(),process.env.ACCEPTANCE_ROUND,gate('next').nextVisitIndex):null;
+ const hostDirectory=path.join(root,'plan/acceptance/evidence/sessions',session.id,'host-'+Date.now());fs.mkdirSync(hostDirectory,{recursive:true});
+ const adapter=new BrowseAdapter(hostDirectory);let identity;
+ try{
+  supplementary.baseline(adapter);identity=await adapter.open();await adapter.restart(seed);
+  const visual=require('./native-visual.cjs')(root);
+  if(selectedRound){
+   const endpoint=adapter.device.endpoint('timeouts'),before=await adapter.device.request(endpoint);
+   await adapter.device.request(endpoint,'POST',{type:'command',ms:0});
+   const after=await adapter.device.request(endpoint);assert.equal(after.command,0);
+   write(path.join(hostDirectory,'pause-timeout.json'),{sessionId:adapter.device.sessionId,before,after,reason:'Keep this owned project session available at the authorized round pause.'});
+  }
+  const resumeIndex=gate('next').nextVisitIndex,resumeCase=model.cases.find(c=>c.id===model.coverage.sequence[resumeIndex]);
+  if(resumeCase?.kind==='primary'&&!graph.states.some(s=>s.id===resumeCase.given.stateId&&s.isInitial)){
+   const prefix=refreshPlan().visits[resumeIndex].coldResume.caseIds,steps=[];
+   assert.ok(prefix.length,'A noninitial resume needs a reviewed legal prefix');
+   const replayDirectory=path.join(hostDirectory,'entry-replay');fs.mkdirSync(replayDirectory,{recursive:true});adapter.directory=replayDirectory;adapter.device.directory=replayDirectory;
+   for(let position=0;position<prefix.length;position++){
+    const c=model.cases.find(c=>c.id===prefix[position]),beforeRuntime=frameOf(runtime),beforeNative=(await adapter.observe('replay-'+position+'-given')).report;
+    oracle.matchesState(graph,c.given.stateId,beforeRuntime);oracle.matchesState(graph,c.given.stateId,beforeNative);assert.deepEqual(beforeNative.inputs,beforeRuntime.inputs);
+    const response=oracle.mockResponse(c);if(response)runtime.queueResponse(structuredClone(response));
+    runtime.dispatch(c.operation.input.controlNodeId,c.operation.input.selection);await adapter.perform(c);
+    const target=graph.states.find(s=>s.id===c.expected.stateId).source.find(s=>s.kind==='ui'),document=read(path.resolve(path.dirname(graphFile),target.structurePath));await adapter.device.waitSource(x=>x.includes(document.tree.id));
+    const shot=await adapter.observe('replay-'+position+'-target'),actualNative=shot.report,actualRuntime=frameOf(runtime);
+    for(const actual of [actualRuntime,actualNative]){oracle.matchesState(graph,c.expected.stateId,actual);oracle.handoff(c,actual===actualRuntime?beforeRuntime:beforeNative,actual);oracle.responseAssertion(c,actual===actualRuntime?beforeRuntime:beforeNative,actual);}
+    assert.deepEqual(actualNative.inputs,actualRuntime.inputs);
+    const report=path.join(replayDirectory,'step-'+position+'.json');write(report,{caseId:c.id,beforeRuntime,actualRuntime,beforeNative,actualNative,operationObserved:c.operation.label});
+    steps.push({caseId:c.id,operationObserved:'Executed the declared Node control and actual native control '+c.operation.input.controlNodeId+'; observed both legal endpoints and matching object/input context.',evidence:[ref(report),ref(shot.evidence.screenshot),ref(shot.evidence.tree)]});previous=c;
+   }
+   const previousAttempt=record.attempts.filter(a=>a.run.visits[0].visitIndex===resumeIndex).at(-1);
+   if(previousAttempt){const checkpoint=path.join(root,path.dirname(previousAttempt.run.context.path),'runtime-frame.json');if(fs.existsSync(checkpoint)){const before=read(checkpoint).before;assert.deepEqual(runtime.scene,before.scene,'Replay restores the actual prior scene');assert.deepEqual(runtime.activeIdentity,before.activeIdentity,'Replay restores the same objects');assert.deepEqual(runtime.inputs,before.inputs,'Replay restores all prior inputs');}}
+   replayEntry={kind:'replay',initialStateId:model.cases.find(c=>c.id===prefix[0]).given.stateId,steps};
+   console.log(JSON.stringify({event:'entry-replay-completed',resumeVisitIndex:resumeIndex,caseIds:prefix,productVisitsReaccepted:0}));
+  }
+  for(;;){
+   const next=gate('next'),index=next.nextVisitIndex;if(index>session.to)break;
+   if(selectedRound&&index>selectedRound.toVisitIndex){selectedRound=await roundControl.pause(selectedRound,refreshPlan);continue;}
+   const planned=verifiedNext();assert.ok(planned.canBegin&&planned.visit?.visitIndex===index,'The live execution plan must authorize this same visit');
+   if(index<session.from)throw Error('Session cannot skip earlier required visits');
+   const c=model.cases.find(c=>c.id===model.coverage.sequence[index]);assert.ok(c);
+   if(c.kind==='primary'&&(!previous||previous.expected.stateId!==c.given.stateId)){
+    assert.ok(graph.states.some(s=>s.id===c.given.stateId&&s.isInitial),'Resume from a noninitial state requires reviewed replay evidence');
+   }
+   const authorization=gate('begin',['--index',String(index)]),authorized=read(recordFile).active;
+   const startedAt=new Date().toISOString(),folder=path.join(root,'plan/acceptance/evidence',String(index).padStart(3,'0')+'-'+crypto.randomUUID());fs.mkdirSync(folder,{recursive:true});adapter.directory=folder;adapter.device.directory=folder;
+   const checks=[],assertions=[];let givenObserved='Actual initial state has not been observed.',operationObserved='No product operation performed.',targetObserved='No target observation.',blockage=null,observedMocks=[],fixtureSources=[];
+   const entry=replayEntry??(c.kind==='primary'&&previous&&previous.expected.stateId===c.given.stateId?{kind:'handoff',previousAttemptId:authorized.predecessorAttemptId}:{kind:'initial'});
+   try{
+    if(c.kind==='primary'){
+     if(entry.kind==='initial'){runtime=new UIBrowseModel(structuredClone(seed));await supplementary.ensureBrowse(adapter,seed);await adapter.restart(seed);}
+     const beforeRuntime=frameOf(runtime),beforeNative=(await adapter.observe('given-state')).report;
+     oracle.matchesState(graph,c.given.stateId,beforeRuntime);oracle.matchesState(graph,c.given.stateId,beforeNative);
+     const givenSource=graph.states.find(s=>s.id===c.given.stateId).source.find(s=>s.kind==='ui'),givenDocument=read(path.resolve(path.dirname(graphFile),givenSource.structurePath));require('./binding-oracle.cjs').inspect(givenDocument,beforeRuntime,seed);require('./binding-oracle.cjs').inspect(givenDocument,beforeNative,seed);
+     assert.deepEqual(beforeNative.inputs,beforeRuntime.inputs,'Both environments receive the same prepared input');givenObserved='Observed '+c.given.stateId+' in the real native host and the actual Node controller; input objects match.';
+     const response=oracle.mockResponse(c);if(response)runtime.queueResponse(structuredClone(response));
+     runtime.dispatch(c.operation.input.controlNodeId,c.operation.input.selection);await adapter.perform(c);operationObserved='Dispatched the declared Node event and clicked the actual native control '+c.operation.input.controlNodeId+'.';
+     const source=graph.states.find(s=>s.id===c.expected.stateId).source.find(s=>s.kind==='ui'),document=read(path.resolve(path.dirname(graphFile),source.structurePath));await adapter.device.waitSource(x=>x.includes(document.tree.id));
+     const actualRuntime=frameOf(runtime),shot=await adapter.observe('target-state'),actualNative=shot.report;
+     observedMocks=[{environment:'runtime',calls:actualRuntime.trace.slice(beforeRuntime.trace.length).filter(t=>t.name==='record-response')},{environment:'native',calls:actualNative.trace.slice(beforeNative.trace.length).filter(t=>t.name==='record-response')}];
+     write(path.join(folder,'runtime-frame.json'),{before:beforeRuntime,after:actualRuntime});write(path.join(folder,'native-frame.json'),actualNative);
+     if(['visual','functional'].some(aspect=>c.acceptance[aspect].checks.some(d=>d.evidence.some(e=>e.form==='call-trace'))))exportTrace(folder,beforeRuntime,actualRuntime,beforeNative,actualNative);
+     const captureCheck=(environment,aspect,checkIndex,definition)=>{
+      const target='case:'+c.id+':'+aspect+':'+checkIndex+':'+index;let expected,actual,status='passed';
+      try{if(environment==='runtime'){oracle.matchesState(graph,c.expected.stateId,actualRuntime);oracle.handoff(c,beforeRuntime,actualRuntime);oracle.responseAssertion(c,beforeRuntime,actualRuntime);require('./binding-oracle.cjs').inspect(document,actualRuntime,seed);expected={from:c.given.stateId,to:c.expected.stateId,control:c.operation.input.controlNodeId,bindingHandoff:true,responseConsumed:true};actual={from:c.given.stateId,to:c.expected.stateId,control:actualRuntime.trace.slice(beforeRuntime.trace.length).find(t=>t.name==='control')?.input.id,bindingHandoff:true,responseConsumed:true};assert.deepEqual(actual,expected);}
+       else{oracle.matchesState(graph,c.expected.stateId,actualNative);oracle.handoff(c,beforeNative,actualNative);oracle.responseAssertion(c,beforeNative,actualNative);assert.deepEqual(actualNative.inputs,actualRuntime.inputs);const inspected=visual.inspect(document,actualNative,{xml:shot.evidence.source});expected={documentId:document.id,differences:[],boundaryCalls:0,fontsLoaded:true};actual={documentId:actualNative.documentId,differences:inspected.differences,boundaryCalls:actualNative.boundaryCalls.length,fontsLoaded:Object.values(actualNative.fonts).every(Boolean)};assert.deepEqual(actual,expected);write(path.join(folder,'native-comparisons.json'),inspected);}
+      }catch(error){status='failed';expected??={criterion:definition.criterion,oracle:definition.oracle};actual={error:error.stack,observation:environment==='runtime'?actualRuntime:actualNative};}
+      assertions.push({target,expected,actual,verdict:status});checks.push({aspect,checkIndex,status,actual:status==='passed'?'Compared the observed '+environment+' result against the independent current specification.':String(actual.error),evidence:evidence(folder,definition)});
+     };
+     for(const aspect of ['visual','functional'])c.acceptance[aspect].checks.forEach((d,i)=>captureCheck(d.environment,aspect,i,d));targetObserved='Observed native '+actualNative.documentId+' and Node '+actualRuntime.documentId+' after the declared action.';
+    }else{
+     givenObserved='Prepared the independent fixture described by '+c.given.setup;operationObserved=c.operation.label;
+     let fixtureRecord=read(recordFile);
+     if(c.id==='TC-G-SCOPE'){const selected=requiredScopeRecord(fixtureRecord,model);fixtureRecord=selected.record;write(path.join(folder,'scope-selection-summary.json'),selected.audit);}
+     const restoreSeeking=['TC-G-LAYOUT','TC-G-VISUAL'].includes(c.id)?settledFixtureSeeking(adapter):()=>{};
+     const restoreObservations=['TC-G-LAYOUT','TC-G-VISUAL'].includes(c.id)?completeFixtureObservations(adapter,root):()=>{};
+     let results;
+     try{if(c.id==='TC-G-LAYOUT'){const actual=await executeCheckpointedLayout({root,directory:folder,adapter,model,graph,record:fixtureRecord,seed});results=actual.results;fixtureSources=actual.sources;givenObserved+=' Reused '+actual.reusedRows+' exact verified complete configuration checkpoints and executed every remaining configuration.';}else results=await supplementary.executeCase({root,directory:folder,case:c,adapter,identity,model,graph,record:fixtureRecord,seed});}
+     finally{restoreObservations();restoreSeeking();}
+     for(const aspect of ['visual','functional'])for(let i=0;i<c.acceptance[aspect].checks.length;i++){const definition=c.acceptance[aspect].checks[i],result=results[aspect]?.[i];assert.ok(result,'Every declared check needs its actual comparison');const status=require('node:util').isDeepStrictEqual(result.expected,result.actual)?'passed':'failed';assertions.push({target:'case:'+c.id+':'+aspect+':'+i+':'+index,...result,verdict:status});checks.push({aspect,checkIndex:i,status,actual:'Executed the declared isolated fixture and retained its independent comparisons.',evidence:evidence(folder,definition)});}
+     targetObserved='Recorded results for the actual independent fixture '+c.id+'.';
+    }
+   }catch(error){
+    try{await adapter.capture('failure-state');}catch{}
+    assertions.push({target:'case:'+c.id+':entry:'+index,expected:{given:c.given,operation:c.operation,checks:'all applicable checks observed'},actual:{error:error.stack,givenObserved,operationObserved},verdict:'blocked'});
+    blockage={reason:error.message,evidence:[]};checks.length=0;targetObserved='Blocked; inspect the actual error and retained scene evidence.';
+   }
+   const reportFile=path.join(folder,'assertions.json');write(reportFile,{assertions});
+   const reportRef={form:'assertion-report',...ref(reportFile),description:'Independent expected/actual comparisons for this visit.'};for(const check of checks)check.evidence.unshift(reportRef);if(blockage)blockage.evidence=[reportRef,...filesBelow(folder).filter(f=>f.endsWith('.png')).map(f=>({form:'screenshot',...ref(f),description:'Actual scene when preparation or observation was blocked.'}))];
+   const contextFile=path.join(folder,'context.json'),environments=[...new Set(checks.length?checks.map(check=>c.acceptance[check.aspect].checks[check.checkIndex].environment):['runtime','native'])];
+   const readinessFile=path.join(root,'plan/acceptance/evidence/preparation/environment/readiness.json');
+   const prerequisiteObservations={'READY-INTER':'Observed all declared font instances loaded in the real native host; retained the host readiness and current visit comparisons.','READY-UI-HARNESS':'Executed the Node controller and real native UI through the declared driver and recorded this visit observations and independent checks.','READY-NATIVE-HOST':'Connected the actual isolated development package on '+identity.serial+' and recorded its current observations.'};
+   const readyPrerequisites=blockage?[]:plan.prerequisites.filter(p=>p.status==='missing'&&p.affects.includes(c.id)).map(p=>{assert.ok(prerequisiteObservations[p.id],'Unsupported preparation prerequisite '+p.id);return {id:p.id,observation:prerequisiteObservations[p.id],evidence:[ref(readinessFile),ref(reportFile)]};});
+   write(contextFile,{build:read(path.join(root,'plan/acceptance/evidence/preparation/environment/bundle.json')),inputs:seed,mocks:c.mocks.map(m=>({boundary:m.boundary,trigger:m.trigger,lifetime:m.lifetime,actualCalls:observedMocks.map(o=>({...o,hitCount:o.calls.length})),fixtureTraces:filesBelow(folder).filter(f=>/observations|call-trace|summary/.test(path.basename(f))&&f.endsWith('.json')).map(ref),restored:!blockage&&(c.kind!=='primary'||!runtime.pendingResponse)})),entry,environments:environments.map(environment=>environment==='native'?{environment,host:identity.serial,identity}:{environment,host:process.version}),readyPrerequisites,preparationEvidence:ref(readinessFile),executionScope:{roundId:selectedRound?.id??null,sessionId:session.id}});
+   const taskIds=plan.tasks.filter(t=>t.testCaseIds.includes(c.id)).map(t=>t.id),normalSnapshot=[...new Set([...taskIds.flatMap(id=>implementation.tasks[id].files.map(f=>path.join(root,f.path))),...support])].map(ref),snapshot=[...new Map([...normalSnapshot,...fixtureSources].map(f=>[f.path,f])).values()];
+   const run={id:path.basename(folder),taskIds,script:ref(__filename),authoredAt:fs.statSync(__filename).mtime.toISOString(),command:session.command,cwd:session.cwd,startedAt,finishedAt:new Date().toISOString(),exitCode:null,environment:environments.length>1?'mixed':environments[0],files:snapshot,context:ref(contextFile),visits:[{visitIndex:index,entry:entry.kind,givenObserved,operationObserved,targetObserved,outcome:blockage?'blocked':checks.every(c=>c.status==='passed')?'passed':'failed',checks,...(blockage?{blockage}:{})}],taskResults:[]};
+   const runFile=path.join(folder,'run.json');write(runFile,run);const submitted=gate('submit',['--token',authorization.token,'--run',relative(runFile)]);console.log(JSON.stringify({index,caseId:c.id,...submitted}));
+   if(!submitted.recorded||!submitted.synced||!submitted.checked||!submitted.canAdvance)throw Error('The current visit did not authorize advancement.');
+   replayEntry=null;previous=c;
+  }
+ }finally{await adapter.close();}
+}
+async function supervise(){
+ const record=read(recordFile),next=gate('next').nextVisitIndex,session=record.sessions.find(s=>s.from<=next&&next<=s.to);if(!session)throw Error('No unfinished reviewed session');
+ const folder=path.join(root,'plan/acceptance/evidence/sessions',session.id,'process-'+Date.now());fs.mkdirSync(folder,{recursive:true});const output=path.join(folder,'output.log'),stream=fs.createWriteStream(output,{flags:'wx'}),startedAt=new Date().toISOString();
+ const child=spawn(process.execPath,[__filename,'--worker'],{cwd:root,env:{...process.env,ACCEPTANCE_SESSION_ID:session.id},windowsHide:true,stdio:['ignore','pipe','pipe']});child.stdout.pipe(stream,{end:false});child.stderr.pipe(stream,{end:false});child.stdout.pipe(process.stdout);child.stderr.pipe(process.stderr);
+ const exitCode=await new Promise((resolve,reject)=>{child.once('error',reject);child.once('exit',code=>resolve(code??1));});await new Promise(resolve=>stream.end(resolve));const resultFile=path.join(folder,'session-result.json');write(resultFile,{sessionId:session.id,command:session.command,cwd:session.cwd,startedAt,finishedAt:new Date().toISOString(),exitCode,log:ref(output)});
+ if(read(recordFile).active===null)gate('close-session',['--run',relative(resultFile)]);process.exitCode=exitCode;
+}
+if(process.argv.includes('--resume-round'))require('./round-control.cjs').resume(process.argv[process.argv.indexOf('--resume-round')+1]);
+else if(process.argv.includes('--inspect'))console.log(JSON.stringify({entry:relative(__filename),environments:['runtime','native'],primary:true,supplementary:['TC-G-EVIDENCE','TC-G-LAYOUT','TC-G-SCOPE','TC-G-VISUAL','TC-REG-CONTAINERS','TC-REG-CONTROLS'],gateProtocol:['plan-next','next','begin','sync-check-plan','observe-and-compare','submit','await-canAdvance','sync-check-plan','pause-at-round-boundary','close-session'],roundSelection:'ACCEPTANCE_ROUND',resumeCommand:'--resume-round <next-round>',productVisitsExecuted:0}));
+else (process.argv.includes('--worker')?worker():supervise()).catch(error=>{console.error(error.stack);process.exitCode=1;});

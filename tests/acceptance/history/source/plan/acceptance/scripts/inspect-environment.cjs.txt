@@ -1,0 +1,49 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict');
+const root=path.resolve(__dirname,'../../..'),directory=path.join(root,'plan/acceptance/evidence/preparation/environment');
+fs.mkdirSync(directory,{recursive:true});
+const {BrowseAdapter}=require('./browse-adapter.cjs'),{createContext}=require('./context.cjs');
+const hash=file=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+async function main(){
+ const existing=path.join(root,'plan/acceptance/acceptance.json');if(fs.existsSync(existing)){const record=JSON.parse(fs.readFileSync(existing,'utf8'));if(record.active||record.attempts.length)throw Error('Actual acceptance has started; restore the environment through the repair/resume workflow.');}
+ const report={startedAt:new Date().toISOString(),scope:'acceptance-environment-preparation',productVisitsExecuted:0};
+ for(const [name,url]of [['appium','http://127.0.0.1:4723/status'],['metro','http://127.0.0.1:8081/status']]){const response=await fetch(url,{signal:AbortSignal.timeout(5000)});if(!response.ok)throw Error(name+' is not healthy');report[name]={url,status:response.status,body:await response.text()};}
+ console.log('Services healthy; requesting the current development bundle.');
+ const url='http://127.0.0.1:8081/node_modules/expo-router/entry.bundle?platform=android&dev=true&minify=false';
+ const response=await fetch(url,{signal:AbortSignal.timeout(240000)}),bundle=await response.text();
+ if(!response.ok)throw Error('Development bundle failed: '+bundle.slice(0,2000));
+ const uiVersion=hash(path.join(root,'plan/ui-spec/manifest.json'));
+ assert.ok(bundle.includes(uiVersion),'The served bundle must contain the current canonical UI version');
+ report.bundle={url,status:response.status,bytes:Buffer.byteLength(bundle),sha256:crypto.createHash('sha256').update(bundle).digest('hex'),uiVersion};
+ fs.writeFileSync(path.join(directory,'bundle.json'),JSON.stringify(report.bundle,null,2)+'\n');
+ const adapter=new BrowseAdapter(directory);let opened=false;
+ try{
+  const device=adapter.device;report.originalDevice={identity:device.identity(),size:device.adb(['shell','wm','size']).trim(),density:device.adb(['shell','wm','density']).trim(),fontScale:device.adb(['shell','settings','get','system','font_scale']).trim(),locale:device.adb(['shell','getprop','persist.sys.locale']).trim()};
+  const packageInfo=device.adb(['shell','dumpsys','package',device.package]);fs.writeFileSync(path.join(directory,'development-package.txt'),packageInfo);
+  report.package={id:device.package,versionName:packageInfo.match(/versionName=([^\s]+)/)?.[1],versionCode:packageInfo.match(/versionCode=(\d+)/)?.[1],codePath:packageInfo.match(/codePath=([^\r\n]+)/)?.[1]};
+  device.adb(['shell','wm','size','1179x2556']);device.adb(['shell','wm','density','480']);device.adb(['shell','settings','put','system','font_scale','1']);
+  console.log('Connecting the isolated development UI host.');
+  report.host=await adapter.open();opened=true;
+  const now=new Date(),parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(now),get=name=>parts.find(p=>p.type===name).value;
+  const inputPath=path.join(directory,'inputs.json');
+  const context=fs.existsSync(inputPath)?JSON.parse(fs.readFileSync(inputPath,'utf8')):createContext({today:get('year')+'-'+get('month')+'-'+get('day'),time:get('hour')+':'+get('minute'),timeZone:'Asia/Shanghai',version:report.package.versionName+'（'+report.package.versionCode+'）'});
+  if(!fs.existsSync(inputPath))fs.writeFileSync(inputPath,JSON.stringify(context,null,2)+'\n');
+  await adapter.restart(context);
+  let observation;
+  for(let attempt=0;attempt<30;attempt++){observation=await adapter.observe('initial-observation',{save:false});const r=observation.report;if(r.context.runId===context.runId&&r.environment.viewport.width===393&&r.environment.viewport.height===852&&Object.values(r.fonts).every(Boolean))break;await new Promise(resolve=>setTimeout(resolve,200));}
+  const frame=(await adapter.observe('initial-state')).report;
+  assert.equal(frame.uiVersion,uiVersion);assert.equal(frame.scene.screen,'today-empty');assert.equal(frame.context.runId,context.runId);assert.equal(frame.trace.length,0);assert.equal(frame.boundaryCalls.length,0);assert.equal(frame.pendingResponse,false);assert.equal(frame.environment.viewport.width,393);assert.equal(frame.environment.viewport.height,852);assert.equal(frame.environment.fontScale,1);assert.ok(Object.values(frame.fonts).every(Boolean));
+  const graph=JSON.parse(fs.readFileSync(path.join(root,'plan/requirement-analysis/state-transitions.json'),'utf8'));
+  require('./browse-oracle.cjs').matchesState(graph,'S01',frame);
+  const {UIBrowseModel}=require(path.join(root,'plan/acceptance/.work/runtime/src/verification/ui-browse-model.js'));
+  const runtime=new UIBrowseModel(structuredClone(context));
+  assert.equal(runtime.scene.screen,'today-empty');assert.equal(runtime.trace.length,0);
+  report.initial={stateId:'S01',documentId:frame.documentId,scene:frame.scene,traceLength:frame.trace.length,boundaryCalls:frame.boundaryCalls,uiVersion:frame.uiVersion,environment:frame.environment,fonts:frame.fonts,activeIdentity:frame.activeIdentity};
+  report.inputs={path:path.relative(root,inputPath).replaceAll('\\','/'),sha256:hash(inputPath),runId:context.runId};
+  report.actualEvidence=['initial-state.png','initial-state.xml','initial-state.json'].map(name=>({path:path.relative(root,path.join(directory,name)).replaceAll('\\','/'),sha256:hash(path.join(directory,name))}));
+  report.runtime={compiled:true,initialScene:runtime.scene,traceLength:runtime.trace.length};
+  report.status='prepared';report.finishedAt=new Date().toISOString();
+  fs.writeFileSync(path.join(directory,'readiness.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,host:report.host,initial:report.initial.stateId,uiVersion,productVisitsExecuted:0}));
+ }catch(error){try{await adapter.capture('preparation-failure');}catch{}throw error;}finally{if(opened)await adapter.close();}
+}
+main().catch(error=>{fs.writeFileSync(path.join(directory,'failure.json'),JSON.stringify({at:new Date().toISOString(),error:error.stack,productVisitsExecuted:0},null,2)+'\n');console.error(error.stack);process.exitCode=1;});

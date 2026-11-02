@@ -3,7 +3,15 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import {resolveText,resolvePercent} from '../../src/ui/bindings';
-import {spec,flatten,expectedText} from './oracle';
+import {spec,flatten,expectedText,completeNativeBounds} from './oracle';
+test('keyboard visibility requires the full actual control, not clipped native bounds',()=>{
+ const size={width:280,height:48},visible={top:475,bottom:1037};
+ assert.throws(()=>completeNativeBounds([60,944,900,1037],size,3,visible),/clipped/);
+ assert.throws(()=>completeNativeBounds([60,944,900,1088],size,3,visible),/covered/);
+ assert.throws(()=>completeNativeBounds([60,450,900,594],size,3,visible),/covered/);
+ assert.equal(completeNativeBounds([60,893,900,1037],size,3,visible),true);
+ assert.equal(completeNativeBounds([60,893,899,1036],size,3,visible),true);
+});
 test('all dynamic fields use both independent typed input groups and reject missing inputs',()=>{
  let fields=0;
  for(const doc of spec().documents)for(const node of flatten(doc.tree))if(node.content?.binding){for(const group of [0,1]){const values:Record<string,string|number>={};for(const [key,parameter]of Object.entries(node.content.binding.parameters)as [string,{type:string}][]){values[key]=parameter.type==='integer'?(group?23:17):parameter.type==='number'?(group?.81:.37):parameter.type==='date'?(group?'2027-02-14':'2025-11-03'):parameter.type==='datetime'?(group?'2027-02-14T16:48:00Z':'2025-11-03T11:35:00Z'):parameter.type==='time'?(group?'16:48':'11:35'):(group?'动态乙 ':'动态甲 ')+key;}assert.equal(resolveText(node.content,values),expectedText(node.content,values));for(const key of Object.keys(values)){const missing={...values};delete missing[key];assert.throws(()=>resolveText(node.content,missing));}fields++;}}

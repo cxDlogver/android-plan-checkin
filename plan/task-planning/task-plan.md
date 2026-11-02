@@ -1,6 +1,6 @@
 # UI-001 设计还原 · 文件级任务计划
 
-执行状态：任务 证据已失效 8；用例 部分完成 37、未执行 96、证据已失效 1、通过 1。本文由 task-plan.json 生成。
+执行状态：任务 证据已失效 7、未通过 1；用例 未通过 133、未执行 2。本文由 task-plan.json 生成。
 
 原子需求 129 项；补充用例 6 项；最少 211 次逻辑用例访问，其中重复 76 次。
 
@@ -8,13 +8,13 @@
 
 ## 输入依据
 
-- stateGraph：[../requirement-analysis/state-transitions.json](../requirement-analysis/state-transitions.json)，canonical SHA-256 040e0dd7b1c825b19221dd99e50e922a48b4e437aa093e3657ea5d56976e6d41
-- atomicGraph：[../requirement-analysis/atomic-requirements.json](../requirement-analysis/atomic-requirements.json)，canonical SHA-256 61023ecfe33deff7dd8479466dc2df4d49abcff45ba72f9916bdd1b762b88adb
-- 本轮范围与验收：[../source-resource/prd/设计还原需求文档.md](../source-resource/prd/设计还原需求文档.md) · $ · SHA-256 59323589edca8e6583e91a6b54f60ff9241ba016a57f90bc63430f817cfe77ab
-- UI清单与就绪度：[../ui-spec/manifest.json](../ui-spec/manifest.json) · $ · SHA-256 12a18cbdd0988e0d76608757eecad4cacf1dfc4521d47bd13399b3893d52af81
-- 适配规则与环境矩阵：[../ui-spec/rules.json](../ui-spec/rules.json) · $ · SHA-256 a61907f7416d59485c6d1648ed2c9796976160e77663704ca79a362559a20367
+- stateGraph：[../requirement-analysis/state-transitions.json](../requirement-analysis/state-transitions.json)，canonical SHA-256 38b76bcf0790fade4121d97ed947351a2cafb6d6f07aeb70410b48a0090618c5
+- atomicGraph：[../requirement-analysis/atomic-requirements.json](../requirement-analysis/atomic-requirements.json)，canonical SHA-256 279eee4d8a17af2d95ffd7f5b136e33590b2eb1a68c78599ca66e1702f225dbd
+- 本轮范围与验收：[../source-resource/prd/设计还原需求文档.md](../source-resource/prd/设计还原需求文档.md) · $ · SHA-256 f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0
+- UI清单与就绪度：[../ui-spec/manifest.json](../ui-spec/manifest.json) · $ · SHA-256 2e72e734808e4f502b4a4413a3983e7cc86ad97d160de319bdcc1ab62bdff4d2
+- 适配规则与环境矩阵：[../ui-spec/rules.json](../ui-spec/rules.json) · $ · SHA-256 744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69
 - 视觉配方与资源：[../ui-spec/library.json](../ui-spec/library.json) · $ · SHA-256 54ceeefcc112726efe4ec32f942ff9520bc19c683c59141bda266619d47ef522
-- 节点及动态占位语义：[../ui-spec/UI规范.md](../ui-spec/UI规范.md) · $ · SHA-256 e360fd35ea24b35056cdf8e00fcce62c1efa8ee70f2c5a8c2c25dedf7d268ff5
+- 节点及动态占位语义：[../ui-spec/UI规范.md](../ui-spec/UI规范.md) · $ · SHA-256 563bcaa7197d7b11c027945860d5ffe0db08ff503f2ee7d8bc21c02e7703e1fc
 
 ## 执行前置项
 
@@ -384,8 +384,8 @@ Test Case：TC-G-EVIDENCE、TC-G-LAYOUT、TC-G-SCOPE、TC-G-VISUAL、TC-REG-CONT
 - 本轮要求的每条实际验收均有记录，无未观察即通过；未执行项如实保持未执行。
 - 仅在实施范围一致且所有适用断言通过后结束验收；本任务规划当前不执行这些检查。
 
-任务状态：证据已失效；计划检查：
+任务状态：未通过；计划检查：
 
 - node scripts/ui-test.cjs unit；前置任务：P01、P08；通过
 - node scripts/ui-test.cjs integration --case TC-REG-CONTROLS --case TC-REG-CONTAINERS；前置任务：P01、P08；未执行
-- node scripts/ui-test.cjs acceptance-route --model plan/task-planning/test-cases.json；前置任务：P01、P08；证据已失效
+- node scripts/ui-test.cjs acceptance-route --model plan/task-planning/test-cases.json；前置任务：P01、P08；未通过

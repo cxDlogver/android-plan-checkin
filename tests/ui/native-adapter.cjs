@@ -1,8 +1,11 @@
 'use strict';
 const path=require('node:path'),fs=require('node:fs');
-const {DeviceDriver,decode}=require('../../scripts/device-driver.cjs');
+const {DeviceDriver,decode}=require('../support/device-driver.cjs');
+const {execFileSync}=require('node:child_process');
+const {env,toolRoot}=require('../support/task-env.cjs');
 const elementKey='element-6066-11e4-a52e-4f735466cecf';
 class UIDeviceDriver extends DeviceDriver{
+ async save(name){const source=await this.source();fs.writeFileSync(path.join(this.directory,name+'.xml'),source);const at=new Date().toISOString(),png=execFileSync(path.join(toolRoot,'sdk/platform-tools/adb.exe'),['-s',this.serial,'exec-out','screencap','-p'],{env,timeout:20000,maxBuffer:16*1024*1024,windowsHide:true});if(png.subarray(0,8).toString('hex')!=='89504e470d0a1a0a')throw Error('Native screencap did not return a PNG');fs.writeFileSync(path.join(this.directory,name+'.png'),png);fs.appendFileSync(path.join(this.directory,'native-captures.jsonl'),JSON.stringify({name,at,host:this.serial,provider:'adb exec-out screencap -p',bytes:png.length})+'\n');return source;}
   async seek(testID,outerGutter=true){for(const direction of ['down','up']){let settledEnd=0;for(let attempt=0;attempt<60;attempt++){const source=await this.source();if(source.includes(`resource-id="${testID}"`)){try{return await this.id(testID);}catch(error){if(!/could not be located|no such element|stale element|Cached elements/i.test(error.message))throw error;await this.source();}}if(await this.scroll(direction,.8,outerGutter)===false){if(++settledEnd===3)break;await new Promise(resolve=>setTimeout(resolve,500));}else settledEnd=0;}}const source=await this.source();if(source.includes(`resource-id="${testID}"`))return this.id(testID);throw new Error(`Product control unavailable: ${testID}`);}
   async scroll(direction='down',percent=.8,outerGutter=true){
     for(let attempt=0;attempt<3;attempt++){

@@ -1,0 +1,2716 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "TC-G-VISUAL",
+  "title": "UI清单、动态绑定与公共组件配方",
+  "source": {
+    "path": "plan/acceptance/test-cases.json",
+    "definitionHash": "99142bae44e61c14c0039b2551b00e65e7ed25eff9420279c90c929fd90c70d0"
+  },
+  "definition": {
+    "id": "TC-G-VISUAL",
+    "title": "UI清单、动态绑定与公共组件配方",
+    "kind": "constraint",
+    "requirementId": null,
+    "given": {
+      "stateId": null,
+      "setup": "从今日起点浏览全部页面和公共组件实例，准备两组不同的名称、日期、计数以及进度边界值。",
+      "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+    },
+    "operation": {
+      "label": "检查清单覆盖、绑定解析和组件配方",
+      "actor": "验收者"
+    },
+    "expected": {
+      "stateId": null,
+      "conclusion": "23屏和2组件覆盖完整；绑定无缺值或原稿兜底，同对象跨屏一致，固定文案与视觉配方保持JSON标准。"
+    },
+    "dataProfileId": "isolated-checks",
+    "mocks": [],
+    "acceptance": {
+      "visual": {
+        "applicable": true,
+        "reason": "核对页面与组件覆盖、动态内容和视觉配方。",
+        "checks": [
+          {
+            "criterion": "动态内容按声明的类型和显示格式解析；必需输入缺失时明确报错；固定文字和样式保持一致。",
+            "oracle": "每个document中binding声明及尺寸策略；输入由测试提供，预期格式器独立实现",
+            "procedure": "遍历manifest的screen/component节点，运行格式化器和配方映射；分别提供两组输入与进度边界；比较稳定标签不变、动态内容随输入正确变化；检查已有23屏路由覆盖映射。",
+            "evidence": [
+              {
+                "form": "data-snapshot",
+                "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+              },
+              {
+                "form": "assertion-report",
+                "description": "显示格式、固定文字、样式配方和缺值处理的逐项预期与实际值。"
+              }
+            ],
+            "sufficiency": "单元足以验证纯绑定和配方值；真实字体及实例呈现由下一项补足。",
+            "testType": "script",
+            "environment": "runtime"
+          },
+          {
+            "criterion": "全部页面和公共组件实例均已覆盖，文字、字体、图标和视觉外观符合规范。",
+            "oracle": "以JSON+library+输入生成参考，不以原PNG裁决数值",
+            "procedure": "从S01浏览既定23屏并采集真实组件实例；核对字体文件、字重、图标/圆角/渐变/描边/阴影与组件覆盖；Inter缺失前保持未执行。",
+            "evidence": [
+              {
+                "form": "screenshot",
+                "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+              },
+              {
+                "form": "native-tree",
+                "description": "页面和组件的实际节点结构、文字与可访问属性。"
+              },
+              {
+                "form": "assertion-report",
+                "description": "页面覆盖及字体、字重、颜色、描边、阴影等视觉项目的检查结论。"
+              }
+            ],
+            "sufficiency": "覆盖真实字形和配方渲染，结构校验不能替代该项。",
+            "testType": "script",
+            "environment": "native"
+          }
+        ]
+      },
+      "functional": {
+        "applicable": false,
+        "reason": "本例不验收存储或统计算法等业务效果。",
+        "checks": []
+      }
+    },
+    "constraintIds": [
+      "G-visual"
+    ],
+    "impactId": null,
+    "dataProfile": {
+      "id": "isolated-checks",
+      "scope": "case",
+      "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+      "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+      "fields": [
+        {
+          "name": "responsiveCases",
+          "type": "array",
+          "mode": "context",
+          "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+          "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+          "source": {
+            "path": "../ui-spec/rules.json",
+            "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+            "locator": "/profiles/mobile"
+          }
+        },
+        {
+          "name": "longName",
+          "type": "string",
+          "mode": "literal",
+          "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+          "source": {
+            "path": "../source-resource/prd/设计还原需求文档.md",
+            "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+            "locator": "L47-L51"
+          }
+        },
+        {
+          "name": "progressInputs",
+          "type": "array",
+          "mode": "literal",
+          "value": [
+            0,
+            0.5,
+            1
+          ],
+          "source": {
+            "path": "../ui-spec/documents/02-今日.json",
+            "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+            "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+          }
+        }
+      ]
+    }
+  },
+  "stateGraph": {
+    "path": "../requirement-analysis/state-transitions.json",
+    "sha256": "38b76bcf0790fade4121d97ed947351a2cafb6d6f07aeb70410b48a0090618c5"
+  },
+  "givenState": null,
+  "expectedState": null,
+  "requiredVisits": [
+    208
+  ],
+  "execution": {
+    "status": "passed",
+    "actual": "全部必要访问与检查已经通过并登记。",
+    "evidence": [
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "assertion-report",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/assertions.json",
+        "sha256": "2eb94d75358f70cdd7046ceaffdb4e0f8c5df6056d0ba87531ba7899a35ed844",
+        "description": "Independent expected/actual comparisons for this visit."
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "data-snapshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/dynamic-inputs-1.json",
+        "sha256": "3f06e1523f1e5a0f1a2c8dcf6a4ecbabf09178c967149880f659945cb9d8b999",
+        "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "data-snapshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/dynamic-inputs-2.json",
+        "sha256": "3eaa5a268cb163e41cf6df9fa4e476827f1cb64964258170a78cfa80b4c11f44",
+        "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "data-snapshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/task-assertions.json",
+        "sha256": "d32736b454c4a302bff85fd4e8a808d2c36aa1685269ca45879873a7786a02b4",
+        "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "data-snapshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-page-coverage.json",
+        "sha256": "e1457bd4442312d56758715ffe249f08675bbf02f7d205640caf24cdbade2efb",
+        "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "assertion-report",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/assertions.json",
+        "sha256": "2eb94d75358f70cdd7046ceaffdb4e0f8c5df6056d0ba87531ba7899a35ed844",
+        "description": "Independent expected/actual comparisons for this visit."
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-01.png",
+        "sha256": "4817cd44a1aab85c32f9eacdefad9baf2ca8c4969ddc3d14a9995392eb1a2321",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-02.png",
+        "sha256": "04a5d330dc104b4b5c4c05bf4830fcf13cb85b990e744e65dcda764958faa7d8",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-03.png",
+        "sha256": "8f7c0985611f13b9786ca610c0ffb535751e91e83d754fa6414645e9b2b81b79",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-04.png",
+        "sha256": "f59049c90a76e88d108f290d112b9c2ae60e7a77d0d34b33378af382c917084e",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-05.png",
+        "sha256": "a5676ec3b0edf34eeb817d16b870069835410df39632ad06df904ae404b2ef1c",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-06.png",
+        "sha256": "df345aa156c26a402a1bc821485a4c976ebe4e525235ea6b8b39938f1f170bc6",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-07.png",
+        "sha256": "3fcd8bb33ad4664c264c4f6e0cef9ca9131e21378fde1d863c129e9bddc28b3e",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-08.png",
+        "sha256": "cbda69219dd7ca5f9aa560c9fcd9e9eb01458190687ffc7c97885c64b2d0e004",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-09.png",
+        "sha256": "797f0d3ae2ef27fb7d5d4b51e3da3ee45f60a771c1e7d3e440e3c0eff2c155b3",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-10.png",
+        "sha256": "49203e567132b6d2698e570f9a5fa0c879b4a88f495479ed8057bcde94393e3c",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-11.png",
+        "sha256": "b9fd9b169070325432541ead25dd082d6e70d132305df9d5ded06d97a0a8498b",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-12.png",
+        "sha256": "a4bae9168a0930b56387c7fec41ad66b8e590f2f42724f480a6e8b5697172cf9",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-13.png",
+        "sha256": "c4c15f75ac47a9ebfc95d40640d518fec44b682d9bed3ca6d24cdcab4c7f5c5b",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-14.png",
+        "sha256": "61286cf0bc9b1c6e91815a3d69b87c15bb874cd795ccf9fef9316b86aa33e39a",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-15.png",
+        "sha256": "195f7eadd0296458bdbf85ac425f9e41ce787700260b488ef5a2121995d80005",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-16.png",
+        "sha256": "6df259c53e82c88a448507a0605272eb699b93bb742c8ef6c80613532c4fd639",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-17.png",
+        "sha256": "846fda433393f59c9d46541ee4ddc5a9300e434a5856c7f9a930b5b43e4e43b2",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-18.png",
+        "sha256": "3bec8f1274ce2ed957f639562928ffbbd30262fab7e8f0c369f863fd5c776de6",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-19.png",
+        "sha256": "928824b9aad856e9b5d91780c21a3e6340cd9d064a333b5d1a4a0d15c39df550",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-20.png",
+        "sha256": "794148b6b85d4723c8fdd55185423018a60c31fed7fbbf39a3514ad46ea7040d",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.layout-pending-0.png",
+        "sha256": "149a69f2c5be2734f060a241fad8bb0a3140fb4f3aa8420a2d2c7729aff45e03",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.png",
+        "sha256": "149a69f2c5be2734f060a241fad8bb0a3140fb4f3aa8420a2d2c7729aff45e03",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-22.png",
+        "sha256": "0522415eeaff8eef159050c9cb5d316923385a8a292de96cd442e45853b541b2",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-23.png",
+        "sha256": "79d8b335b01bc732d2cc98dd89bd94e624888f6f98414b246f2f8a3ca6112e95",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-01.png",
+        "sha256": "a02efd8f94b7d630edd724ba8a5750dfc159b2a93c770f1880c401cf01b3d962",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-02.png",
+        "sha256": "239f53dc497a669fc79763e1e68eae59b663f80c65661a64b5e54e8519730c01",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-03.png",
+        "sha256": "88ee2fb38e1c3b17218fba1031a864ef71da6442390e8ec732603f42cfaea873",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-04.png",
+        "sha256": "94dfa4a5ac1affb1babd0d7a43c217549b2b3612d657d90cfafe796e7dd32447",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-05.png",
+        "sha256": "39a4385b32d3c1e7afce64be8fc28a6469a91e38ab822b85863a23de639e9997",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-06.png",
+        "sha256": "23f900876df60d1cb4c15b05753b3f553295c0804001f4a9e95254506dbe8a95",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-07.png",
+        "sha256": "f743cf9236a403855aca32eddbfbe30ee6f1f1d3c052841ae3116407efb1f36f",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-08.png",
+        "sha256": "e599bbd402e939fdb490ceac3d88e7647691e0472d017a596a9a3cfbb951f57c",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-09.png",
+        "sha256": "47e23a9ee2fc6f41f31e0bb2bd0387db7a83822050fc3e0b0d1b04d26e8d2d0a",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-10.png",
+        "sha256": "6511220eb3dd5ac914e7eca2980add5a669a34403b1fcb1aa656d50bdf339ace",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-11.png",
+        "sha256": "c4180c8822bac14f6d686228d7eb9cf918756281e02b3fed8b201375c7548385",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-12.png",
+        "sha256": "1ab57921fe1915911ef83b26233d201f79b93c4cc182e27fe3af16c390e12f22",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-13.png",
+        "sha256": "007fe4f8f305a590fc54936d3d02c135100221affd8243ec5c46e16f38b5b3df",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-14.png",
+        "sha256": "50632775d032b7fc99bfdc0616856ff83eb61a2b9751b733d2ebd37ca7db0d96",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-15.png",
+        "sha256": "c31db61f89449dec20341f90e36aabffe78e62fd14487861df7b677481da20e2",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-16.png",
+        "sha256": "a28124eba243db970e975010e027886ea4abe05324015d4665add1ea3f0fc388",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-17.png",
+        "sha256": "5daf2e811500cd4c7b74f2389cecc5451e7d3e6636d93ae53f238adba93f6197",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-18.png",
+        "sha256": "fc0b909cf8e603667189ed04057563afeb892c8f98d6dbab6c4364f7a13efdf2",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-19.png",
+        "sha256": "d7bcd3c68cd6bc9bf43f2a49359000cbf5fa9195c43c9f7c36b955eb45c82d32",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-20.png",
+        "sha256": "54b6399c37a633b9bab86248e5263bb0551105ef556a31bc7951777e333abbcf",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-21.png",
+        "sha256": "442d79196dfaa0579a85b6859e784486acde8ebd8a9ba038f0deeba37403b191",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-22.png",
+        "sha256": "15c899725c60f9813b0db4133d033814a657f58c56e98d52c47fef7cd2f32869",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "screenshot",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-23.png",
+        "sha256": "98562daccd2a678d12aa9930f6e75e2e759698811bc02f3f9f7e4f52538ae1ef",
+        "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-01.xml",
+        "sha256": "fbd6fba7950b7e1ff58a7b1b08bb29e3cad8449d32647f48a6a7999536a74f57",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-02.xml",
+        "sha256": "58e18e2de81752bbcfd60bb76ec9d22085a840e9b00b672b31fb4f7d3b11bd06",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-03.xml",
+        "sha256": "294d3f070eacd718da2a84c477acc54c39551a974bbb5a913f5860a85f5c6a6c",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-04.xml",
+        "sha256": "9c5f20478dc8246e5b90e6cc8a46a465772023d3664397068c520ea3d93119c6",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-05.xml",
+        "sha256": "ee140f517878504d4503b95ab7aacace8f6316ccd2e4c6cf82ca56e7e68b680b",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-06.xml",
+        "sha256": "be58c54d6927c809bd5be7b41b12bf51307ad853a07a71b0e82ff5243697824d",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-07.xml",
+        "sha256": "a5803dd1fc10b685cdc480e84c502908bef7b92fa13cc8bcb9c711db471b5b8a",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-08.xml",
+        "sha256": "50beec0af57ba722fa2255e6baab9e46fa2c09a85a3fdd4bd9947a535e54c120",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-09.xml",
+        "sha256": "53c59646c2688cfd2fb3fff2aa47fc5c55d3c863922a6446e8336525655a7240",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-10.xml",
+        "sha256": "4b6e3a54b68ad7a7153d138348938c37fbad31b763f36f1741fb0a24f7f353a1",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-11.xml",
+        "sha256": "3d2d0e4d90e36c72efbb947273e04f06ee93702ff0be7c2d801fec6ff3afcb2f",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-12.xml",
+        "sha256": "ee62fffdd10b22fdca92bd454d1cbebfe09abccde502b96c1b162923ce1c581f",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-13.xml",
+        "sha256": "cb27cf3f12d9b40ee4606a8ec4782d4fc699bc298f5045372b011944496b7ed3",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-14.xml",
+        "sha256": "a2b663692b0ad06c8b96d4f70e3c8e662428362db783545a83f5d1de305970ea",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-15.xml",
+        "sha256": "1d7b1fad0e666a1bc2322a97ed2208988e5b1648120f3147a6f873ebb8f0a9b6",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-16.xml",
+        "sha256": "4584afaa7eab62d2a6b12fa64c87246771e7151bb1de3c06211bb9f75f79b44c",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-17.xml",
+        "sha256": "6982857d2449a467757ce2388119982daad3e89d5321ec1c4175f4780093715d",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-18.xml",
+        "sha256": "ce5de8a202ec10189ecace0f0226cadc7ae84a087b8552cb00f68dacb2e0a6d8",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-19.xml",
+        "sha256": "fc8f8da4c965f1ef57f1b45fdf37d013876fe0d3bb3c2027ad32d27432f6482e",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-20.xml",
+        "sha256": "ca3cb1334f911435da1107618d6000969ef5afe3503a07e8aaf8fc47c37685d5",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.layout-pending-0.xml",
+        "sha256": "cfb1d25af565abf2e83cd90558dd3703bf4aef4331840a0283378b55657ec4ca",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.xml",
+        "sha256": "e94dd45f83861519a0378221e8679177f18892ffcf159aae33395c982c5d1d91",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-22.xml",
+        "sha256": "410fb48b2e3302a90cc9c5ac00d4c0b09c5220588add35415f3e03bbd20658fd",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-23.xml",
+        "sha256": "0106f79fc247a9461ec608867283179994d87878ed93bd147327079298ac2adb",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-01.xml",
+        "sha256": "420939cc0570a77fb4973f393f330cecaa99291a7a7722042f407ce8c6016c54",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-02.xml",
+        "sha256": "128e5c0d8a52476aac2b678e5c5de995df4f887885f7c45dc1e08c7dd48810cc",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-03.xml",
+        "sha256": "0f45b79a5ec38e636383309d2516f3b33a375d4f9a91dc3a783c4ec4b1a1e58a",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-04.xml",
+        "sha256": "91781bced1b6ab66534f556092251a57bd828a755898f891aadf0c2ca3f2446b",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-05.xml",
+        "sha256": "a874a19dcc0619a846f39a23eabecf4ca82c70e0fc4b2e8259d3f15e29bf11d8",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-06.xml",
+        "sha256": "4f20c913f25845d5fe395ee92348a7f3efc3d26936090ebf3c44ed9bd037087f",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-07.xml",
+        "sha256": "4a4fdfde92d16e9ed5ff473220aa6193bf1df29c9eec44dee91a4da3265fa47d",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-08.xml",
+        "sha256": "4524939456004370873b56b2e39e3c822b7eb158cfc6d762f649e2b2568bc740",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-09.xml",
+        "sha256": "cc8be582de5d00a80f1248ba2974bbc536407485603e2e3a3721b94cecb8f6a6",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-10.xml",
+        "sha256": "a037d9185fecc3ca522c9df619737d958ac4a6a2120e5dc33ad6c11d802883c7",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-11.xml",
+        "sha256": "c07fadc8928324f9cad10b44a2a88ccaa4d38bc658d84060927951d94dba5c10",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-12.xml",
+        "sha256": "55af51b260bcdba7558045d50803d5fd26d5eb87469b7dd7ad265c1dfefea6a1",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-13.xml",
+        "sha256": "50046ac7ab20b97550e00da480261b3131312523f7d660af0f95c36db8c7dacf",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-14.xml",
+        "sha256": "0b6fea40203a60c49cf5c156f535fe0f74f28e83058fe4470164d788a77772a1",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-15.xml",
+        "sha256": "1e24e8520ed0ad8a30ec91d47ae2c395b975ef27b04192308d6de57f88122ab9",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-16.xml",
+        "sha256": "dde3698ba2c24033b66bd36d2217968bd51ec81c5035f586d8c7b38ff085a491",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-17.xml",
+        "sha256": "ace436bc61279b2eb2fc7913abd1a3c3f026b5d589f0113f7214645df4a4c713",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-18.xml",
+        "sha256": "908db3dba7173e9a77096eec7888df4993e4f6c23ed501432ce6d356d75bd6b4",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-19.xml",
+        "sha256": "676c8425583980edf2a53d9e0b84bb96695289dbc44a06e2841663faebc93846",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-20.xml",
+        "sha256": "178359acc817b0fa9c0eecc83576c2b9202bf5c4a2e502f644ef5512960774e4",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-21.xml",
+        "sha256": "4e9255405d4f4d2cb05587ade627e74b113bc75503b96615b56806c9458fb11a",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-22.xml",
+        "sha256": "f942f7137538b7a8f79482dbb080e72e037a64c48da91a5ae4791a9046295d9f",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "form": "native-tree",
+        "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-23.xml",
+        "sha256": "05d890444fbddea567e155f1a9a110fdc8c030cbf835cd06d959c1547e604f18",
+        "description": "页面和组件的实际节点结构、文字与可访问属性。"
+      }
+    ],
+    "checks": [
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "visitIndex": 208,
+        "aspect": "visual",
+        "checkIndex": 0,
+        "status": "passed",
+        "actual": "Executed the declared isolated fixture and retained its independent comparisons.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/assertions.json",
+            "sha256": "2eb94d75358f70cdd7046ceaffdb4e0f8c5df6056d0ba87531ba7899a35ed844",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/dynamic-inputs-1.json",
+            "sha256": "3f06e1523f1e5a0f1a2c8dcf6a4ecbabf09178c967149880f659945cb9d8b999",
+            "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/dynamic-inputs-2.json",
+            "sha256": "3eaa5a268cb163e41cf6df9fa4e476827f1cb64964258170a78cfa80b4c11f44",
+            "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/task-assertions.json",
+            "sha256": "d32736b454c4a302bff85fd4e8a808d2c36aa1685269ca45879873a7786a02b4",
+            "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-page-coverage.json",
+            "sha256": "e1457bd4442312d56758715ffe249f08675bbf02f7d205640caf24cdbade2efb",
+            "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+          }
+        ]
+      },
+      {
+        "runId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+        "visitIndex": 208,
+        "aspect": "visual",
+        "checkIndex": 1,
+        "status": "passed",
+        "actual": "Executed the declared isolated fixture and retained its independent comparisons.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/assertions.json",
+            "sha256": "2eb94d75358f70cdd7046ceaffdb4e0f8c5df6056d0ba87531ba7899a35ed844",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-01.png",
+            "sha256": "4817cd44a1aab85c32f9eacdefad9baf2ca8c4969ddc3d14a9995392eb1a2321",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-02.png",
+            "sha256": "04a5d330dc104b4b5c4c05bf4830fcf13cb85b990e744e65dcda764958faa7d8",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-03.png",
+            "sha256": "8f7c0985611f13b9786ca610c0ffb535751e91e83d754fa6414645e9b2b81b79",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-04.png",
+            "sha256": "f59049c90a76e88d108f290d112b9c2ae60e7a77d0d34b33378af382c917084e",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-05.png",
+            "sha256": "a5676ec3b0edf34eeb817d16b870069835410df39632ad06df904ae404b2ef1c",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-06.png",
+            "sha256": "df345aa156c26a402a1bc821485a4c976ebe4e525235ea6b8b39938f1f170bc6",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-07.png",
+            "sha256": "3fcd8bb33ad4664c264c4f6e0cef9ca9131e21378fde1d863c129e9bddc28b3e",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-08.png",
+            "sha256": "cbda69219dd7ca5f9aa560c9fcd9e9eb01458190687ffc7c97885c64b2d0e004",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-09.png",
+            "sha256": "797f0d3ae2ef27fb7d5d4b51e3da3ee45f60a771c1e7d3e440e3c0eff2c155b3",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-10.png",
+            "sha256": "49203e567132b6d2698e570f9a5fa0c879b4a88f495479ed8057bcde94393e3c",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-11.png",
+            "sha256": "b9fd9b169070325432541ead25dd082d6e70d132305df9d5ded06d97a0a8498b",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-12.png",
+            "sha256": "a4bae9168a0930b56387c7fec41ad66b8e590f2f42724f480a6e8b5697172cf9",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-13.png",
+            "sha256": "c4c15f75ac47a9ebfc95d40640d518fec44b682d9bed3ca6d24cdcab4c7f5c5b",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-14.png",
+            "sha256": "61286cf0bc9b1c6e91815a3d69b87c15bb874cd795ccf9fef9316b86aa33e39a",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-15.png",
+            "sha256": "195f7eadd0296458bdbf85ac425f9e41ce787700260b488ef5a2121995d80005",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-16.png",
+            "sha256": "6df259c53e82c88a448507a0605272eb699b93bb742c8ef6c80613532c4fd639",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-17.png",
+            "sha256": "846fda433393f59c9d46541ee4ddc5a9300e434a5856c7f9a930b5b43e4e43b2",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-18.png",
+            "sha256": "3bec8f1274ce2ed957f639562928ffbbd30262fab7e8f0c369f863fd5c776de6",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-19.png",
+            "sha256": "928824b9aad856e9b5d91780c21a3e6340cd9d064a333b5d1a4a0d15c39df550",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-20.png",
+            "sha256": "794148b6b85d4723c8fdd55185423018a60c31fed7fbbf39a3514ad46ea7040d",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.layout-pending-0.png",
+            "sha256": "149a69f2c5be2734f060a241fad8bb0a3140fb4f3aa8420a2d2c7729aff45e03",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.png",
+            "sha256": "149a69f2c5be2734f060a241fad8bb0a3140fb4f3aa8420a2d2c7729aff45e03",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-22.png",
+            "sha256": "0522415eeaff8eef159050c9cb5d316923385a8a292de96cd442e45853b541b2",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-23.png",
+            "sha256": "79d8b335b01bc732d2cc98dd89bd94e624888f6f98414b246f2f8a3ca6112e95",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-01.png",
+            "sha256": "a02efd8f94b7d630edd724ba8a5750dfc159b2a93c770f1880c401cf01b3d962",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-02.png",
+            "sha256": "239f53dc497a669fc79763e1e68eae59b663f80c65661a64b5e54e8519730c01",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-03.png",
+            "sha256": "88ee2fb38e1c3b17218fba1031a864ef71da6442390e8ec732603f42cfaea873",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-04.png",
+            "sha256": "94dfa4a5ac1affb1babd0d7a43c217549b2b3612d657d90cfafe796e7dd32447",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-05.png",
+            "sha256": "39a4385b32d3c1e7afce64be8fc28a6469a91e38ab822b85863a23de639e9997",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-06.png",
+            "sha256": "23f900876df60d1cb4c15b05753b3f553295c0804001f4a9e95254506dbe8a95",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-07.png",
+            "sha256": "f743cf9236a403855aca32eddbfbe30ee6f1f1d3c052841ae3116407efb1f36f",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-08.png",
+            "sha256": "e599bbd402e939fdb490ceac3d88e7647691e0472d017a596a9a3cfbb951f57c",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-09.png",
+            "sha256": "47e23a9ee2fc6f41f31e0bb2bd0387db7a83822050fc3e0b0d1b04d26e8d2d0a",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-10.png",
+            "sha256": "6511220eb3dd5ac914e7eca2980add5a669a34403b1fcb1aa656d50bdf339ace",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-11.png",
+            "sha256": "c4180c8822bac14f6d686228d7eb9cf918756281e02b3fed8b201375c7548385",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-12.png",
+            "sha256": "1ab57921fe1915911ef83b26233d201f79b93c4cc182e27fe3af16c390e12f22",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-13.png",
+            "sha256": "007fe4f8f305a590fc54936d3d02c135100221affd8243ec5c46e16f38b5b3df",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-14.png",
+            "sha256": "50632775d032b7fc99bfdc0616856ff83eb61a2b9751b733d2ebd37ca7db0d96",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-15.png",
+            "sha256": "c31db61f89449dec20341f90e36aabffe78e62fd14487861df7b677481da20e2",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-16.png",
+            "sha256": "a28124eba243db970e975010e027886ea4abe05324015d4665add1ea3f0fc388",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-17.png",
+            "sha256": "5daf2e811500cd4c7b74f2389cecc5451e7d3e6636d93ae53f238adba93f6197",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-18.png",
+            "sha256": "fc0b909cf8e603667189ed04057563afeb892c8f98d6dbab6c4364f7a13efdf2",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-19.png",
+            "sha256": "d7bcd3c68cd6bc9bf43f2a49359000cbf5fa9195c43c9f7c36b955eb45c82d32",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-20.png",
+            "sha256": "54b6399c37a633b9bab86248e5263bb0551105ef556a31bc7951777e333abbcf",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-21.png",
+            "sha256": "442d79196dfaa0579a85b6859e784486acde8ebd8a9ba038f0deeba37403b191",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-22.png",
+            "sha256": "15c899725c60f9813b0db4133d033814a657f58c56e98d52c47fef7cd2f32869",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "screenshot",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-23.png",
+            "sha256": "98562daccd2a678d12aa9930f6e75e2e759698811bc02f3f9f7e4f52538ae1ef",
+            "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-01.xml",
+            "sha256": "fbd6fba7950b7e1ff58a7b1b08bb29e3cad8449d32647f48a6a7999536a74f57",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-02.xml",
+            "sha256": "58e18e2de81752bbcfd60bb76ec9d22085a840e9b00b672b31fb4f7d3b11bd06",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-03.xml",
+            "sha256": "294d3f070eacd718da2a84c477acc54c39551a974bbb5a913f5860a85f5c6a6c",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-04.xml",
+            "sha256": "9c5f20478dc8246e5b90e6cc8a46a465772023d3664397068c520ea3d93119c6",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-05.xml",
+            "sha256": "ee140f517878504d4503b95ab7aacace8f6316ccd2e4c6cf82ca56e7e68b680b",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-06.xml",
+            "sha256": "be58c54d6927c809bd5be7b41b12bf51307ad853a07a71b0e82ff5243697824d",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-07.xml",
+            "sha256": "a5803dd1fc10b685cdc480e84c502908bef7b92fa13cc8bcb9c711db471b5b8a",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-08.xml",
+            "sha256": "50beec0af57ba722fa2255e6baab9e46fa2c09a85a3fdd4bd9947a535e54c120",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-09.xml",
+            "sha256": "53c59646c2688cfd2fb3fff2aa47fc5c55d3c863922a6446e8336525655a7240",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-10.xml",
+            "sha256": "4b6e3a54b68ad7a7153d138348938c37fbad31b763f36f1741fb0a24f7f353a1",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-11.xml",
+            "sha256": "3d2d0e4d90e36c72efbb947273e04f06ee93702ff0be7c2d801fec6ff3afcb2f",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-12.xml",
+            "sha256": "ee62fffdd10b22fdca92bd454d1cbebfe09abccde502b96c1b162923ce1c581f",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-13.xml",
+            "sha256": "cb27cf3f12d9b40ee4606a8ec4782d4fc699bc298f5045372b011944496b7ed3",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-14.xml",
+            "sha256": "a2b663692b0ad06c8b96d4f70e3c8e662428362db783545a83f5d1de305970ea",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-15.xml",
+            "sha256": "1d7b1fad0e666a1bc2322a97ed2208988e5b1648120f3147a6f873ebb8f0a9b6",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-16.xml",
+            "sha256": "4584afaa7eab62d2a6b12fa64c87246771e7151bb1de3c06211bb9f75f79b44c",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-17.xml",
+            "sha256": "6982857d2449a467757ce2388119982daad3e89d5321ec1c4175f4780093715d",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-18.xml",
+            "sha256": "ce5de8a202ec10189ecace0f0226cadc7ae84a087b8552cb00f68dacb2e0a6d8",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-19.xml",
+            "sha256": "fc8f8da4c965f1ef57f1b45fdf37d013876fe0d3bb3c2027ad32d27432f6482e",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-20.xml",
+            "sha256": "ca3cb1334f911435da1107618d6000969ef5afe3503a07e8aaf8fc47c37685d5",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.layout-pending-0.xml",
+            "sha256": "cfb1d25af565abf2e83cd90558dd3703bf4aef4331840a0283378b55657ec4ca",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.xml",
+            "sha256": "e94dd45f83861519a0378221e8679177f18892ffcf159aae33395c982c5d1d91",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-22.xml",
+            "sha256": "410fb48b2e3302a90cc9c5ac00d4c0b09c5220588add35415f3e03bbd20658fd",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-23.xml",
+            "sha256": "0106f79fc247a9461ec608867283179994d87878ed93bd147327079298ac2adb",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-01.xml",
+            "sha256": "420939cc0570a77fb4973f393f330cecaa99291a7a7722042f407ce8c6016c54",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-02.xml",
+            "sha256": "128e5c0d8a52476aac2b678e5c5de995df4f887885f7c45dc1e08c7dd48810cc",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-03.xml",
+            "sha256": "0f45b79a5ec38e636383309d2516f3b33a375d4f9a91dc3a783c4ec4b1a1e58a",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-04.xml",
+            "sha256": "91781bced1b6ab66534f556092251a57bd828a755898f891aadf0c2ca3f2446b",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-05.xml",
+            "sha256": "a874a19dcc0619a846f39a23eabecf4ca82c70e0fc4b2e8259d3f15e29bf11d8",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-06.xml",
+            "sha256": "4f20c913f25845d5fe395ee92348a7f3efc3d26936090ebf3c44ed9bd037087f",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-07.xml",
+            "sha256": "4a4fdfde92d16e9ed5ff473220aa6193bf1df29c9eec44dee91a4da3265fa47d",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-08.xml",
+            "sha256": "4524939456004370873b56b2e39e3c822b7eb158cfc6d762f649e2b2568bc740",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-09.xml",
+            "sha256": "cc8be582de5d00a80f1248ba2974bbc536407485603e2e3a3721b94cecb8f6a6",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-10.xml",
+            "sha256": "a037d9185fecc3ca522c9df619737d958ac4a6a2120e5dc33ad6c11d802883c7",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-11.xml",
+            "sha256": "c07fadc8928324f9cad10b44a2a88ccaa4d38bc658d84060927951d94dba5c10",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-12.xml",
+            "sha256": "55af51b260bcdba7558045d50803d5fd26d5eb87469b7dd7ad265c1dfefea6a1",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-13.xml",
+            "sha256": "50046ac7ab20b97550e00da480261b3131312523f7d660af0f95c36db8c7dacf",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-14.xml",
+            "sha256": "0b6fea40203a60c49cf5c156f535fe0f74f28e83058fe4470164d788a77772a1",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-15.xml",
+            "sha256": "1e24e8520ed0ad8a30ec91d47ae2c395b975ef27b04192308d6de57f88122ab9",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-16.xml",
+            "sha256": "dde3698ba2c24033b66bd36d2217968bd51ec81c5035f586d8c7b38ff085a491",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-17.xml",
+            "sha256": "ace436bc61279b2eb2fc7913abd1a3c3f026b5d589f0113f7214645df4a4c713",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-18.xml",
+            "sha256": "908db3dba7173e9a77096eec7888df4993e4f6c23ed501432ce6d356d75bd6b4",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-19.xml",
+            "sha256": "676c8425583980edf2a53d9e0b84bb96695289dbc44a06e2841663faebc93846",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-20.xml",
+            "sha256": "178359acc817b0fa9c0eecc83576c2b9202bf5c4a2e502f644ef5512960774e4",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-21.xml",
+            "sha256": "4e9255405d4f4d2cb05587ade627e74b113bc75503b96615b56806c9458fb11a",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-22.xml",
+            "sha256": "f942f7137538b7a8f79482dbb080e72e037a64c48da91a5ae4791a9046295d9f",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-23.xml",
+            "sha256": "05d890444fbddea567e155f1a9a110fdc8c030cbf835cd06d959c1547e604f18",
+            "description": "页面和组件的实际节点结构、文字与可访问属性。"
+          }
+        ]
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "attemptId": "208-6479b026-63c0-44db-8084-7256bcb2e83a",
+      "visitIndex": 208,
+      "definitionHash": "99142bae44e61c14c0039b2551b00e65e7ed25eff9420279c90c929fd90c70d0",
+      "definition": {
+        "id": "TC-G-VISUAL",
+        "title": "UI清单、动态绑定与公共组件配方",
+        "kind": "constraint",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "从今日起点浏览全部页面和公共组件实例，准备两组不同的名称、日期、计数以及进度边界值。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "检查清单覆盖、绑定解析和组件配方",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "23屏和2组件覆盖完整；绑定无缺值或原稿兜底，同对象跨屏一致，固定文案与视觉配方保持JSON标准。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [],
+        "acceptance": {
+          "visual": {
+            "applicable": true,
+            "reason": "核对页面与组件覆盖、动态内容和视觉配方。",
+            "checks": [
+              {
+                "criterion": "动态内容按声明的类型和显示格式解析；必需输入缺失时明确报错；固定文字和样式保持一致。",
+                "oracle": "每个document中binding声明及尺寸策略；输入由测试提供，预期格式器独立实现",
+                "procedure": "遍历manifest的screen/component节点，运行格式化器和配方映射；分别提供两组输入与进度边界；比较稳定标签不变、动态内容随输入正确变化；检查已有23屏路由覆盖映射。",
+                "evidence": [
+                  {
+                    "form": "data-snapshot",
+                    "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "显示格式、固定文字、样式配方和缺值处理的逐项预期与实际值。"
+                  }
+                ],
+                "sufficiency": "单元足以验证纯绑定和配方值；真实字体及实例呈现由下一项补足。",
+                "testType": "script",
+                "environment": "runtime"
+              },
+              {
+                "criterion": "全部页面和公共组件实例均已覆盖，文字、字体、图标和视觉外观符合规范。",
+                "oracle": "以JSON+library+输入生成参考，不以原PNG裁决数值",
+                "procedure": "从S01浏览既定23屏并采集真实组件实例；核对字体文件、字重、图标/圆角/渐变/描边/阴影与组件覆盖；Inter缺失前保持未执行。",
+                "evidence": [
+                  {
+                    "form": "screenshot",
+                    "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+                  },
+                  {
+                    "form": "native-tree",
+                    "description": "页面和组件的实际节点结构、文字与可访问属性。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "页面覆盖及字体、字重、颜色、描边、阴影等视觉项目的检查结论。"
+                  }
+                ],
+                "sufficiency": "覆盖真实字形和配方渲染，结构校验不能替代该项。",
+                "testType": "script",
+                "environment": "native"
+              }
+            ]
+          },
+          "functional": {
+            "applicable": false,
+            "reason": "本例不验收存储或统计算法等业务效果。",
+            "checks": []
+          }
+        },
+        "constraintIds": [
+          "G-visual"
+        ],
+        "impactId": null,
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 从今日起点浏览全部页面和公共组件实例，准备两组不同的名称、日期、计数以及进度边界值。",
+      "operationObserved": "检查清单覆盖、绑定解析和组件配方",
+      "targetObserved": "Recorded results for the actual independent fixture TC-G-VISUAL.",
+      "outcome": "passed",
+      "startedAt": "2026-10-30T05:00:25.694Z",
+      "finishedAt": "2026-10-30T05:05:23.002Z",
+      "definitionCurrent": true,
+      "checks": [
+        {
+          "aspect": "visual",
+          "checkIndex": 0,
+          "status": "passed",
+          "observation": "Executed the declared isolated fixture and retained its independent comparisons.",
+          "comparisons": [
+            {
+              "expected": true,
+              "actual": true,
+              "verdict": "passed"
+            }
+          ],
+          "evidence": [
+            {
+              "form": "assertion-report",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/assertions.json",
+              "sha256": "2eb94d75358f70cdd7046ceaffdb4e0f8c5df6056d0ba87531ba7899a35ed844",
+              "description": "Independent expected/actual comparisons for this visit."
+            },
+            {
+              "form": "data-snapshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/dynamic-inputs-1.json",
+              "sha256": "3f06e1523f1e5a0f1a2c8dcf6a4ecbabf09178c967149880f659945cb9d8b999",
+              "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+            },
+            {
+              "form": "data-snapshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/dynamic-inputs-2.json",
+              "sha256": "3eaa5a268cb163e41cf6df9fa4e476827f1cb64964258170a78cfa80b4c11f44",
+              "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+            },
+            {
+              "form": "data-snapshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/task-assertions.json",
+              "sha256": "d32736b454c4a302bff85fd4e8a808d2c36aa1685269ca45879873a7786a02b4",
+              "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+            },
+            {
+              "form": "data-snapshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-page-coverage.json",
+              "sha256": "e1457bd4442312d56758715ffe249f08675bbf02f7d205640caf24cdbade2efb",
+              "description": "两组输入及进度边界值，关联所检查的页面和组件。"
+            }
+          ]
+        },
+        {
+          "aspect": "visual",
+          "checkIndex": 1,
+          "status": "passed",
+          "observation": "Executed the declared isolated fixture and retained its independent comparisons.",
+          "comparisons": [
+            {
+              "expected": [
+                23,
+                23
+              ],
+              "actual": [
+                23,
+                23
+              ],
+              "verdict": "passed"
+            }
+          ],
+          "evidence": [
+            {
+              "form": "assertion-report",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/assertions.json",
+              "sha256": "2eb94d75358f70cdd7046ceaffdb4e0f8c5df6056d0ba87531ba7899a35ed844",
+              "description": "Independent expected/actual comparisons for this visit."
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-01.png",
+              "sha256": "4817cd44a1aab85c32f9eacdefad9baf2ca8c4969ddc3d14a9995392eb1a2321",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-02.png",
+              "sha256": "04a5d330dc104b4b5c4c05bf4830fcf13cb85b990e744e65dcda764958faa7d8",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-03.png",
+              "sha256": "8f7c0985611f13b9786ca610c0ffb535751e91e83d754fa6414645e9b2b81b79",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-04.png",
+              "sha256": "f59049c90a76e88d108f290d112b9c2ae60e7a77d0d34b33378af382c917084e",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-05.png",
+              "sha256": "a5676ec3b0edf34eeb817d16b870069835410df39632ad06df904ae404b2ef1c",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-06.png",
+              "sha256": "df345aa156c26a402a1bc821485a4c976ebe4e525235ea6b8b39938f1f170bc6",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-07.png",
+              "sha256": "3fcd8bb33ad4664c264c4f6e0cef9ca9131e21378fde1d863c129e9bddc28b3e",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-08.png",
+              "sha256": "cbda69219dd7ca5f9aa560c9fcd9e9eb01458190687ffc7c97885c64b2d0e004",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-09.png",
+              "sha256": "797f0d3ae2ef27fb7d5d4b51e3da3ee45f60a771c1e7d3e440e3c0eff2c155b3",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-10.png",
+              "sha256": "49203e567132b6d2698e570f9a5fa0c879b4a88f495479ed8057bcde94393e3c",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-11.png",
+              "sha256": "b9fd9b169070325432541ead25dd082d6e70d132305df9d5ded06d97a0a8498b",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-12.png",
+              "sha256": "a4bae9168a0930b56387c7fec41ad66b8e590f2f42724f480a6e8b5697172cf9",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-13.png",
+              "sha256": "c4c15f75ac47a9ebfc95d40640d518fec44b682d9bed3ca6d24cdcab4c7f5c5b",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-14.png",
+              "sha256": "61286cf0bc9b1c6e91815a3d69b87c15bb874cd795ccf9fef9316b86aa33e39a",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-15.png",
+              "sha256": "195f7eadd0296458bdbf85ac425f9e41ce787700260b488ef5a2121995d80005",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-16.png",
+              "sha256": "6df259c53e82c88a448507a0605272eb699b93bb742c8ef6c80613532c4fd639",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-17.png",
+              "sha256": "846fda433393f59c9d46541ee4ddc5a9300e434a5856c7f9a930b5b43e4e43b2",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-18.png",
+              "sha256": "3bec8f1274ce2ed957f639562928ffbbd30262fab7e8f0c369f863fd5c776de6",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-19.png",
+              "sha256": "928824b9aad856e9b5d91780c21a3e6340cd9d064a333b5d1a4a0d15c39df550",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-20.png",
+              "sha256": "794148b6b85d4723c8fdd55185423018a60c31fed7fbbf39a3514ad46ea7040d",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.layout-pending-0.png",
+              "sha256": "149a69f2c5be2734f060a241fad8bb0a3140fb4f3aa8420a2d2c7729aff45e03",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.png",
+              "sha256": "149a69f2c5be2734f060a241fad8bb0a3140fb4f3aa8420a2d2c7729aff45e03",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-22.png",
+              "sha256": "0522415eeaff8eef159050c9cb5d316923385a8a292de96cd442e45853b541b2",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-23.png",
+              "sha256": "79d8b335b01bc732d2cc98dd89bd94e624888f6f98414b246f2f8a3ca6112e95",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-01.png",
+              "sha256": "a02efd8f94b7d630edd724ba8a5750dfc159b2a93c770f1880c401cf01b3d962",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-02.png",
+              "sha256": "239f53dc497a669fc79763e1e68eae59b663f80c65661a64b5e54e8519730c01",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-03.png",
+              "sha256": "88ee2fb38e1c3b17218fba1031a864ef71da6442390e8ec732603f42cfaea873",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-04.png",
+              "sha256": "94dfa4a5ac1affb1babd0d7a43c217549b2b3612d657d90cfafe796e7dd32447",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-05.png",
+              "sha256": "39a4385b32d3c1e7afce64be8fc28a6469a91e38ab822b85863a23de639e9997",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-06.png",
+              "sha256": "23f900876df60d1cb4c15b05753b3f553295c0804001f4a9e95254506dbe8a95",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-07.png",
+              "sha256": "f743cf9236a403855aca32eddbfbe30ee6f1f1d3c052841ae3116407efb1f36f",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-08.png",
+              "sha256": "e599bbd402e939fdb490ceac3d88e7647691e0472d017a596a9a3cfbb951f57c",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-09.png",
+              "sha256": "47e23a9ee2fc6f41f31e0bb2bd0387db7a83822050fc3e0b0d1b04d26e8d2d0a",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-10.png",
+              "sha256": "6511220eb3dd5ac914e7eca2980add5a669a34403b1fcb1aa656d50bdf339ace",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-11.png",
+              "sha256": "c4180c8822bac14f6d686228d7eb9cf918756281e02b3fed8b201375c7548385",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-12.png",
+              "sha256": "1ab57921fe1915911ef83b26233d201f79b93c4cc182e27fe3af16c390e12f22",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-13.png",
+              "sha256": "007fe4f8f305a590fc54936d3d02c135100221affd8243ec5c46e16f38b5b3df",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-14.png",
+              "sha256": "50632775d032b7fc99bfdc0616856ff83eb61a2b9751b733d2ebd37ca7db0d96",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-15.png",
+              "sha256": "c31db61f89449dec20341f90e36aabffe78e62fd14487861df7b677481da20e2",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-16.png",
+              "sha256": "a28124eba243db970e975010e027886ea4abe05324015d4665add1ea3f0fc388",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-17.png",
+              "sha256": "5daf2e811500cd4c7b74f2389cecc5451e7d3e6636d93ae53f238adba93f6197",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-18.png",
+              "sha256": "fc0b909cf8e603667189ed04057563afeb892c8f98d6dbab6c4364f7a13efdf2",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-19.png",
+              "sha256": "d7bcd3c68cd6bc9bf43f2a49359000cbf5fa9195c43c9f7c36b955eb45c82d32",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-20.png",
+              "sha256": "54b6399c37a633b9bab86248e5263bb0551105ef556a31bc7951777e333abbcf",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-21.png",
+              "sha256": "442d79196dfaa0579a85b6859e784486acde8ebd8a9ba038f0deeba37403b191",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-22.png",
+              "sha256": "15c899725c60f9813b0db4133d033814a657f58c56e98d52c47fef7cd2f32869",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "screenshot",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-23.png",
+              "sha256": "98562daccd2a678d12aa9930f6e75e2e759698811bc02f3f9f7e4f52538ae1ef",
+              "description": "实际页面和公共组件实例的截图，记录两组输入下的视觉差异。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-01.xml",
+              "sha256": "fbd6fba7950b7e1ff58a7b1b08bb29e3cad8449d32647f48a6a7999536a74f57",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-02.xml",
+              "sha256": "58e18e2de81752bbcfd60bb76ec9d22085a840e9b00b672b31fb4f7d3b11bd06",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-03.xml",
+              "sha256": "294d3f070eacd718da2a84c477acc54c39551a974bbb5a913f5860a85f5c6a6c",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-04.xml",
+              "sha256": "9c5f20478dc8246e5b90e6cc8a46a465772023d3664397068c520ea3d93119c6",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-05.xml",
+              "sha256": "ee140f517878504d4503b95ab7aacace8f6316ccd2e4c6cf82ca56e7e68b680b",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-06.xml",
+              "sha256": "be58c54d6927c809bd5be7b41b12bf51307ad853a07a71b0e82ff5243697824d",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-07.xml",
+              "sha256": "a5803dd1fc10b685cdc480e84c502908bef7b92fa13cc8bcb9c711db471b5b8a",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-08.xml",
+              "sha256": "50beec0af57ba722fa2255e6baab9e46fa2c09a85a3fdd4bd9947a535e54c120",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-09.xml",
+              "sha256": "53c59646c2688cfd2fb3fff2aa47fc5c55d3c863922a6446e8336525655a7240",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-10.xml",
+              "sha256": "4b6e3a54b68ad7a7153d138348938c37fbad31b763f36f1741fb0a24f7f353a1",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-11.xml",
+              "sha256": "3d2d0e4d90e36c72efbb947273e04f06ee93702ff0be7c2d801fec6ff3afcb2f",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-12.xml",
+              "sha256": "ee62fffdd10b22fdca92bd454d1cbebfe09abccde502b96c1b162923ce1c581f",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-13.xml",
+              "sha256": "cb27cf3f12d9b40ee4606a8ec4782d4fc699bc298f5045372b011944496b7ed3",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-14.xml",
+              "sha256": "a2b663692b0ad06c8b96d4f70e3c8e662428362db783545a83f5d1de305970ea",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-15.xml",
+              "sha256": "1d7b1fad0e666a1bc2322a97ed2208988e5b1648120f3147a6f873ebb8f0a9b6",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-16.xml",
+              "sha256": "4584afaa7eab62d2a6b12fa64c87246771e7151bb1de3c06211bb9f75f79b44c",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-17.xml",
+              "sha256": "6982857d2449a467757ce2388119982daad3e89d5321ec1c4175f4780093715d",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-18.xml",
+              "sha256": "ce5de8a202ec10189ecace0f0226cadc7ae84a087b8552cb00f68dacb2e0a6d8",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-19.xml",
+              "sha256": "fc8f8da4c965f1ef57f1b45fdf37d013876fe0d3bb3c2027ad32d27432f6482e",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-20.xml",
+              "sha256": "ca3cb1334f911435da1107618d6000969ef5afe3503a07e8aaf8fc47c37685d5",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.layout-pending-0.xml",
+              "sha256": "cfb1d25af565abf2e83cd90558dd3703bf4aef4331840a0283378b55657ec4ca",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-21.xml",
+              "sha256": "e94dd45f83861519a0378221e8679177f18892ffcf159aae33395c982c5d1d91",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-22.xml",
+              "sha256": "410fb48b2e3302a90cc9c5ac00d4c0b09c5220588add35415f3e03bbd20658fd",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-0-23.xml",
+              "sha256": "0106f79fc247a9461ec608867283179994d87878ed93bd147327079298ac2adb",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-01.xml",
+              "sha256": "420939cc0570a77fb4973f393f330cecaa99291a7a7722042f407ce8c6016c54",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-02.xml",
+              "sha256": "128e5c0d8a52476aac2b678e5c5de995df4f887885f7c45dc1e08c7dd48810cc",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-03.xml",
+              "sha256": "0f45b79a5ec38e636383309d2516f3b33a375d4f9a91dc3a783c4ec4b1a1e58a",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-04.xml",
+              "sha256": "91781bced1b6ab66534f556092251a57bd828a755898f891aadf0c2ca3f2446b",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-05.xml",
+              "sha256": "a874a19dcc0619a846f39a23eabecf4ca82c70e0fc4b2e8259d3f15e29bf11d8",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-06.xml",
+              "sha256": "4f20c913f25845d5fe395ee92348a7f3efc3d26936090ebf3c44ed9bd037087f",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-07.xml",
+              "sha256": "4a4fdfde92d16e9ed5ff473220aa6193bf1df29c9eec44dee91a4da3265fa47d",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-08.xml",
+              "sha256": "4524939456004370873b56b2e39e3c822b7eb158cfc6d762f649e2b2568bc740",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-09.xml",
+              "sha256": "cc8be582de5d00a80f1248ba2974bbc536407485603e2e3a3721b94cecb8f6a6",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-10.xml",
+              "sha256": "a037d9185fecc3ca522c9df619737d958ac4a6a2120e5dc33ad6c11d802883c7",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-11.xml",
+              "sha256": "c07fadc8928324f9cad10b44a2a88ccaa4d38bc658d84060927951d94dba5c10",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-12.xml",
+              "sha256": "55af51b260bcdba7558045d50803d5fd26d5eb87469b7dd7ad265c1dfefea6a1",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-13.xml",
+              "sha256": "50046ac7ab20b97550e00da480261b3131312523f7d660af0f95c36db8c7dacf",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-14.xml",
+              "sha256": "0b6fea40203a60c49cf5c156f535fe0f74f28e83058fe4470164d788a77772a1",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-15.xml",
+              "sha256": "1e24e8520ed0ad8a30ec91d47ae2c395b975ef27b04192308d6de57f88122ab9",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-16.xml",
+              "sha256": "dde3698ba2c24033b66bd36d2217968bd51ec81c5035f586d8c7b38ff085a491",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-17.xml",
+              "sha256": "ace436bc61279b2eb2fc7913abd1a3c3f026b5d589f0113f7214645df4a4c713",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-18.xml",
+              "sha256": "908db3dba7173e9a77096eec7888df4993e4f6c23ed501432ce6d356d75bd6b4",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-19.xml",
+              "sha256": "676c8425583980edf2a53d9e0b84bb96695289dbc44a06e2841663faebc93846",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-20.xml",
+              "sha256": "178359acc817b0fa9c0eecc83576c2b9202bf5c4a2e502f644ef5512960774e4",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-21.xml",
+              "sha256": "4e9255405d4f4d2cb05587ade627e74b113bc75503b96615b56806c9458fb11a",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-22.xml",
+              "sha256": "f942f7137538b7a8f79482dbb080e72e037a64c48da91a5ae4791a9046295d9f",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/208-6479b026-63c0-44db-8084-7256bcb2e83a/visual-1-23.xml",
+              "sha256": "05d890444fbddea567e155f1a9a110fdc8c030cbf835cd06d959c1547e604f18",
+              "description": "页面和组件的实际节点结构、文字与可访问属性。"
+            }
+          ]
+        }
+      ],
+      "blockage": null
+    }
+  ],
+  "repairs": [
+    {
+      "attemptId": "206-5a852f3d-e956-4c39-8115-43e621088e96",
+      "visitIndex": 206,
+      "affectedCaseIds": [
+        "TC-G-LAYOUT",
+        "TC-G-VISUAL",
+        "TC-G-SCOPE"
+      ],
+      "category": "harness",
+      "status": "resolved",
+      "diagnosis": {
+        "reason": "The retained native trace contains no n-P69atC return event after the matrix scrolled the header into view; four stable bounds observations followed by one real click emitted exactly one return event and reached S12. The fixture driver accepted element existence before scroll settlement. Add visible stable-bound synchronization only to isolated layout/visual fixture seeks. Review of the same entry script also found that the later scope collector receives 210 historical primary attempts for 205 required visits, including 3 aborted attempts without layout reports; select the latest closed passed attempt per required visit only for that future fixture. Preserve all original attempts and all independent product assertions/expectations.",
+        "evidence": [
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/diagnostic-observations.json",
+            "sha256": "dfb3f8da28f0a39ff08d502d3920f6c7e055df24e0c95d950de6c92ff6c6f112",
+            "description": "Actual retained state, absent first return event, stable bounds and successful single native return click."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/review-baseline.json",
+            "sha256": "7c4278d3351d2dc714af7657d1d323f879b885dcf430f85bb65668107b1f09b6",
+            "description": "Canonical valid visits, source hashes and future collector history discrepancy; no future Test Case was executed."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/retained-before.png",
+            "sha256": "ba4bf00967110e62e7c526148db002d9b9314de8963aaba2b86d9a9141c7c5a0",
+            "description": "Actual retained failure screen."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/settled-return-after.png",
+            "sha256": "50601f58d74a1053f10fa6ed4bb4dd77e8d828a642a06d79d6409de0653ff42a",
+            "description": "Actual target reached after one stable native return click."
+          }
+        ],
+        "standardSources": []
+      },
+      "resolution": {
+        "observation": "Only the isolated layout/visual fixture seeks wait for four consecutive visible native bounds samples before the original native click. The future scope fixture receives the latest closed passed attempt for each of the 205 required primary visit indices; canonical history and repeated visits remain intact. Actual long-text/IME/scroll return and seven harness boundary checks passed. All independent product assertions, Test Case definitions, product sources and other bound files are unchanged. Explicitly reviewed all 206 prior valid visits as unaffected; the blocked layout case still requires real reacceptance.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/repair-assertions.json",
+            "sha256": "6ae5df04ac7d0385d193284ee3373b1e96d07ffe5717c2882bbd0ffdd13ceef6",
+            "description": "Independent scope, native click and harness boundary review."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/native-guard/native-guard-verification.json",
+            "sha256": "bcacff6a5be5c6d88a970562074ea762a1da46c8fa98fc1861fd7215a98b94c5",
+            "description": "Actual long-text form, actual IME dismissal, native scroll and exactly one guarded return event."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/harness-verification.json",
+            "sha256": "b44d6a27be14dfbf14cd81bd211ea481c2fb5a37c3ef4df35cf861970d8c302e",
+            "description": "Seven collector/readiness boundary checks; not product Test Case passes."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/source-provenance.json",
+            "sha256": "c57ef9417b158030d77541a0e24618cebcb70c88e74de7a9d90373825732f8c8",
+            "description": "Exact source versions; all bytes outside the reviewed insertions unchanged."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/verify-native-guard.cjs",
+            "sha256": "389843ef78df4b41ef5f160b9260b038578b3fa84efd89c0d53c4d6d5c6be353",
+            "description": "Actual native repair verification source."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/verify-harness.cjs",
+            "sha256": "a3eb1f9cd891f83aa4efef6414121751e9e751f93c271778f3d540bcbea3237a",
+            "description": "Executed actual helper source boundary verification."
+          }
+        ],
+        "changedFiles": [
+          {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "5fc2d44f19584897475e5be2a2e79f33dd4026550b9a360eac737159a1b801a7"
+          }
+        ],
+        "harnessArchive": {
+          "original": {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "c02a1c65164871728486b7304b7868a00765f05ce7ba24739a64861fcfe7ec66"
+          },
+          "archive": {
+            "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/run-session.before.cjs",
+            "sha256": "c02a1c65164871728486b7304b7868a00765f05ce7ba24739a64861fcfe7ec66"
+          },
+          "unaffectedCaseIds": [
+            "TC-G-EVIDENCE",
+            "TC-T001",
+            "TC-T002",
+            "TC-T003",
+            "TC-T004",
+            "TC-T005",
+            "TC-T006",
+            "TC-T007",
+            "TC-T008",
+            "TC-T009",
+            "TC-T010",
+            "TC-T011",
+            "TC-T012",
+            "TC-T013",
+            "TC-T014",
+            "TC-T015",
+            "TC-T016",
+            "TC-T017",
+            "TC-T018",
+            "TC-T019",
+            "TC-T020",
+            "TC-T021",
+            "TC-T022",
+            "TC-T023",
+            "TC-T024",
+            "TC-T025",
+            "TC-T026",
+            "TC-T027",
+            "TC-T028",
+            "TC-T029",
+            "TC-T030",
+            "TC-T031",
+            "TC-T032",
+            "TC-T033",
+            "TC-T034",
+            "TC-T035",
+            "TC-T036",
+            "TC-T037",
+            "TC-T038",
+            "TC-T039",
+            "TC-T040",
+            "TC-T041",
+            "TC-T042",
+            "TC-T043",
+            "TC-T044",
+            "TC-T045",
+            "TC-T046",
+            "TC-T047",
+            "TC-T048",
+            "TC-T049",
+            "TC-T050",
+            "TC-T051",
+            "TC-T052",
+            "TC-T053",
+            "TC-T054",
+            "TC-T055",
+            "TC-T056",
+            "TC-T057",
+            "TC-T058",
+            "TC-T059",
+            "TC-T060",
+            "TC-T061",
+            "TC-T062",
+            "TC-T063",
+            "TC-T064",
+            "TC-T065",
+            "TC-T066",
+            "TC-T067",
+            "TC-T068",
+            "TC-T069",
+            "TC-T070",
+            "TC-T071",
+            "TC-T072",
+            "TC-T073",
+            "TC-T074",
+            "TC-T075",
+            "TC-T076",
+            "TC-T077",
+            "TC-T078",
+            "TC-T079",
+            "TC-T080",
+            "TC-T081",
+            "TC-T082",
+            "TC-T083",
+            "TC-T084",
+            "TC-T085",
+            "TC-T086",
+            "TC-T087",
+            "TC-T088",
+            "TC-T089",
+            "TC-T090",
+            "TC-T091",
+            "TC-T092",
+            "TC-T093",
+            "TC-T094",
+            "TC-T095",
+            "TC-T096",
+            "TC-T097",
+            "TC-T098",
+            "TC-T099",
+            "TC-T100",
+            "TC-T101",
+            "TC-T102",
+            "TC-T103",
+            "TC-T104",
+            "TC-T105",
+            "TC-T106",
+            "TC-T107",
+            "TC-T108",
+            "TC-T109",
+            "TC-T110",
+            "TC-T111",
+            "TC-T112",
+            "TC-T113",
+            "TC-T114",
+            "TC-T115",
+            "TC-T116",
+            "TC-T117",
+            "TC-T118",
+            "TC-T119",
+            "TC-T120",
+            "TC-T121",
+            "TC-T122",
+            "TC-T123",
+            "TC-T124",
+            "TC-T125",
+            "TC-T126",
+            "TC-T127",
+            "TC-T128",
+            "TC-T129"
+          ]
+        }
+      },
+      "openedAt": "2026-10-29T18:05:25.594193+00:00",
+      "closedAt": "2026-10-29T18:23:40.646953+00:00"
+    },
+    {
+      "attemptId": "206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da",
+      "visitIndex": 206,
+      "affectedCaseIds": [
+        "TC-G-LAYOUT",
+        "TC-G-VISUAL"
+      ],
+      "category": "harness",
+      "status": "resolved",
+      "diagnosis": {
+        "reason": "The first row-3 edit-record capture had a real root in native XML but no root measurement in the application report. Reading the same retained page again without navigation supplied the root and passed all unchanged independent native geometry assertions. Wait only for complete actual application measurement records/props before visual assertions; preserve incomplete raw observations. Reuse the three fully completed configuration checkpoints only after exact source/input/evidence hashes and independent visual reinspection, then execute configurations 3..8. Do not reuse partial configuration 3, alter expectations, fabricate measurements, or accept the prior blocked attempt.",
+        "evidence": [
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/fresh-layout-observation.json",
+            "sha256": "0b6cadfde23d4bf4c72a2a3162e67571c2ba1f919fbb25591964cf922c3b9dfb",
+            "description": "Fresh read of the same retained UI with full root measurement and all independent geometry checks passed."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/review-baseline.json",
+            "sha256": "e7867c0787337f4c14adde22792d64460116ae6631170483837ddee3f9ba408d",
+            "description": "206 valid visits retained; three complete configurations may be resumed after verification."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/matrix-checkpoint.json",
+            "sha256": "3d097df1e59273f5e98a3ce491a5aac24367f91365e162c3ddf4ddf0d99557e2",
+            "description": "Exact source, context and real screenshot/native-tree/measurement references for completed configurations only."
+          },
+          {
+            "form": "native-tree",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/failure-state.xml",
+            "sha256": "4bb38516d1ac12e3c878ca15516c201dbf1d05ace455af1bdbd9a006daa4eeca",
+            "description": "Original actual root exists with physical native bounds."
+          }
+        ],
+        "standardSources": []
+      },
+      "resolution": {
+        "observation": "Missing actual native measurement records/props cause a bounded fresh observation; incomplete raw captures are preserved and no geometry value is synthesized or compared to expected values for readiness. Complete incorrect geometry is still handed unchanged to independent assertions. Three fully completed configurations (69 real page frames) were reinspected against unchanged sources, inputs and evidence hashes; only those checkpoints may be copied, with original provenance and expected source references. The generated matrix source changes only result initialization and loop start; inverse transformation is byte identical to the original, preserving all actions/assertions. Partial row 3 is discarded and configurations 3..8 must execute in the real host. Product code and Test Case expectations are unchanged. All 206 prior valid visits remain outside this repair scope.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/repair-assertions.json",
+            "sha256": "f173944d6b5d0070c8fc98a5d097f6c32960a4ab6c452c9ac18a2eab3b847ffd",
+            "description": "Actual native observation, strict checkpoint integrity and unchanged-scope review."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/fresh-layout-observation.json",
+            "sha256": "0b6cadfde23d4bf4c72a2a3162e67571c2ba1f919fbb25591964cf922c3b9dfb",
+            "description": "Same retained screen yielded complete actual layout and passed all independent geometry checks."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/harness-verification.json",
+            "sha256": "927549e3e575bfb7dcd88fbe003479cb90d2030ec02ee1bb68361eea62e48b50",
+            "description": "Six harness tests and reinspection of 69 real prior page frames; not whole product acceptance."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/matrix-checkpoint.json",
+            "sha256": "3d097df1e59273f5e98a3ce491a5aac24367f91365e162c3ddf4ddf0d99557e2",
+            "description": "Only three complete configurations may be retained after exact input/source/evidence checks."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/verify-harness.cjs",
+            "sha256": "2cd2d147cf5c19096e78f20e730990151f3db7920b46d8c3756550c48a84f23e",
+            "description": "Executed readiness and checkpoint boundary verification source."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/source-provenance.json",
+            "sha256": "8e73e34825e56979a44430b6be6cd3c4cb8d79988625fef455693bde9d2c7f42",
+            "description": "Exact source versions and unchanged independent assertion code."
+          }
+        ],
+        "changedFiles": [
+          {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "3df32a19e26e8a69795b9da76623b50d3c1509e8408280a2586e99ebf5291de9"
+          },
+          {
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/matrix-checkpoint.json",
+            "sha256": "3d097df1e59273f5e98a3ce491a5aac24367f91365e162c3ddf4ddf0d99557e2"
+          }
+        ],
+        "harnessArchive": {
+          "original": {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "5fc2d44f19584897475e5be2a2e79f33dd4026550b9a360eac737159a1b801a7"
+          },
+          "archive": {
+            "path": "plan/acceptance/evidence/206-b52d25d5-fa88-4b2b-b4d7-30ed93d194da/repair/run-session.before.cjs",
+            "sha256": "5fc2d44f19584897475e5be2a2e79f33dd4026550b9a360eac737159a1b801a7"
+          },
+          "unaffectedCaseIds": [
+            "TC-G-EVIDENCE",
+            "TC-T001",
+            "TC-T002",
+            "TC-T003",
+            "TC-T004",
+            "TC-T005",
+            "TC-T006",
+            "TC-T007",
+            "TC-T008",
+            "TC-T009",
+            "TC-T010",
+            "TC-T011",
+            "TC-T012",
+            "TC-T013",
+            "TC-T014",
+            "TC-T015",
+            "TC-T016",
+            "TC-T017",
+            "TC-T018",
+            "TC-T019",
+            "TC-T020",
+            "TC-T021",
+            "TC-T022",
+            "TC-T023",
+            "TC-T024",
+            "TC-T025",
+            "TC-T026",
+            "TC-T027",
+            "TC-T028",
+            "TC-T029",
+            "TC-T030",
+            "TC-T031",
+            "TC-T032",
+            "TC-T033",
+            "TC-T034",
+            "TC-T035",
+            "TC-T036",
+            "TC-T037",
+            "TC-T038",
+            "TC-T039",
+            "TC-T040",
+            "TC-T041",
+            "TC-T042",
+            "TC-T043",
+            "TC-T044",
+            "TC-T045",
+            "TC-T046",
+            "TC-T047",
+            "TC-T048",
+            "TC-T049",
+            "TC-T050",
+            "TC-T051",
+            "TC-T052",
+            "TC-T053",
+            "TC-T054",
+            "TC-T055",
+            "TC-T056",
+            "TC-T057",
+            "TC-T058",
+            "TC-T059",
+            "TC-T060",
+            "TC-T061",
+            "TC-T062",
+            "TC-T063",
+            "TC-T064",
+            "TC-T065",
+            "TC-T066",
+            "TC-T067",
+            "TC-T068",
+            "TC-T069",
+            "TC-T070",
+            "TC-T071",
+            "TC-T072",
+            "TC-T073",
+            "TC-T074",
+            "TC-T075",
+            "TC-T076",
+            "TC-T077",
+            "TC-T078",
+            "TC-T079",
+            "TC-T080",
+            "TC-T081",
+            "TC-T082",
+            "TC-T083",
+            "TC-T084",
+            "TC-T085",
+            "TC-T086",
+            "TC-T087",
+            "TC-T088",
+            "TC-T089",
+            "TC-T090",
+            "TC-T091",
+            "TC-T092",
+            "TC-T093",
+            "TC-T094",
+            "TC-T095",
+            "TC-T096",
+            "TC-T097",
+            "TC-T098",
+            "TC-T099",
+            "TC-T100",
+            "TC-T101",
+            "TC-T102",
+            "TC-T103",
+            "TC-T104",
+            "TC-T105",
+            "TC-T106",
+            "TC-T107",
+            "TC-T108",
+            "TC-T109",
+            "TC-T110",
+            "TC-T111",
+            "TC-T112",
+            "TC-T113",
+            "TC-T114",
+            "TC-T115",
+            "TC-T116",
+            "TC-T117",
+            "TC-T118",
+            "TC-T119",
+            "TC-T120",
+            "TC-T121",
+            "TC-T122",
+            "TC-T123",
+            "TC-T124",
+            "TC-T125",
+            "TC-T126",
+            "TC-T127",
+            "TC-T128",
+            "TC-T129"
+          ]
+        }
+      },
+      "openedAt": "2026-10-29T18:49:10.313308+00:00",
+      "closedAt": "2026-10-29T19:10:59.316478+00:00"
+    }
+  ]
+}

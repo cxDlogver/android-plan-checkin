@@ -1,0 +1,179 @@
+{
+  "caseId": "TC-T088",
+  "expectedFrom": "S15",
+  "expectedTo": "S12",
+  "beforeScene": {
+    "screen": "edit-plan",
+    "entry": {
+      "screen": "fixed-detail",
+      "entry": {
+        "screen": "plans"
+      }
+    }
+  },
+  "afterScene": {
+    "screen": "fixed-detail",
+    "entry": {
+      "screen": "plans"
+    }
+  },
+  "priorControlEvents": 0,
+  "afterControlEvents": 1,
+  "lastBeforeTrace": [
+    {
+      "name": "present",
+      "input": {
+        "from": {
+          "screen": "plans"
+        },
+        "to": {
+          "screen": "fixed-detail",
+          "entry": {
+            "screen": "plans"
+          }
+        },
+        "activeIdentity": {
+          "planId": "acceptance-1470fc99-matrix-0-1:fixedDo",
+          "recordId": "acceptance-1470fc99-matrix-0-1:record:fixedDo:2026-10-29"
+        }
+      }
+    },
+    {
+      "name": "control",
+      "input": {
+        "id": "n-O9pBu",
+        "scene": {
+          "screen": "fixed-detail",
+          "entry": {
+            "screen": "plans"
+          }
+        }
+      }
+    },
+    {
+      "name": "present",
+      "input": {
+        "from": {
+          "screen": "fixed-detail",
+          "entry": {
+            "screen": "plans"
+          }
+        },
+        "to": {
+          "screen": "edit-plan",
+          "entry": {
+            "screen": "fixed-detail",
+            "entry": {
+              "screen": "plans"
+            }
+          }
+        },
+        "activeIdentity": {
+          "planId": "acceptance-1470fc99-matrix-0-1:fixedDo",
+          "recordId": "acceptance-1470fc99-matrix-0-1:record:fixedDo:2026-10-29"
+        }
+      }
+    },
+    {
+      "name": "input",
+      "input": {
+        "field": "plan.description",
+        "value": ""
+      }
+    },
+    {
+      "name": "input",
+      "input": {
+        "field": "plan.description",
+        "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。\n输入仍然可见 0"
+      }
+    }
+  ],
+  "afterTrace": [
+    {
+      "name": "input",
+      "input": {
+        "field": "plan.description",
+        "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。\n输入仍然可见 0"
+      }
+    },
+    {
+      "name": "control",
+      "input": {
+        "id": "n-P69atC",
+        "scene": {
+          "screen": "edit-plan",
+          "entry": {
+            "screen": "fixed-detail",
+            "entry": {
+              "screen": "plans"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "present",
+      "input": {
+        "from": {
+          "screen": "edit-plan",
+          "entry": {
+            "screen": "fixed-detail",
+            "entry": {
+              "screen": "plans"
+            }
+          }
+        },
+        "to": {
+          "screen": "fixed-detail",
+          "entry": {
+            "screen": "plans"
+          }
+        },
+        "activeIdentity": {
+          "planId": "acceptance-1470fc99-matrix-0-1:fixedDo",
+          "recordId": "acceptance-1470fc99-matrix-0-1:record:fixedDo:2026-10-29"
+        }
+      }
+    }
+  ],
+  "samples": [
+    {
+      "at": "2026-10-29T18:10:51.068Z",
+      "bounds": [
+        99,
+        175,
+        165,
+        241
+      ]
+    },
+    {
+      "at": "2026-10-29T18:10:51.407Z",
+      "bounds": [
+        99,
+        175,
+        165,
+        241
+      ]
+    },
+    {
+      "at": "2026-10-29T18:10:51.767Z",
+      "bounds": [
+        99,
+        175,
+        165,
+        241
+      ]
+    },
+    {
+      "at": "2026-10-29T18:10:52.157Z",
+      "bounds": [
+        99,
+        175,
+        165,
+        241
+      ]
+    }
+  ],
+  "observation": "Read the preserved failure state without reload; one real native click after stable visible bounds emitted the return event and reached the required target."
+}

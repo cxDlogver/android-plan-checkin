@@ -1,0 +1,25 @@
+{
+  "assertions": [
+    {
+      "target": "case:TC-REG-CONTAINERS:entry:209",
+      "expected": {
+        "given": {
+          "stateId": null,
+          "setup": "在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "通过新视图触发原有提交、返回、确认和取消事件",
+          "actor": "验收者"
+        },
+        "checks": "all applicable checks observed"
+      },
+      "actual": {
+        "error": "Error: Cannot find module '../../.cache/ui-tests/tests/ui/oracle.js'\nRequire stack:\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\tests\\ui\\harness.test.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\accept-p05.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\container-boundary.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\supplementary.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1564:15)\n    at wrapResolveFilename (node:internal/modules/cjs/loader:1118:27)\n    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1142:10)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1169:12)\n    at Module._load (node:internal/modules/cjs/loader:1341:5)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)\n    at Module.require (node:internal/modules/cjs/loader:1674:12)\n    at require (node:internal/modules/helpers:157:16)\n    at Object.<anonymous> (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\tests\\ui\\harness.test.cjs:3:91)\n    at Module._compile (node:internal/modules/cjs/loader:1929:14)",
+        "givenObserved": "Prepared the independent fixture described by 在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+        "operationObserved": "通过新视图触发原有提交、返回、确认和取消事件"
+      },
+      "verdict": "blocked"
+    }
+  ]
+}

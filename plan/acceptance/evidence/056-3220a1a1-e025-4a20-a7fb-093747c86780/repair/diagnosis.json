@@ -1,0 +1,38 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-T101",
+    "TC-T102",
+    "TC-T103",
+    "TC-T111",
+    "TC-T112",
+    "TC-T113"
+  ],
+  "reason": "The actual T111 operation, native visual comparison and Node functional comparison passed, but the collector selects call-trace evidence only by filenames containing trace/observations/summary. Actual controller and native traces exist in runtime-frame/native-frame but no matching trace file was exported. Only checks explicitly requiring that form are affected. Preserve the executed script bytes and unaffected earlier evidence; export actual trace deltas and legally replay the three-step entry before reaccepting visit 56.",
+  "evidence": [
+    {
+      "form": "assertion-report",
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/assertions.json",
+      "sha256": "596a7802a0eab9a9a140b0ca021a03cb8411c8315a7423045b03710ad28b3331",
+      "description": "Actual retained assertions.json from the blocked visit."
+    },
+    {
+      "form": "state-snapshot",
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/runtime-frame.json",
+      "sha256": "397d415063901345f2765b32c4b727d6bfea2d51982207165df0e25344cd90de",
+      "description": "Actual retained runtime-frame.json from the blocked visit."
+    },
+    {
+      "form": "state-snapshot",
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/native-frame.json",
+      "sha256": "c08c0e8a6645602e307a381608b1d5cf6cad92b672115f2fa424e9ac9622cf49",
+      "description": "Actual retained native-frame.json from the blocked visit."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/repair/run-session.before.cjs",
+      "sha256": "bf4d508add2b651e584a88eb4961d053dfb9b61ec99d231322e271ef8fb22924",
+      "description": "Frozen bytes of the actual driver executed for this visit and the prior unaffected visits."
+    }
+  ]
+}

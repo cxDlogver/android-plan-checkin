@@ -6,6 +6,13 @@ export const readJSON=(file:string):any=>JSON.parse(fs.readFileSync(file,'utf8')
 export const sha256=(file:string)=>crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 export const spec=()=>{const manifest=readJSON(path.join(specificationRoot,'manifest.json'));return {manifest,library:readJSON(path.join(specificationRoot,'library.json')),rules:readJSON(path.join(specificationRoot,'rules.json')),documents:manifest.documents.map((d:any)=>readJSON(path.join(specificationRoot,d.file)))};};
 export function flatten(node:any):any[]{return [node,...(node.children||[]).flatMap(flatten)];}
+export function completeNativeBounds(bounds:number[]|null,logicalSize:{width:number;height:number},pixelRatio:number,visible:{top:number;bottom:number}){
+ if(!bounds||bounds.length!==4||!bounds.every(Number.isFinite)||!Number.isFinite(pixelRatio)||pixelRatio<=0||logicalSize.width<=0||logicalSize.height<=0)throw Error('Missing actual control bounds');
+ const [left,top,right,bottom]=bounds as [number,number,number,number],epsilon=1.001;
+ if(right-left+epsilon<logicalSize.width*pixelRatio||bottom-top+epsilon<logicalSize.height*pixelRatio)throw Error('Native control bounds are clipped');
+ if(top<visible.top-epsilon||bottom>visible.bottom+epsilon)throw Error('Native control is covered by the header or keyboard');
+ return true;
+}
 export function parameter(value:unknown,type:string,format:string):string{
   if(type==='integer'||type==='number'){if(typeof value!=='number'||!Number.isFinite(value)||type==='integer'&&!Number.isInteger(value))throw Error('Invalid numeric test input');return format==='0%'?Math.round(value*100)+'%':String(value);}
   if(type==='string'){if(typeof value!=='string')throw Error('Invalid string test input');return value;}

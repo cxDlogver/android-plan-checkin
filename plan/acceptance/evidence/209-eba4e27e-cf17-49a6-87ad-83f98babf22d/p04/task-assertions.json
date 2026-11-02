@@ -1,0 +1,100 @@
+{
+  "assertions": [
+    {
+      "target": "task:P04:0",
+      "label": "忙碌重复点击只执行一次",
+      "expected": 1,
+      "actual": 1,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "新建命令与输入接线",
+      "expected": {
+        "kind": "CreatePlan",
+        "name": "P04 新计划",
+        "type": "fixed",
+        "direction": "do",
+        "mask": 1
+      },
+      "actual": {
+        "kind": "CreatePlan",
+        "name": "P04 新计划",
+        "type": "fixed",
+        "direction": "do",
+        "mask": 1
+      },
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:1",
+      "label": "新建固定日期正式节点",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "成功进入新建对象详情",
+      "expected": "/plans/[planId]",
+      "actual": "/plans/[planId]",
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "拒绝没有成功路由",
+      "expected": 0,
+      "actual": 0,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "拒绝保留实际输入",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "取消类型切换保持固定表单",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "真实草稿保护取消后输入仍在",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:1",
+      "label": "每周目标节点和保留名称",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "每周目标命令保持CreatePlan",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:0",
+      "label": "编辑实际changes与回退",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    },
+    {
+      "target": "task:P04:1",
+      "label": "编辑正式视图",
+      "expected": true,
+      "actual": true,
+      "verdict": "passed"
+    }
+  ]
+}

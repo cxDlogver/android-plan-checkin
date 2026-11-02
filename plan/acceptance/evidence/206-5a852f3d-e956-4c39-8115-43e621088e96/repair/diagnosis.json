@@ -1,0 +1,35 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-G-LAYOUT",
+    "TC-G-VISUAL",
+    "TC-G-SCOPE"
+  ],
+  "reason": "The retained native trace contains no n-P69atC return event after the matrix scrolled the header into view; four stable bounds observations followed by one real click emitted exactly one return event and reached S12. The fixture driver accepted element existence before scroll settlement. Add visible stable-bound synchronization only to isolated layout/visual fixture seeks. Review of the same entry script also found that the later scope collector receives 210 historical primary attempts for 205 required visits, including 3 aborted attempts without layout reports; select the latest closed passed attempt per required visit only for that future fixture. Preserve all original attempts and all independent product assertions/expectations.",
+  "evidence": [
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/diagnostic-observations.json",
+      "sha256": "dfb3f8da28f0a39ff08d502d3920f6c7e055df24e0c95d950de6c92ff6c6f112",
+      "description": "Actual retained state, absent first return event, stable bounds and successful single native return click."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/review-baseline.json",
+      "sha256": "7c4278d3351d2dc714af7657d1d323f879b885dcf430f85bb65668107b1f09b6",
+      "description": "Canonical valid visits, source hashes and future collector history discrepancy; no future Test Case was executed."
+    },
+    {
+      "form": "screenshot",
+      "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/retained-before.png",
+      "sha256": "ba4bf00967110e62e7c526148db002d9b9314de8963aaba2b86d9a9141c7c5a0",
+      "description": "Actual retained failure screen."
+    },
+    {
+      "form": "screenshot",
+      "path": "plan/acceptance/evidence/206-5a852f3d-e956-4c39-8115-43e621088e96/repair/settled-return-after.png",
+      "sha256": "50601f58d74a1053f10fa6ed4bb4dd77e8d828a642a06d79d6409de0653ff42a",
+      "description": "Actual target reached after one stable native return click."
+    }
+  ]
+}

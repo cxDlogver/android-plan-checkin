@@ -1,0 +1,1659 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "TC-REG-CONTAINERS",
+  "title": "呈现提取保留提交、返回和草稿保护",
+  "source": {
+    "path": "plan/acceptance/test-cases.json",
+    "definitionHash": "809b6ed22a47b94605e356c4e7264305f3cc09bef83e2c4824c233036482a9e7"
+  },
+  "definition": {
+    "id": "TC-REG-CONTAINERS",
+    "title": "呈现提取保留提交、返回和草稿保护",
+    "kind": "regression",
+    "requirementId": null,
+    "given": {
+      "stateId": null,
+      "setup": "在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+      "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+    },
+    "operation": {
+      "label": "通过新视图触发原有提交、返回、确认和取消事件",
+      "actor": "验收者"
+    },
+    "expected": {
+      "stateId": null,
+      "conclusion": "保存、取消、返回和草稿保护保持原有行为；重复触发不会重复提交，导航、加载更多和日期选择仍传递正确事件与参数。"
+    },
+    "dataProfileId": "isolated-checks",
+    "mocks": [
+      {
+        "boundary": "execute",
+        "purpose": "隔离真实容器外部execute依赖，不替换被测保存、草稿保护、视图或事件。",
+        "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+        "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+        "response": {
+          "mode": "context",
+          "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得execute响应。",
+          "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+        },
+        "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+        "restore": "当前场景结束后恢复外部端口并清空spy。"
+      },
+      {
+        "boundary": "router",
+        "purpose": "隔离真实容器外部router依赖，不替换被测保存、草稿保护、视图或事件。",
+        "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+        "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+        "response": {
+          "mode": "context",
+          "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得router响应。",
+          "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+        },
+        "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+        "restore": "当前场景结束后恢复外部端口并清空spy。"
+      },
+      {
+        "boundary": "confirm",
+        "purpose": "隔离真实容器外部confirm依赖，不替换被测保存、草稿保护、视图或事件。",
+        "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+        "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+        "response": {
+          "mode": "context",
+          "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得confirm响应。",
+          "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+        },
+        "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+        "restore": "当前场景结束后恢复外部端口并清空spy。"
+      },
+      {
+        "boundary": "queries",
+        "purpose": "隔离真实容器外部queries依赖，不替换被测保存、草稿保护、视图或事件。",
+        "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+        "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+        "response": {
+          "mode": "context",
+          "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得queries响应。",
+          "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+        },
+        "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+        "restore": "当前场景结束后恢复外部端口并清空spy。"
+      }
+    ],
+    "acceptance": {
+      "visual": {
+        "applicable": false,
+        "reason": "页面外观由视觉主用例检查，本例只回归存量事件行为。",
+        "checks": []
+      },
+      "functional": {
+        "applicable": true,
+        "reason": "核对视图提取可能直接影响的原有页面功能边界。",
+        "checks": [
+          {
+            "criterion": "新视图接入后，原页面的提交、导航、草稿保护、分页和日期选择事件保持原有契约。",
+            "oracle": "plan-form save、record-form save、plan-detail manage及draft.ts已读片段；独立预期为已有容器契约，不将UI浏览的场景跳转替换业务路由 导航、分页、日历事件的独立预期取C-TABS/C-PLANS/C-CALENDAR/C-DETAIL既有回调契约。",
+            "procedure": "挂载真实容器及真实新视图，依次触发新建/编辑/记录保存的成功与受控拒绝、确认取消、busy重复触发、dirty返回；仅替换外部execute/router/confirm，观察Envelope与路由调用；不替换save、useDraftGuard或视图事件处理。 使用开发宿主的最小Context注入作用域挂载；另触发tab、列表/历史加载更多、日历选中，核对clearPins、游标和选中/过滤重置，依赖查询返回由外部边界提供，不Mock被测事件处理。",
+            "evidence": [
+              {
+                "form": "call-trace",
+                "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+              },
+              {
+                "form": "state-snapshot",
+                "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+              },
+              {
+                "form": "assertion-report",
+                "description": "原有事件契约与新视图实际行为的逐项对照。"
+              }
+            ],
+            "sufficiency": "直接覆盖提取视图可能误接线的存量功能边界；不重测未修改的数据库事务、统计算法或完整业务矩阵。",
+            "testType": "script",
+            "environment": "native"
+          }
+        ]
+      }
+    },
+    "constraintIds": [],
+    "impactId": "I-CONTAINERS",
+    "dataProfile": {
+      "id": "isolated-checks",
+      "scope": "case",
+      "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+      "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+      "fields": [
+        {
+          "name": "responsiveCases",
+          "type": "array",
+          "mode": "context",
+          "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+          "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+          "source": {
+            "path": "../ui-spec/rules.json",
+            "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+            "locator": "/profiles/mobile"
+          }
+        },
+        {
+          "name": "longName",
+          "type": "string",
+          "mode": "literal",
+          "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+          "source": {
+            "path": "../source-resource/prd/设计还原需求文档.md",
+            "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+            "locator": "L47-L51"
+          }
+        },
+        {
+          "name": "progressInputs",
+          "type": "array",
+          "mode": "literal",
+          "value": [
+            0,
+            0.5,
+            1
+          ],
+          "source": {
+            "path": "../ui-spec/documents/02-今日.json",
+            "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+            "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+          }
+        }
+      ]
+    }
+  },
+  "stateGraph": {
+    "path": "../requirement-analysis/state-transitions.json",
+    "sha256": "38b76bcf0790fade4121d97ed947351a2cafb6d6f07aeb70410b48a0090618c5"
+  },
+  "givenState": null,
+  "expectedState": null,
+  "requiredVisits": [
+    209
+  ],
+  "execution": {
+    "status": "passed",
+    "actual": "全部必要访问与检查已经通过并登记。",
+    "evidence": [
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "assertion-report",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/assertions.json",
+        "sha256": "dd576e398cf31beb756704ed6b2c32f6e45975157763200872fdfe382420f3d0",
+        "description": "Independent expected/actual comparisons for this visit."
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "call-trace",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-boundary-summary.json",
+        "sha256": "661e10e1ed8754c680862fa8665c0d1514842ff923a09c5b628e7b369e564750",
+        "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "call-trace",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-observations.json",
+        "sha256": "d781b686ff0d5c3503677d3b97ddfbdca089bfac5b50d4155e07f207a2cd642b",
+        "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "call-trace",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p03/container-observations.json",
+        "sha256": "0a33b31ee2f9613eeb2e58d91ee141a5d381bda973a35c3a39272ec18ecd3146",
+        "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "call-trace",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p04/container-observations.json",
+        "sha256": "8ea444ba09990863740a1bcd0ffd54f0f12b2c0ea5f4ce8addfa4f9d29323483",
+        "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "call-trace",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p05/container-observations.json",
+        "sha256": "5e71bb54dbb945a75f9f57e6581afecd3614c8d5642252abeb10f2b17be046f8",
+        "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "call-trace",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p06/container-observations.json",
+        "sha256": "d3fb023f209f0543cd5df31a80226420a0f86a76c1cebf8288bacb656adc2dd0",
+        "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "state-snapshot",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-boundary-summary.json",
+        "sha256": "661e10e1ed8754c680862fa8665c0d1514842ff923a09c5b628e7b369e564750",
+        "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "state-snapshot",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p03/task-assertions.json",
+        "sha256": "ef4cf2bc12fafa5eaa678f88bec15fb7a180c3bcbb2840c408dda55f575a1a2c",
+        "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "state-snapshot",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p04/task-assertions.json",
+        "sha256": "155820ad1d21f2e7086b5cacb58f72ca51ecf4a0a7b5923866a5600ce0c7bb5a",
+        "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "state-snapshot",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p05/task-assertions.json",
+        "sha256": "6de2ddeb5ea9ab54905f766342f2f09d85d7f8b900778a407bae465b72ae9182",
+        "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "state-snapshot",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p06/task-assertions.json",
+        "sha256": "1d17419f61fd3836204444d6bf006108f1ed42108c427baf656fa47655b4fb5c",
+        "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+      },
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "form": "state-snapshot",
+        "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/task-assertions.json",
+        "sha256": "e429474fc35390cbfaf261c05699cd72f1a7cd66bb4bcb3443496ed7bcba42c3",
+        "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+      }
+    ],
+    "checks": [
+      {
+        "runId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+        "visitIndex": 209,
+        "aspect": "functional",
+        "checkIndex": 0,
+        "status": "passed",
+        "actual": "Executed the declared isolated fixture and retained its independent comparisons.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/assertions.json",
+            "sha256": "dd576e398cf31beb756704ed6b2c32f6e45975157763200872fdfe382420f3d0",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-boundary-summary.json",
+            "sha256": "661e10e1ed8754c680862fa8665c0d1514842ff923a09c5b628e7b369e564750",
+            "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-observations.json",
+            "sha256": "d781b686ff0d5c3503677d3b97ddfbdca089bfac5b50d4155e07f207a2cd642b",
+            "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p03/container-observations.json",
+            "sha256": "0a33b31ee2f9613eeb2e58d91ee141a5d381bda973a35c3a39272ec18ecd3146",
+            "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p04/container-observations.json",
+            "sha256": "8ea444ba09990863740a1bcd0ffd54f0f12b2c0ea5f4ce8addfa4f9d29323483",
+            "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p05/container-observations.json",
+            "sha256": "5e71bb54dbb945a75f9f57e6581afecd3614c8d5642252abeb10f2b17be046f8",
+            "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p06/container-observations.json",
+            "sha256": "d3fb023f209f0543cd5df31a80226420a0f86a76c1cebf8288bacb656adc2dd0",
+            "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+          },
+          {
+            "form": "state-snapshot",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-boundary-summary.json",
+            "sha256": "661e10e1ed8754c680862fa8665c0d1514842ff923a09c5b628e7b369e564750",
+            "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+          },
+          {
+            "form": "state-snapshot",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p03/task-assertions.json",
+            "sha256": "ef4cf2bc12fafa5eaa678f88bec15fb7a180c3bcbb2840c408dda55f575a1a2c",
+            "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+          },
+          {
+            "form": "state-snapshot",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p04/task-assertions.json",
+            "sha256": "155820ad1d21f2e7086b5cacb58f72ca51ecf4a0a7b5923866a5600ce0c7bb5a",
+            "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+          },
+          {
+            "form": "state-snapshot",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p05/task-assertions.json",
+            "sha256": "6de2ddeb5ea9ab54905f766342f2f09d85d7f8b900778a407bae465b72ae9182",
+            "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+          },
+          {
+            "form": "state-snapshot",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p06/task-assertions.json",
+            "sha256": "1d17419f61fd3836204444d6bf006108f1ed42108c427baf656fa47655b4fb5c",
+            "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+          },
+          {
+            "form": "state-snapshot",
+            "path": "evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/task-assertions.json",
+            "sha256": "e429474fc35390cbfaf261c05699cd72f1a7cd66bb4bcb3443496ed7bcba42c3",
+            "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+          }
+        ]
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "attemptId": "209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce",
+      "visitIndex": 209,
+      "definitionHash": "809b6ed22a47b94605e356c4e7264305f3cc09bef83e2c4824c233036482a9e7",
+      "definition": {
+        "id": "TC-REG-CONTAINERS",
+        "title": "呈现提取保留提交、返回和草稿保护",
+        "kind": "regression",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "通过新视图触发原有提交、返回、确认和取消事件",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "保存、取消、返回和草稿保护保持原有行为；重复触发不会重复提交，导航、加载更多和日期选择仍传递正确事件与参数。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [
+          {
+            "boundary": "execute",
+            "purpose": "隔离真实容器外部execute依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得execute响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "router",
+            "purpose": "隔离真实容器外部router依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得router响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "confirm",
+            "purpose": "隔离真实容器外部confirm依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得confirm响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "queries",
+            "purpose": "隔离真实容器外部queries依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得queries响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          }
+        ],
+        "acceptance": {
+          "visual": {
+            "applicable": false,
+            "reason": "页面外观由视觉主用例检查，本例只回归存量事件行为。",
+            "checks": []
+          },
+          "functional": {
+            "applicable": true,
+            "reason": "核对视图提取可能直接影响的原有页面功能边界。",
+            "checks": [
+              {
+                "criterion": "新视图接入后，原页面的提交、导航、草稿保护、分页和日期选择事件保持原有契约。",
+                "oracle": "plan-form save、record-form save、plan-detail manage及draft.ts已读片段；独立预期为已有容器契约，不将UI浏览的场景跳转替换业务路由 导航、分页、日历事件的独立预期取C-TABS/C-PLANS/C-CALENDAR/C-DETAIL既有回调契约。",
+                "procedure": "挂载真实容器及真实新视图，依次触发新建/编辑/记录保存的成功与受控拒绝、确认取消、busy重复触发、dirty返回；仅替换外部execute/router/confirm，观察Envelope与路由调用；不替换save、useDraftGuard或视图事件处理。 使用开发宿主的最小Context注入作用域挂载；另触发tab、列表/历史加载更多、日历选中，核对clearPins、游标和选中/过滤重置，依赖查询返回由外部边界提供，不Mock被测事件处理。",
+                "evidence": [
+                  {
+                    "form": "call-trace",
+                    "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+                  },
+                  {
+                    "form": "state-snapshot",
+                    "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "原有事件契约与新视图实际行为的逐项对照。"
+                  }
+                ],
+                "sufficiency": "直接覆盖提取视图可能误接线的存量功能边界；不重测未修改的数据库事务、统计算法或完整业务矩阵。",
+                "testType": "script",
+                "environment": "native"
+              }
+            ]
+          }
+        },
+        "constraintIds": [],
+        "impactId": "I-CONTAINERS",
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+      "operationObserved": "通过新视图触发原有提交、返回、确认和取消事件",
+      "targetObserved": "Blocked; inspect the actual error and retained scene evidence.",
+      "outcome": "blocked",
+      "startedAt": "2026-10-30T05:10:25.031Z",
+      "finishedAt": "2026-10-30T05:14:17.653Z",
+      "definitionCurrent": true,
+      "checks": [],
+      "blockage": {
+        "reason": "Cannot find module '../../.cache/ui-tests/tests/ui/oracle.js'\nRequire stack:\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\tests\\ui\\harness.test.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\accept-p05.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\container-boundary.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\supplementary.cjs\n- F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/assertions.json",
+            "sha256": "48850c88a95f5806f73bf3732e38587522cb78e565a1188dbb852aa1b567390b",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/browse-host-restored.png",
+            "sha256": "d9e8d11779ec22446aa3e7d9c40b0fd035caf64c0c82e0161014282d21c6bd49",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/calendar-next.png",
+            "sha256": "143251f7782309cedefeb890e8f51e45138a281fc141ca7b6a1f94c5e82bd67e",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/calendar.png",
+            "sha256": "6003da1d38779c0764844227b0b90d7c5105485e68edc0142be65f69b075510e",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/controls-smoke.png",
+            "sha256": "73b742932a81487c06dcbdd87f5f6c9d1903f9e19ac9bec9448cd62367ea51f5",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/injected-today.png",
+            "sha256": "02994ff3fcef2cdd20b1a7a5a5223568434e2e4c0bcd6228cbf94b488bdc9861",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/navigation.png",
+            "sha256": "eed5afcd439becbd21d71004b50a7cf58381dc196e27b6dcf1e89e6dcfb6ba2e",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/plans-paused.png",
+            "sha256": "f408c1a092b6e22f484464b02feee87daee053596466aad6a9b24302257dd821",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/plans.png",
+            "sha256": "c84b532a55336c232a511f355e132ea1d4e60f6fd236374741b6aa3b7749cc3c",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/today-open.png",
+            "sha256": "329b2be4a16a5da283ca880bbd0acc291e9f39097e95f10f39ab28c78018ddae",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p03/today.png",
+            "sha256": "329b2be4a16a5da283ca880bbd0acc291e9f39097e95f10f39ab28c78018ddae",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/create-busy.png",
+            "sha256": "be7a50e6f77edb42d8633fff6a8eb0ab07d760d2ce08cc36f37fca5a64c35474",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/create-rejected.png",
+            "sha256": "6595a7fa5a22a29498d53a2230f8aadce829a91d716131854dcd4e1601849b0a",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/create-success.png",
+            "sha256": "52bc4e1f055772f6c259c8b3253f8a51a9be787049536c3d75621d536c08ae34",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/dirty-back-cancelled.png",
+            "sha256": "52d8241d08a65f3a351ad435acce93d956b735da553c3d68705c1ff181db0ece",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/edit-plan-11.png",
+            "sha256": "58c033ad322ef080deabfaeef59b27c8d9838a19e231ac80f0b31af09a4ef86d",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/edit-saved.png",
+            "sha256": "9435dd5d53403bf81c4d0b7b971740d7a06b6479da79ed1ec5dca22f434a5c8c",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/host-restored.png",
+            "sha256": "131f637a3e15ef9deb2d49ec3a3481f56e9784091cca352e31004425c167bc45",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/new-plan-0.png",
+            "sha256": "c2b5e3d135ae4758fd40aa5539c922648aed90a7dfa757df202238bfb416036e",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/new-plan-3.png",
+            "sha256": "ba2e463928d44bfaccdcef83b1a519a398ea4d33b9eb999bd184cb9e230acdf8",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/new-plan-5.png",
+            "sha256": "1e3bdd29e100153f63267eded1edf91e38e134ab735b451c9afd77f10e8e98c5",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/new-plan-8.png",
+            "sha256": "1e3bdd29e100153f63267eded1edf91e38e134ab735b451c9afd77f10e8e98c5",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/type-cancelled.png",
+            "sha256": "52d8241d08a65f3a351ad435acce93d956b735da553c3d68705c1ff181db0ece",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/weekly-saved.png",
+            "sha256": "ea3ccfa8efcf01c1537489ee0b176f5c48be83bee7e0dd5b554d32cc446e8e04",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p04/weekly-type.png",
+            "sha256": "f18c6dcc1851813c28e363477d6d4e077b5b9c1c92e5bde736c06be787a8d465",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p05/controls-smoke.png",
+            "sha256": "a3b5d06e0052e4651612365e162399a94bc9d17bfe7902a7270101af6ba305ad",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p05/failure-screen.png",
+            "sha256": "9727eb79e1dba2335d266feccf178b091937896c2211ebd7d60d50437186b82b",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p05/failure-state.png",
+            "sha256": "6d891d549d79cbeb43f4578d93004830201b35e60d679e323846a4bbde54ab71",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p05/injected-today.png",
+            "sha256": "82141df832313c57f08fc4a7490c1dc30e68b3d271ce6d7ea8f84accbb89627a",
+            "description": "Actual scene when preparation or observation was blocked."
+          },
+          {
+            "form": "screenshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/p05/navigation.png",
+            "sha256": "88cef3777896864759869f6c3b02aa7a0218deb3d531afcbe49777e25bdbcb53",
+            "description": "Actual scene when preparation or observation was blocked."
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "209-eba4e27e-cf17-49a6-87ad-83f98babf22d",
+      "visitIndex": 209,
+      "definitionHash": "809b6ed22a47b94605e356c4e7264305f3cc09bef83e2c4824c233036482a9e7",
+      "definition": {
+        "id": "TC-REG-CONTAINERS",
+        "title": "呈现提取保留提交、返回和草稿保护",
+        "kind": "regression",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "通过新视图触发原有提交、返回、确认和取消事件",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "保存、取消、返回和草稿保护保持原有行为；重复触发不会重复提交，导航、加载更多和日期选择仍传递正确事件与参数。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [
+          {
+            "boundary": "execute",
+            "purpose": "隔离真实容器外部execute依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得execute响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "router",
+            "purpose": "隔离真实容器外部router依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得router响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "confirm",
+            "purpose": "隔离真实容器外部confirm依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得confirm响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "queries",
+            "purpose": "隔离真实容器外部queries依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得queries响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          }
+        ],
+        "acceptance": {
+          "visual": {
+            "applicable": false,
+            "reason": "页面外观由视觉主用例检查，本例只回归存量事件行为。",
+            "checks": []
+          },
+          "functional": {
+            "applicable": true,
+            "reason": "核对视图提取可能直接影响的原有页面功能边界。",
+            "checks": [
+              {
+                "criterion": "新视图接入后，原页面的提交、导航、草稿保护、分页和日期选择事件保持原有契约。",
+                "oracle": "plan-form save、record-form save、plan-detail manage及draft.ts已读片段；独立预期为已有容器契约，不将UI浏览的场景跳转替换业务路由 导航、分页、日历事件的独立预期取C-TABS/C-PLANS/C-CALENDAR/C-DETAIL既有回调契约。",
+                "procedure": "挂载真实容器及真实新视图，依次触发新建/编辑/记录保存的成功与受控拒绝、确认取消、busy重复触发、dirty返回；仅替换外部execute/router/confirm，观察Envelope与路由调用；不替换save、useDraftGuard或视图事件处理。 使用开发宿主的最小Context注入作用域挂载；另触发tab、列表/历史加载更多、日历选中，核对clearPins、游标和选中/过滤重置，依赖查询返回由外部边界提供，不Mock被测事件处理。",
+                "evidence": [
+                  {
+                    "form": "call-trace",
+                    "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+                  },
+                  {
+                    "form": "state-snapshot",
+                    "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "原有事件契约与新视图实际行为的逐项对照。"
+                  }
+                ],
+                "sufficiency": "直接覆盖提取视图可能误接线的存量功能边界；不重测未修改的数据库事务、统计算法或完整业务矩阵。",
+                "testType": "script",
+                "environment": "native"
+              }
+            ]
+          }
+        },
+        "constraintIds": [],
+        "impactId": "I-CONTAINERS",
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。 Retained 22 exact actual native assertions from complete independent container fixtures; remaining fixtures and all original additional callbacks execute now.",
+      "operationObserved": "通过新视图触发原有提交、返回、确认和取消事件",
+      "targetObserved": "Native checks completed; the actual submission gate rejected extra destination transport fields.",
+      "outcome": "blocked",
+      "startedAt": "2026-10-30T05:32:45.589Z",
+      "finishedAt": "2026-10-30T05:39:55.387Z",
+      "definitionCurrent": true,
+      "checks": [],
+      "blockage": {
+        "reason": "Actual submit schema rejection: destination metadata was incorrectly emitted in run.files; native checks and original evidence are preserved.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/submission-blockage.json",
+            "sha256": "8d7c0030da65846ec40b0dc12edcc25f8e195e62bd76d78f24e05c3ee18c591d",
+            "description": "Actual submission validation failure."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/submission-error.json",
+            "sha256": "682ac446636b69a2131c6efbd944a2075c2d1ed7756187d3df663dbd34a1e703",
+            "description": "Actual gate error, process log and original passed native candidate."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/assertions.json",
+            "sha256": "dd576e398cf31beb756704ed6b2c32f6e45975157763200872fdfe382420f3d0",
+            "description": "Unchanged completed native comparisons, all passed."
+          }
+        ]
+      }
+    },
+    {
+      "attemptId": "209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6",
+      "visitIndex": 209,
+      "definitionHash": "809b6ed22a47b94605e356c4e7264305f3cc09bef83e2c4824c233036482a9e7",
+      "definition": {
+        "id": "TC-REG-CONTAINERS",
+        "title": "呈现提取保留提交、返回和草稿保护",
+        "kind": "regression",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "通过新视图触发原有提交、返回、确认和取消事件",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "保存、取消、返回和草稿保护保持原有行为；重复触发不会重复提交，导航、加载更多和日期选择仍传递正确事件与参数。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [
+          {
+            "boundary": "execute",
+            "purpose": "隔离真实容器外部execute依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得execute响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "router",
+            "purpose": "隔离真实容器外部router依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得router响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "confirm",
+            "purpose": "隔离真实容器外部confirm依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得confirm响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          },
+          {
+            "boundary": "queries",
+            "purpose": "隔离真实容器外部queries依赖，不替换被测保存、草稿保护、视图或事件。",
+            "trigger": "真实控件事件触发后按协议响应；核对次数和参数。",
+            "lifetime": "当前独立容器fixture；请求生命周期保留busy/dirty状态。",
+            "response": {
+              "mode": "context",
+              "resolve": "从该容器合法输入及所声明成功/受控拒绝/取消场景取得queries响应。",
+              "oracle": "依据已登记容器接口及fixture期望计算；不读取被测输出反求预期。"
+            },
+            "verification": "记录真实调用参数、次数和动作前后状态，禁止内部处理函数被替换。",
+            "restore": "当前场景结束后恢复外部端口并清空spy。"
+          }
+        ],
+        "acceptance": {
+          "visual": {
+            "applicable": false,
+            "reason": "页面外观由视觉主用例检查，本例只回归存量事件行为。",
+            "checks": []
+          },
+          "functional": {
+            "applicable": true,
+            "reason": "核对视图提取可能直接影响的原有页面功能边界。",
+            "checks": [
+              {
+                "criterion": "新视图接入后，原页面的提交、导航、草稿保护、分页和日期选择事件保持原有契约。",
+                "oracle": "plan-form save、record-form save、plan-detail manage及draft.ts已读片段；独立预期为已有容器契约，不将UI浏览的场景跳转替换业务路由 导航、分页、日历事件的独立预期取C-TABS/C-PLANS/C-CALENDAR/C-DETAIL既有回调契约。",
+                "procedure": "挂载真实容器及真实新视图，依次触发新建/编辑/记录保存的成功与受控拒绝、确认取消、busy重复触发、dirty返回；仅替换外部execute/router/confirm，观察Envelope与路由调用；不替换save、useDraftGuard或视图事件处理。 使用开发宿主的最小Context注入作用域挂载；另触发tab、列表/历史加载更多、日历选中，核对clearPins、游标和选中/过滤重置，依赖查询返回由外部边界提供，不Mock被测事件处理。",
+                "evidence": [
+                  {
+                    "form": "call-trace",
+                    "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+                  },
+                  {
+                    "form": "state-snapshot",
+                    "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "原有事件契约与新视图实际行为的逐项对照。"
+                  }
+                ],
+                "sufficiency": "直接覆盖提取视图可能误接线的存量功能边界；不重测未修改的数据库事务、统计算法或完整业务矩阵。",
+                "testType": "script",
+                "environment": "native"
+              }
+            ]
+          }
+        },
+        "constraintIds": [],
+        "impactId": "I-CONTAINERS",
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 在隔离测试宿主挂载真实页面容器和新视图，提供合法计划、记录及可控的外部提交、导航和确认结果。 Retained 57 exact actual native assertions from complete independent container fixtures; remaining fixtures and all original additional callbacks execute now.",
+      "operationObserved": "通过新视图触发原有提交、返回、确认和取消事件",
+      "targetObserved": "Recorded results for the actual independent fixture TC-REG-CONTAINERS.",
+      "outcome": "passed",
+      "startedAt": "2026-10-30T06:04:01.348Z",
+      "finishedAt": "2026-10-30T06:05:26.267Z",
+      "definitionCurrent": true,
+      "checks": [
+        {
+          "aspect": "functional",
+          "checkIndex": 0,
+          "status": "passed",
+          "observation": "Executed the declared isolated fixture and retained its independent comparisons.",
+          "comparisons": [
+            {
+              "expected": true,
+              "actual": true,
+              "verdict": "passed"
+            }
+          ],
+          "evidence": [
+            {
+              "form": "assertion-report",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/assertions.json",
+              "sha256": "dd576e398cf31beb756704ed6b2c32f6e45975157763200872fdfe382420f3d0",
+              "description": "Independent expected/actual comparisons for this visit."
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-boundary-summary.json",
+              "sha256": "661e10e1ed8754c680862fa8665c0d1514842ff923a09c5b628e7b369e564750",
+              "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-observations.json",
+              "sha256": "d781b686ff0d5c3503677d3b97ddfbdca089bfac5b50d4155e07f207a2cd642b",
+              "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p03/container-observations.json",
+              "sha256": "0a33b31ee2f9613eeb2e58d91ee141a5d381bda973a35c3a39272ec18ecd3146",
+              "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p04/container-observations.json",
+              "sha256": "8ea444ba09990863740a1bcd0ffd54f0f12b2c0ea5f4ce8addfa4f9d29323483",
+              "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p05/container-observations.json",
+              "sha256": "5e71bb54dbb945a75f9f57e6581afecd3614c8d5642252abeb10f2b17be046f8",
+              "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p06/container-observations.json",
+              "sha256": "d3fb023f209f0543cd5df31a80226420a0f86a76c1cebf8288bacb656adc2dd0",
+              "description": "提交、确认、返回、导航、分页和日期选择的实际调用时机、次数及参数。"
+            },
+            {
+              "form": "state-snapshot",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/container-boundary-summary.json",
+              "sha256": "661e10e1ed8754c680862fa8665c0d1514842ff923a09c5b628e7b369e564750",
+              "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+            },
+            {
+              "form": "state-snapshot",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p03/task-assertions.json",
+              "sha256": "ef4cf2bc12fafa5eaa678f88bec15fb7a180c3bcbb2840c408dda55f575a1a2c",
+              "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+            },
+            {
+              "form": "state-snapshot",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p04/task-assertions.json",
+              "sha256": "155820ad1d21f2e7086b5cacb58f72ca51ecf4a0a7b5923866a5600ce0c7bb5a",
+              "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+            },
+            {
+              "form": "state-snapshot",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p05/task-assertions.json",
+              "sha256": "6de2ddeb5ea9ab54905f766342f2f09d85d7f8b900778a407bae465b72ae9182",
+              "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+            },
+            {
+              "form": "state-snapshot",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/p06/task-assertions.json",
+              "sha256": "1d17419f61fd3836204444d6bf006108f1ed42108c427baf656fa47655b4fb5c",
+              "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+            },
+            {
+              "form": "state-snapshot",
+              "path": "plan/acceptance/evidence/209-4c6b315b-f800-4e96-9ff0-63f38d2fd5e6/task-assertions.json",
+              "sha256": "e429474fc35390cbfaf261c05699cd72f1a7cd66bb4bcb3443496ed7bcba42c3",
+              "description": "输入、未保存内容、所选日期和分页位置在动作前后的状态。"
+            }
+          ]
+        }
+      ],
+      "blockage": null
+    }
+  ],
+  "repairs": [
+    {
+      "attemptId": "209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce",
+      "visitIndex": 209,
+      "affectedCaseIds": [
+        "TC-REG-CONTAINERS"
+      ],
+      "category": "harness",
+      "status": "resolved",
+      "diagnosis": {
+        "reason": "P05 imports the entire legacy tests/ui/harness.test.cjs merely to call assertNativeSmoke. Its unrelated top-level unit-test imports still require the deleted .cache tree, so the real controls were observed but assertion loading failed. Preserve the exact original exported eight-assertion function, load only that export with explicit current evidence directory, and keep all P05/container assertions byte identical. Independently retain complete native P03/P04 fixtures (10+12 passed assertions), then execute only P05/P06 and all original additional callbacks. Do not recreate .cache or modify product/requirements/planning originals.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/assertions.json",
+            "sha256": "48850c88a95f5806f73bf3732e38587522cb78e565a1188dbb852aa1b567390b",
+            "description": "Actual missing-cache require stack."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/container-checkpoint.json",
+            "sha256": "85c978b801023608244e9c783e7dcabfa1638d58c36347934782fbc0ada09186",
+            "description": "Exact completed P03/P04 native evidence and unchanged dependency hashes."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "tests/ui/harness.test.cjs",
+            "sha256": "90e1f261f00ace7583a49fa25f2cf49f60ce0102e3c7e1b81a869ca6d3e92eab",
+            "description": "Eight independent native smoke assertions and unrelated top-level cache imports."
+          }
+        ],
+        "standardSources": []
+      },
+      "resolution": {
+        "observation": "P05 now loads only the exact original exported assertNativeSmoke function, preserving all eight independent expectations. It does not execute unrelated top-level unit-test cache imports or global exit handlers; actual assertion output goes to the current P05 evidence folder. Generated P05 and container source inverse transformations prove every independent assertion byte unchanged. The actual retained native controls/container reports satisfy all eight original checks; eight separately altered observations are correctly rejected. Fourteen dependency/checkpoint/expectation boundary checks passed. Complete P03/P04 native fixtures retain 10+12 independently rechecked actual comparisons with exact sources, capture files and prior process log. Only P05/P06 and all original additional callback checks will execute now. All 209 prior valid visits, product files, original source assertions, requirements and planning originals remain unchanged. The cache directory stays deleted. Original failures remain; this resolution does not pass R20.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/repair-assertions.json",
+            "sha256": "5e21be9acbeace1e84c69c75782b34866daebb60f653f5623297fd6b3d1285ae",
+            "description": "repair-assertions.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/harness-verification.json",
+            "sha256": "5b045d1bd57e2e37296d0b36c92e13813847453b71e4fdd015098ac357194884",
+            "description": "harness-verification.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/verify-container-resume.cjs",
+            "sha256": "2efc08433a23bf05e9bb249ed01b79b31d61cd4e5703e02eff0eed08a5a72e21",
+            "description": "verify-container-resume.cjs"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/retained-native-smoke-comparison.json",
+            "sha256": "2fb5ce1ea1fa651d00a162815ba194e73e6f443295bc1c7d5892bfc19f6c4384",
+            "description": "retained-native-smoke-comparison.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/container-checkpoint.json",
+            "sha256": "85c978b801023608244e9c783e7dcabfa1638d58c36347934782fbc0ada09186",
+            "description": "container-checkpoint.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/container-resume-functions.cjs",
+            "sha256": "640ed6025f7cc50460ea48a149805a172a7416ae4a6f84c231ea801f602bcb5b",
+            "description": "container-resume-functions.cjs"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/source-provenance.json",
+            "sha256": "76eee920487725d54eea9226922a00908aa737807434c81b6de7710917675af4",
+            "description": "source-provenance.json"
+          }
+        ],
+        "changedFiles": [
+          {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "0072f2de11f07d3a3a44e971870ccd89a0625ed2f110f024094f87d424cca7c4"
+          },
+          {
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/container-checkpoint.json",
+            "sha256": "85c978b801023608244e9c783e7dcabfa1638d58c36347934782fbc0ada09186"
+          }
+        ],
+        "harnessArchive": {
+          "original": {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "904bf13705aa7f35d6829f9c6d31ebe46ec80fc908ec86fda4e47b307c3defa5"
+          },
+          "archive": {
+            "path": "plan/acceptance/evidence/209-ddcf79ef-d1dc-438a-85cc-95da2041e6ce/repair/run-session.before.cjs",
+            "sha256": "904bf13705aa7f35d6829f9c6d31ebe46ec80fc908ec86fda4e47b307c3defa5"
+          },
+          "unaffectedCaseIds": [
+            "TC-G-EVIDENCE",
+            "TC-G-LAYOUT",
+            "TC-G-SCOPE",
+            "TC-G-VISUAL",
+            "TC-T001",
+            "TC-T002",
+            "TC-T003",
+            "TC-T004",
+            "TC-T005",
+            "TC-T006",
+            "TC-T007",
+            "TC-T008",
+            "TC-T009",
+            "TC-T010",
+            "TC-T011",
+            "TC-T012",
+            "TC-T013",
+            "TC-T014",
+            "TC-T015",
+            "TC-T016",
+            "TC-T017",
+            "TC-T018",
+            "TC-T019",
+            "TC-T020",
+            "TC-T021",
+            "TC-T022",
+            "TC-T023",
+            "TC-T024",
+            "TC-T025",
+            "TC-T026",
+            "TC-T027",
+            "TC-T028",
+            "TC-T029",
+            "TC-T030",
+            "TC-T031",
+            "TC-T032",
+            "TC-T033",
+            "TC-T034",
+            "TC-T035",
+            "TC-T036",
+            "TC-T037",
+            "TC-T038",
+            "TC-T039",
+            "TC-T040",
+            "TC-T041",
+            "TC-T042",
+            "TC-T043",
+            "TC-T044",
+            "TC-T045",
+            "TC-T046",
+            "TC-T047",
+            "TC-T048",
+            "TC-T049",
+            "TC-T050",
+            "TC-T051",
+            "TC-T052",
+            "TC-T053",
+            "TC-T054",
+            "TC-T055",
+            "TC-T056",
+            "TC-T057",
+            "TC-T058",
+            "TC-T059",
+            "TC-T060",
+            "TC-T061",
+            "TC-T062",
+            "TC-T063",
+            "TC-T064",
+            "TC-T065",
+            "TC-T066",
+            "TC-T067",
+            "TC-T068",
+            "TC-T069",
+            "TC-T070",
+            "TC-T071",
+            "TC-T072",
+            "TC-T073",
+            "TC-T074",
+            "TC-T075",
+            "TC-T076",
+            "TC-T077",
+            "TC-T078",
+            "TC-T079",
+            "TC-T080",
+            "TC-T081",
+            "TC-T082",
+            "TC-T083",
+            "TC-T084",
+            "TC-T085",
+            "TC-T086",
+            "TC-T087",
+            "TC-T088",
+            "TC-T089",
+            "TC-T090",
+            "TC-T091",
+            "TC-T092",
+            "TC-T093",
+            "TC-T094",
+            "TC-T095",
+            "TC-T096",
+            "TC-T097",
+            "TC-T098",
+            "TC-T099",
+            "TC-T100",
+            "TC-T101",
+            "TC-T102",
+            "TC-T103",
+            "TC-T104",
+            "TC-T105",
+            "TC-T106",
+            "TC-T107",
+            "TC-T108",
+            "TC-T109",
+            "TC-T110",
+            "TC-T111",
+            "TC-T112",
+            "TC-T113",
+            "TC-T114",
+            "TC-T115",
+            "TC-T116",
+            "TC-T117",
+            "TC-T118",
+            "TC-T119",
+            "TC-T120",
+            "TC-T121",
+            "TC-T122",
+            "TC-T123",
+            "TC-T124",
+            "TC-T125",
+            "TC-T126",
+            "TC-T127",
+            "TC-T128",
+            "TC-T129"
+          ]
+        }
+      },
+      "openedAt": "2026-10-30T05:15:14.108274+00:00",
+      "closedAt": "2026-10-30T05:27:31.740145+00:00"
+    },
+    {
+      "attemptId": "209-eba4e27e-cf17-49a6-87ad-83f98babf22d",
+      "visitIndex": 209,
+      "affectedCaseIds": [
+        "TC-REG-CONTAINERS"
+      ],
+      "category": "harness",
+      "status": "resolved",
+      "diagnosis": {
+        "reason": "All four native container fixtures and all additional callbacks passed, but the submit gate correctly rejected extra destination fields copied from the internal checkpoint manifest into public run.files references. Preserve the original passed native candidate and actual schema error, normalize producer output to path/sha256 only, and strictly validate emitted reference keys. Reuse all 57 complete task comparisons plus the original 8 native controls comparisons under exact source/evidence hashes; execute original additional callbacks again after repair. Do not repeat completed native container fixtures, alter product/expectations, or recreate cache.",
+        "evidence": [
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/submission-error.json",
+            "sha256": "682ac446636b69a2131c6efbd944a2075c2d1ed7756187d3df663dbd34a1e703",
+            "description": "Actual metadata rejection with unchanged passed native evidence."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/container-checkpoint.json",
+            "sha256": "124f8077abdccabaf00dc4f885b6d211a16230ae5559d7a56b618fbf7048cb6d",
+            "description": "Four complete native fixtures, 57 comparisons, original assertion sources and both actual process logs."
+          }
+        ],
+        "standardSources": []
+      },
+      "resolution": {
+        "observation": "The producer now explicitly projects every checkpoint input into the strict public path/sha256 file-reference schema, retaining internal destination metadata only in the checkpoint manifest. A boundary check verifies every emitted source reference, including all 57 completed native comparisons. Fifteen dependency/byte-identity/checkpoint/transport checks passed. Original native checks, original candidate, schema rejection and process result remain unchanged in evidence. All four complete native container fixtures (10+12+20+15 comparisons) and eight original native controls comparisons were independently reinspected under exact product, oracle, driver and actual process-log hashes. They remain valid because this fix changes metadata serialization only; the original additional callback assertions will execute again. Original P05/container assertions are still byte identical by inverse transformation. All 209 earlier valid visits remain unaffected. Product code, formal expected rules, planning originals and cache deletion remain unchanged. Repair closure does not pass R20.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/repair-assertions.json",
+            "sha256": "34aff51be218a9785a66aac432c2b6a4355de18763f1b2807d4bb1a8e495b457",
+            "description": "repair-assertions.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/harness-verification.json",
+            "sha256": "fb967c5b5ba72f8d9c65fd3989f8c3fe7ba6a7c81605ad16a6a9cab0be6386be",
+            "description": "harness-verification.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/verify-container-resume.cjs",
+            "sha256": "b799a21810db92448e92661a3c4ae95f4ee3ddc4150743670f2e19ffad25003a",
+            "description": "verify-container-resume.cjs"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/retained-native-smoke-comparison.json",
+            "sha256": "31c6b4b6e22ac8e0ad7f6f076483fe84e9486cf0c2796411791646acb4487a3d",
+            "description": "retained-native-smoke-comparison.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/container-checkpoint.json",
+            "sha256": "124f8077abdccabaf00dc4f885b6d211a16230ae5559d7a56b618fbf7048cb6d",
+            "description": "container-checkpoint.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/container-resume-functions.cjs",
+            "sha256": "d020c32837761c0c52c0c9c3cbbe7d2babfda7e1ac35418f7877f44a382cd4c1",
+            "description": "container-resume-functions.cjs"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/source-provenance.json",
+            "sha256": "845e73f9a45a46060c6ea7f63c1e8c343ec797cc651f6eaf143a1f795e18a61e",
+            "description": "source-provenance.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/submission-error.json",
+            "sha256": "682ac446636b69a2131c6efbd944a2075c2d1ed7756187d3df663dbd34a1e703",
+            "description": "submission-error.json"
+          },
+          {
+            "form": "data-snapshot",
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/submission-blockage.json",
+            "sha256": "8d7c0030da65846ec40b0dc12edcc25f8e195e62bd76d78f24e05c3ee18c591d",
+            "description": "submission-blockage.json"
+          }
+        ],
+        "changedFiles": [
+          {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "029d4488eb1030d8b425b4f24ef4b987cde19e52070e43917248cf498c7ef9c2"
+          },
+          {
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/container-checkpoint.json",
+            "sha256": "124f8077abdccabaf00dc4f885b6d211a16230ae5559d7a56b618fbf7048cb6d"
+          }
+        ],
+        "harnessArchive": {
+          "original": {
+            "path": "plan/acceptance/scripts/run-session.cjs",
+            "sha256": "0072f2de11f07d3a3a44e971870ccd89a0625ed2f110f024094f87d424cca7c4"
+          },
+          "archive": {
+            "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/run-session.before.cjs",
+            "sha256": "0072f2de11f07d3a3a44e971870ccd89a0625ed2f110f024094f87d424cca7c4"
+          },
+          "unaffectedCaseIds": [
+            "TC-G-EVIDENCE",
+            "TC-G-LAYOUT",
+            "TC-G-SCOPE",
+            "TC-G-VISUAL",
+            "TC-T001",
+            "TC-T002",
+            "TC-T003",
+            "TC-T004",
+            "TC-T005",
+            "TC-T006",
+            "TC-T007",
+            "TC-T008",
+            "TC-T009",
+            "TC-T010",
+            "TC-T011",
+            "TC-T012",
+            "TC-T013",
+            "TC-T014",
+            "TC-T015",
+            "TC-T016",
+            "TC-T017",
+            "TC-T018",
+            "TC-T019",
+            "TC-T020",
+            "TC-T021",
+            "TC-T022",
+            "TC-T023",
+            "TC-T024",
+            "TC-T025",
+            "TC-T026",
+            "TC-T027",
+            "TC-T028",
+            "TC-T029",
+            "TC-T030",
+            "TC-T031",
+            "TC-T032",
+            "TC-T033",
+            "TC-T034",
+            "TC-T035",
+            "TC-T036",
+            "TC-T037",
+            "TC-T038",
+            "TC-T039",
+            "TC-T040",
+            "TC-T041",
+            "TC-T042",
+            "TC-T043",
+            "TC-T044",
+            "TC-T045",
+            "TC-T046",
+            "TC-T047",
+            "TC-T048",
+            "TC-T049",
+            "TC-T050",
+            "TC-T051",
+            "TC-T052",
+            "TC-T053",
+            "TC-T054",
+            "TC-T055",
+            "TC-T056",
+            "TC-T057",
+            "TC-T058",
+            "TC-T059",
+            "TC-T060",
+            "TC-T061",
+            "TC-T062",
+            "TC-T063",
+            "TC-T064",
+            "TC-T065",
+            "TC-T066",
+            "TC-T067",
+            "TC-T068",
+            "TC-T069",
+            "TC-T070",
+            "TC-T071",
+            "TC-T072",
+            "TC-T073",
+            "TC-T074",
+            "TC-T075",
+            "TC-T076",
+            "TC-T077",
+            "TC-T078",
+            "TC-T079",
+            "TC-T080",
+            "TC-T081",
+            "TC-T082",
+            "TC-T083",
+            "TC-T084",
+            "TC-T085",
+            "TC-T086",
+            "TC-T087",
+            "TC-T088",
+            "TC-T089",
+            "TC-T090",
+            "TC-T091",
+            "TC-T092",
+            "TC-T093",
+            "TC-T094",
+            "TC-T095",
+            "TC-T096",
+            "TC-T097",
+            "TC-T098",
+            "TC-T099",
+            "TC-T100",
+            "TC-T101",
+            "TC-T102",
+            "TC-T103",
+            "TC-T104",
+            "TC-T105",
+            "TC-T106",
+            "TC-T107",
+            "TC-T108",
+            "TC-T109",
+            "TC-T110",
+            "TC-T111",
+            "TC-T112",
+            "TC-T113",
+            "TC-T114",
+            "TC-T115",
+            "TC-T116",
+            "TC-T117",
+            "TC-T118",
+            "TC-T119",
+            "TC-T120",
+            "TC-T121",
+            "TC-T122",
+            "TC-T123",
+            "TC-T124",
+            "TC-T125",
+            "TC-T126",
+            "TC-T127",
+            "TC-T128",
+            "TC-T129"
+          ]
+        }
+      },
+      "openedAt": "2026-10-30T05:51:41.625686+00:00",
+      "closedAt": "2026-10-30T05:58:49.900096+00:00"
+    }
+  ]
+}

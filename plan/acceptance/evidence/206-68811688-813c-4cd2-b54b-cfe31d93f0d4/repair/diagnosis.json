@@ -1,0 +1,27 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-G-LAYOUT"
+  ],
+  "reason": "After the actual fontScale changed to 1.3, the application home replaced the isolated review host and ui-review.capture disappeared before the environment observation. The fixture must re-enter its authorized native review host during configuration preparation, preserve the configured font scale, and verify a stable matching real viewport/font profile before starting the row. Reuse six complete, exact source/input/evidence checkpoints only after reinspection; execute every remaining font-scale row. No product code, geometry assertion, expected value or canonical failure is changed.",
+  "evidence": [
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-68811688-813c-4cd2-b54b-cfe31d93f0d4/repair/configuration-observation.json",
+      "sha256": "132fc480a248a26a2bb9723fcbfbab21369b6832773b92b4bcda47a4da0733c5",
+      "description": "Actual SDK font scale and actual missing review bridge/home screen after configuration."
+    },
+    {
+      "form": "native-tree",
+      "path": "plan/acceptance/evidence/206-68811688-813c-4cd2-b54b-cfe31d93f0d4/failure-state.xml",
+      "sha256": "887d9e86fd99cd74139c2f491f16f1ddc00bd493d6748964abf2477c3e0e6c56",
+      "description": "Original configuration-change failure scene."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-68811688-813c-4cd2-b54b-cfe31d93f0d4/repair/matrix-checkpoint.json",
+      "sha256": "293c562e3ffe6cb727492451e66dffb77582dc2d0b9a6a3c4ac6cdafb1f83e36",
+      "description": "Six complete configuration checkpoints, 138 page frames and exact source/input/evidence hashes."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+"""Execution-plan tooling fixtures; never execute product Test Cases."""
+import importlib.util
+import sys
+import unittest
+from pathlib import Path
+
+root=Path(__file__).resolve().parents[3]
+sys.path.insert(0,str(root/'.agents/skills/acceptance/scripts'))
+from execution import load_json
+from schedule import entry_prefix
+
+spec=importlib.util.spec_from_file_location('acceptance_execution_plan',root/'plan/acceptance/scripts/execution-plan.py')
+planner=importlib.util.module_from_spec(spec)
+spec.loader.exec_module(planner)
+
+
+class CurrentRouteProjection(unittest.TestCase):
+    def test_full_route_round_boundaries_and_repeats_are_preserved(self):
+        record_path=root/'plan/acceptance/acceptance.json'
+        before=record_path.read_bytes()
+        plan=planner.build(record_path,root)
+        record=load_json(record_path)
+        self.assertEqual(plan['totals'],dict(rounds=21,visits=211,uniqueCases=135))
+        self.assertEqual([v['caseId'] for v in plan['visits']],record['sequence'])
+        self.assertEqual([i for r in plan['rounds'] for i in range(r['fromVisitIndex'],r['toVisitIndex']+1)],list(range(211)))
+        cases=load_json(root/record['testCasesPath'])
+        states=load_json(root/'plan/requirement-analysis/state-transitions.json')
+        self.assertTrue(all(not entry_prefix(cases,states,r['fromVisitIndex']) for r in plan['rounds']))
+        self.assertEqual(plan['next']['visit']['caseId'],'TC-T001')
+        self.assertEqual(plan['next']['visit']['successor']['caseId'],'TC-T005')
+        self.assertEqual(record_path.read_bytes(),before)
+
+
+if __name__=='__main__':
+    unittest.main(verbosity=2)

@@ -1,0 +1,21 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-REG-CONTAINERS"
+  ],
+  "reason": "All four native container fixtures and all additional callbacks passed, but the submit gate correctly rejected extra destination fields copied from the internal checkpoint manifest into public run.files references. Preserve the original passed native candidate and actual schema error, normalize producer output to path/sha256 only, and strictly validate emitted reference keys. Reuse all 57 complete task comparisons plus the original 8 native controls comparisons under exact source/evidence hashes; execute original additional callbacks again after repair. Do not repeat completed native container fixtures, alter product/expectations, or recreate cache.",
+  "evidence": [
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/submission-error.json",
+      "sha256": "682ac446636b69a2131c6efbd944a2075c2d1ed7756187d3df663dbd34a1e703",
+      "description": "Actual metadata rejection with unchanged passed native evidence."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/209-eba4e27e-cf17-49a6-87ad-83f98babf22d/repair/container-checkpoint.json",
+      "sha256": "124f8077abdccabaf00dc4f885b6d211a16230ae5559d7a56b618fbf7048cb6d",
+      "description": "Four complete native fixtures, 57 comparisons, original assertion sources and both actual process logs."
+    }
+  ]
+}

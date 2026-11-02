@@ -1,0 +1,45 @@
+{
+  "category": "harness",
+  "affectedCaseIds": [
+    "TC-G-LAYOUT"
+  ],
+  "reason": "The failed focus capture had keyboard=null although the real SDK and screenshot showed IME open. Three fresh reads of the same retained field without input/navigation/scroll supplied the actual keyboard metrics. Wait for actual SDK/keyboard metadata and stable measured layout before keyboard assertions. The formal procedure permits scrolling to focus and save; all 63 old focus proofs are fully visible, but 8 of 63 old save screenshots show only a clipped button. Retain verified layouts/focus/55 complete save proofs, and supplement exactly those 8 configurations with real full visibility before reuse. Keep all existing assertions and add full native target height checks. Also apply the same observed configuration-host recovery to the final 768/font-1 boundary, with desktop-appropriate bootstrap rather than a mobile viewport wait. No product code, expected rules, source planning artifacts, prior failures or passed visit statuses are rewritten.",
+  "evidence": [
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-623bb278-05c3-4f04-8075-22ae36eec7d4/repair/fresh-keyboard-observation.json",
+      "sha256": "d8be7d2d437e3944ff3eaff1ae9f511c37b0d57790ec39838407f01c32cfd245",
+      "description": "Same retained real field, SDK IME true, then actual keyboard metadata arrived without product actions."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-623bb278-05c3-4f04-8075-22ae36eec7d4/repair/keyboard-evidence-review.json",
+      "sha256": "35a899303ac6aff7e89372a285c67e112c7651dc9365a33a599588218f95a72e",
+      "description": "161 real layout frames, 63 full focus proofs, 55 full save proofs; exactly eight save combinations need supplementation."
+    },
+    {
+      "form": "data-snapshot",
+      "path": "plan/acceptance/evidence/206-623bb278-05c3-4f04-8075-22ae36eec7d4/matrix-7-10-keyboard-focus.json",
+      "sha256": "10da7cb1f80728e7df9d03f364e8987c24f8c301122188cd725f99988de1b736",
+      "description": "Original actual capture with missing keyboard telemetry."
+    },
+    {
+      "form": "screenshot",
+      "path": "plan/acceptance/evidence/206-623bb278-05c3-4f04-8075-22ae36eec7d4/matrix-7-10-keyboard-focus.png",
+      "sha256": "573e7a076cb8f5949a1b12280f329410d3bb7ae4821b76988d7777a978f536e7",
+      "description": "Original actual keyboard visibly open."
+    }
+  ],
+  "standardSources": [
+    {
+      "path": "plan/ui-spec/rules.json",
+      "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+      "locator": "/profiles/mobile/environment/keyboardPolicy"
+    },
+    {
+      "path": "plan/source-resource/prd/设计还原需求文档.md",
+      "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+      "locator": "L74-L76"
+    }
+  ]
+}

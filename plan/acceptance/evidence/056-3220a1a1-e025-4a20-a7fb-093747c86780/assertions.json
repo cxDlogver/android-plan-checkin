@@ -1,0 +1,62 @@
+{
+  "assertions": [
+    {
+      "target": "case:TC-T111:visual:0:56",
+      "expected": {
+        "documentId": "ui-i0tdn",
+        "differences": [],
+        "boundaryCalls": 0,
+        "fontsLoaded": true
+      },
+      "actual": {
+        "documentId": "ui-i0tdn",
+        "differences": [],
+        "boundaryCalls": 0,
+        "fontsLoaded": true
+      },
+      "verdict": "passed"
+    },
+    {
+      "target": "case:TC-T111:functional:0:56",
+      "expected": {
+        "from": "S07-WEEKLY",
+        "to": "S13",
+        "control": "n-s3Xk6I",
+        "bindingHandoff": true,
+        "responseConsumed": true
+      },
+      "actual": {
+        "from": "S07-WEEKLY",
+        "to": "S13",
+        "control": "n-s3Xk6I",
+        "bindingHandoff": true,
+        "responseConsumed": true
+      },
+      "verdict": "passed"
+    },
+    {
+      "target": "case:TC-T111:entry:56",
+      "expected": {
+        "given": {
+          "stateId": "S07-WEEKLY",
+          "setup": "沿到达路径继续，在“记录今天 · 要做 · 从每周详情进入”保留当前对象、输入内容和返回入口。",
+          "verify": "确认当前处于“记录今天 · 要做 · 从每周详情进入”，其可见内容和选中表现已成立；沿用当前所选对象及输入，满足后再执行本步。"
+        },
+        "operation": {
+          "label": "点击“保存记录”",
+          "actor": "用户",
+          "input": {
+            "controlNodeId": "n-s3Xk6I"
+          }
+        },
+        "checks": "all applicable checks observed"
+      },
+      "actual": {
+        "error": "Error: Missing actual call-trace for 核对动作前已经成立的入口与返回约定，并验证本次动作进入正确页面；目标分支存在返回约定时，应继续保留正确入口和输入内容。\n    at evidence (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs:33:30)\n    at captureCheck (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs:85:251)\n    at F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs:87:93\n    at Array.forEach (<anonymous>)\n    at worker (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs:87:78)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+        "givenObserved": "Observed S07-WEEKLY in the real native host and the actual Node controller; input objects match.",
+        "operationObserved": "Dispatched the declared Node event and clicked the actual native control n-s3Xk6I."
+      },
+      "verdict": "blocked"
+    }
+  ]
+}

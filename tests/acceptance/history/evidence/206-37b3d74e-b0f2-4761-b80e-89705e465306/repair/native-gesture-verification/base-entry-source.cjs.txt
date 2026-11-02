@@ -1,0 +1,277 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{spawn,spawnSync}=require('node:child_process');
+const root=path.resolve(__dirname,'../../..'),recordFile=path.join(root,'plan/acceptance/acceptance.json');
+const python=process.env.ACCEPTANCE_PYTHON||'D:/xiang/CX_application/Anconda3/python.exe',routeFile='.agents/skills/acceptance/scripts/route.py';
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8')),relative=file=>path.relative(root,file).replaceAll('\\','/');
+const ref=file=>({path:relative(file),sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')});
+const write=(file,value)=>{fs.mkdirSync(path.dirname(file),{recursive:true});fs.writeFileSync(file,JSON.stringify(value,null,2)+'\n',{flag:'wx'});};
+function planner(command,extra=[]){const r=spawnSync(python,['-X','utf8','-B','.agents/skills/acceptance/scripts/execution_plan.py',command,'--workspace','.',...extra],{cwd:root,encoding:'utf8',windowsHide:true,maxBuffer:8*1024*1024});let value;try{value=JSON.parse(r.stdout);}catch{throw Error('Planner returned no valid JSON: '+r.stderr+r.stdout);}if(r.status!==0)throw Error('Planner '+command+' refused: '+JSON.stringify(value));return value;}
+// execution_plan.write_outputs performs check_outputs before sync can succeed.
+function refreshPlan(){assert.equal(planner('sync').status,'synchronized');return read(path.join(root,'plan/acceptance/execution-plan.json'));}
+function verifiedNext(){let plan=read(path.join(root,'plan/acceptance/execution-plan.json'));if(plan.sourceRecord.sha256!==ref(recordFile).sha256)plan=refreshPlan();return plan.next;}
+function gate(command,extra=[]){
+ for(let attempt=0;attempt<16;attempt++){
+  const r=spawnSync(python,['-X','utf8','-B',routeFile,command,'plan/acceptance/acceptance.json','--workspace','.',...extra],{cwd:root,encoding:'utf8',windowsHide:true,maxBuffer:4*1024*1024});let value;
+  try{value=JSON.parse(r.stdout);}catch{throw Error('Gate returned no valid JSON: '+r.stderr+r.stdout);}
+  if(r.status!==0&&value.error?.includes('File exists')&&value.error.includes('acceptance.lock')&&attempt<15){Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,1000);continue;}
+  if(r.status!==0&&!(command==='close-session'&&value.sessionId&&value.status==='failed')&&!(command==='submit'&&value.recorded&&value.synced&&value.checked))throw Error('Gate '+command+' refused: '+JSON.stringify(value));
+  if(['begin','submit','close-session'].includes(command))refreshPlan();return value;
+ }
+ throw Error('The canonical writer did not release its lock');
+}
+function filesBelow(directory){return fs.readdirSync(directory,{withFileTypes:true}).flatMap(e=>e.isDirectory()?filesBelow(path.join(directory,e.name)):[path.join(directory,e.name)]);}
+function frameOf(model){return {documentId:model.document.id,scene:structuredClone(model.scene),inputs:structuredClone(model.inputs),activeIdentity:structuredClone(model.activeIdentity),trace:structuredClone(model.trace),context:structuredClone(model.context),pendingResponse:model.pendingResponse};}
+function evidence(folder,definition){
+ const files=filesBelow(folder),items=[];
+ for(const required of definition.evidence){let selected;
+  if(required.form==='assertion-report')continue;
+  if(required.form==='screenshot')selected=files.filter(f=>f.endsWith('.png'));
+  else if(required.form==='native-tree')selected=files.filter(f=>f.endsWith('.xml'));
+  else if(required.form==='layout-measurement')selected=files.filter(f=>/native-frame|responsive-matrix|keyboard/.test(path.basename(f))&&f.endsWith('.json'));
+  else if(required.form==='call-trace')selected=files.filter(f=>/trace|observations|summary/.test(path.basename(f))&&f.endsWith('.json'));
+  else selected=files.filter(f=>/runtime-frame|contract-tests|task-assertions|page-coverage|inputs|summary/.test(path.basename(f))&&f.endsWith('.json'));
+  if(!selected?.length)throw Error('Missing actual '+required.form+' for '+definition.criterion);
+  for(const file of selected)items.push({form:required.form,...ref(file),description:required.description});
+ }
+ return items;
+}
+function exportTrace(folder,beforeRuntime,actualRuntime,beforeNative,actualNative){
+ const file=path.join(folder,'call-trace.json');
+ write(file,{sources:['runtime-frame.json','native-frame.json','given-state.json'].map(name=>ref(path.join(folder,name))),
+  runtime:actualRuntime.trace.slice(beforeRuntime.trace.length),native:actualNative.trace.slice(beforeNative.trace.length),
+  responseRestored:{runtime:!actualRuntime.pendingResponse,native:!actualNative.pendingResponse}});
+ return file;
+}
+function settledFixtureSeeking(adapter){
+ const device=adapter.device,original=device.seek,observations=[];
+ device.seek=async function(testID,...args){
+  const startedAt=new Date().toISOString();await original.call(this,testID,...args);let last=null,stable=0;const samples=[];
+  for(let attempt=0;attempt<40;attempt++){
+   const source=await this.source(),tag=source.split('>').find(t=>t.includes('resource-id="'+testID+'"'))||'',match=tag.match(/bounds="\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]"/),bounds=match?.slice(1).map(Number);
+   const visible=bounds&&bounds[2]>bounds[0]&&bounds[3]>bounds[1]&&!tag.includes('displayed="false"')&&!tag.includes('enabled="false"'),key=visible?JSON.stringify(bounds):null;
+   stable=key&&key===last?stable+1:key?1:0;last=key;samples.push({at:new Date().toISOString(),bounds:bounds??null,visible:Boolean(visible),stable});
+   if(stable>=4){const element=await this.id(testID);observations.push({testID,startedAt,samples,element});return element;}
+   await new Promise(resolve=>setTimeout(resolve,150));
+  }
+  observations.push({testID,startedAt,samples,blocked:true});throw Error('Fixture control did not settle at visible native bounds: '+testID);
+ };
+ return()=>{device.seek=original;write(path.join(adapter.directory,'responsive-matrix-navigation.json'),{minimumConsecutiveStableVisibleSamples:4,sampleIntervalMs:150,operation:'Readiness only; original native click and independent product assertions remain in force.',observations});};
+}
+function requiredScopeRecord(record,model){
+ const cases=new Map(model.cases.map(c=>[c.id,c])),latest=new Map();
+ for(const attempt of record.attempts){assert.equal(attempt.run.visits.length,1);latest.set(attempt.run.visits[0].visitIndex,attempt);}
+ const selected=[],audit=[];
+ record.sequence.forEach((caseId,visitIndex)=>{if(cases.get(caseId).kind!=='primary')return;const attempt=latest.get(visitIndex),visit=attempt?.run.visits[0];assert.ok(attempt?.closedAt&&visit?.outcome==='passed'&&[null,0].includes(attempt.run.exitCode)&&visit.checks.length&&visit.checks.every(c=>c.status==='passed'),'Scope requires the latest closed passed primary visit '+visitIndex);selected.push(attempt);audit.push({visitIndex,caseId,runId:attempt.run.id});});
+ const ids=new Set(selected.map(a=>a.run.id)),historical=record.attempts.filter(a=>cases.get(record.sequence[a.run.visits[0].visitIndex]).kind==='primary');
+ return {record:{...record,attempts:selected},audit:{requiredPrimaryVisits:selected.length,historicalPrimaryAttempts:historical.length,selected:audit,excludedHistoricalPrimaryAttemptIds:historical.filter(a=>!ids.has(a.run.id)).map(a=>a.run.id),selectionRule:'Latest closed passed attempt for each required visitIndex in the unchanged sequence; failures and prior attempts remain in the canonical record.'}};
+}
+
+function completeFixtureObservations(adapter,root){
+ const original=adapter.observe,manifest=read(path.join(root,'plan/ui-spec/manifest.json')),documents=new Map(manifest.documents.filter(d=>d.kind==='screen').map(d=>{const doc=read(path.join(root,'plan/ui-spec',d.file));return [doc.id,doc];})),pending=[];
+ const flatten=n=>[n,...n.children.flatMap(flatten)];
+ adapter.observe=async function(name,options={}){
+  const deadline=Date.now()+15000;
+  for(let attempt=0;;attempt++){
+   const shot=await original.call(this,name,options),frame=shot.report,document=documents.get(frame.documentId);assert.ok(document,'Known native document before layout readiness');
+   const missing=frame.environment.viewport.width>=768?[]:flatten(document.tree).filter(n=>n.ownership==='application').filter(n=>!frame.measurements[n.id]?.box||!frame.measurements[n.id]?.props).map(n=>n.id);
+   if(!missing.length)return shot;
+   const item={name,attempt,nonce:frame.nonce,navigationSerial:frame.navigationSerial,documentId:frame.documentId,missing};
+   if(options.save!==false){item.preserved=[];for(const ext of ['.json','.xml','.png']){const from=path.join(this.directory,name+ext),to=path.join(this.directory,name+'.layout-pending-'+attempt+ext);fs.renameSync(from,to);item.preserved.push(ref(to));}}else item.rawReport=frame;
+   pending.push(item);if(Date.now()>=deadline)throw Error('Actual native layout measurements did not become complete: '+missing.join(','));
+   await new Promise(resolve=>setTimeout(resolve,150));
+  }
+ };
+ return()=>{adapter.observe=original;write(path.join(adapter.directory,'responsive-matrix-layout-readiness.json'),{scope:'Presence of actual measurement records and applied props only; independent geometry and content assertions are unchanged.',pendingObservations:pending});};
+}
+async function prepareFixtureProfile(adapter,seed,expected,journal){
+ const device=adapter.device,deadline=Date.now()+60000,samples=[],recoveries=[];let last=null,stable=0;
+ while(Date.now()<deadline){
+  let source=await device.source();
+  if(!source.includes('resource-id="ui-review.command"')){
+   const prefix='profile-'+expected.width+'x'+expected.height+'-font-'+expected.fontScale+'-recovery-'+recoveries.length,before=await adapter.capture(prefix+'-before');
+   const bootstrap=expected.width>=768?{width:393,height:expected.height}:null;if(bootstrap)device.adb(['shell','wm','size',bootstrap.width*3+'x'+bootstrap.height*3]);let nativeSource='';const entryAttempts=[];for(let entryAttempt=0;entryAttempt<4;entryAttempt++){device.deepLink(adapter.scheme+':///native');const entryDeadline=Date.now()+4000;do{nativeSource=await device.source();if(nativeSource.includes('resource-id="native.ui-review"')||nativeSource.includes('resource-id="ui-review.command"'))break;await new Promise(r=>setTimeout(r,200));}while(Date.now()<entryDeadline);entryAttempts.push({at:new Date().toISOString(),nativeEntryVisible:nativeSource.includes('resource-id="native.ui-review"'),reviewVisible:nativeSource.includes('resource-id="ui-review.command"')});if(entryAttempts.at(-1).nativeEntryVisible||entryAttempts.at(-1).reviewVisible)break;}assert.ok(nativeSource.includes('resource-id="native.ui-review"')||nativeSource.includes('resource-id="ui-review.command"'),'Authorized native entry must become ready after configuration');if(!nativeSource.includes('resource-id="ui-review.command"'))await device.clickVisible('native.ui-review');await device.waitSource(x=>x.includes('resource-id="ui-review.command"'),20000);await adapter.restart(seed);if(bootstrap){device.adb(['shell','wm','size',expected.width*3+'x'+expected.height*3]);await device.waitSource(x=>x.includes('resource-id="ui-review.command"')&&x.includes('resource-id="ui.unsupported"'),20000);}const after=await adapter.observe(prefix+'-after');
+   recoveries.push({bootstrap,entryAttempts,requestedProfile:expected,before:ref(before.tree),beforeScreenshot:ref(before.screenshot),after:ref(path.join(adapter.directory,prefix+'-after.json')),observation:'Re-entered the authorized isolated review host during profile preparation; system font scale was not changed.'});last=null;stable=0;source=await device.source();
+  }
+  let shot;
+  try{shot=await adapter.observe('profile-readiness',{save:false});}
+  catch(error){const actual=await device.source();if(!actual.includes('resource-id="ui-review.capture"')&&/could not be located|no such element/i.test(error.message)){samples.push({at:new Date().toISOString(),hostLost:true,error:error.message});last=null;stable=0;continue;}throw error;}
+  const frame=shot.report,actual={width:frame.environment.viewport.width,height:frame.environment.viewport.height,fontScale:frame.environment.fontScale},matches=Math.abs(actual.width-expected.width)<.01&&Math.abs(actual.height-expected.height)<.01&&Math.abs(actual.fontScale-expected.fontScale)<.0001,key=JSON.stringify({actual,runId:frame.context.runId,navigationSerial:frame.navigationSerial,windowId:source.match(/window-id="([^"]+)"/)?.[1]});
+  stable=matches?(key===last?stable+1:1):0;last=key;samples.push({at:new Date().toISOString(),actual,matched:matches,stable});
+  if(stable>=4){const identity=device.identity();assert.ok(Math.abs(Number(identity.fontScale)-expected.fontScale)<.0001,'Actual SDK font scale must remain the requested value');journal.push({expected,actual,identity,samples,recoveries,ready:true});return;}
+  await new Promise(resolve=>setTimeout(resolve,200));
+ }
+ journal.push({expected,samples,recoveries,ready:false});throw Error('Actual isolated host did not settle at requested viewport/font profile');
+}
+async function prepareKeyboardTarget(adapter,testID,journal){
+ const device=adapter.device,record={testID,samples:[],gestures:[],ready:false};journal.push(record);let stable=0,last=null;const deadline=Date.now()+20000;
+ try{
+  while(Date.now()<deadline){const sdkShown=/mInputShown=true\b/.test(device.adb(['shell','dumpsys','input_method'])),shot=await adapter.observe('keyboard-layout-preparation',{save:false}),frame=shot.report,node=frame.measurements[testID],keyboard=frame.environment.keyboard,ready=Boolean(sdkShown&&keyboard&&node?.box),key=ready?JSON.stringify({keyboard,viewport:frame.environment.viewport,target:node.box,roots:Object.values(frame.measurements).filter(n=>n.parentId===null).map(n=>n.box)}):null;stable=key&&key===last?stable+1:key?1:0;last=key;record.samples.push({at:new Date().toISOString(),sdkShown,keyboard,stable});if(stable>=2)break;await new Promise(r=>setTimeout(r,150));}
+  assert.ok(stable>=2,'Actual SDK and published keyboard geometry must settle before visibility assertions');
+  for(let attempt=0;attempt<40;attempt++){
+   const frame=(await adapter.observe('keyboard-target-preparation',{save:false})).report,source=await device.source(),tag=source.split('>').find(t=>t.includes('resource-id="'+testID+'"'))||'',match=tag.match(/bounds="\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]"/),b=match?.slice(1).map(Number),scale=frame.environment.pixelRatio,kb=frame.environment.keyboard,node=frame.measurements[testID];if(!kb||!node?.box){record.samples.push({at:new Date().toISOString(),stage:'target-layout',keyboard:kb??null,targetMeasured:Boolean(node?.box),sdkShown:/mInputShown=true\b/.test(device.adb(['shell','dumpsys','input_method']))});if(Date.now()>=deadline)throw Error('Actual keyboard target metadata did not stay ready');await new Promise(r=>setTimeout(r,150));continue;}const full=node.box.height*scale,top=frame.environment.insets.top*scale,bottom=kb.screenY*scale;assert.ok(Number.isFinite(full)&&full>0&&full<=bottom-top+1,'Target full height must fit the actual visible keyboard viewport');
+   if(!b||b[2]<=b[0]||b[3]<=b[1]){await device.seek(testID);continue;}
+   if(b[1]>=top-1&&b[3]<=bottom+1&&b[3]-b[1]>=full-1){assert.ok(/mInputShown=true\b/.test(device.adb(['shell','dumpsys','input_method'])),'Real IME must remain open');Object.assign(record,{ready:true,bounds:b,nativeFullHeightPx:full,keyboard:kb,pixelRatio:scale,viewport:frame.environment.viewport});return;}
+   const clipped=Math.max(0,full-(b[3]-b[1])),direction=b[1]<top-1||(clipped>1&&b[1]<=top+1)?'up':'down',deficit=Math.max(clipped,direction==='up'?top-b[1]:b[3]-bottom),percent=Math.max(.02,Math.min(.35,(Math.max(1,deficit)+6)/Math.max(1,(bottom-top)*.7))),changed=await device.scroll(direction,percent,true);record.gestures.push({direction,percent,beforeBounds:b,nativeFullHeightPx:full,keyboardTopPx:bottom,changed});
+  }
+  throw Error('Keyboard target could not be scrolled fully above the actual IME: '+testID);
+ }catch(error){record.blocked=error.message;throw error;}
+}
+
+function assertFullKeyboardProof(frame,xml,testID,expectedBounds){
+ const tag=xml.split('>').find(t=>t.includes('resource-id="'+testID+'"'))||'',match=tag.match(/bounds="\[(-?\d+),(-?\d+)\]\[(-?\d+),(-?\d+)\]"/),bounds=match?.slice(1).map(Number),e=frame.environment,full=frame.measurements[testID]?.box.height*e.pixelRatio;
+ assert.ok(e.keyboard&&bounds&&Number.isFinite(full)&&full>0,'Actual IME, measured target and native rectangle required');assert.ok(bounds[1]>=e.insets.top*e.pixelRatio-1&&bounds[3]<=e.keyboard.screenY*e.pixelRatio+1&&bounds[3]-bounds[1]>=full-1,'Complete target must remain above actual IME');if(expectedBounds)assert.deepEqual(bounds,expectedBounds,'Summary rectangle is the actual native rectangle');return {testID,bounds,nativeFullHeightPx:full,keyboard:e.keyboard,passed:true};
+}
+function prepareMatrixCheckpoint(root,directory,record,model,seed){
+ const checkpointRef={"path":"plan/acceptance/evidence/206-623bb278-05c3-4f04-8075-22ae36eec7d4/repair/matrix-checkpoint.json","sha256":"57fbd6ef61d21ed1ba8a5592d2f0f2e179f2dfbb48b14648d7d1cccd3f8e8196"};
+ const checked=reference=>{const file=path.resolve(root,reference.path),relative=path.relative(root,file);assert.ok(relative&&!relative.startsWith('..')&&!path.isAbsolute(relative),'Checkpoint stays in workspace');const bytes=fs.readFileSync(file);assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),reference.sha256,'Exact checkpoint bytes '+reference.path);return {file,bytes};};
+ const manifest=JSON.parse(checked(checkpointRef).bytes),summary=JSON.parse(checked(manifest.summary).bytes),rules=read(path.join(root,'plan/ui-spec/rules.json'));
+ assert.equal(manifest.caseContract,record.caseContract);assert.equal(manifest.planContract,record.planContract);assert.equal(manifest.scheduleContract,record.scheduleContract);assert.equal(manifest.totalRows,rules.profiles.mobile.validationCases.length);assert.ok(manifest.completedRows>0&&manifest.completedRows<manifest.totalRows);assert.equal(summary.rows.length,manifest.completedRows);assert.equal(summary.frames.length,manifest.completedRows*23);assert.equal(summary.keyboards.length,manifest.completedRows*9);assert.equal(JSON.stringify(JSON.parse(checked(manifest.inputs).bytes)),JSON.stringify(seed),'Same captured route inputs');
+ const inputs=[checkpointRef,manifest.summary,manifest.inputs,manifest.nativeCaptureLog,manifest.originalMatrixModule,...manifest.otherBoundFiles,...manifest.supplementSources,...manifest.files];for(const reference of inputs)checked(reference);
+ summary.rows.forEach((row,index)=>{assert.equal(row.row,index);assert.deepEqual(row.expected,rules.profiles.mobile.validationCases[index]);assert.equal(row.documents.length,23);assert.ok(row.documents.every(d=>!d.inspected.differences.length&&d.inspected.geometry.every(f=>f.passed)));});
+ const documents=new Map(read(path.join(root,'plan/ui-spec/manifest.json')).documents.filter(d=>d.kind==='screen').map(d=>{const doc=read(path.join(root,'plan/ui-spec',d.file));return [doc.id,doc];})),visual=require('./native-visual.cjs')(root),copies=[],byName=new Map();
+ for(const reference of manifest.files){const name=path.basename(reference.path);assert.ok(!byName.has(name),'Unique exact native evidence filenames');byName.set(name,reference);}
+ const actual=name=>{assert.ok(byName.has(name),'Native evidence must be bound in checkpoint '+name);return checked(byName.get(name));};
+ for(const frame of summary.frames)visual.inspect(documents.get(frame.documentId),JSON.parse(actual(frame.snapshot).bytes),{xml:actual(frame.tree).bytes.toString('utf8')});
+ for(const k of summary.keyboards){assertFullKeyboardProof(JSON.parse(actual(k.focus).bytes),actual(k.focus.replace(/\.json$/,'.xml')).bytes.toString('utf8'),k.inputId,k.inputBounds);assertFullKeyboardProof(JSON.parse(actual(k.save).bytes),actual(k.save.replace(/\.json$/,'.xml')).bytes.toString('utf8'),k.saveId,k.saveBounds);}
+ for(const reference of manifest.files){const source=checked(reference),name=path.basename(source.file);assert.ok(new RegExp('^matrix-('+summary.rows.map(r=>r.row).join('|')+')-').test(name));const destination=path.join(directory,name);fs.copyFileSync(source.file,destination,fs.constants.COPYFILE_EXCL);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(destination)).digest('hex'),reference.sha256);copies.push({path:relative(destination),sha256:reference.sha256});}
+ const originalSource=checked(manifest.originalMatrixModule).bytes.toString('utf8'),changes=[
+  ["ratios=[0,.5,1],results=[],keyboardResults=[],frames=[];","ratios=[0,.5,1],results=structuredClone(primaryFrames.rows),keyboardResults=structuredClone(primaryFrames.keyboards),frames=structuredClone(primaryFrames.frames);"],
+  ['for(let row=0;row<rules.profiles.mobile.validationCases.length;row++){','for(let row=results.length;row<rules.profiles.mobile.validationCases.length;row++){'],
+  ["adapter.device.adb(['shell','settings','put','system','font_scale',String(environment.fontScale)]);let settled;","adapter.device.adb(['shell','settings','put','system','font_scale',String(environment.fontScale)]);await primaryFrames.prepareProfile(environment);let settled;"],
+  ["const focused=await adapter.observe(prefix+'-keyboard-focus');","await primaryFrames.prepareKeyboardTarget(input.id);const focused=await adapter.observe(prefix+'-keyboard-focus');"],
+  ["await adapter.device.seek(save.operation.input.controlNodeId);const saved=await adapter.observe(prefix+'-keyboard-save')","await adapter.device.seek(save.operation.input.controlNodeId);await primaryFrames.prepareKeyboardTarget(save.operation.input.controlNodeId);const saved=await adapter.observe(prefix+'-keyboard-save')"],
+  ["adapter.device.adb(['shell','settings','put','system','font_scale','1']);await adapter.device.waitSource", "adapter.device.adb(['shell','settings','put','system','font_scale','1']);await primaryFrames.prepareProfile({width:768,height:852,fontScale:1});await adapter.device.waitSource"]
+ ];let executedSource=originalSource;for(const [from,to]of changes){assert.equal(executedSource.split(from).length,2,'One reviewed source insertion');executedSource=executedSource.replace(from,to);}let inverse=executedSource;for(const[from,to]of [...changes].reverse())inverse=inverse.replace(to,from);assert.equal(inverse,originalSource,'Independent matrix assertions remain byte identical; checkpoint and actual environment/keyboard preparation only');
+ const generated=path.join(directory,'responsive-matrix-driver.cjs');fs.writeFileSync(generated,executedSource,{flag:'wx'});const actualModule={exports:{}},originalFile=checked(manifest.originalMatrixModule).file;new Function('require','module','exports','__filename','__dirname',executedSource)(require('node:module').createRequire(originalFile),actualModule,actualModule.exports,generated,path.dirname(originalFile));assert.equal(typeof actualModule.exports,'function');
+ for(const reference of inputs)checked(reference);
+ write(path.join(directory,'responsive-matrix-checkpoint.json'),{checkpoint:checkpointRef,sourceAttemptId:manifest.originalAttemptId,reusedCompleteRows:summary.rows.map(r=>r.row),reinspectedPages:summary.frames.length,reinspectedFullKeyboardCombinations:summary.keyboards.length,remainingRows:rules.profiles.mobile.validationCases.slice(summary.rows.length),sourceAssertionsByteIdentical:true,generatedDriver:ref(generated),copiedActualEvidence:copies,note:'Original native observations and incomplete attempts are retained; eight save proofs are supplemented by actual native scroll/capture observations.'});
+ return {execute:actualModule.exports,summary,sources:[...inputs,...copies,ref(generated)],reusedRows:summary.rows.length};
+}
+async function executeCheckpointedLayout(options){
+ const {root,directory,adapter,model,graph,record,seed}=options,checkpoint=prepareMatrixCheckpoint(root,directory,record,model,seed),supplementary=require('./supplementary.cjs'),profiles=[],keyboardTargets=[];
+ try{await supplementary.ensureBrowse(adapter,seed);const state={...checkpoint.summary,prepareProfile:expected=>prepareFixtureProfile(adapter,seed,expected,profiles),prepareKeyboardTarget:testID=>prepareKeyboardTarget(adapter,testID,keyboardTargets)},result=await checkpoint.execute({root,directory,adapter,model,graph,primaryFrames:state,visual:require('./native-visual.cjs')(root),seed});
+  const fullKeyboard=result.keyboards.map(k=>{const proof=(name,id,bounds)=>assertFullKeyboardProof(read(path.join(directory,name)),fs.readFileSync(path.join(directory,name.replace(/\.json$/,'.xml')),'utf8'),id,bounds);return {row:k.row,documentId:k.documentId,focus:proof(k.focus,k.inputId,k.inputBounds),save:proof(k.save,k.saveId,k.saveBounds)};});assert.equal(fullKeyboard.length,81);write(path.join(directory,'responsive-full-keyboard-visibility.json'),{combinations:81,fullyVisibleFocus:81,fullyVisibleSave:81,results:fullKeyboard});supplementary.baseline(adapter);await prepareFixtureProfile(adapter,seed,{width:393,height:852,fontScale:1},profiles);await adapter.restart(seed);
+  return {results:{visual:[{expected:{rows:9,screensPerRow:23},actual:{rows:result.rows.length,screensPerRow:Math.min(...result.rows.map(row=>row.documents.length))}}]},sources:checkpoint.sources,reusedRows:checkpoint.reusedRows};
+ }finally{write(path.join(directory,'responsive-matrix-profile-readiness.json'),{scope:'Actual configured system font/viewport readiness and isolated host recovery.',profiles});write(path.join(directory,'responsive-keyboard-target-readiness.json'),{scope:'Actual SDK keyboard and published measurement readiness; real scrolling to full native target bounds, without hiding IME or synthesizing measurements.',targets:keyboardTargets});}
+}
+async function worker(){
+ const {BrowseAdapter}=require('./browse-adapter.cjs'),oracle=require('./browse-oracle.cjs'),supplementary=require('./supplementary.cjs');
+ const {UIBrowseModel}=require(path.join(root,'plan/acceptance/.work/runtime/src/verification/ui-browse-model.js'));
+ const record=read(recordFile),model=read(path.join(root,record.testCasesPath)),plan=read(path.join(root,record.taskPlanPath)),implementation=read(path.join(root,record.implementationPath));
+ const graphFile=path.resolve(path.dirname(path.join(root,record.testCasesPath)),model.stateGraph.path),graph=read(graphFile);
+ const seed=read(path.join(root,'plan/acceptance/evidence/preparation/environment/inputs.json'));
+ const session=record.sessions.find(s=>s.id===process.env.ACCEPTANCE_SESSION_ID),support=[...filesBelow(__dirname).filter(f=>f.endsWith('.cjs')),path.join(root,'plan/acceptance/service-hooks/hidden-processes.cjs')];
+ assert.ok(session,'A reviewed session must be selected by the supervisor');
+ let runtime=new UIBrowseModel(structuredClone(seed)),previous=null,replayEntry=null;
+ const roundControl=require('./round-control.cjs');
+ let selectedRound=process.env.ACCEPTANCE_ROUND?roundControl.select(refreshPlan(),process.env.ACCEPTANCE_ROUND,gate('next').nextVisitIndex):null;
+ const hostDirectory=path.join(root,'plan/acceptance/evidence/sessions',session.id,'host-'+Date.now());fs.mkdirSync(hostDirectory,{recursive:true});
+ const adapter=new BrowseAdapter(hostDirectory);let identity;
+ try{
+  supplementary.baseline(adapter);identity=await adapter.open();await adapter.restart(seed);
+  const visual=require('./native-visual.cjs')(root);
+  if(selectedRound){
+   const endpoint=adapter.device.endpoint('timeouts'),before=await adapter.device.request(endpoint);
+   await adapter.device.request(endpoint,'POST',{type:'command',ms:0});
+   const after=await adapter.device.request(endpoint);assert.equal(after.command,0);
+   write(path.join(hostDirectory,'pause-timeout.json'),{sessionId:adapter.device.sessionId,before,after,reason:'Keep this owned project session available at the authorized round pause.'});
+  }
+  const resumeIndex=gate('next').nextVisitIndex,resumeCase=model.cases.find(c=>c.id===model.coverage.sequence[resumeIndex]);
+  if(resumeCase?.kind==='primary'&&!graph.states.some(s=>s.id===resumeCase.given.stateId&&s.isInitial)){
+   const prefix=refreshPlan().visits[resumeIndex].coldResume.caseIds,steps=[];
+   assert.ok(prefix.length,'A noninitial resume needs a reviewed legal prefix');
+   const replayDirectory=path.join(hostDirectory,'entry-replay');fs.mkdirSync(replayDirectory,{recursive:true});adapter.directory=replayDirectory;adapter.device.directory=replayDirectory;
+   for(let position=0;position<prefix.length;position++){
+    const c=model.cases.find(c=>c.id===prefix[position]),beforeRuntime=frameOf(runtime),beforeNative=(await adapter.observe('replay-'+position+'-given')).report;
+    oracle.matchesState(graph,c.given.stateId,beforeRuntime);oracle.matchesState(graph,c.given.stateId,beforeNative);assert.deepEqual(beforeNative.inputs,beforeRuntime.inputs);
+    const response=oracle.mockResponse(c);if(response)runtime.queueResponse(structuredClone(response));
+    runtime.dispatch(c.operation.input.controlNodeId,c.operation.input.selection);await adapter.perform(c);
+    const target=graph.states.find(s=>s.id===c.expected.stateId).source.find(s=>s.kind==='ui'),document=read(path.resolve(path.dirname(graphFile),target.structurePath));await adapter.device.waitSource(x=>x.includes(document.tree.id));
+    const shot=await adapter.observe('replay-'+position+'-target'),actualNative=shot.report,actualRuntime=frameOf(runtime);
+    for(const actual of [actualRuntime,actualNative]){oracle.matchesState(graph,c.expected.stateId,actual);oracle.handoff(c,actual===actualRuntime?beforeRuntime:beforeNative,actual);oracle.responseAssertion(c,actual===actualRuntime?beforeRuntime:beforeNative,actual);}
+    assert.deepEqual(actualNative.inputs,actualRuntime.inputs);
+    const report=path.join(replayDirectory,'step-'+position+'.json');write(report,{caseId:c.id,beforeRuntime,actualRuntime,beforeNative,actualNative,operationObserved:c.operation.label});
+    steps.push({caseId:c.id,operationObserved:'Executed the declared Node control and actual native control '+c.operation.input.controlNodeId+'; observed both legal endpoints and matching object/input context.',evidence:[ref(report),ref(shot.evidence.screenshot),ref(shot.evidence.tree)]});previous=c;
+   }
+   const previousAttempt=record.attempts.filter(a=>a.run.visits[0].visitIndex===resumeIndex).at(-1);
+   if(previousAttempt){const checkpoint=path.join(root,path.dirname(previousAttempt.run.context.path),'runtime-frame.json');if(fs.existsSync(checkpoint)){const before=read(checkpoint).before;assert.deepEqual(runtime.scene,before.scene,'Replay restores the actual prior scene');assert.deepEqual(runtime.activeIdentity,before.activeIdentity,'Replay restores the same objects');assert.deepEqual(runtime.inputs,before.inputs,'Replay restores all prior inputs');}}
+   replayEntry={kind:'replay',initialStateId:model.cases.find(c=>c.id===prefix[0]).given.stateId,steps};
+   console.log(JSON.stringify({event:'entry-replay-completed',resumeVisitIndex:resumeIndex,caseIds:prefix,productVisitsReaccepted:0}));
+  }
+  for(;;){
+   const next=gate('next'),index=next.nextVisitIndex;if(index>session.to)break;
+   if(selectedRound&&index>selectedRound.toVisitIndex){selectedRound=await roundControl.pause(selectedRound,refreshPlan);continue;}
+   const planned=verifiedNext();assert.ok(planned.canBegin&&planned.visit?.visitIndex===index,'The live execution plan must authorize this same visit');
+   if(index<session.from)throw Error('Session cannot skip earlier required visits');
+   const c=model.cases.find(c=>c.id===model.coverage.sequence[index]);assert.ok(c);
+   if(c.kind==='primary'&&(!previous||previous.expected.stateId!==c.given.stateId)){
+    assert.ok(graph.states.some(s=>s.id===c.given.stateId&&s.isInitial),'Resume from a noninitial state requires reviewed replay evidence');
+   }
+   const authorization=gate('begin',['--index',String(index)]),authorized=read(recordFile).active;
+   const startedAt=new Date().toISOString(),folder=path.join(root,'plan/acceptance/evidence',String(index).padStart(3,'0')+'-'+crypto.randomUUID());fs.mkdirSync(folder,{recursive:true});adapter.directory=folder;adapter.device.directory=folder;
+   const checks=[],assertions=[];let givenObserved='Actual initial state has not been observed.',operationObserved='No product operation performed.',targetObserved='No target observation.',blockage=null,observedMocks=[],fixtureSources=[];
+   const entry=replayEntry??(c.kind==='primary'&&previous&&previous.expected.stateId===c.given.stateId?{kind:'handoff',previousAttemptId:authorized.predecessorAttemptId}:{kind:'initial'});
+   try{
+    if(c.kind==='primary'){
+     if(entry.kind==='initial'){runtime=new UIBrowseModel(structuredClone(seed));await supplementary.ensureBrowse(adapter,seed);await adapter.restart(seed);}
+     const beforeRuntime=frameOf(runtime),beforeNative=(await adapter.observe('given-state')).report;
+     oracle.matchesState(graph,c.given.stateId,beforeRuntime);oracle.matchesState(graph,c.given.stateId,beforeNative);
+     const givenSource=graph.states.find(s=>s.id===c.given.stateId).source.find(s=>s.kind==='ui'),givenDocument=read(path.resolve(path.dirname(graphFile),givenSource.structurePath));require('./binding-oracle.cjs').inspect(givenDocument,beforeRuntime,seed);require('./binding-oracle.cjs').inspect(givenDocument,beforeNative,seed);
+     assert.deepEqual(beforeNative.inputs,beforeRuntime.inputs,'Both environments receive the same prepared input');givenObserved='Observed '+c.given.stateId+' in the real native host and the actual Node controller; input objects match.';
+     const response=oracle.mockResponse(c);if(response)runtime.queueResponse(structuredClone(response));
+     runtime.dispatch(c.operation.input.controlNodeId,c.operation.input.selection);await adapter.perform(c);operationObserved='Dispatched the declared Node event and clicked the actual native control '+c.operation.input.controlNodeId+'.';
+     const source=graph.states.find(s=>s.id===c.expected.stateId).source.find(s=>s.kind==='ui'),document=read(path.resolve(path.dirname(graphFile),source.structurePath));await adapter.device.waitSource(x=>x.includes(document.tree.id));
+     const actualRuntime=frameOf(runtime),shot=await adapter.observe('target-state'),actualNative=shot.report;
+     observedMocks=[{environment:'runtime',calls:actualRuntime.trace.slice(beforeRuntime.trace.length).filter(t=>t.name==='record-response')},{environment:'native',calls:actualNative.trace.slice(beforeNative.trace.length).filter(t=>t.name==='record-response')}];
+     write(path.join(folder,'runtime-frame.json'),{before:beforeRuntime,after:actualRuntime});write(path.join(folder,'native-frame.json'),actualNative);
+     if(['visual','functional'].some(aspect=>c.acceptance[aspect].checks.some(d=>d.evidence.some(e=>e.form==='call-trace'))))exportTrace(folder,beforeRuntime,actualRuntime,beforeNative,actualNative);
+     const captureCheck=(environment,aspect,checkIndex,definition)=>{
+      const target='case:'+c.id+':'+aspect+':'+checkIndex+':'+index;let expected,actual,status='passed';
+      try{if(environment==='runtime'){oracle.matchesState(graph,c.expected.stateId,actualRuntime);oracle.handoff(c,beforeRuntime,actualRuntime);oracle.responseAssertion(c,beforeRuntime,actualRuntime);require('./binding-oracle.cjs').inspect(document,actualRuntime,seed);expected={from:c.given.stateId,to:c.expected.stateId,control:c.operation.input.controlNodeId,bindingHandoff:true,responseConsumed:true};actual={from:c.given.stateId,to:c.expected.stateId,control:actualRuntime.trace.slice(beforeRuntime.trace.length).find(t=>t.name==='control')?.input.id,bindingHandoff:true,responseConsumed:true};assert.deepEqual(actual,expected);}
+       else{oracle.matchesState(graph,c.expected.stateId,actualNative);oracle.handoff(c,beforeNative,actualNative);oracle.responseAssertion(c,beforeNative,actualNative);assert.deepEqual(actualNative.inputs,actualRuntime.inputs);const inspected=visual.inspect(document,actualNative,{xml:shot.evidence.source});expected={documentId:document.id,differences:[],boundaryCalls:0,fontsLoaded:true};actual={documentId:actualNative.documentId,differences:inspected.differences,boundaryCalls:actualNative.boundaryCalls.length,fontsLoaded:Object.values(actualNative.fonts).every(Boolean)};assert.deepEqual(actual,expected);write(path.join(folder,'native-comparisons.json'),inspected);}
+      }catch(error){status='failed';expected??={criterion:definition.criterion,oracle:definition.oracle};actual={error:error.stack,observation:environment==='runtime'?actualRuntime:actualNative};}
+      assertions.push({target,expected,actual,verdict:status});checks.push({aspect,checkIndex,status,actual:status==='passed'?'Compared the observed '+environment+' result against the independent current specification.':String(actual.error),evidence:evidence(folder,definition)});
+     };
+     for(const aspect of ['visual','functional'])c.acceptance[aspect].checks.forEach((d,i)=>captureCheck(d.environment,aspect,i,d));targetObserved='Observed native '+actualNative.documentId+' and Node '+actualRuntime.documentId+' after the declared action.';
+    }else{
+     givenObserved='Prepared the independent fixture described by '+c.given.setup;operationObserved=c.operation.label;
+     let fixtureRecord=read(recordFile);
+     if(c.id==='TC-G-SCOPE'){const selected=requiredScopeRecord(fixtureRecord,model);fixtureRecord=selected.record;write(path.join(folder,'scope-selection-summary.json'),selected.audit);}
+     const restoreSeeking=['TC-G-LAYOUT','TC-G-VISUAL'].includes(c.id)?settledFixtureSeeking(adapter):()=>{};
+     const restoreObservations=['TC-G-LAYOUT','TC-G-VISUAL'].includes(c.id)?completeFixtureObservations(adapter,root):()=>{};
+     let results;
+     try{if(c.id==='TC-G-LAYOUT'){const actual=await executeCheckpointedLayout({root,directory:folder,adapter,model,graph,record:fixtureRecord,seed});results=actual.results;fixtureSources=actual.sources;givenObserved+=' Reused '+actual.reusedRows+' exact verified complete configuration checkpoints and executed every remaining configuration.';}else results=await supplementary.executeCase({root,directory:folder,case:c,adapter,identity,model,graph,record:fixtureRecord,seed});}
+     finally{restoreObservations();restoreSeeking();}
+     for(const aspect of ['visual','functional'])for(let i=0;i<c.acceptance[aspect].checks.length;i++){const definition=c.acceptance[aspect].checks[i],result=results[aspect]?.[i];assert.ok(result,'Every declared check needs its actual comparison');const status=require('node:util').isDeepStrictEqual(result.expected,result.actual)?'passed':'failed';assertions.push({target:'case:'+c.id+':'+aspect+':'+i+':'+index,...result,verdict:status});checks.push({aspect,checkIndex:i,status,actual:'Executed the declared isolated fixture and retained its independent comparisons.',evidence:evidence(folder,definition)});}
+     targetObserved='Recorded results for the actual independent fixture '+c.id+'.';
+    }
+   }catch(error){
+    try{await adapter.capture('failure-state');}catch{}
+    assertions.push({target:'case:'+c.id+':entry:'+index,expected:{given:c.given,operation:c.operation,checks:'all applicable checks observed'},actual:{error:error.stack,givenObserved,operationObserved},verdict:'blocked'});
+    blockage={reason:error.message,evidence:[]};checks.length=0;targetObserved='Blocked; inspect the actual error and retained scene evidence.';
+   }
+   const reportFile=path.join(folder,'assertions.json');write(reportFile,{assertions});
+   const reportRef={form:'assertion-report',...ref(reportFile),description:'Independent expected/actual comparisons for this visit.'};for(const check of checks)check.evidence.unshift(reportRef);if(blockage)blockage.evidence=[reportRef,...filesBelow(folder).filter(f=>f.endsWith('.png')).map(f=>({form:'screenshot',...ref(f),description:'Actual scene when preparation or observation was blocked.'}))];
+   const contextFile=path.join(folder,'context.json'),environments=[...new Set(checks.length?checks.map(check=>c.acceptance[check.aspect].checks[check.checkIndex].environment):['runtime','native'])];
+   const readinessFile=path.join(root,'plan/acceptance/evidence/preparation/environment/readiness.json');
+   const prerequisiteObservations={'READY-INTER':'Observed all declared font instances loaded in the real native host; retained the host readiness and current visit comparisons.','READY-UI-HARNESS':'Executed the Node controller and real native UI through the declared driver and recorded this visit observations and independent checks.','READY-NATIVE-HOST':'Connected the actual isolated development package on '+identity.serial+' and recorded its current observations.'};
+   const readyPrerequisites=blockage?[]:plan.prerequisites.filter(p=>p.status==='missing'&&p.affects.includes(c.id)).map(p=>{assert.ok(prerequisiteObservations[p.id],'Unsupported preparation prerequisite '+p.id);return {id:p.id,observation:prerequisiteObservations[p.id],evidence:[ref(readinessFile),ref(reportFile)]};});
+   write(contextFile,{build:read(path.join(root,'plan/acceptance/evidence/preparation/environment/bundle.json')),inputs:seed,mocks:c.mocks.map(m=>({boundary:m.boundary,trigger:m.trigger,lifetime:m.lifetime,actualCalls:observedMocks.map(o=>({...o,hitCount:o.calls.length})),fixtureTraces:filesBelow(folder).filter(f=>/observations|call-trace|summary/.test(path.basename(f))&&f.endsWith('.json')).map(ref),restored:!blockage&&(c.kind!=='primary'||!runtime.pendingResponse)})),entry,environments:environments.map(environment=>environment==='native'?{environment,host:identity.serial,identity}:{environment,host:process.version}),readyPrerequisites,preparationEvidence:ref(readinessFile),executionScope:{roundId:selectedRound?.id??null,sessionId:session.id}});
+   const taskIds=plan.tasks.filter(t=>t.testCaseIds.includes(c.id)).map(t=>t.id),normalSnapshot=[...new Set([...taskIds.flatMap(id=>implementation.tasks[id].files.map(f=>path.join(root,f.path))),...support])].map(ref),snapshot=[...new Map([...normalSnapshot,...fixtureSources].map(f=>[f.path,f])).values()];
+   const run={id:path.basename(folder),taskIds,script:ref(__filename),authoredAt:fs.statSync(__filename).mtime.toISOString(),command:session.command,cwd:session.cwd,startedAt,finishedAt:new Date().toISOString(),exitCode:null,environment:environments.length>1?'mixed':environments[0],files:snapshot,context:ref(contextFile),visits:[{visitIndex:index,entry:entry.kind,givenObserved,operationObserved,targetObserved,outcome:blockage?'blocked':checks.every(c=>c.status==='passed')?'passed':'failed',checks,...(blockage?{blockage}:{})}],taskResults:[]};
+   const runFile=path.join(folder,'run.json');write(runFile,run);const submitted=gate('submit',['--token',authorization.token,'--run',relative(runFile)]);console.log(JSON.stringify({index,caseId:c.id,...submitted}));
+   if(!submitted.recorded||!submitted.synced||!submitted.checked||!submitted.canAdvance)throw Error('The current visit did not authorize advancement.');
+   replayEntry=null;previous=c;
+  }
+ }finally{await adapter.close();}
+}
+async function supervise(){
+ const record=read(recordFile),next=gate('next').nextVisitIndex,session=record.sessions.find(s=>s.from<=next&&next<=s.to);if(!session)throw Error('No unfinished reviewed session');
+ const folder=path.join(root,'plan/acceptance/evidence/sessions',session.id,'process-'+Date.now());fs.mkdirSync(folder,{recursive:true});const output=path.join(folder,'output.log'),stream=fs.createWriteStream(output,{flags:'wx'}),startedAt=new Date().toISOString();
+ const child=spawn(process.execPath,[__filename,'--worker'],{cwd:root,env:{...process.env,ACCEPTANCE_SESSION_ID:session.id},windowsHide:true,stdio:['ignore','pipe','pipe']});child.stdout.pipe(stream,{end:false});child.stderr.pipe(stream,{end:false});child.stdout.pipe(process.stdout);child.stderr.pipe(process.stderr);
+ const exitCode=await new Promise((resolve,reject)=>{child.once('error',reject);child.once('exit',code=>resolve(code??1));});await new Promise(resolve=>stream.end(resolve));const resultFile=path.join(folder,'session-result.json');write(resultFile,{sessionId:session.id,command:session.command,cwd:session.cwd,startedAt,finishedAt:new Date().toISOString(),exitCode,log:ref(output)});
+ if(read(recordFile).active===null)gate('close-session',['--run',relative(resultFile)]);process.exitCode=exitCode;
+}
+if(process.argv.includes('--resume-round'))require('./round-control.cjs').resume(process.argv[process.argv.indexOf('--resume-round')+1]);
+else if(process.argv.includes('--inspect'))console.log(JSON.stringify({entry:relative(__filename),environments:['runtime','native'],primary:true,supplementary:['TC-G-EVIDENCE','TC-G-LAYOUT','TC-G-SCOPE','TC-G-VISUAL','TC-REG-CONTAINERS','TC-REG-CONTROLS'],gateProtocol:['plan-next','next','begin','sync-check-plan','observe-and-compare','submit','await-canAdvance','sync-check-plan','pause-at-round-boundary','close-session'],roundSelection:'ACCEPTANCE_ROUND',resumeCommand:'--resume-round <next-round>',productVisitsExecuted:0}));
+else (process.argv.includes('--worker')?worker():supervise()).catch(error=>{console.error(error.stack);process.exitCode=1;});

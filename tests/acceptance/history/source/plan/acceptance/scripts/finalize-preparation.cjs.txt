@@ -1,0 +1,33 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),assert=require('node:assert/strict'),{spawnSync}=require('node:child_process');
+const root=path.resolve(__dirname,'../../..'),base=path.join(root,'plan/acceptance'),directory=path.join(base,'evidence/preparation');
+const python=process.env.ACCEPTANCE_PYTHON||'D:/xiang/CX_application/Anconda3/python.exe';
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
+const reference=file=>({path:path.relative(root,file).replaceAll('\\','/'),sha256:crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')});
+async function main(){
+ const record=read(path.join(base,'acceptance.json')),cases=read(path.join(root,record.testCasesPath)),environment=read(path.join(directory,'environment/readiness.json'));
+ assert.equal(record.active,null);assert.equal(record.attempts.length,0);assert.equal(record.repairs.length,0);assert.equal(record.sessionResults.length,0);assert.equal(cases.cases.length,135);assert.ok(cases.cases.every(c=>c.execution.status==='not_run'&&c.execution.actual===null&&!c.execution.evidence.length));
+ const contracts=fs.readdirSync(path.join(base,'contracts')).filter(n=>n.endsWith('.json'));assert.equal(contracts.length,135);for(const name of contracts){const contract=read(path.join(base,'contracts',name));assert.equal(contract.execution.status,'not_run');assert.equal(contract.attempts.length,0);}
+ for(const ref of read(path.join(directory,'planning-originals.json')))assert.equal(reference(path.join(root,ref.path)).sha256,ref.sha256,'Planning source changed: '+ref.path);
+ assert.equal(environment.status,'prepared');assert.equal(environment.initial.stateId,'S01');assert.equal(environment.productVisitsExecuted,0);
+ for(const ref of environment.actualEvidence)assert.equal(reference(path.join(root,ref.path)).sha256,ref.sha256);
+ const frame=read(path.join(directory,'environment/initial-state.json')),seed=read(path.join(directory,'environment/inputs.json')),state=read(path.join(root,'plan/requirement-analysis/state-transitions.json')).states.find(s=>s.id==='S01'),source=state.source.find(s=>s.kind==='ui');
+ const document=read(path.resolve(root,'plan/requirement-analysis',source.structurePath));
+ const bindingComparisons=require('./binding-oracle.cjs').inspect(document,frame,seed);assert.equal(frame.trace.length,0);assert.equal(frame.scene.screen,'today-empty');
+ const services={};for(const [name,url]of [['appium','http://127.0.0.1:4723/status'],['metro','http://127.0.0.1:8081/status']]){const response=await fetch(url,{signal:AbortSignal.timeout(5000)});assert.equal(response.status,200);services[name]={url,status:response.status,body:await response.text()};}
+ const {DeviceDriver}=require(path.join(root,'scripts/device-driver.cjs')),device=new DeviceDriver(36,path.join(directory,'environment'));const identity=device.identity();assert.equal(device.adb(['shell','getprop','sys.boot_completed']).trim(),'1');assert.equal(identity.fontScale,'1');
+ const args=['-X','utf8','-B','.agents/skills/acceptance/scripts/route.py','check','--workspace','.'];const checked=spawnSync(python,args,{cwd:root,encoding:'utf8',windowsHide:true,maxBuffer:4*1024*1024});assert.equal(checked.status,0,checked.stdout+checked.stderr);const projection=JSON.parse(checked.stdout);assert.equal(projection.status,'consistent');assert.equal(projection.nextVisitIndex,0);
+ const syntax=[];for(const name of fs.readdirSync(__dirname).filter(n=>n.endsWith('.cjs'))){const result=spawnSync(process.execPath,['--check',path.join(__dirname,name)],{cwd:root,encoding:'utf8',windowsHide:true});assert.equal(result.status,0,result.stderr);syntax.push({path:'plan/acceptance/scripts/'+name,exitCode:result.status,sha256:reference(path.join(__dirname,name)).sha256});}
+ fs.writeFileSync(path.join(directory,'driver-syntax.json'),JSON.stringify(syntax,null,2)+'\n');
+ const report={preparedAt:new Date().toISOString(),status:'ready-for-visit-0',scope:'workflow-steps-1-through-4',steps:[
+  {step:1,status:'ready',evidence:reference(path.join(directory,'preflight.json'))},
+  {step:2,status:'prepared',objective:record.planning.objective,sessions:record.sessions.map(s=>({id:s.id,from:s.from,to:s.to,command:s.command,environments:s.environments})),review:reference(path.join(directory,'driver-review.json')),syntax:reference(path.join(directory,'driver-syntax.json')),note:'The optimization is within the reviewed profile set; it is not a product acceptance result.'},
+  {step:3,status:'initialized',caseCount:cases.cases.length,contracts:contracts.length,recordPath:'plan/acceptance/acceptance.json',copies:[record.testCasesPath,record.taskPlanPath,'plan/acceptance/test-cases.html','plan/acceptance/task-plan.md'],projection},
+  {step:4,status:'prepared',identity,services,initialState:'S01',uiVersion:environment.initial.uiVersion,environment:environment.initial.environment,fonts:environment.initial.fonts,readiness:reference(path.join(directory,'environment/readiness.json')),inputs:reference(path.join(directory,'environment/inputs.json')),initialInputComparisons:bindingComparisons,actualEvidence:environment.actualEvidence}
+ ],planningOriginalsUnchanged:true,planningOriginals:read(path.join(directory,'planning-originals.json')),productAcceptance:{visitsExecuted:0,active:null,attempts:0,statusCounts:{not_run:135},nextVisitIndex:0,nextCaseId:record.sequence[0],executionCommand:record.sessions[0].command,executionStarted:false}};
+ const reportFile=path.join(directory,'preparation.json');fs.writeFileSync(reportFile,JSON.stringify(report,null,2)+'\n');
+ // The reviewed profiles and schedule are now frozen in acceptance.json; remove only these temporary inputs.
+ for(const name of ['profiles.json','schedule.json']){const file=path.resolve(base,'.work',name);assert.equal(path.dirname(file),path.resolve(base,'.work'));if(fs.existsSync(file))fs.unlinkSync(file);}
+ console.log(JSON.stringify({status:report.status,stepsCompleted:4,routeVisits:record.sequence.length,sessions:record.sessions.length,contracts:contracts.length,productVisitsExecuted:0,sourceOriginalsUnchanged:true,report:path.relative(root,reportFile).replaceAll('\\','/')}));
+}
+main().catch(error=>{console.error(error.stack);process.exitCode=1;});

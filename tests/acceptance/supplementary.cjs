@@ -1,0 +1,33 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),{spawnSync}=require('node:child_process');
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
+async function ensureBrowse(adapter,context){let source=await adapter.device.source();if(source.includes('resource-id="ui-review.command"'))return;if(source.includes('resource-id="ui-test.menu"')){await adapter.device.click('ui-test.menu');source=await adapter.device.waitSource(x=>x.includes('resource-id="ui-test.close"'));}if(source.includes('resource-id="ui-test.close"')){await adapter.device.clickVisible('ui-test.close');source=await adapter.device.waitSource(x=>x.includes('resource-id="native.ui-review"'));}if(!source.includes('resource-id="native.ui-review"')){adapter.device.deepLink(adapter.scheme+':///native');await adapter.device.waitSource(x=>x.includes('resource-id="native.ui-review"'));}await adapter.device.clickVisible('native.ui-review');await adapter.device.waitSource(x=>x.includes('resource-id="ui-review.command"'));await adapter.restart(context);}
+function baseline(adapter){adapter.device.adb(['shell','wm','size','1179x2556']);adapter.device.adb(['shell','wm','density','480']);adapter.device.adb(['shell','settings','put','system','font_scale','1']);}
+async function executeCase(options){
+ const {root,directory,case:c,adapter,identity,model,graph,record,seed}=options;
+ const visual=require('./native-visual.cjs')(root),runtime=path.join(root,'.artifacts/acceptance/runtime');
+ if(c.id==='TC-G-EVIDENCE'){
+  const result=spawnSync(process.execPath,['--test',path.join(runtime,'tests/ui/evidence.test.js')],{cwd:root,env:{...process.env,UI_EVIDENCE_DIR:directory},encoding:'utf8',windowsHide:true});fs.writeFileSync(path.join(directory,'evidence-contract-test.log'),result.stdout+result.stderr);assert.equal(result.status,0,result.stdout+result.stderr);return {functional:[{expected:true,actual:read(path.join(directory,'evidence-contract-tests.json')).passed}]};
+ }
+ if(c.id==='TC-G-LAYOUT'){
+  await ensureBrowse(adapter,seed);const result=await require('./fresh-layout.cjs')({root,directory,adapter,model,graph,visual,seed});return {visual:[{expected:{rows:9,screensPerRow:23},actual:{rows:result.rows.length,screensPerRow:Math.min(...result.rows.map(row=>row.documents.length))}}]};
+ }
+ if(c.id==='TC-G-SCOPE'){
+  const observations=record.attempts.filter(a=>model.cases.find(x=>x.id===record.sequence[a.run.visits[0].visitIndex]).kind==='primary').map(a=>{const reportRef=a.run.visits[0].checks.flatMap(x=>x.evidence).find(e=>e.form==='layout-measurement');assert.ok(reportRef);const file=path.join(root,reportRef.path);assert.equal(crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex'),reportRef.sha256);const frame=read(file);return {visitIndex:a.run.visits[0].visitIndex,reference:reportRef,boundaryCalls:frame.boundaryCalls,pendingResponse:frame.pendingResponse};});
+  assert.equal(observations.length,205);assert.ok(observations.every(o=>!o.boundaryCalls.length&&!o.pendingResponse));
+  const previous=process.env.APP_VARIANT;process.env.APP_VARIANT='production';let resolution;
+  try{delete require.cache[require.resolve(path.join(root,'metro.config.cjs'))];const config=require(path.join(root,'metro.config.cjs'));resolution=config.resolver.resolveRequest({resolveRequest(){throw Error('Unexpected resolver fallback');}},'@verification','android');assert.equal(path.basename(resolution.filePath),'production.tsx');assert.ok(!/ui-review|ui-test-host|development/.test(fs.readFileSync(resolution.filePath,'utf8')));}finally{if(previous===undefined)delete process.env.APP_VARIANT;else process.env.APP_VARIANT=previous;}
+  fs.writeFileSync(path.join(directory,'scope-call-trace.json'),JSON.stringify({observations,productionResolution:resolution},null,2)+'\n');return {functional:[{expected:{visits:205,businessCalls:0,pendingResponses:0},actual:{visits:observations.length,businessCalls:observations.flatMap(o=>o.boundaryCalls).length,pendingResponses:observations.filter(o=>o.pendingResponse).length}}]};
+ }
+ if(c.id==='TC-G-VISUAL'){
+  await require('./accept-p02.cjs')({root,directory,mode:'unit',args:[],taskIds:['P02']});const assertions=read(path.join(directory,'task-assertions.json')).assertions;baseline(adapter);await ensureBrowse(adapter,seed);const groups=await require('./collect-pages.cjs')({root,directory,adapter,model,graph,visual,seed});return {visual:[{expected:true,actual:assertions.length>0&&assertions.every(a=>a.verdict==='passed')},{expected:[23,23],actual:groups.map(g=>g.frames.length)}]};
+ }
+ if(c.id==='TC-REG-CONTAINERS'){
+  baseline(adapter);if((await adapter.device.source()).includes('resource-id="ui-review.command"'))await adapter.shutdown();await require('./container-boundary.cjs')({root,directory,adapter,identity});return {functional:[{expected:true,actual:read(path.join(directory,'container-boundary-summary.json')).summaries.length===4}]};
+ }
+ if(c.id==='TC-REG-CONTROLS'){
+  baseline(adapter);if((await adapter.device.source()).includes('resource-id="ui-review.command"'))await adapter.shutdown();const actual=await adapter.controlsSmoke(),comparisons=require('./controls-oracle.cjs').assertNativeSmoke(actual,directory);await adapter.device.clickVisible('ui-test.close');await adapter.device.waitSource(x=>x.includes('resource-id="native.ui-tests"'));fs.writeFileSync(path.join(directory,'controls-call-trace.json'),JSON.stringify({calls:actual.report.calls,choice:actual.report.choice,value:actual.report.value,comparisons},null,2)+'\n');return {functional:[{expected:true,actual:comparisons.every(a=>a.verdict==='passed')}]};
+ }
+ throw Error('No reviewed supplementary handler: '+c.id);
+}
+module.exports={executeCase,baseline,ensureBrowse};

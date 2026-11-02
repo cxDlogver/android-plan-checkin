@@ -1,0 +1,32 @@
+'use strict';
+// This file controls a live driver only; acceptance.json remains the progress authority.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto');
+const root=path.resolve(__dirname,'../../..'),directory=path.join(root,'plan/acceptance/.work');
+const control=path.join(directory,'session-control.json'),request=path.join(directory,'session-request.json');
+const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
+function write(file,value){fs.mkdirSync(directory,{recursive:true});const temporary=file+'.tmp';fs.writeFileSync(temporary,JSON.stringify(value,null,2)+'\n');fs.renameSync(temporary,file);}
+function select(plan,id,index){const round=plan.rounds.find(r=>r.id===id);assert.ok(round,'Unknown acceptance round '+id);assert.ok(index>=round.fromVisitIndex&&index<=round.toVisitIndex,'The next legal visit is outside '+id);return round;}
+async function pause(round,refresh){
+ const nonce=crypto.randomUUID();
+ write(control,{status:'paused',roundId:round.id,sessionId:round.sessionId,workerPid:process.pid,supervisorPid:process.ppid,nonce,at:new Date().toISOString()});
+ console.log(JSON.stringify({event:'round-complete-and-paused',roundId:round.id,throughVisitIndex:round.toVisitIndex,workerPid:process.pid}));
+ for(;;){
+  await new Promise(resolve=>setTimeout(resolve,2000));
+  if(!fs.existsSync(request))continue;
+  const value=read(request);fs.unlinkSync(request);
+  assert.equal(value.nonce,nonce,'Resume request is for another live pause');
+  const plan=refresh(),next=plan.next.visit;
+  assert.ok(next&&plan.next.canBegin,'Restore the canonical gate before resuming');
+  const target=select(plan,value.roundId,next.visitIndex);
+  assert.equal(target.number,round.number+1,'Resume the immediately following round only');
+  write(control,{status:'running',roundId:target.id,sessionId:target.sessionId,workerPid:process.pid,supervisorPid:process.ppid,at:new Date().toISOString()});
+  return target;
+ }
+}
+function resume(id){
+ const state=read(control);assert.equal(state.status,'paused','There is no paused live round');process.kill(state.workerPid,0);
+ assert.ok(!fs.existsSync(request),'A resume request is already pending');
+ write(request,{roundId:id,nonce:state.nonce,at:new Date().toISOString()});
+ console.log(JSON.stringify({status:'requested',roundId:id,workerPid:state.workerPid}));
+}
+module.exports={select,pause,resume};

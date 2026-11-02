@@ -1,0 +1,311 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "TC-G-EVIDENCE",
+  "title": "视觉验收证据完整性",
+  "source": {
+    "path": "plan/acceptance/test-cases.json",
+    "definitionHash": "189eba6e176bf4fefb1baaa54c7facbbe9ed32de4e6d0e55257a1b72e312bc53"
+  },
+  "definition": {
+    "id": "TC-G-EVIDENCE",
+    "title": "视觉验收证据完整性",
+    "kind": "constraint",
+    "requirementId": null,
+    "given": {
+      "stateId": null,
+      "setup": "准备完整的验收记录，并逐项构造缺少版本、页面节点、环境、输入、截图或差异说明的记录。",
+      "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+    },
+    "operation": {
+      "label": "验证证据字段与未执行状态规则",
+      "actor": "验收者"
+    },
+    "expected": {
+      "stateId": null,
+      "conclusion": "不完整的记录不能形成通过结论；未执行的用例保持未执行，完整记录也不能自动代表验收通过。"
+    },
+    "dataProfileId": "isolated-checks",
+    "mocks": [],
+    "acceptance": {
+      "visual": {
+        "applicable": false,
+        "reason": "本例检查记录规则，不验证画面外观。",
+        "checks": []
+      },
+      "functional": {
+        "applicable": true,
+        "reason": "核对证据记录器的数据校验与状态约束。",
+        "checks": [
+          {
+            "criterion": "证据记录完整性和验收状态规则得到执行，缺字段或伪造通过的记录被拒绝。",
+            "oracle": "PRD A07和L93；每次实际观察绑定当前UI版本、节点、环境和输入",
+            "procedure": "逐项删除记录字段并断言拒绝；为not_run附加actual或通过标记时拒绝；完整结构只能通过记录校验，不能自动改变产品验收状态。",
+            "evidence": [
+              {
+                "form": "data-snapshot",
+                "description": "完整、缺字段及错误状态的测试记录。"
+              },
+              {
+                "form": "assertion-report",
+                "description": "每种记录应接受或拒绝的独立预期、实际结果及状态检查结论。"
+              }
+            ],
+            "sufficiency": "纯记录结构与状态约束可由单元测试验收，无需浏览器。",
+            "testType": "script",
+            "environment": "runtime"
+          }
+        ]
+      }
+    },
+    "constraintIds": [
+      "G-evidence"
+    ],
+    "impactId": null,
+    "dataProfile": {
+      "id": "isolated-checks",
+      "scope": "case",
+      "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+      "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+      "fields": [
+        {
+          "name": "responsiveCases",
+          "type": "array",
+          "mode": "context",
+          "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+          "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+          "source": {
+            "path": "../ui-spec/rules.json",
+            "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+            "locator": "/profiles/mobile"
+          }
+        },
+        {
+          "name": "longName",
+          "type": "string",
+          "mode": "literal",
+          "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+          "source": {
+            "path": "../source-resource/prd/设计还原需求文档.md",
+            "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+            "locator": "L47-L51"
+          }
+        },
+        {
+          "name": "progressInputs",
+          "type": "array",
+          "mode": "literal",
+          "value": [
+            0,
+            0.5,
+            1
+          ],
+          "source": {
+            "path": "../ui-spec/documents/02-今日.json",
+            "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+            "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+          }
+        }
+      ]
+    }
+  },
+  "stateGraph": {
+    "path": "../requirement-analysis/state-transitions.json",
+    "sha256": "38b76bcf0790fade4121d97ed947351a2cafb6d6f07aeb70410b48a0090618c5"
+  },
+  "givenState": null,
+  "expectedState": null,
+  "requiredVisits": [
+    205
+  ],
+  "execution": {
+    "status": "passed",
+    "actual": "全部必要访问与检查已经通过并登记。",
+    "evidence": [
+      {
+        "runId": "205-c7331a54-915b-42f3-ac26-cb2a13df3dc2",
+        "form": "assertion-report",
+        "path": "evidence/205-c7331a54-915b-42f3-ac26-cb2a13df3dc2/assertions.json",
+        "sha256": "a8dbf6665b870e36d8298977ec07884423f55db654c42937bfc834d9c19f4269",
+        "description": "Independent expected/actual comparisons for this visit."
+      },
+      {
+        "runId": "205-c7331a54-915b-42f3-ac26-cb2a13df3dc2",
+        "form": "data-snapshot",
+        "path": "evidence/205-c7331a54-915b-42f3-ac26-cb2a13df3dc2/evidence-contract-tests.json",
+        "sha256": "c5f650dbce6d49930123c9e71ce4932b7f2e7626a28a207e1d275e612f34c7f1",
+        "description": "完整、缺字段及错误状态的测试记录。"
+      }
+    ],
+    "checks": [
+      {
+        "runId": "205-c7331a54-915b-42f3-ac26-cb2a13df3dc2",
+        "visitIndex": 205,
+        "aspect": "functional",
+        "checkIndex": 0,
+        "status": "passed",
+        "actual": "Executed the declared isolated fixture and retained its independent comparisons.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "evidence/205-c7331a54-915b-42f3-ac26-cb2a13df3dc2/assertions.json",
+            "sha256": "a8dbf6665b870e36d8298977ec07884423f55db654c42937bfc834d9c19f4269",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "data-snapshot",
+            "path": "evidence/205-c7331a54-915b-42f3-ac26-cb2a13df3dc2/evidence-contract-tests.json",
+            "sha256": "c5f650dbce6d49930123c9e71ce4932b7f2e7626a28a207e1d275e612f34c7f1",
+            "description": "完整、缺字段及错误状态的测试记录。"
+          }
+        ]
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "attemptId": "205-c7331a54-915b-42f3-ac26-cb2a13df3dc2",
+      "visitIndex": 205,
+      "definitionHash": "189eba6e176bf4fefb1baaa54c7facbbe9ed32de4e6d0e55257a1b72e312bc53",
+      "definition": {
+        "id": "TC-G-EVIDENCE",
+        "title": "视觉验收证据完整性",
+        "kind": "constraint",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "准备完整的验收记录，并逐项构造缺少版本、页面节点、环境、输入、截图或差异说明的记录。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "验证证据字段与未执行状态规则",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "不完整的记录不能形成通过结论；未执行的用例保持未执行，完整记录也不能自动代表验收通过。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [],
+        "acceptance": {
+          "visual": {
+            "applicable": false,
+            "reason": "本例检查记录规则，不验证画面外观。",
+            "checks": []
+          },
+          "functional": {
+            "applicable": true,
+            "reason": "核对证据记录器的数据校验与状态约束。",
+            "checks": [
+              {
+                "criterion": "证据记录完整性和验收状态规则得到执行，缺字段或伪造通过的记录被拒绝。",
+                "oracle": "PRD A07和L93；每次实际观察绑定当前UI版本、节点、环境和输入",
+                "procedure": "逐项删除记录字段并断言拒绝；为not_run附加actual或通过标记时拒绝；完整结构只能通过记录校验，不能自动改变产品验收状态。",
+                "evidence": [
+                  {
+                    "form": "data-snapshot",
+                    "description": "完整、缺字段及错误状态的测试记录。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "每种记录应接受或拒绝的独立预期、实际结果及状态检查结论。"
+                  }
+                ],
+                "sufficiency": "纯记录结构与状态约束可由单元测试验收，无需浏览器。",
+                "testType": "script",
+                "environment": "runtime"
+              }
+            ]
+          }
+        },
+        "constraintIds": [
+          "G-evidence"
+        ],
+        "impactId": null,
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 准备完整的验收记录，并逐项构造缺少版本、页面节点、环境、输入、截图或差异说明的记录。",
+      "operationObserved": "验证证据字段与未执行状态规则",
+      "targetObserved": "Recorded results for the actual independent fixture TC-G-EVIDENCE.",
+      "outcome": "passed",
+      "startedAt": "2026-10-29T17:57:23.236Z",
+      "finishedAt": "2026-10-29T17:57:24.011Z",
+      "definitionCurrent": true,
+      "checks": [
+        {
+          "aspect": "functional",
+          "checkIndex": 0,
+          "status": "passed",
+          "observation": "Executed the declared isolated fixture and retained its independent comparisons.",
+          "comparisons": [
+            {
+              "expected": true,
+              "actual": true,
+              "verdict": "passed"
+            }
+          ],
+          "evidence": [
+            {
+              "form": "assertion-report",
+              "path": "plan/acceptance/evidence/205-c7331a54-915b-42f3-ac26-cb2a13df3dc2/assertions.json",
+              "sha256": "a8dbf6665b870e36d8298977ec07884423f55db654c42937bfc834d9c19f4269",
+              "description": "Independent expected/actual comparisons for this visit."
+            },
+            {
+              "form": "data-snapshot",
+              "path": "plan/acceptance/evidence/205-c7331a54-915b-42f3-ac26-cb2a13df3dc2/evidence-contract-tests.json",
+              "sha256": "c5f650dbce6d49930123c9e71ce4932b7f2e7626a28a207e1d275e612f34c7f1",
+              "description": "完整、缺字段及错误状态的测试记录。"
+            }
+          ]
+        }
+      ],
+      "blockage": null
+    }
+  ],
+  "repairs": []
+}

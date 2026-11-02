@@ -1,0 +1,27 @@
+{
+  "category": "environment",
+  "affectedCaseIds": [
+    "TC-T118"
+  ],
+  "reason": "The real native command lost its UiAutomator connection with socket hang up; the actual project emulator subsequently disappeared from adb. Restore the same isolated API 36 host and prepare the shortest four-step entry; no product source, test definition or prior successful evidence changes.",
+  "evidence": [
+    {
+      "form": "assertion-report",
+      "path": "plan/acceptance/evidence/068-2f0e27d9-bfe0-4386-8e7a-b30026a0d4fe/assertions.json",
+      "sha256": "c14413ffd8f77e669ce89676ba829b7c34ecc346e2465712690e96116123d697",
+      "description": "Actual blocked source request."
+    },
+    {
+      "form": "state-snapshot",
+      "path": "plan/acceptance/evidence/068-2f0e27d9-bfe0-4386-8e7a-b30026a0d4fe/repair/environment-before.json",
+      "sha256": "eee46bbe51cf656cb6202573bccc26dade84a7db4aa1c793802bf1fbe271e317",
+      "description": "Actual adb availability after the disconnect."
+    },
+    {
+      "form": "state-snapshot",
+      "path": "plan/acceptance/evidence/068-2f0e27d9-bfe0-4386-8e7a-b30026a0d4fe/given-state.json",
+      "sha256": "756cd4558816488cb3160a8289f3fcbd46c3d5aa77fa00d6e3a4ca056d38d3d8",
+      "description": "Last actual given state and inputs before the lost host."
+    }
+  ]
+}

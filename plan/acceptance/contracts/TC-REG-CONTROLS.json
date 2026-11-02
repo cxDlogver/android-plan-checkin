@@ -1,0 +1,353 @@
+{
+  "schemaVersion": "1.0.0",
+  "caseId": "TC-REG-CONTROLS",
+  "title": "公共控件的禁用、选择、输入及可访问契约",
+  "source": {
+    "path": "plan/acceptance/test-cases.json",
+    "definitionHash": "3c861a43995421875cb5d1dbfc6bfe7ee13f7d471c95b6d5f34869cbcabca546"
+  },
+  "definition": {
+    "id": "TC-REG-CONTROLS",
+    "title": "公共控件的禁用、选择、输入及可访问契约",
+    "kind": "regression",
+    "requirementId": null,
+    "given": {
+      "stateId": null,
+      "setup": "在隔离测试宿主挂载真实按钮、选项和输入控件，分别准备启用、禁用、选中、输入和错误提示场景。",
+      "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+    },
+    "operation": {
+      "label": "修改样式后执行启用/禁用点击、选项切换与文字输入",
+      "actor": "验收者"
+    },
+    "expected": {
+      "stateId": null,
+      "conclusion": "禁用控件不会触发动作；启用后只触发一次正确动作；选中值、输入值和可访问属性正确传递，错误提示仍可被读取。"
+    },
+    "dataProfileId": "isolated-checks",
+    "mocks": [],
+    "acceptance": {
+      "visual": {
+        "applicable": false,
+        "reason": "本例回归控件行为，颜色与布局由视觉用例覆盖。",
+        "checks": []
+      },
+      "functional": {
+        "applicable": true,
+        "reason": "核对公共控件改动可能直接破坏的事件和属性契约。",
+        "checks": [
+          {
+            "criterion": "公共控件的禁用、点击、选项切换、受控输入和可访问属性保持原有行为。",
+            "oracle": "src/ui/metal.tsx Button/Choice/Field现有公开props与Pressable/TextInput契约",
+            "procedure": "组件测试宿主挂载实际控件，依次触发disabled点击、enabled点击、Choice选项与Field输入；spy核对次数/值，查询accessibilityState和alert；不Mock被测控件。",
+            "evidence": [
+              {
+                "form": "native-tree",
+                "description": "真实控件的文本、选中、禁用及错误提示属性。"
+              },
+              {
+                "form": "call-trace",
+                "description": "点击、选项切换和文字输入触发的参数与次数。"
+              },
+              {
+                "form": "assertion-report",
+                "description": "控件行为和属性保持不变的预期与实际对照。"
+              }
+            ],
+            "sufficiency": "足以验证拟改公共组件的直接行为风险；颜色布局由主用例/全局视觉检查覆盖，无需浏览器。",
+            "testType": "script",
+            "environment": "native"
+          }
+        ]
+      }
+    },
+    "constraintIds": [],
+    "impactId": "I-CONTROLS",
+    "dataProfile": {
+      "id": "isolated-checks",
+      "scope": "case",
+      "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+      "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+      "fields": [
+        {
+          "name": "responsiveCases",
+          "type": "array",
+          "mode": "context",
+          "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+          "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+          "source": {
+            "path": "../ui-spec/rules.json",
+            "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+            "locator": "/profiles/mobile"
+          }
+        },
+        {
+          "name": "longName",
+          "type": "string",
+          "mode": "literal",
+          "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+          "source": {
+            "path": "../source-resource/prd/设计还原需求文档.md",
+            "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+            "locator": "L47-L51"
+          }
+        },
+        {
+          "name": "progressInputs",
+          "type": "array",
+          "mode": "literal",
+          "value": [
+            0,
+            0.5,
+            1
+          ],
+          "source": {
+            "path": "../ui-spec/documents/02-今日.json",
+            "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+            "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+          }
+        }
+      ]
+    }
+  },
+  "stateGraph": {
+    "path": "../requirement-analysis/state-transitions.json",
+    "sha256": "38b76bcf0790fade4121d97ed947351a2cafb6d6f07aeb70410b48a0090618c5"
+  },
+  "givenState": null,
+  "expectedState": null,
+  "requiredVisits": [
+    210
+  ],
+  "execution": {
+    "status": "passed",
+    "actual": "全部必要访问与检查已经通过并登记。",
+    "evidence": [
+      {
+        "runId": "210-9261bc31-e7bb-4657-a449-2eb8a3885e89",
+        "form": "assertion-report",
+        "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/assertions.json",
+        "sha256": "3c22148f23e66dd4cef14b6f9070157913c6389ce243f6a43ac3706747e64f8c",
+        "description": "Independent expected/actual comparisons for this visit."
+      },
+      {
+        "runId": "210-9261bc31-e7bb-4657-a449-2eb8a3885e89",
+        "form": "native-tree",
+        "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/controls-smoke.xml",
+        "sha256": "25e6792a3efedec87b226aa48cc17b17fdd0b0a03c26203f7e36ca3001f00cd5",
+        "description": "真实控件的文本、选中、禁用及错误提示属性。"
+      },
+      {
+        "runId": "210-9261bc31-e7bb-4657-a449-2eb8a3885e89",
+        "form": "native-tree",
+        "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/injected-today.xml",
+        "sha256": "ac34bca7546d965a1578b5880515c60b7e1f04afbf024929173273edfb48a3bf",
+        "description": "真实控件的文本、选中、禁用及错误提示属性。"
+      },
+      {
+        "runId": "210-9261bc31-e7bb-4657-a449-2eb8a3885e89",
+        "form": "call-trace",
+        "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/controls-call-trace.json",
+        "sha256": "0cd635286a9dba050d425a074fbe331e1021cef5d016f89a2e62f2060936b96f",
+        "description": "点击、选项切换和文字输入触发的参数与次数。"
+      }
+    ],
+    "checks": [
+      {
+        "runId": "210-9261bc31-e7bb-4657-a449-2eb8a3885e89",
+        "visitIndex": 210,
+        "aspect": "functional",
+        "checkIndex": 0,
+        "status": "passed",
+        "actual": "Executed the declared isolated fixture and retained its independent comparisons.",
+        "evidence": [
+          {
+            "form": "assertion-report",
+            "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/assertions.json",
+            "sha256": "3c22148f23e66dd4cef14b6f9070157913c6389ce243f6a43ac3706747e64f8c",
+            "description": "Independent expected/actual comparisons for this visit."
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/controls-smoke.xml",
+            "sha256": "25e6792a3efedec87b226aa48cc17b17fdd0b0a03c26203f7e36ca3001f00cd5",
+            "description": "真实控件的文本、选中、禁用及错误提示属性。"
+          },
+          {
+            "form": "native-tree",
+            "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/injected-today.xml",
+            "sha256": "ac34bca7546d965a1578b5880515c60b7e1f04afbf024929173273edfb48a3bf",
+            "description": "真实控件的文本、选中、禁用及错误提示属性。"
+          },
+          {
+            "form": "call-trace",
+            "path": "evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/controls-call-trace.json",
+            "sha256": "0cd635286a9dba050d425a074fbe331e1021cef5d016f89a2e62f2060936b96f",
+            "description": "点击、选项切换和文字输入触发的参数与次数。"
+          }
+        ]
+      }
+    ]
+  },
+  "attempts": [
+    {
+      "attemptId": "210-9261bc31-e7bb-4657-a449-2eb8a3885e89",
+      "visitIndex": 210,
+      "definitionHash": "3c861a43995421875cb5d1dbfc6bfe7ee13f7d471c95b6d5f34869cbcabca546",
+      "definition": {
+        "id": "TC-REG-CONTROLS",
+        "title": "公共控件的禁用、选择、输入及可访问契约",
+        "kind": "regression",
+        "requirementId": null,
+        "given": {
+          "stateId": null,
+          "setup": "在隔离测试宿主挂载真实按钮、选项和输入控件，分别准备启用、禁用、选中、输入和错误提示场景。",
+          "verify": "确认上述准备已经完成，测试数据相互隔离，再按当前操作执行检查。"
+        },
+        "operation": {
+          "label": "修改样式后执行启用/禁用点击、选项切换与文字输入",
+          "actor": "验收者"
+        },
+        "expected": {
+          "stateId": null,
+          "conclusion": "禁用控件不会触发动作；启用后只触发一次正确动作；选中值、输入值和可访问属性正确传递，错误提示仍可被读取。"
+        },
+        "dataProfileId": "isolated-checks",
+        "mocks": [],
+        "acceptance": {
+          "visual": {
+            "applicable": false,
+            "reason": "本例回归控件行为，颜色与布局由视觉用例覆盖。",
+            "checks": []
+          },
+          "functional": {
+            "applicable": true,
+            "reason": "核对公共控件改动可能直接破坏的事件和属性契约。",
+            "checks": [
+              {
+                "criterion": "公共控件的禁用、点击、选项切换、受控输入和可访问属性保持原有行为。",
+                "oracle": "src/ui/metal.tsx Button/Choice/Field现有公开props与Pressable/TextInput契约",
+                "procedure": "组件测试宿主挂载实际控件，依次触发disabled点击、enabled点击、Choice选项与Field输入；spy核对次数/值，查询accessibilityState和alert；不Mock被测控件。",
+                "evidence": [
+                  {
+                    "form": "native-tree",
+                    "description": "真实控件的文本、选中、禁用及错误提示属性。"
+                  },
+                  {
+                    "form": "call-trace",
+                    "description": "点击、选项切换和文字输入触发的参数与次数。"
+                  },
+                  {
+                    "form": "assertion-report",
+                    "description": "控件行为和属性保持不变的预期与实际对照。"
+                  }
+                ],
+                "sufficiency": "足以验证拟改公共组件的直接行为风险；颜色布局由主用例/全局视觉检查覆盖，无需浏览器。",
+                "testType": "script",
+                "environment": "native"
+              }
+            ]
+          }
+        },
+        "constraintIds": [],
+        "impactId": "I-CONTROLS",
+        "dataProfile": {
+          "id": "isolated-checks",
+          "scope": "case",
+          "preparation": "每项独立检查创建隔离ctx、依赖spy及真实呈现组件；从正式允许入口呈现对应document，检查内部可顺序浏览所需页面，不把fixture终点作为非起始主用例的进入捷径。独立检查结束恢复全部环境/spy。",
+          "continuity": "独立用例不向主路线传递对象或状态；矩阵变更输入时重建隔离ctx，验收每一行使用该行自己的输入。",
+          "fields": [
+            {
+              "name": "responsiveCases",
+              "type": "array",
+              "mode": "context",
+              "resolve": "读取rules.profiles.mobile.validationCases及breakpointBoundaryCases；逐项执行。width>=768只核对缺少desktop的输入契约，不凭空创建桌面稿。",
+              "oracle": "宽度分类由768唯一断点判断；逻辑尺寸、contentMaxWidth、滚动/安全区/键盘所有权均按rules计算。",
+              "source": {
+                "path": "../ui-spec/rules.json",
+                "sha256": "744c5ae17cdfd46fbfc8f30c4a501b181a0485f49f5abd9881dac241f9959f69",
+                "locator": "/profiles/mobile"
+              }
+            },
+            {
+              "name": "longName",
+              "type": "string",
+              "mode": "literal",
+              "value": "用于验证连续换行的较长计划名称，包含中文与ABC123，不通过缩小字号或裁剪来适应宽度。",
+              "source": {
+                "path": "../source-resource/prd/设计还原需求文档.md",
+                "sha256": "f30d3891a25d46b3306f25f9a12059bedb8df08553313a03f7d61c44c84c60b0",
+                "locator": "L47-L51"
+              }
+            },
+            {
+              "name": "progressInputs",
+              "type": "array",
+              "mode": "literal",
+              "value": [
+                0,
+                0.5,
+                1
+              ],
+              "source": {
+                "path": "../ui-spec/documents/02-今日.json",
+                "sha256": "cbbd51d493182fce75cd7cb0567f10092a27f57251acaff2cae6f9836a605501",
+                "locator": "/tree/children/0/children/2/children/5/children/2/children/0/sizing/width/binding"
+              }
+            }
+          ]
+        }
+      },
+      "givenObserved": "Prepared the independent fixture described by 在隔离测试宿主挂载真实按钮、选项和输入控件，分别准备启用、禁用、选中、输入和错误提示场景。",
+      "operationObserved": "修改样式后执行启用/禁用点击、选项切换与文字输入",
+      "targetObserved": "Recorded results for the actual independent fixture TC-REG-CONTROLS.",
+      "outcome": "passed",
+      "startedAt": "2026-10-30T06:10:29.229Z",
+      "finishedAt": "2026-10-30T06:10:46.604Z",
+      "definitionCurrent": true,
+      "checks": [
+        {
+          "aspect": "functional",
+          "checkIndex": 0,
+          "status": "passed",
+          "observation": "Executed the declared isolated fixture and retained its independent comparisons.",
+          "comparisons": [
+            {
+              "expected": true,
+              "actual": true,
+              "verdict": "passed"
+            }
+          ],
+          "evidence": [
+            {
+              "form": "assertion-report",
+              "path": "plan/acceptance/evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/assertions.json",
+              "sha256": "3c22148f23e66dd4cef14b6f9070157913c6389ce243f6a43ac3706747e64f8c",
+              "description": "Independent expected/actual comparisons for this visit."
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/controls-smoke.xml",
+              "sha256": "25e6792a3efedec87b226aa48cc17b17fdd0b0a03c26203f7e36ca3001f00cd5",
+              "description": "真实控件的文本、选中、禁用及错误提示属性。"
+            },
+            {
+              "form": "native-tree",
+              "path": "plan/acceptance/evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/injected-today.xml",
+              "sha256": "ac34bca7546d965a1578b5880515c60b7e1f04afbf024929173273edfb48a3bf",
+              "description": "真实控件的文本、选中、禁用及错误提示属性。"
+            },
+            {
+              "form": "call-trace",
+              "path": "plan/acceptance/evidence/210-9261bc31-e7bb-4657-a449-2eb8a3885e89/controls-call-trace.json",
+              "sha256": "0cd635286a9dba050d425a074fbe331e1021cef5d016f89a2e62f2060936b96f",
+              "description": "点击、选项切换和文字输入触发的参数与次数。"
+            }
+          ]
+        }
+      ],
+      "blockage": null
+    }
+  ],
+  "repairs": []
+}

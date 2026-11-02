@@ -1,0 +1,59 @@
+{
+  "environment": "native",
+  "host": "emulator-5562",
+  "build": {
+    "variant": "development",
+    "source": "当前工作区源码由开发客户端加载，驱动脚本与源码 SHA 见 run.files",
+    "script": {
+      "path": "plan/code-execution/scripts/accept-visit.cjs",
+      "sha256": "414614b6f5afca221cab43d514ed072ec3455a15db100fd7b9ee0b05521367d4"
+    }
+  },
+  "inputs": {
+    "visitIndex": 46,
+    "caseId": "TC-T067",
+    "controlNodeId": "n-WZ4zp",
+    "given": "S13",
+    "expected": "S17-WEEKLY",
+    "documentId": null,
+    "scene": null,
+    "fonts": null,
+    "boundaryCalls": null,
+    "environment": null,
+    "inputs": null
+  },
+  "mocks": [],
+  "environments": [
+    {
+      "environment": "native",
+      "host": "emulator-5562"
+    },
+    {
+      "environment": "runtime",
+      "host": "v24.21.0 驱动进程，同一宿主内的运行时断言"
+    }
+  ],
+  "entry": {
+    "kind": "handoff",
+    "previousAttemptId": "TC-T071-v45-2026-10-28T15-52-16-303Z",
+    "stateId": "S13"
+  },
+  "readyPrerequisites": [
+    {
+      "id": "READY-UI-HARNESS",
+      "observation": "本次访问实际使用了界面测试入口、独立预期计算与取证设施：预期由 plan/ui-spec 与 requirement-analysis 的正式 JSON 在动作前独立解析（geometry.json），宿主报告与实测布局来自 ui-review 捕获，断言汇总于 task-assertions.json。",
+      "evidence": [
+        {
+          "path": "plan/code-execution/evidence/visit-046-2026-10-28T19-01-38-894Z/task-assertions.json",
+          "sha256": "fc4e39bef031a45a6fbfb2df4b4cbeb3e0d87997a04db4dc01f56d5f89b42e37",
+          "description": "本次访问的实际前置取证"
+        }
+      ]
+    },
+    {
+      "id": "READY-NATIVE-HOST",
+      "observation": "隔离开发应用已在 emulator-5562 上启动并验证：Appium 会话驱动真实点击与观测，identity.json 记录设备与宿主身份，截图与原生节点树来自本次实际画面。",
+      "evidence": []
+    }
+  ]
+}

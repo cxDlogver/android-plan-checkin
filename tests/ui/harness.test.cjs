@@ -1,9 +1,9 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
-const {expectedText,parameter,validateObservation,spec,geometryConstraints,expectedRatio}=require('../../.cache/ui-tests/tests/ui/oracle.js');
-const {routeContext}=require('../../.cache/ui-tests/tests/ui/fixtures.js');
+const {expectedText,parameter,validateObservation,spec,geometryConstraints,expectedRatio}=require('../../.artifacts/acceptance/runtime/tests/ui/oracle.js');
+const {routeContext}=require('../../.artifacts/acceptance/runtime/tests/ui/fixtures.js');
 const {executeRoute}=require('./runner.cjs');
-const directory=process.env.UI_EVIDENCE_DIR||'plan/code-execution/evidence/p01-unit';fs.mkdirSync(directory,{recursive:true});const assertions=[];
+const directory=process.env.UI_EVIDENCE_DIR||'.artifacts/acceptance/unit';fs.mkdirSync(directory,{recursive:true});const assertions=[];
 function observed(label,expected,actual){const verdict=JSON.stringify(expected)===JSON.stringify(actual)?'passed':'failed';assertions.push({target:'task:P01:1',label,expected,actual,verdict});assert.deepEqual(actual,expected);}
 function rejects(fn){try{fn();return false;}catch{return true;}}
 process.on('exit',()=>fs.writeFileSync(path.join(directory,'assertions.json'),JSON.stringify({assertions},null,2)+'\n'));
@@ -30,4 +30,4 @@ test('host insets consume layout once inside the full logical canvas',()=>{
 test('context values derive from current input rather than design examples',()=>{const a=routeContext(new Date('2026-11-03T08:23:00Z')),b=routeContext(new Date('2027-02-08T14:01:00Z'));observed('input day preserved','2026-11-03',a.today);observed('independent next date','2026-11-04',a.deadline);observed('changed input changes day',true,a.today!==b.today);observed('fresh context identity',true,a.identity!==b.identity);});
 
 }
-module.exports.assertNativeSmoke=function(actual){const report=actual.report,rows=[];const check=(label,expected,value)=>{rows.push({target:"task:P01:2",label,expected,actual:value,verdict:JSON.stringify(expected)===JSON.stringify(value)?"passed":"failed"});assert.deepEqual(value,expected);};try{check("enabled click",1,report.calls.filter(x=>x.name==="enabled").length);check("disabled click",0,report.calls.filter(x=>x.name==="disabled").length);check("Choice event value","b",report.choice);check("controlled native input","实际控件输入",report.value);check("native layout measured",true,report.layouts.controls.width>0&&report.layouts.controls.height>0);check("real container mounted through AppScope","native-container",actual.fixtureReport.kind);check("independent memory fixture plan",true,typeof actual.fixtureReport.inputs.planId==="string"&&actual.fixtureReport.inputs.planId.length>0);check("container did not submit business commands",0,actual.fixtureReport.trace.filter(x=>x.name==="execute").length);}finally{fs.writeFileSync(path.join(directory,"native-assertions.json"),JSON.stringify({assertions:rows},null,2)+"\n");}return rows;};
+module.exports.assertNativeSmoke=require('./native-smoke.cjs').assertNativeSmoke;

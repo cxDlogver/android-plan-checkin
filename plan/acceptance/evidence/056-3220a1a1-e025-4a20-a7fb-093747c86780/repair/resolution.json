@@ -1,0 +1,71 @@
+{
+  "observation": "The exporter now writes actual Node/native trace deltas. Reviewed exact unchanged acceptance assertion code and all other bound files. Frozen the actual prior driver bytes; only earlier, explicitly unaffected visits may retain that historical version. The same identity and all inputs are restored by the reviewed three-step Node path; native replay and TC-T111 still require actual reacceptance.",
+  "evidence": [
+    {
+      "form": "assertion-report",
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/repair/trace-verification-1793274031519/repair-assertions.json",
+      "sha256": "18a2e89bd6fd385625f418dac9c5b9283352851a1d7e4df0584c513fefec517d",
+      "description": "Executed exporter, preserved-scope and replay-input comparisons."
+    },
+    {
+      "form": "call-trace",
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/repair/trace-verification-1793274031519/call-trace.json",
+      "sha256": "7a99c3b473cfa1505526594b5769ae4d9a062c1dbf22a87dc424e7094a5ec37f",
+      "description": "Actual trace deltas extracted from the original blocked visit frames for collector verification."
+    }
+  ],
+  "changedFiles": [
+    {
+      "path": "plan/acceptance/scripts/run-session.cjs",
+      "sha256": "c02a1c65164871728486b7304b7868a00765f05ce7ba24739a64861fcfe7ec66"
+    }
+  ],
+  "harnessArchive": {
+    "original": {
+      "path": "plan/acceptance/scripts/run-session.cjs",
+      "sha256": "bf4d508add2b651e584a88eb4961d053dfb9b61ec99d231322e271ef8fb22924"
+    },
+    "archive": {
+      "path": "plan/acceptance/evidence/056-3220a1a1-e025-4a20-a7fb-093747c86780/repair/run-session.before.cjs",
+      "sha256": "bf4d508add2b651e584a88eb4961d053dfb9b61ec99d231322e271ef8fb22924"
+    },
+    "unaffectedCaseIds": [
+      "TC-T001",
+      "TC-T005",
+      "TC-T006",
+      "TC-T007",
+      "TC-T009",
+      "TC-T088",
+      "TC-T089",
+      "TC-T010",
+      "TC-T058",
+      "TC-T059",
+      "TC-T060",
+      "TC-T061",
+      "TC-T011",
+      "TC-T120",
+      "TC-T121",
+      "TC-T013",
+      "TC-T056",
+      "TC-T057",
+      "TC-T062",
+      "TC-T063",
+      "TC-T064",
+      "TC-T097",
+      "TC-T099",
+      "TC-T008",
+      "TC-T065",
+      "TC-T066",
+      "TC-T068",
+      "TC-T069",
+      "TC-T070",
+      "TC-T071",
+      "TC-T067",
+      "TC-T072",
+      "TC-T073",
+      "TC-T074",
+      "TC-T090",
+      "TC-T110"
+    ]
+  }
+}

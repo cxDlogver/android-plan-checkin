@@ -1,0 +1,13 @@
+"""Project entry point; shared planning and query rules live in the acceptance skill."""
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / '.agents/skills/acceptance/scripts'))
+from execution_plan import build, main
+
+if __name__ == '__main__':
+    arguments = sys.argv[1:]
+    if not any(a == '--workspace' or a.startswith('--workspace=') for a in arguments):
+        arguments += ['--workspace', str(ROOT)]
+    sys.exit(main(arguments))

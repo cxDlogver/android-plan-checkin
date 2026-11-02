@@ -2,7 +2,7 @@ const { getDefaultConfig } = require('expo/metro-config');
 const path=require('node:path');
 const config=getDefaultConfig(__dirname);
 // Evidence and tool builds grow during device validation; none are application modules.
-const excluded=['.git','.expo','.cache','.artifacts','android','resource','scripts','tests'];
+const excluded=['.git','.expo','.cache','.artifacts','android','resource','docs','config','scripts','tests'];
 const root=__dirname.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 config.resolver.blockList=[...(Array.isArray(config.resolver.blockList)?config.resolver.blockList:config.resolver.blockList?[config.resolver.blockList]:[]),...excluded.map(directory=>new RegExp(`${root}[\\\\/]${directory.replace('.','\\.')}(?:[\\\\/].*)?$`))];
 config.resolver.resolveRequest=(context,moduleName,platform)=>{

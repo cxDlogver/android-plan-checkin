@@ -1,0 +1,54 @@
+{
+  "command": [
+    "D:/xiang/CX_application/Anconda3/python.exe",
+    "-X",
+    "utf8",
+    "-B",
+    ".agents/skills/acceptance/scripts/route.py",
+    "plan",
+    "--workspace",
+    ".",
+    "--cases",
+    "plan/task-planning/test-cases.json",
+    "--profiles",
+    "plan/acceptance/.work/profiles.json",
+    "--test-types",
+    "script"
+  ],
+  "startedAt": "2026-10-29T07:30:04.211Z",
+  "finishedAt": "2026-10-29T07:30:04.511Z",
+  "exitCode": 0,
+  "result": {
+    "status": "planned",
+    "scope": "acceptance-execution-plan",
+    "schedulePath": "plan/acceptance/.work/schedule.json",
+    "routeVisits": 211,
+    "additionalEntryVisits": 0,
+    "preparationCount": 5,
+    "sessionCount": 1,
+    "sessions": [
+      {
+        "id": "session-001",
+        "profileId": "api36-shared",
+        "from": 0,
+        "to": 210,
+        "command": [
+          "D:\\xiang\\CX_application\\1_Configuration_Files\\Android-AI\\node-v24.21.0-win-x64\\node.exe",
+          "plan/acceptance/scripts/run-session.cjs"
+        ],
+        "cwd": ".",
+        "environments": [
+          "runtime",
+          "native"
+        ],
+        "resources": [
+          "android:emulator-5562",
+          "tcp:4723",
+          "tcp:8081"
+        ],
+        "entryReplay": []
+      }
+    ]
+  },
+  "stderr": ""
+}

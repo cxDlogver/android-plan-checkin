@@ -1,0 +1,28 @@
+{
+  "assertions": [
+    {
+      "target": "case:TC-T118:entry:68",
+      "expected": {
+        "given": {
+          "stateId": "S23-WEEKLY",
+          "setup": "沿到达路径继续，在“日期变化 · 补记提示 · 每周记录分支”保留当前对象、输入内容和返回入口。",
+          "verify": "确认当前处于“日期变化 · 补记提示 · 每周记录分支”，其可见内容和选中表现已成立；沿用当前所选对象及输入，满足后再执行本步。"
+        },
+        "operation": {
+          "label": "点击“进入补记确认”",
+          "actor": "用户",
+          "input": {
+            "controlNodeId": "n-qtC8r"
+          }
+        },
+        "checks": "all applicable checks observed"
+      },
+      "actual": {
+        "error": "Error: GET /session/78091e77-0bfa-4331-8f48-ea3594a7ffb0/source: Could not proxy command to the remote server. Original error: socket hang up\n    at UIDeviceDriver.request (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\scripts\\device-driver.cjs:13:302)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async UIDeviceDriver.waitSource (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\scripts\\device-driver.cjs:39:104)\n    at async BrowseAdapter.observe (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\browse-adapter.cjs:8:135)\n    at async worker (F:\\CX_notes\\cx-learn-notes\\android-plan-checkin\\plan\\acceptance\\scripts\\run-session.cjs:112:48)",
+        "givenObserved": "Observed S23-WEEKLY in the real native host and the actual Node controller; input objects match.",
+        "operationObserved": "Dispatched the declared Node event and clicked the actual native control n-qtC8r."
+      },
+      "verdict": "blocked"
+    }
+  ]
+}
